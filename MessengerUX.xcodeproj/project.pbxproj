@@ -12,12 +12,16 @@
 		DCE27C0DFB81BE4E6296B6AD /* libPods-MessengerUXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */; };
 		F20C828D1E6D0B9B006D3594 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C828C1E6D0B9B006D3594 /* main.m */; };
 		F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C828F1E6D0B9B006D3594 /* AppDelegate.m */; };
-		F20C82931E6D0B9B006D3594 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82921E6D0B9B006D3594 /* ViewController.m */; };
 		F20C82961E6D0B9B006D3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F20C82941E6D0B9B006D3594 /* Main.storyboard */; };
 		F20C82981E6D0B9B006D3594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F20C82971E6D0B9B006D3594 /* Assets.xcassets */; };
 		F20C829B1E6D0B9B006D3594 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F20C82991E6D0B9B006D3594 /* LaunchScreen.storyboard */; };
 		F20C82A61E6D0B9B006D3594 /* MessengerUXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82A51E6D0B9B006D3594 /* MessengerUXTests.m */; };
 		F20C82B11E6D0B9B006D3594 /* MessengerUXUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82B01E6D0B9B006D3594 /* MessengerUXUITests.m */; };
+		F20C82E01E70F478006D3594 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82DF1E70F478006D3594 /* MainViewController.m */; };
+		F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82E41E70F4E0006D3594 /* BaseTabViewController.m */; };
+		F20C82E91E70F8DF006D3594 /* BaseSwipeNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82E81E70F8DF006D3594 /* BaseSwipeNavViewController.m */; };
+		F20C82EC1E710B7F006D3594 /* UIViewController+InterativeTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82EB1E710B7F006D3594 /* UIViewController+InterativeTranslation.m */; };
+		F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82EF1E710C05006D3594 /* SwipeGestureReconizer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +55,6 @@
 		F20C828C1E6D0B9B006D3594 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F20C828E1E6D0B9B006D3594 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F20C828F1E6D0B9B006D3594 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F20C82911E6D0B9B006D3594 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F20C82921E6D0B9B006D3594 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F20C82951E6D0B9B006D3594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F20C82971E6D0B9B006D3594 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F20C829A1E6D0B9B006D3594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,6 +65,16 @@
 		F20C82AC1E6D0B9B006D3594 /* MessengerUXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessengerUXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20C82B01E6D0B9B006D3594 /* MessengerUXUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessengerUXUITests.m; sourceTree = "<group>"; };
 		F20C82B21E6D0B9B006D3594 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F20C82DE1E70F478006D3594 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		F20C82DF1E70F478006D3594 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		F20C82E31E70F4E0006D3594 /* BaseTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTabViewController.h; sourceTree = "<group>"; };
+		F20C82E41E70F4E0006D3594 /* BaseTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTabViewController.m; sourceTree = "<group>"; };
+		F20C82E71E70F8DF006D3594 /* BaseSwipeNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSwipeNavViewController.h; sourceTree = "<group>"; };
+		F20C82E81E70F8DF006D3594 /* BaseSwipeNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSwipeNavViewController.m; sourceTree = "<group>"; };
+		F20C82EA1E710B7F006D3594 /* UIViewController+InterativeTranslation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+InterativeTranslation.h"; sourceTree = "<group>"; };
+		F20C82EB1E710B7F006D3594 /* UIViewController+InterativeTranslation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+InterativeTranslation.m"; sourceTree = "<group>"; };
+		F20C82EE1E710C05006D3594 /* SwipeGestureReconizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeGestureReconizer.h; sourceTree = "<group>"; };
+		F20C82EF1E710C05006D3594 /* SwipeGestureReconizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeGestureReconizer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,10 +153,12 @@
 		F20C828A1E6D0B9B006D3594 /* MessengerUX */ = {
 			isa = PBXGroup;
 			children = (
+				F20C82ED1E710BB0006D3594 /* InterativeTranslation */,
+				F20C82E11E70F49F006D3594 /* ViewController */,
 				F20C828E1E6D0B9B006D3594 /* AppDelegate.h */,
 				F20C828F1E6D0B9B006D3594 /* AppDelegate.m */,
-				F20C82911E6D0B9B006D3594 /* ViewController.h */,
-				F20C82921E6D0B9B006D3594 /* ViewController.m */,
+				F20C82DE1E70F478006D3594 /* MainViewController.h */,
+				F20C82DF1E70F478006D3594 /* MainViewController.m */,
 				F20C82941E6D0B9B006D3594 /* Main.storyboard */,
 				F20C82971E6D0B9B006D3594 /* Assets.xcassets */,
 				F20C82991E6D0B9B006D3594 /* LaunchScreen.storyboard */,
@@ -178,6 +192,44 @@
 				F20C82B21E6D0B9B006D3594 /* Info.plist */,
 			);
 			path = MessengerUXUITests;
+			sourceTree = "<group>";
+		};
+		F20C82E11E70F49F006D3594 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F20C82E61E70F7BD006D3594 /* CameraViewController */,
+				F20C82E21E70F4AE006D3594 /* Base */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		F20C82E21E70F4AE006D3594 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F20C82E31E70F4E0006D3594 /* BaseTabViewController.h */,
+				F20C82E41E70F4E0006D3594 /* BaseTabViewController.m */,
+				F20C82E71E70F8DF006D3594 /* BaseSwipeNavViewController.h */,
+				F20C82E81E70F8DF006D3594 /* BaseSwipeNavViewController.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		F20C82E61E70F7BD006D3594 /* CameraViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CameraViewController;
+			sourceTree = "<group>";
+		};
+		F20C82ED1E710BB0006D3594 /* InterativeTranslation */ = {
+			isa = PBXGroup;
+			children = (
+				F20C82EA1E710B7F006D3594 /* UIViewController+InterativeTranslation.h */,
+				F20C82EB1E710B7F006D3594 /* UIViewController+InterativeTranslation.m */,
+				F20C82EE1E710C05006D3594 /* SwipeGestureReconizer.h */,
+				F20C82EF1E710C05006D3594 /* SwipeGestureReconizer.m */,
+			);
+			name = InterativeTranslation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,9 +513,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F20C82931E6D0B9B006D3594 /* ViewController.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
+				F20C82EC1E710B7F006D3594 /* UIViewController+InterativeTranslation.m in Sources */,
+				F20C82E91E70F8DF006D3594 /* BaseSwipeNavViewController.m in Sources */,
+				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
+				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
+				F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,7 +672,7 @@
 				DEVELOPMENT_TEAM = M3984GFJZF;
 				INFOPLIST_FILE = MessengerUX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vng.duydv2.demo.MessengerUX;
+				PRODUCT_BUNDLE_IDENTIFIER = com..rstudio.vng.demo.MessengerUX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -629,7 +685,7 @@
 				DEVELOPMENT_TEAM = M3984GFJZF;
 				INFOPLIST_FILE = MessengerUX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vng.duydv2.demo.MessengerUX;
+				PRODUCT_BUNDLE_IDENTIFIER = com..rstudio.vng.demo.MessengerUX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -703,6 +759,7 @@
 				F20C82B71E6D0B9B006D3594 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F20C82B81E6D0B9B006D3594 /* Build configuration list for PBXNativeTarget "MessengerUXTests" */ = {
 			isa = XCConfigurationList;
@@ -711,6 +768,7 @@
 				F20C82BA1E6D0B9B006D3594 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F20C82BB1E6D0B9B006D3594 /* Build configuration list for PBXNativeTarget "MessengerUXUITests" */ = {
 			isa = XCConfigurationList;
@@ -719,6 +777,7 @@
 				F20C82BD1E6D0B9B006D3594 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
