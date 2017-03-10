@@ -48,11 +48,17 @@
     buttonFrame.origin.x = self.view.bounds.size.width / 2 - buttonFrame.size.width / 2;
     middleButton.frame = buttonFrame;
     
-    middleButton.backgroundColor = [UIColor redColor];
+    
+    middleButton.backgroundColor = [UIColor whiteColor];
+    
+    [middleButton setImage:[UIImage imageNamed:@"cameraButtonNormal"] forState:UIControlStateNormal];
+    middleButton.contentMode = UIViewContentModeScaleToFill;
+    middleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    middleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+    
     middleButton.layer.cornerRadius = buttonFrame.size.height / 2;
     [self.view addSubview:middleButton];
-    
-    [middleButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+
     [middleButton addTarget:self action:@selector(middleButtonAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
