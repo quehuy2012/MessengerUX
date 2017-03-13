@@ -44,7 +44,7 @@
     middleButton.frame = CGRectMake(0, 0, 64, 64);
     
     CGRect buttonFrame = middleButton.frame;
-    buttonFrame.origin.y = self.view.bounds.size.height - buttonFrame.size.height - 16;
+    buttonFrame.origin.y = self.view.bounds.size.height - buttonFrame.size.height - 8;
     buttonFrame.origin.x = self.view.bounds.size.width / 2 - buttonFrame.size.width / 2;
     middleButton.frame = buttonFrame;
     
@@ -55,6 +55,7 @@
     middleButton.contentMode = UIViewContentModeScaleToFill;
     middleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
     middleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+    middleButton.backgroundColor = [UIColor redColor];
     
     middleButton.layer.cornerRadius = buttonFrame.size.height / 2;
     [self.view addSubview:middleButton];
