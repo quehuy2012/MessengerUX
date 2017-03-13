@@ -14,7 +14,10 @@
 #import "GroupViewController.h"
 #import "PeopleViewController.h"
 
-@interface CustomTabBarViewController ()
+static const int CameraButtonWidth = 50;
+static const int CameraButtonheight = 50;
+
+@interface CustomTabBarViewController () <UITabBarControllerDelegate>
 
 @end
 
@@ -25,9 +28,9 @@
     
     [self setupTabBarButton];
     
-    [self setupMiddleButton];
+    [self setupCameraButton];
     
-    
+    self.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,36 +51,44 @@
     BaseTabViewController *peopleVC = [PeopleViewController viewControllerWithName:@"People" andImage:[UIImage imageNamed:@"peopleTabIcon" ]];
     
     self.viewControllers = @[homeVC, callVC, cameraVC, groupVC, peopleVC];
-
 }
 
-- (void)setupMiddleButton{
+- (void)setupCameraButton {
     
-    UIButton *middleButton = [[UIButton alloc] init];
-    middleButton.frame = CGRectMake(0, 0, 64, 64);
-    
-    CGRect buttonFrame = middleButton.frame;
+    UIButton *cameraButton = [[UIButton alloc] init];
+
+    CGRect buttonFrame = CGRectMake(0, 0, CameraButtonWidth, CameraButtonheight);
     buttonFrame.origin.y = self.view.bounds.size.height - buttonFrame.size.height - 8;
     buttonFrame.origin.x = self.view.bounds.size.width / 2 - buttonFrame.size.width / 2;
-    middleButton.frame = buttonFrame;
-    
-    
-    middleButton.backgroundColor = [UIColor whiteColor];
-    
-    [middleButton setImage:[UIImage imageNamed:@"cameraButtonNormal"] forState:UIControlStateNormal];
-    middleButton.contentMode = UIViewContentModeScaleToFill;
-    middleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    middleButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
-    middleButton.backgroundColor = [UIColor redColor];
-    
-    middleButton.layer.cornerRadius = buttonFrame.size.height / 2;
-    [self.view addSubview:middleButton];
+    cameraButton.frame = buttonFrame;
 
-    [middleButton addTarget:self action:@selector(middleButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    cameraButton.backgroundColor = [UIColor whiteColor];
+    
+    [cameraButton setImage:[UIImage imageNamed:@"cameraButtonNormal"] forState:UIControlStateNormal];
+    cameraButton.contentMode = UIViewContentModeScaleToFill;
+    cameraButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+    cameraButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+    
+    cameraButton.layer.cornerRadius = buttonFrame.size.height / 2;
+    [self.view addSubview:cameraButton];
+
+    [cameraButton addTarget:self action:@selector(cameraButtonAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)middleButtonAction {
+- (void)cameraButtonAction {
     NSLog(@"button pressed");
+}
+
+#pragma mark - UITabBarDelegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if ([viewController.tabBarItem.title isEqualToString:@""])
+        return NO;
+    return YES;
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    
 }
 
 /*

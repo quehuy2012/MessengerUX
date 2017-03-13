@@ -7,8 +7,16 @@
 //
 
 #import "PeopleViewController.h"
+#import <NITableViewModel.h>
+#import <NITableViewActions.h>
+#import <NICellCatalog.h>
+#import <NICellFactory.h>
 
-@interface PeopleViewController ()
+@interface PeopleViewController () <UITableViewDelegate>
+
+@property (nonatomic) NITableViewModel *model;
+@property (nonatomic) NITableViewActions *action;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -16,7 +24,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.action = [[NITableViewActions alloc] initWithTarget:self];
+    NSArray *arr = @[[_action attachToObject:[NISubtitleCellObject objectWithTitle:@"Person A" subtitle:@"@persona" image:[UIImage imageNamed:@"personImage"]] tapBlock:nil],
+                     [_action attachToObject:[NISubtitleCellObject objectWithTitle:@"Person B" subtitle:@"@personb" image:[UIImage imageNamed:@"personImage"]] tapBlock:nil],
+                     [_action attachToObject:[NISubtitleCellObject objectWithTitle:@"Person C" subtitle:@"@personc" image:[UIImage imageNamed:@"personImage"]] tapBlock:nil],
+                     [_action attachToObject:[NISubtitleCellObject objectWithTitle:@"Person D" subtitle:@"@persond" image:[UIImage imageNamed:@"personImage"]] tapBlock:nil]];
+    
+    self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
+    self.model.delegate = (id)[NICellFactory class];
+    
+    self.tableView.dataSource = self.model;
+    self.tableView.delegate = [_action forwardingTo:self];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,8 +7,17 @@
 //
 
 #import "HomeViewController.h"
+#import <NITableViewModel.h>
+#import <NITableViewActions.h>
+#import <NICellFactory.h>
+#import <NICellCatalog.h>
 
-@interface HomeViewController ()
+@interface HomeViewController () <UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic) NITableViewModel *model;
+@property (nonatomic) NITableViewActions *action;
 
 @end
 
@@ -16,7 +25,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.action = [[NITableViewActions alloc] initWithTarget:self];
+    NSArray *arr = @[[_action attachToObject:[NITitleCellObject objectWithTitle:@"Hi,"] tapBlock:nil],
+                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"What"] tapBlock:nil],
+                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"is"] tapBlock:nil],
+                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"your"] tapBlock:nil],
+                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"name"] tapBlock:nil],
+                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"?"] tapBlock:nil]];
+    
+    self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
+    self.model.delegate = (id)[NICellFactory class];
+    
+    self.tableView.dataSource = self.model;
+    self.tableView.delegate = [_action forwardingTo:self];
 }
 
 - (void)didReceiveMemoryWarning {
