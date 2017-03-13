@@ -37,15 +37,15 @@
 
 - (void)setupTabBarButton {
     
-    BaseTabViewController *homeVC = [HomeViewController viewControllerWithName:@"Home" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *homeVC = [HomeViewController viewControllerWithName:@"Home" andImage:[UIImage imageNamed:@"homeTabIcon" ]];
     
-    BaseTabViewController *callVC = [CallViewController viewControllerWithName:@"Calls" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *callVC = [CallViewController viewControllerWithName:@"Calls" andImage:[UIImage imageNamed:@"callTabIcon" ]];
     
     BaseTabViewController *cameraVC = [CameraViewController viewControllerWithName:@"" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
     
-    BaseTabViewController *groupVC = [GroupViewController viewControllerWithName:@"Groups" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *groupVC = [GroupViewController viewControllerWithName:@"Groups" andImage:[UIImage imageNamed:@"groupTabIcon" ]];
     
-    BaseTabViewController *peopleVC = [PeopleViewController viewControllerWithName:@"People" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *peopleVC = [PeopleViewController viewControllerWithName:@"People" andImage:[UIImage imageNamed:@"peopleTabIcon" ]];
     
     self.viewControllers = @[homeVC, callVC, cameraVC, groupVC, peopleVC];
 
