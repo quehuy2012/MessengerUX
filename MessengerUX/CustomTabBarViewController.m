@@ -8,6 +8,11 @@
 
 #import "CustomTabBarViewController.h"
 #import "BaseTabViewController.h"
+#import "HomeViewController.h"
+#import "CallViewController.h"
+#import "CameraViewController.h"
+#import "GroupViewController.h"
+#import "PeopleViewController.h"
 
 @interface CustomTabBarViewController ()
 
@@ -21,6 +26,8 @@
     [self setupTabBarButton];
     
     [self setupMiddleButton];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,15 +37,15 @@
 
 - (void)setupTabBarButton {
     
-    BaseTabViewController *homeVC = [BaseTabViewController viewControllerWithName:@"Home" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *homeVC = [HomeViewController viewControllerWithName:@"Home" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
     
-    BaseTabViewController *callVC = [BaseTabViewController viewControllerWithName:@"Calls" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *callVC = [CallViewController viewControllerWithName:@"Calls" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
     
-    BaseTabViewController *cameraVC = [BaseTabViewController viewControllerWithName:@"" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *cameraVC = [CameraViewController viewControllerWithName:@"" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
     
-    BaseTabViewController *groupVC = [BaseTabViewController viewControllerWithName:@"Groups" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *groupVC = [GroupViewController viewControllerWithName:@"Groups" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
     
-    BaseTabViewController *peopleVC = [BaseTabViewController viewControllerWithName:@"People" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *peopleVC = [PeopleViewController viewControllerWithName:@"People" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
     
     self.viewControllers = @[homeVC, callVC, cameraVC, groupVC, peopleVC];
 
