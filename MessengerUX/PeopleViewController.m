@@ -25,11 +25,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSArray *arr = @[[NISubtitleCellObject objectWithTitle:@"Person A" subtitle:@"@person_a" image:[UIImage imageNamed:@"personImage"]],
+                     [NISubtitleCellObject objectWithTitle:@"Person B" subtitle:@"@person_b" image:[UIImage imageNamed:@"personImage"]],
+                     [NISubtitleCellObject objectWithTitle:@"Person C" subtitle:@"@person_c" image:[UIImage imageNamed:@"personImage"]],
+                     [NISubtitleCellObject objectWithTitle:@"Person D" subtitle:@"@person_d" image:[UIImage imageNamed:@"personImage"]]];
+    
     self.action = [[NITableViewActions alloc] initWithTarget:self];
-    NSArray *arr = @[[_action attachToObject:[NISubtitleCellObject objectWithTitle:@"Person A" subtitle:@"@persona" image:[UIImage imageNamed:@"personImage"]] tapBlock:nil],
-                     [_action attachToObject:[NISubtitleCellObject objectWithTitle:@"Person B" subtitle:@"@personb" image:[UIImage imageNamed:@"personImage"]] tapBlock:nil],
-                     [_action attachToObject:[NISubtitleCellObject objectWithTitle:@"Person C" subtitle:@"@personc" image:[UIImage imageNamed:@"personImage"]] tapBlock:nil],
-                     [_action attachToObject:[NISubtitleCellObject objectWithTitle:@"Person D" subtitle:@"@persond" image:[UIImage imageNamed:@"personImage"]] tapBlock:nil]];
     
     self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
     self.model.delegate = (id)[NICellFactory class];
