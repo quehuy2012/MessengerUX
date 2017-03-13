@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomTabBarViewController.h"
 
-@interface MainViewController : UITabBarController
+@interface MainViewController : CustomTabBarViewController
 
 @end
