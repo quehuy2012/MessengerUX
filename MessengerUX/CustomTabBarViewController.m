@@ -18,6 +18,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupTabBarButton];
+    
+    [self setupMiddleButton];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)setupTabBarButton {
+    
     BaseTabViewController *homeVC = [BaseTabViewController viewControllerWithName:@"Home" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
     
     BaseTabViewController *callVC = [BaseTabViewController viewControllerWithName:@"Calls" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
@@ -29,13 +41,7 @@
     BaseTabViewController *peopleVC = [BaseTabViewController viewControllerWithName:@"People" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
     
     self.viewControllers = @[homeVC, callVC, cameraVC, groupVC, peopleVC];
-    
-    [self setupMiddleButton];
-}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)setupMiddleButton{
