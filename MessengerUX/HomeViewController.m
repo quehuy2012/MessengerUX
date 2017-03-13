@@ -47,13 +47,14 @@
 }
 
 
-+ (instancetype)viewControllerWithName:(NSString *)name andImage:(UIImage *)image {
++ (instancetype)viewControllerWithName:(NSString *)name {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
     HomeViewController * tab = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
     
     tab.tabBarItem.title = name;
-    tab.tabBarItem.image = image;
+    tab.tabBarItem.image = [UIImage imageNamed:@"homeTabIconNormal"];
+    tab.tabBarItem.selectedImage = [UIImage imageNamed:@"homeTabIconSelected"];
     return tab;
 }
 

@@ -10,6 +10,6 @@
 
 @interface BaseTabViewController : UIViewController
 
-+ (instancetype)viewControllerWithName:(NSString *)name andImage:(UIImage *)image;
++ (instancetype)viewControllerWithName:(NSString *)name;
 
 @end

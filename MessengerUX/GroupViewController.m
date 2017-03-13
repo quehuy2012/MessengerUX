@@ -24,13 +24,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-+ (instancetype)viewControllerWithName:(NSString *)name andImage:(UIImage *)image {
++ (instancetype)viewControllerWithName:(NSString *)name {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
     GroupViewController * tab = [storyboard instantiateViewControllerWithIdentifier:@"GroupViewController"];
     
     tab.tabBarItem.title = name;
-    tab.tabBarItem.image = image;
+    tab.tabBarItem.image = [UIImage imageNamed:@"groupTabIconNormal"];
+    tab.tabBarItem.selectedImage = [UIImage imageNamed:@"groupTabIconSelected"];
     return tab;
 }
 

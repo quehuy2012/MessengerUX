@@ -43,13 +43,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-+ (instancetype)viewControllerWithName:(NSString *)name andImage:(UIImage *)image {
++ (instancetype)viewControllerWithName:(NSString *)name {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"People" bundle:nil];
     PeopleViewController * tab = [storyboard instantiateViewControllerWithIdentifier:@"PeopleViewController"];
     
     tab.tabBarItem.title = name;
-    tab.tabBarItem.image = image;
+    tab.tabBarItem.image = [UIImage imageNamed:@"peopleTabIconNormal"];
+    tab.tabBarItem.selectedImage = [UIImage imageNamed:@"peopleTabIconSelected"];
     return tab;
 }
 

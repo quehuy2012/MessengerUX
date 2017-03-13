@@ -14,10 +14,9 @@
 
 @implementation BaseTabViewController
 
-+ (instancetype)viewControllerWithName:(NSString *)name andImage:(UIImage *)image {
++ (instancetype)viewControllerWithName:(NSString *)name {
     BaseTabViewController * tab = [[BaseTabViewController alloc] init];
     tab.tabBarItem.title = name;
-    tab.tabBarItem.image = image;
     return tab;
 }
 

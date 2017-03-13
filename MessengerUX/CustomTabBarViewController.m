@@ -40,15 +40,15 @@ static const int CameraButtonheight = 50;
 
 - (void)setupTabBarButton {
     
-    BaseTabViewController *homeVC = [HomeViewController viewControllerWithName:@"Home" andImage:[UIImage imageNamed:@"homeTabIcon" ]];
+    BaseTabViewController *homeVC = [HomeViewController viewControllerWithName:@"Home"];
     
-    BaseTabViewController *callVC = [CallViewController viewControllerWithName:@"Calls" andImage:[UIImage imageNamed:@"callTabIcon" ]];
+    BaseTabViewController *callVC = [CallViewController viewControllerWithName:@"Calls"];
     
-    BaseTabViewController *cameraVC = [CameraViewController viewControllerWithName:@"" andImage:[UIImage imageNamed:@"tabThumbIcon" ]];
+    BaseTabViewController *cameraVC = [CameraViewController viewControllerWithName:@""];
     
-    BaseTabViewController *groupVC = [GroupViewController viewControllerWithName:@"Groups" andImage:[UIImage imageNamed:@"groupTabIcon" ]];
+    BaseTabViewController *groupVC = [GroupViewController viewControllerWithName:@"Groups"];
     
-    BaseTabViewController *peopleVC = [PeopleViewController viewControllerWithName:@"People" andImage:[UIImage imageNamed:@"peopleTabIcon" ]];
+    BaseTabViewController *peopleVC = [PeopleViewController viewControllerWithName:@"People"];
     
     self.viewControllers = @[homeVC, callVC, cameraVC, groupVC, peopleVC];
 }

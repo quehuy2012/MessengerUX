@@ -274,11 +274,11 @@
 		F20C82E11E70F49F006D3594 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				F20C82E61E70F7BD006D3594 /* CameraViewController */,
-				8A6B9E0C1E763F2A002ACB87 /* PeopleViewController */,
-				8A6B9E061E763EA6002ACB87 /* GroupViewController */,
-				8A6B9E001E763D1D002ACB87 /* CallViewController */,
 				8A6B9DFA1E7639DF002ACB87 /* HomeViewController */,
+				8A6B9E001E763D1D002ACB87 /* CallViewController */,
+				F20C82E61E70F7BD006D3594 /* CameraViewController */,
+				8A6B9E061E763EA6002ACB87 /* GroupViewController */,
+				8A6B9E0C1E763F2A002ACB87 /* PeopleViewController */,
 				8A6B9DF61E72ADD6002ACB87 /* CustomTabBarViewController */,
 				F20C82E21E70F4AE006D3594 /* Base */,
 			);

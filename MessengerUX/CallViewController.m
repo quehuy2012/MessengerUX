@@ -24,13 +24,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-+ (instancetype)viewControllerWithName:(NSString *)name andImage:(UIImage *)image {
++ (instancetype)viewControllerWithName:(NSString *)name {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Call" bundle:nil];
     CallViewController * tab = [storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
     
     tab.tabBarItem.title = name;
-    tab.tabBarItem.image = image;
+    tab.tabBarItem.image = [UIImage imageNamed:@"callTabIconNormal"];
+    tab.tabBarItem.selectedImage = [UIImage imageNamed:@"callTabIconSelected"];
     return tab;
 }
 

@@ -24,13 +24,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-+ (instancetype)viewControllerWithName:(NSString *)name andImage:(UIImage *)image {
++ (instancetype)viewControllerWithName:(NSString *)name {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Camera" bundle:nil];
     CameraViewController * tab = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
     
     tab.tabBarItem.title = name;
-    tab.tabBarItem.image = image;
+    tab.tabBarItem.image = [UIImage imageNamed:@"cameraButtonNormal"];
+    
     return tab;
 }
 
