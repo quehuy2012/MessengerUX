@@ -7,8 +7,16 @@
 //
 
 #import "GroupViewController.h"
+#import <NICollectionViewModel.h>
+#import <NICollectionViewActions.h>
+#import <NICollectionViewCellFactory.h>
+#import "Group.h"
 
-@interface GroupViewController ()
+@interface GroupViewController () <UICollectionViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) NICollectionViewModel *model;
+@property (strong, nonatomic) NICollectionViewActions *actions;
 
 @end
 
@@ -16,7 +24,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    UIImage *groupImage = [UIImage imageNamed:@"groupTabIconSelected"];
+    NSArray *arr = @[[[Group alloc] initWithImage:groupImage],
+                     [[Group alloc] initWithImage:groupImage],
+                     [[Group alloc] initWithImage:groupImage],
+                     [[Group alloc] initWithImage:groupImage]];
+    
+    self.model = [[NICollectionViewModel alloc] initWithListArray:arr delegate:(id)[NICollectionViewCellFactory class]];
+//    self.actions = [[NICollectionViewActions alloc] initWithTarget:self];
+    
+    self.collectionView.dataSource = self.model;
+//    self.collectionView.delegate = [self.actions ]
 }
 
 - (void)didReceiveMemoryWarning {

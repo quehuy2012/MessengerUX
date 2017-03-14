@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Group View Controller-->
         <scene sceneID="SZJ-Qb-9gF">
             <objects>
-                <viewController storyboardIdentifier="GroupViewController" id="xpn-D5-mx1" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GroupViewController" id="xpn-D5-mx1" customClass="GroupViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FY9-KG-BmO"/>
                         <viewControllerLayoutGuide type="bottom" id="9RZ-po-cZ4"/>
@@ -21,23 +21,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrl-KB-mP8">
-                                <rect key="frame" x="159.5" y="323" width="56" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="N3D-s9-JWx">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HlA-Xh-7wr">
+                                    <size key="itemSize" width="125" height="84"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GroupCell" id="21k-tG-aFK" customClass="GroupCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="84"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="125" height="84"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3RG-GC-cCR">
+                                                    <rect key="frame" x="37.5" y="17" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="TEg-zM-w8r"/>
+                                                        <constraint firstAttribute="width" constant="50" id="qNi-dr-fRK"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68p-47-hgz">
+                                                    <rect key="frame" x="75" y="18" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="3RG-GC-cCR" firstAttribute="centerX" secondItem="21k-tG-aFK" secondAttribute="centerX" id="ATQ-SC-Ed7"/>
+                                            <constraint firstItem="3RG-GC-cCR" firstAttribute="centerY" secondItem="21k-tG-aFK" secondAttribute="centerY" id="JAK-62-gwm"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="3RG-GC-cCR" id="G8E-4X-fnq"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yrl-KB-mP8" firstAttribute="centerY" secondItem="4hx-6N-PNc" secondAttribute="centerY" id="AUF-Qe-hqt"/>
-                            <constraint firstItem="yrl-KB-mP8" firstAttribute="centerX" secondItem="4hx-6N-PNc" secondAttribute="centerX" id="IMK-EU-hl8"/>
+                            <constraint firstItem="N3D-s9-JWx" firstAttribute="top" secondItem="FY9-KG-BmO" secondAttribute="bottom" id="9rh-OI-oeg"/>
+                            <constraint firstAttribute="trailing" secondItem="N3D-s9-JWx" secondAttribute="trailing" id="ANQ-4n-hu1"/>
+                            <constraint firstItem="N3D-s9-JWx" firstAttribute="leading" secondItem="4hx-6N-PNc" secondAttribute="leading" id="aj8-Tm-kTG"/>
+                            <constraint firstItem="9RZ-po-cZ4" firstAttribute="top" secondItem="N3D-s9-JWx" secondAttribute="bottom" id="vfV-5N-Xel"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="N3D-s9-JWx" id="cyp-AH-ctW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kS1-tL-cxl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="-138"/>
+            <point key="canvasLocation" x="516" y="-138.0809595202399"/>
         </scene>
     </scenes>
 </document>

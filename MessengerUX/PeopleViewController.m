@@ -28,12 +28,14 @@
     NSArray *arr = @[[NISubtitleCellObject objectWithTitle:@"Person A" subtitle:@"@person_a" image:[UIImage imageNamed:@"personImage"]],
                      [NISubtitleCellObject objectWithTitle:@"Person B" subtitle:@"@person_b" image:[UIImage imageNamed:@"personImage"]],
                      [NISubtitleCellObject objectWithTitle:@"Person C" subtitle:@"@person_c" image:[UIImage imageNamed:@"personImage"]],
-                     [NISubtitleCellObject objectWithTitle:@"Person D" subtitle:@"@person_d" image:[UIImage imageNamed:@"personImage"]]];
+                     [NISubtitleCellObject objectWithTitle:@"Person D" subtitle:@"@person_d" image:[UIImage imageNamed:@"personImage"]],
+                     [NISubtitleCellObject objectWithTitle:@"Person E" subtitle:@"@person_e" image:[UIImage imageNamed:@"personImage"]],
+                     [NISubtitleCellObject objectWithTitle:@"Person F" subtitle:@"@person_f" image:[UIImage imageNamed:@"personImage"]],
+                     [NISubtitleCellObject objectWithTitle:@"Person G" subtitle:@"@person_g" image:[UIImage imageNamed:@"personImage"]]];
     
     self.action = [[NITableViewActions alloc] initWithTarget:self];
     
     self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
-    self.model.delegate = (id)[NICellFactory class];
     
     self.tableView.dataSource = self.model;
     self.tableView.delegate = [_action forwardingTo:self];
@@ -45,7 +47,6 @@
 }
 
 + (instancetype)viewControllerWithName:(NSString *)name {
-    
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"People" bundle:nil];
     PeopleViewController * tab = [storyboard instantiateViewControllerWithIdentifier:@"PeopleViewController"];
     

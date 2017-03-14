@@ -30,7 +30,6 @@
     CameraViewController * tab = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
     
     tab.tabBarItem.title = name;
-    tab.tabBarItem.image = [UIImage imageNamed:@"cameraButtonNormal"];
     
     return tab;
 }

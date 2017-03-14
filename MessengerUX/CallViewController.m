@@ -7,8 +7,17 @@
 //
 
 #import "CallViewController.h"
+#import <NITableViewModel.h>
+#import <NITableViewActions.h>
+#import <NICellFactory.h>
+#import "Call.h"
 
-@interface CallViewController ()
+@interface CallViewController () <UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) NITableViewModel *model;
+@property (strong, nonatomic) NITableViewActions *actions;
 
 @end
 
@@ -17,6 +26,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UIImage *image = [UIImage imageNamed:@"callTabIconNormal"];
+    
+    NSArray *arr = @[[[Call alloc] initWithImage:image],
+                     [[Call alloc] initWithImage:image],
+                     [[Call alloc] initWithImage:image],
+                     [[Call alloc] initWithImage:image]];
+    
+    self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
+    self.tableView.dataSource = self.model;
+    
+    self.actions = [[NITableViewActions alloc] init];
+    self.tableView.delegate = [self.actions forwardingTo:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +55,11 @@
     tab.tabBarItem.image = [UIImage imageNamed:@"callTabIconNormal"];
     tab.tabBarItem.selectedImage = [UIImage imageNamed:@"callTabIconSelected"];
     return tab;
+}
+
+#pragma UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 66;
 }
 
 /*
