@@ -87,11 +87,11 @@
 }
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-    return self.interative.interactionInProgress ? self.interative : nil;
+    return [((id<SwipeInteractiveActionProgress>)self.interative) interactionInProgress] ? self.interative : nil;
 }
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
-    return self.interative.interactionInProgress ? self.interative : nil;
+    return [((id<SwipeInteractiveActionProgress>)self.interative) interactionInProgress] ? self.interative : nil;
 }
 
 @end

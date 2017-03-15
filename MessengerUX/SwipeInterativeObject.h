@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class TransitionAnimator;
-@class SwipeInteractiveActions;
 
 @interface SwipeInterativeObject : NSObject
 
-@property (nonatomic) SwipeInteractiveActions * interative;
+@property (nonatomic) UIPercentDrivenInteractiveTransition * interative;
 
 - (instancetype)initPresentViewController:(UIViewController *)presentViewController
                        fromViewController:(UIViewController *)viewController

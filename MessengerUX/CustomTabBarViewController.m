@@ -48,7 +48,7 @@ static const int CameraButtonheight = 50;
     self.swipeActions = [[SwipeInteractiveActions alloc] initWithController:self];
     
     CameraViewController * cameraVC = [CameraViewController viewController];
-    // dismis
+    
     StackTrainsitionAnimator * cameraPresentAnimator = [StackTrainsitionAnimator animationWithOption:AnimateOptionToDown
                                                                                  forPresentionOption:PresentingOptionWillShow];
     SwipeInterativeObject * bottomPresentAction = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator];

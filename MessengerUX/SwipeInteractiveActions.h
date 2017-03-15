@@ -11,17 +11,31 @@
 #import "TransitionAnimator.h"
 
 @class SwipeInterativeObject;
+@class SwipeInteractiveActions;
 
-@protocol SwipeInteractiveActionsDelegate;
+@protocol SwipeInteractiveActionsDelegate <NSObject>
 
-@interface SwipeInteractiveActions : UIPercentDrivenInteractiveTransition
+- (BOOL)swipeInteractiveActions:(SwipeInteractiveActions *)interactiveActions startAction:(SwipeInterativeObject *)action;
+
+- (void)swipeInteractiveActions:(SwipeInteractiveActions *)interactiveActions transferingAction:(SwipeInterativeObject *)action withProcess:(CGFloat)process;
+
+- (void)swipeInteractiveActions:(SwipeInteractiveActions *)interactiveActions endAction:(SwipeInterativeObject *)action success:(BOOL)success;
+
+@end
+
+@protocol SwipeInteractiveActionProgress <NSObject>
+
+- (BOOL)interactionInProgress;
+
+@end
+
+@interface SwipeInteractiveActions : UIPercentDrivenInteractiveTransition <SwipeInteractiveActionProgress>
 
 @property (nonatomic, readonly) SwipeInterativeObject * leftAction;
 @property (nonatomic, readonly) SwipeInterativeObject * rightAction;
 @property (nonatomic, readonly) SwipeInterativeObject * topAction;
 @property (nonatomic, readonly) SwipeInterativeObject * bottomAction;
 
-@property (nonatomic) BOOL interactionInProgress;
 @property (nonatomic, weak) id<SwipeInteractiveActionsDelegate> delegate;
 
 - (instancetype)initWithController:(UIViewController *)vc;
@@ -36,14 +50,7 @@
 
 - (void)setRightAction:(SwipeInterativeObject *)action;
 
-@end
-
-@protocol SwipeInteractiveActionsDelegate <NSObject>
-
-- (BOOL)swipeInteractiveActions:(SwipeInteractiveActions *)interactiveActions startAction:(SwipeInterativeObject *)action;
-
-- (void)swipeInteractiveActions:(SwipeInteractiveActions *)interactiveActions transferingAction:(SwipeInterativeObject *)action withProcess:(CGFloat)process;
-
-- (void)swipeInteractiveActions:(SwipeInteractiveActions *)interactiveActions endAction:(SwipeInterativeObject *)action success:(BOOL)success;
+- (BOOL)interactionInProgress;
 
 @end
+

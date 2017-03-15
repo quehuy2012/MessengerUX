@@ -11,6 +11,8 @@
 #import <NITableViewActions.h>
 #import <NICellFactory.h>
 #import <NICellCatalog.h>
+#import "InterativeTranslation.h"
+#import "CameraViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate>
 
@@ -18,6 +20,8 @@
 
 @property (nonatomic) NITableViewModel *model;
 @property (nonatomic) NITableViewActions *action;
+
+@property (nonatomic) TableViewInteractiveActions * interactiveActions;
 
 @end
 
@@ -38,6 +42,8 @@
     [super viewDidLoad];
     
     [self initTableView];
+    
+    [self initTableViewInteractiveAction];
 }
 
 - (void)initTableView {
@@ -55,16 +61,22 @@
     
     self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
     self.tableView.dataSource = self.model;
+    self.tableView.delegate = self;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)initTableViewInteractiveAction {
+    self.interactiveActions = [[TableViewInteractiveActions alloc] initForViewController:self];
+    
+    CameraViewController * cameraVC = [CameraViewController viewController];
+    
+    StackTrainsitionAnimator * cameraPresentAnimator = [StackTrainsitionAnimator animationWithOption:AnimateOptionToDown
+                                                                                 forPresentionOption:PresentingOptionWillShow];
+    SwipeInterativeObject * bottomPresentAction = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator];
+    [self.interactiveActions setTopBoucingAction:bottomPresentAction];
 }
-*/
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.interactiveActions scrollViewDidScroll:scrollView];
+}
 
 @end
