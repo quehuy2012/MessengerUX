@@ -18,6 +18,14 @@
     return self;
 }
 
+- (instancetype)initWithImage:(UIImage*)image name:(NSString *)name profileID:(NSString *)profileID {
+    if ([self initWithImage:image]) {
+        self.name = name;
+        self.profileID = profileID;
+    }
+    return self;
+}
+
 - (Class)cellClass {
     return [CallCell class];
 }

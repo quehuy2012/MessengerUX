@@ -10,8 +10,14 @@
 
 @interface Call : NICellObject
 
-@property (strong, nonatomic) UIImage* image;
+@property (strong, nonatomic) UIImage *image;
 
-- (instancetype)initWithImage:(UIImage*) image;
+@property (strong, nonatomic) NSString *name;
+
+@property (strong, nonatomic) NSString *profileID;
+
+- (instancetype)initWithImage:(UIImage*)image;
+
+- (instancetype)initWithImage:(UIImage*)image name:(NSString *)name profileID:(NSString *)profileID;
 
 @end

@@ -14,6 +14,8 @@
 - (BOOL)shouldUpdateCellWithObject:(id)object {
     Call *call = (Call *)object;
     self.thumbView.image = call.image;
+    self.name.text = call.name;
+    self.profileID.text = call.profileID;
     return YES;
 }
 

@@ -12,6 +12,8 @@
 #import <NICellFactory.h>
 #import "Call.h"
 
+const int CallCellHeiht = 56;
+
 @interface CallViewController () <UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -22,29 +24,6 @@
 @end
 
 @implementation CallViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    UIImage *image = [UIImage imageNamed:@"callTabIconNormal"];
-    
-    NSArray *arr = @[[[Call alloc] initWithImage:image],
-                     [[Call alloc] initWithImage:image],
-                     [[Call alloc] initWithImage:image],
-                     [[Call alloc] initWithImage:image]];
-    
-    self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
-    self.tableView.dataSource = self.model;
-    
-    self.actions = [[NITableViewActions alloc] init];
-    self.tableView.delegate = [self.actions forwardingTo:self];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 + (instancetype)viewControllerWithName:(NSString *)name {
     
@@ -57,9 +36,40 @@
     return tab;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    [self initView];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)initView {
+    
+    UIImage *image = [UIImage imageNamed:@"personImage"];
+    NSMutableArray *arr = [NSMutableArray new];
+    
+    for (char c = 'A'; c <= 'Z'; c++) {
+        NSString *name = [NSString stringWithFormat:@"Person %c", c];
+        NSString *profileID = [NSString stringWithFormat:@"@person_%c", c];
+        
+        [arr addObject:[[Call alloc] initWithImage:image name:name profileID:profileID]];
+    }
+    
+    self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
+    self.tableView.dataSource = self.model;
+    
+    self.actions = [[NITableViewActions alloc] init];
+    self.tableView.delegate = [self.actions forwardingTo:self];
+}
+
 #pragma UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 66;
+    return CallCellHeiht;
 }
 
 /*
