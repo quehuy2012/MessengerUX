@@ -7,18 +7,17 @@
 //
 
 #import "GroupViewController.h"
-#import <NICollectionViewModel.h>
-#import <NICollectionViewActions.h>
-#import <NICollectionViewCellFactory.h>
-#import "Group.h"
-#import "GroupCell.h"
+#import <NITableViewModel.h>
+#import <NITableViewActions.h>
+#import <NICellCatalog.h>
+#import <NICellFactory.h>
 
-@interface GroupViewController () <NICollectionViewModelDelegate>
+@interface GroupViewController ()
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) NICollectionViewModel *model;
-@property (strong, nonatomic) NICollectionViewActions *actions;
+@property (nonatomic) NITableViewModel *model;
+@property (nonatomic) NITableViewActions *action;
 
 @end
 
@@ -38,36 +37,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImage *groupImage = [UIImage imageNamed:@"groupTabIconSelected"];
-    NSArray *arr = @[[[Group alloc] initWithCellClass:[GroupCell class]],
-                     [[Group alloc] initWithImage:groupImage],
-                     [[Group alloc] initWithImage:groupImage],
-                     [[Group alloc] initWithImage:groupImage],
-                     [[Group alloc] initWithImage:groupImage]];
-    
-    self.model = [[NICollectionViewModel alloc] initWithListArray:arr delegate:self];
-    self.collectionView.dataSource = self.model;
-    
-//    self.actions = [[NICollectionViewActions alloc] initWithTarget:self];
-//    self.collectionView.delegate = [self.actions ]
+    [self initView];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+- (void)initView {
+    
+    //    self.action = [[NITableViewActions alloc] initWithTarget:self];
+    
+    UIImage *image = [UIImage imageNamed:@"groupImage"];
+    NSMutableArray *arr = [NSMutableArray new];
+    
+    for (char c = 'A'; c <= 'Z'; c++) {
+        NSString *name = [NSString stringWithFormat:@"Group %c", c];
+        NSString *profileID = [NSString stringWithFormat:@"@group_%c", c];
+        
+        NISubtitleCellObject *cellObject = [[NISubtitleCellObject alloc] initWithTitle:name subtitle:profileID image:image];
 
-- (UICollectionViewCell *)collectionViewModel:(NICollectionViewModel *)collectionViewModel cellForCollectionView:(UICollectionView *)collectionView atIndexPath:(NSIndexPath *)indexPath withObject:(id)object {
-    UICollectionViewCell* cell = [NICollectionViewCellFactory collectionViewModel:collectionViewModel
-                                                            cellForCollectionView:collectionView
-                                                                      atIndexPath:indexPath
-                                                                       withObject:object];
-    if (cell == nil) {
-        NSLog(@"nil");
+        [arr addObject:cellObject];
     }
     
-    return cell;
+    self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
+    self.tableView.dataSource = self.model;
 }
+
 
 /*
 #pragma mark - Navigation

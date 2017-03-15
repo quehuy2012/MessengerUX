@@ -16,6 +16,7 @@
 
 @property (nonatomic) NITableViewModel *model;
 @property (nonatomic) NITableViewActions *action;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -35,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    [self initView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,21 +46,23 @@
 
 - (void)initView {
     
+//    self.action = [[NITableViewActions alloc] initWithTarget:self];
+    
     UIImage *image = [UIImage imageNamed:@"personImage"];
     NSMutableArray *arr = [NSMutableArray new];
-    
+
     for (char c = 'A'; c <= 'Z'; c++) {
         NSString *name = [NSString stringWithFormat:@"Person %c", c];
         NSString *profileID = [NSString stringWithFormat:@"@person_%c", c];
-
-        [arr addObject:[[NISubtitleCellObject alloc] initWithTitle:name subtitle:profileID image:image]];
+        
+        NISubtitleCellObject *cellObject = [[NISubtitleCellObject alloc] initWithTitle:name subtitle:profileID image:image];
+        
+        
+        [arr addObject:cellObject];
     }
     
     self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
     self.tableView.dataSource = self.model;
-    
-    self.action = [[NITableViewActions alloc] initWithTarget:self];
-    self.tableView.delegate = [_action forwardingTo:self];
 }
 
 

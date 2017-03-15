@@ -23,30 +23,6 @@
 
 @implementation HomeViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.action = [[NITableViewActions alloc] initWithTarget:self];
-    NSArray *arr = @[[_action attachToObject:[NITitleCellObject objectWithTitle:@"Hi,"] tapBlock:nil],
-                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"What"] tapBlock:nil],
-                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"is"] tapBlock:nil],
-                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"your"] tapBlock:nil],
-                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"name"] tapBlock:nil],
-                     [_action attachToObject:[NITitleCellObject objectWithTitle:@"?"] tapBlock:nil]];
-    
-    self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
-    self.model.delegate = (id)[NICellFactory class];
-    
-    self.tableView.dataSource = self.model;
-    self.tableView.delegate = [_action forwardingTo:self];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 + (instancetype)viewControllerWithName:(NSString *)name {
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
@@ -56,6 +32,29 @@
     tab.tabBarItem.image = [UIImage imageNamed:@"homeTabIconNormal"];
     tab.tabBarItem.selectedImage = [UIImage imageNamed:@"homeTabIconSelected"];
     return tab;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self initView];
+}
+
+- (void)initView {
+    UIImage *image = [UIImage imageNamed:@"personImage"];
+    NSMutableArray *arr = [NSMutableArray new];
+    
+    for (char c = 'A'; c <= 'Z'; c++) {
+        NSString *name = [NSString stringWithFormat:@"Person %c", c];
+        NSString *profileID = [NSString stringWithFormat:@"@text_%c", c];
+        
+        NISubtitleCellObject *cellObject = [[NISubtitleCellObject alloc] initWithTitle:name subtitle:profileID image:image];
+
+        [arr addObject:cellObject];
+    }
+    
+    self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
+    self.tableView.dataSource = self.model;
 }
 
 /*
