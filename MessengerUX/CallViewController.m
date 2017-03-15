@@ -40,7 +40,7 @@ const int CallCellHeiht = 56;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self initView];
+    [self initTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,7 +48,7 @@ const int CallCellHeiht = 56;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initView {
+- (void)initTableView {
     
     UIImage *image = [UIImage imageNamed:@"personImage"];
     NSMutableArray *arr = [NSMutableArray new];

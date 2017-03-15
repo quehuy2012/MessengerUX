@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initView];
+    [self initTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,10 +44,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initView {
-    
-//    self.action = [[NITableViewActions alloc] initWithTarget:self];
-    
+- (void)initTableView {
+ 
     UIImage *image = [UIImage imageNamed:@"personImage"];
     NSMutableArray *arr = [NSMutableArray new];
 
@@ -56,8 +54,7 @@
         NSString *profileID = [NSString stringWithFormat:@"@person_%c", c];
         
         NISubtitleCellObject *cellObject = [[NISubtitleCellObject alloc] initWithTitle:name subtitle:profileID image:image];
-        
-        
+     
         [arr addObject:cellObject];
     }
     

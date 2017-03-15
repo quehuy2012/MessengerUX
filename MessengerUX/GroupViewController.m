@@ -37,13 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initView];
+    [self initTableView];
 }
 
-- (void)initView {
-    
-    //    self.action = [[NITableViewActions alloc] initWithTarget:self];
-    
+- (void)initTableView {
+ 
     UIImage *image = [UIImage imageNamed:@"groupImage"];
     NSMutableArray *arr = [NSMutableArray new];
     

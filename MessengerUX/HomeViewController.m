@@ -37,10 +37,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initView];
+    [self initTableView];
 }
 
-- (void)initView {
+- (void)initTableView {
     UIImage *image = [UIImage imageNamed:@"personImage"];
     NSMutableArray *arr = [NSMutableArray new];
     
