@@ -26,11 +26,11 @@ typedef NS_ENUM(NSUInteger, NavigationDoingState) {
 
 @protocol SwipeGestureReconizerDelegate <UIGestureRecognizerDelegate>
 
-- (void)swipeGesture:(SwipeGestureReconizer *)gesture beginSwipeWithDirection:(NavigationState)direction;
+- (BOOL)swipeGesture:(SwipeGestureReconizer *)gesture beginSwipeWithDirection:(NavigationState)direction;
 
-- (void)swipeGesture:(SwipeGestureReconizer *)gesture changeWithDoingState:(NavigationDoingState)doingState;
+- (void)swipeGesture:(SwipeGestureReconizer *)gesture changeWithDirection:(NavigationState)direction withDoingState:(NavigationDoingState)doingState;
 
-- (void)swipeGesture:(SwipeGestureReconizer *)gesture endWithDoingState:(NavigationDoingState)doingState;
+- (void)swipeGesture:(SwipeGestureReconizer *)gesture endWithDirection:(NavigationState)direction withDoingState:(NavigationDoingState)doingState;
 
 @end
 
@@ -39,8 +39,9 @@ typedef NS_ENUM(NSUInteger, NavigationDoingState) {
 @property (nonatomic, weak) id<SwipeGestureReconizerDelegate> swipeDelegate;
 
 @property (nonatomic, readonly) NavigationState direction;
+
 @property (nonatomic) CGFloat swipeThreadhold;
 
-- (instancetype)initForDirection:(NavigationState)direction withDelegate:(id<SwipeGestureReconizerDelegate>)delegate toView:(UIView *)view;
+- (instancetype)initWithDelegate:(id<SwipeGestureReconizerDelegate>)delegate toView:(UIView *)view;
 
 @end

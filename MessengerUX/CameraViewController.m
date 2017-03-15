@@ -2,46 +2,67 @@
 //  CameraViewController.m
 //  MessengerUX
 //
-//  Created by CPU11808 on 3/13/17.
+//  Created by CPU11815 on 3/13/17.
 //  Copyright © 2017 CPU11815. All rights reserved.
 //
 
 #import "CameraViewController.h"
+#import "GalleryViewController.h"
+#import "DrawViewController.h"
+#import "InterativeTranslation.h"
 
 @interface CameraViewController ()
+
+@property (nonatomic) SwipeInteractiveActions * swipeActions;
 
 @end
 
 @implementation CameraViewController
 
++ (instancetype)viewController {
+    CameraViewController * retsult = [[CameraViewController alloc] init];
+    return retsult;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-+ (instancetype)viewControllerWithName:(NSString *)name {
+    self.view.backgroundColor = [UIColor redColor];
     
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Camera" bundle:nil];
-    CameraViewController * tab = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    UILabel * tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 60, 100, 30)];
+    tempLabel.text = @"abc";
+    [self.view addSubview:tempLabel];
     
-    tab.tabBarItem.title = name;
-    
-    return tab;
+    [self addSwipeNavigation];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)addSwipeNavigation {
+    
+    self.swipeActions = [[SwipeInteractiveActions alloc] initWithController:self];
+    
+    // dismis
+    StackTrainsitionAnimator * cameraDismissAnimator = [StackTrainsitionAnimator animationWithOption:AnimateOptionToUp
+                                                                                 forPresentionOption:PresentingOptionWillHide];
+    SwipeInterativeObject * topDismissAction = [[SwipeInterativeObject alloc] initDismisViewController:self withAnimation:cameraDismissAnimator];
+    [self.swipeActions setTopAction:topDismissAction];
+    
+    // present gallery
+    GalleryViewController * galleryVC = [GalleryViewController viewController];
+    ScrollTransitionAnimator * galleryPresentAnimator = [ScrollTransitionAnimator animationWithOption:AnimateOptionToRight
+                                                                                  forPresentionOption:PresentingOptionWillShow];
+    SwipeInterativeObject * leftPresentAction = [[SwipeInterativeObject alloc] initPresentViewController:galleryVC
+                                                                                      fromViewController:self
+                                                                                           withAnimation:galleryPresentAnimator];
+    [self.swipeActions setRightAction:leftPresentAction];
+    
+    // present draw
+    DrawViewController * drawVC = [DrawViewController viewController];
+    ScrollTransitionAnimator * drawPresentAnimator = [ScrollTransitionAnimator animationWithOption:AnimateOptionToLeft
+                                                                               forPresentionOption:PresentingOptionWillShow];
+    SwipeInterativeObject * rightPresentAction = [[SwipeInterativeObject alloc] initPresentViewController:drawVC
+                                                                                       fromViewController:self
+                                                                                            withAnimation:drawPresentAnimator];
+    [self.swipeActions setLeftAction:rightPresentAction];
 }
-*/
 
 @end

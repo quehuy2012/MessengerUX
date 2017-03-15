@@ -11,7 +11,6 @@
 @interface SwipeGestureReconizer ()
 
 @property (nonatomic) NavigationState navigationState;
-@property (nonatomic) NavigationState navigateDirectionAccept;
 @property (nonatomic) NavigationDoingState navigationDoingState;
 @property (nonatomic, weak) UIView * attactView;
 
@@ -19,21 +18,20 @@
 
 @implementation SwipeGestureReconizer
 
-- (instancetype)initForDirection:(NavigationState)direction withDelegate:(id<SwipeGestureReconizerDelegate>)delegate toView:(UIView *)view {
+- (instancetype)initWithDelegate:(id<SwipeGestureReconizerDelegate>)delegate toView:(UIView *)view {
     self = [super init];
     if (self) {
-        self.delegate = delegate;
+        self.swipeDelegate = delegate;
         __weak typeof(self) weakSelf = self;
         [self addTarget:weakSelf action:@selector(callSelfAction)];
         self.attactView = view;
-        self.swipeThreadhold = 100;
-        self.navigateDirectionAccept = direction == NavigationStateNone ? NavigationStateToDown : direction;
+        self.swipeThreadhold = 220;
     }
     return self;
 }
 
 - (NavigationState)direction {
-    return self.navigateDirectionAccept;
+    return self.navigationState;
 }
 
 #pragma mark - SwipeGestureReconizerHandle
@@ -43,10 +41,9 @@
     CGPoint translationPoint = [self translationInView:self.attactView];
     CGPoint velocityPoint = [self velocityInView:self.attactView];
     
-    NSLog(@"Trans: %f %f Veloc: %f %f", translationPoint.x, translationPoint.y, velocityPoint.x, velocityPoint.y);
-    
     switch (self.state) {
         case UIGestureRecognizerStateBegan: {
+            
             if (fabs(velocityPoint.y) > fabs(velocityPoint.x)) {
                 // User swipe along vertical axis
                 if (velocityPoint.y > 0) {
@@ -71,39 +68,30 @@
             break;
         }
         case UIGestureRecognizerStateChanged: {
+            BOOL canMove = NO;
+            
             switch (self.navigationState) {
                 case NavigationStateToDown: {
-                    NSLog(@"Down");
-                    if (fabs(translationPoint.y) > self.swipeThreadhold) {
-                        self.navigationDoingState = NavigationDoingStateCanMove;
-                    }
+                    canMove = translationPoint.y > self.swipeThreadhold;
                     break;
                 }
                 case NavigationStateToUp: {
-                    NSLog(@"Up");
-                    if (fabs(translationPoint.y) > self.swipeThreadhold) {
-                        self.navigationDoingState = NavigationDoingStateCanMove;
-                    }
+                    canMove = translationPoint.y < -self.swipeThreadhold;
                     break;
                 }
                 case NavigationStateToRight: {
-                    NSLog(@"Right");
-                    if (fabs(translationPoint.x) > self.swipeThreadhold) {
-                        self.navigationDoingState = NavigationDoingStateCanMove;
-                    }
+                    canMove = translationPoint.x > self.swipeThreadhold;
                     break;
                 }
                 case NavigationStateToLeft: {
-                    NSLog(@"Left");
-                    if (fabs(translationPoint.x) > self.swipeThreadhold) {
-                        self.navigationDoingState = NavigationDoingStateCanMove;
-                    }
+                    canMove = translationPoint.x < -self.swipeThreadhold;
                     break;
                 }
                 default:
                     // Do nothing with None
                     break;
             }
+            self.navigationDoingState = canMove ? NavigationDoingStateCanMove : NavigationDoingStateNone;
             [self changeNavigationSwipe];
             break;
         }
@@ -122,25 +110,21 @@
 
 - (void)beginNavigationSwipe {
     if (self.swipeDelegate && [self.swipeDelegate respondsToSelector:@selector(swipeGesture:beginSwipeWithDirection:)]) {
-        [self.swipeDelegate swipeGesture:self beginSwipeWithDirection:self.navigationState];
+        if (![self.swipeDelegate swipeGesture:self beginSwipeWithDirection:self.navigationState]) {
+            // TODO cancel swipe gesture
+        }
     }
 }
 
 - (void)changeNavigationSwipe {
-    if (self.navigationState == self.navigateDirectionAccept) {
-        // Do change
-        if (self.swipeDelegate && [self.swipeDelegate respondsToSelector:@selector(swipeGesture:changeWithDoingState:)]) {
-            [self.swipeDelegate swipeGesture:self changeWithDoingState:self.navigationDoingState];
-        }
+    if (self.swipeDelegate && [self.swipeDelegate respondsToSelector:@selector(swipeGesture:changeWithDirection:withDoingState:)]) {
+        [self.swipeDelegate swipeGesture:self changeWithDirection:self.navigationState withDoingState:self.navigationDoingState];
     }
 }
 
 - (void)endNavigationSwipe {
-    if (self.navigationState == self.navigateDirectionAccept) {
-        // Do navigate
-        if (self.swipeDelegate && [self.swipeDelegate respondsToSelector:@selector(swipeGesture:endWithDoingState:)]) {
-            [self.swipeDelegate swipeGesture:self endWithDoingState:self.navigationDoingState];
-        }
+    if (self.swipeDelegate && [self.swipeDelegate respondsToSelector:@selector(swipeGesture:endWithDirection:withDoingState:)]) {
+        [self.swipeDelegate swipeGesture:self endWithDirection:self.navigationState withDoingState:self.navigationDoingState];
     }
 }
 

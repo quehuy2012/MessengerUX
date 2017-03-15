@@ -8,13 +8,12 @@
 
 #import "MainViewController.h"
 #import "BaseTabViewController.h"
-#import "BaseSwipeNavViewController.h"
-
-
+#import "CameraViewController.h"
+#import "InterativeTranslation.h"
 
 @interface MainViewController ()
 
-@property (nonatomic) UIPanGestureRecognizer * navigationGesture;
+@property (nonatomic) SwipeInteractiveActions * swipeActions;
 
 @end
 
@@ -32,9 +31,15 @@
 }
 
 - (void)addSwipeDownToCamera {
+
+    self.swipeActions = [[SwipeInteractiveActions alloc] initWithController:self];
     
-//    self.navigationGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDownController)];
-//    [self.view addGestureRecognizer:self.navigationGesture];
+    CameraViewController * cameraVC = [CameraViewController viewController];
+    // dismis
+    StackTrainsitionAnimator * cameraPresentAnimator = [StackTrainsitionAnimator animationWithOption:AnimateOptionToDown
+                                                                                 forPresentionOption:PresentingOptionWillShow];
+    SwipeInterativeObject * bottomPresentAction = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator];
+    [self.swipeActions setBottomAction:bottomPresentAction];
     
 }
 

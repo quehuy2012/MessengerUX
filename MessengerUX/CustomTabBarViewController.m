@@ -10,14 +10,17 @@
 #import "BaseTabViewController.h"
 #import "HomeViewController.h"
 #import "CallViewController.h"
-#import "CameraViewController.h"
 #import "GroupViewController.h"
 #import "PeopleViewController.h"
+#import "CameraViewController.h"
+#import "InterativeTranslation.h"
 
 static const int CameraButtonWidth = 50;
 static const int CameraButtonheight = 50;
 
 @interface CustomTabBarViewController () <UITabBarControllerDelegate>
+
+@property (nonatomic) SwipeInteractiveActions * swipeActions;
 
 @end
 
@@ -25,6 +28,8 @@ static const int CameraButtonheight = 50;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self addSwipeDownToCamera];
     
     [self setupTabBarButton];
     
@@ -38,13 +43,26 @@ static const int CameraButtonheight = 50;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)addSwipeDownToCamera {
+    
+    self.swipeActions = [[SwipeInteractiveActions alloc] initWithController:self];
+    
+    CameraViewController * cameraVC = [CameraViewController viewController];
+    // dismis
+    StackTrainsitionAnimator * cameraPresentAnimator = [StackTrainsitionAnimator animationWithOption:AnimateOptionToDown
+                                                                                 forPresentionOption:PresentingOptionWillShow];
+    SwipeInterativeObject * bottomPresentAction = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator];
+    [self.swipeActions setBottomAction:bottomPresentAction];
+    
+}
+
 - (void)setupTabBarButton {
     
     BaseTabViewController *homeVC = [HomeViewController viewControllerWithName:@"Home"];
     
     BaseTabViewController *callVC = [CallViewController viewControllerWithName:@"Calls"];
     
-    BaseTabViewController *cameraVC = [CameraViewController viewControllerWithName:@""];
+    BaseTabViewController *cameraVC = [CallViewController viewControllerWithName:@""];
     
     BaseTabViewController *groupVC = [GroupViewController viewControllerWithName:@"Groups"];
     
@@ -76,7 +94,9 @@ static const int CameraButtonheight = 50;
 }
 
 - (void)cameraButtonAction {
-    NSLog(@"button pressed");
+    if (self.swipeActions && self.swipeActions.bottomAction) {
+        [self.swipeActions.bottomAction excuteAction];
+    }
 }
 
 #pragma mark - UITabBarDelegate

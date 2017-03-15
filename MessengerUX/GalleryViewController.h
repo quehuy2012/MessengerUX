@@ -1,5 +1,5 @@
 //
-//  CameraViewController.h
+//  GalleryViewController.h
 //  MessengerUX
 //
 //  Created by CPU11815 on 3/13/17.
@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class SwipeActionObject;
-
-@interface CameraViewController : UIViewController
+@interface GalleryViewController : UIViewController
 
 + (instancetype)viewController;
 
