@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		35431B4BFE7B1BD721E03CA2 /* libPods-MessengerUXUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E967DB07BBEC456F3C206B8A /* libPods-MessengerUXUITests.a */; };
+		8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9DF81E72ADF9002ACB87 /* CustomTabBarViewController.m */; };
+		8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9DFC1E7639F0002ACB87 /* HomeViewController.m */; };
+		8A6B9DFF1E763BFC002ACB87 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9DFE1E763BFC002ACB87 /* Home.storyboard */; };
+		8A6B9E021E763D31002ACB87 /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E011E763D31002ACB87 /* Call.storyboard */; };
+		8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E041E763D7F002ACB87 /* CallViewController.m */; };
+		8A6B9E091E763EBB002ACB87 /* GroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E081E763EBB002ACB87 /* GroupViewController.m */; };
+		8A6B9E0B1E763EF8002ACB87 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E0A1E763EF8002ACB87 /* Group.storyboard */; };
+		8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E0E1E763F3B002ACB87 /* PeopleViewController.m */; };
+		8A6B9E111E763F62002ACB87 /* People.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E101E763F62002ACB87 /* People.storyboard */; };
+		8A6B9E141E763FE8002ACB87 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E131E763FE8002ACB87 /* CameraViewController.m */; };
+		8A6B9E161E764014002ACB87 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E151E764014002ACB87 /* Camera.storyboard */; };
+		8A6B9E201E77D01F002ACB87 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E1F1E77D01F002ACB87 /* Group.m */; };
+		8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E221E77D04D002ACB87 /* GroupCell.m */; };
+		8A6B9E291E77F976002ACB87 /* Call.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E281E77F976002ACB87 /* Call.m */; };
+		8A6B9E2C1E77FA87002ACB87 /* CallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E2B1E77FA87002ACB87 /* CallCell.m */; };
 		A5AC0AEDDCBBD73C2D46C03C /* libPods-MessengerUX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */; };
 		DCE27C0DFB81BE4E6296B6AD /* libPods-MessengerUXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */; };
 		F20C828D1E6D0B9B006D3594 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C828C1E6D0B9B006D3594 /* main.m */; };
@@ -46,6 +61,31 @@
 		40623F072664529076992372 /* Pods-MessengerUXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXTests/Pods-MessengerUXTests.debug.xcconfig"; sourceTree = "<group>"; };
 		617295AF6F9D7B2C09E7FE92 /* Pods-MessengerUXUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXUITests/Pods-MessengerUXUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		67BEA9B58FA2AEBB90890541 /* Pods-MessengerUX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUX.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUX/Pods-MessengerUX.release.xcconfig"; sourceTree = "<group>"; };
+		8A6B9DF71E72ADF9002ACB87 /* CustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarViewController.h; sourceTree = "<group>"; };
+		8A6B9DF81E72ADF9002ACB87 /* CustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarViewController.m; sourceTree = "<group>"; };
+		8A6B9DFB1E7639F0002ACB87 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		8A6B9DFC1E7639F0002ACB87 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		8A6B9DFE1E763BFC002ACB87 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		8A6B9E011E763D31002ACB87 /* Call.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Call.storyboard; sourceTree = "<group>"; };
+		8A6B9E031E763D7F002ACB87 /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
+		8A6B9E041E763D7F002ACB87 /* CallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
+		8A6B9E071E763EBB002ACB87 /* GroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupViewController.h; sourceTree = "<group>"; };
+		8A6B9E081E763EBB002ACB87 /* GroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupViewController.m; sourceTree = "<group>"; };
+		8A6B9E0A1E763EF8002ACB87 /* Group.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Group.storyboard; sourceTree = "<group>"; };
+		8A6B9E0D1E763F3B002ACB87 /* PeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleViewController.h; sourceTree = "<group>"; };
+		8A6B9E0E1E763F3B002ACB87 /* PeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeopleViewController.m; sourceTree = "<group>"; };
+		8A6B9E101E763F62002ACB87 /* People.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = People.storyboard; sourceTree = "<group>"; };
+		8A6B9E121E763FE8002ACB87 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		8A6B9E131E763FE8002ACB87 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		8A6B9E151E764014002ACB87 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		8A6B9E1E1E77D01F002ACB87 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		8A6B9E1F1E77D01F002ACB87 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		8A6B9E211E77D04D002ACB87 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
+		8A6B9E221E77D04D002ACB87 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
+		8A6B9E271E77F976002ACB87 /* Call.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Call.h; sourceTree = "<group>"; };
+		8A6B9E281E77F976002ACB87 /* Call.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Call.m; sourceTree = "<group>"; };
+		8A6B9E2A1E77FA87002ACB87 /* CallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallCell.h; sourceTree = "<group>"; };
+		8A6B9E2B1E77FA87002ACB87 /* CallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallCell.m; sourceTree = "<group>"; };
 		A187AEB0D64309D2C2012FA0 /* Pods-MessengerUXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXTests/Pods-MessengerUXTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +168,79 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8A6B9DF61E72ADD6002ACB87 /* CustomTabBarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B9DF71E72ADF9002ACB87 /* CustomTabBarViewController.h */,
+				8A6B9DF81E72ADF9002ACB87 /* CustomTabBarViewController.m */,
+			);
+			name = CustomTabBarViewController;
+			sourceTree = "<group>";
+		};
+		8A6B9DFA1E7639DF002ACB87 /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B9DFB1E7639F0002ACB87 /* HomeViewController.h */,
+				8A6B9DFC1E7639F0002ACB87 /* HomeViewController.m */,
+				8A6B9DFE1E763BFC002ACB87 /* Home.storyboard */,
+			);
+			name = HomeViewController;
+			sourceTree = "<group>";
+		};
+		8A6B9E001E763D1D002ACB87 /* CallViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B9E261E77F946002ACB87 /* Cell */,
+				8A6B9E011E763D31002ACB87 /* Call.storyboard */,
+				8A6B9E031E763D7F002ACB87 /* CallViewController.h */,
+				8A6B9E041E763D7F002ACB87 /* CallViewController.m */,
+			);
+			name = CallViewController;
+			sourceTree = "<group>";
+		};
+		8A6B9E061E763EA6002ACB87 /* GroupViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B9E1D1E77CE0B002ACB87 /* Cell */,
+				8A6B9E071E763EBB002ACB87 /* GroupViewController.h */,
+				8A6B9E081E763EBB002ACB87 /* GroupViewController.m */,
+				8A6B9E0A1E763EF8002ACB87 /* Group.storyboard */,
+			);
+			name = GroupViewController;
+			sourceTree = "<group>";
+		};
+		8A6B9E0C1E763F2A002ACB87 /* PeopleViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B9E0D1E763F3B002ACB87 /* PeopleViewController.h */,
+				8A6B9E0E1E763F3B002ACB87 /* PeopleViewController.m */,
+				8A6B9E101E763F62002ACB87 /* People.storyboard */,
+			);
+			name = PeopleViewController;
+			sourceTree = "<group>";
+		};
+		8A6B9E1D1E77CE0B002ACB87 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B9E1E1E77D01F002ACB87 /* Group.h */,
+				8A6B9E1F1E77D01F002ACB87 /* Group.m */,
+				8A6B9E211E77D04D002ACB87 /* GroupCell.h */,
+				8A6B9E221E77D04D002ACB87 /* GroupCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		8A6B9E261E77F946002ACB87 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B9E271E77F976002ACB87 /* Call.h */,
+				8A6B9E281E77F976002ACB87 /* Call.m */,
+				8A6B9E2A1E77FA87002ACB87 /* CallCell.h */,
+				8A6B9E2B1E77FA87002ACB87 /* CallCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		F20C827F1E6D0B9B006D3594 = {
 			isa = PBXGroup;
 			children = (
@@ -197,7 +310,12 @@
 		F20C82E11E70F49F006D3594 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8A6B9DFA1E7639DF002ACB87 /* HomeViewController */,
+				8A6B9E001E763D1D002ACB87 /* CallViewController */,
 				F20C82E61E70F7BD006D3594 /* CameraViewController */,
+				8A6B9E061E763EA6002ACB87 /* GroupViewController */,
+				8A6B9E0C1E763F2A002ACB87 /* PeopleViewController */,
+				8A6B9DF61E72ADD6002ACB87 /* CustomTabBarViewController */,
 				F20C82E21E70F4AE006D3594 /* Base */,
 			);
 			name = ViewController;
@@ -217,6 +335,9 @@
 		F20C82E61E70F7BD006D3594 /* CameraViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8A6B9E121E763FE8002ACB87 /* CameraViewController.h */,
+				8A6B9E131E763FE8002ACB87 /* CameraViewController.m */,
+				8A6B9E151E764014002ACB87 /* Camera.storyboard */,
 			);
 			name = CameraViewController;
 			sourceTree = "<group>";
@@ -348,9 +469,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A6B9E0B1E763EF8002ACB87 /* Group.storyboard in Resources */,
+				8A6B9E161E764014002ACB87 /* Camera.storyboard in Resources */,
 				F20C829B1E6D0B9B006D3594 /* LaunchScreen.storyboard in Resources */,
 				F20C82981E6D0B9B006D3594 /* Assets.xcassets in Resources */,
+				8A6B9E021E763D31002ACB87 /* Call.storyboard in Resources */,
 				F20C82961E6D0B9B006D3594 /* Main.storyboard in Resources */,
+				8A6B9E111E763F62002ACB87 /* People.storyboard in Resources */,
+				8A6B9DFF1E763BFC002ACB87 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,12 +639,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */,
+				8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
+				8A6B9E2C1E77FA87002ACB87 /* CallCell.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
 				F20C82EC1E710B7F006D3594 /* UIViewController+InterativeTranslation.m in Sources */,
 				F20C82E91E70F8DF006D3594 /* BaseSwipeNavViewController.m in Sources */,
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
+				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
+				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
+				8A6B9E201E77D01F002ACB87 /* Group.m in Sources */,
+				8A6B9E141E763FE8002ACB87 /* CameraViewController.m in Sources */,
+				8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */,
+				8A6B9E291E77F976002ACB87 /* Call.m in Sources */,
+				8A6B9E091E763EBB002ACB87 /* GroupViewController.m in Sources */,
 				F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
