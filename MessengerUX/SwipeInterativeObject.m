@@ -8,14 +8,13 @@
 
 #import "SwipeInterativeObject.h"
 #import "SwipeInteractiveActions.h"
-#import "TransitionAnimator.h"
 
 #import "StackTrainsitionAnimator.h"
 
 @interface SwipeInterativeObject () <UIViewControllerTransitioningDelegate>
 
 @property (nonatomic) BOOL isDismiss;
-@property (nonatomic) TransitionAnimator * animator;
+@property (nonatomic) id<UIViewControllerAnimatedTransitioning> animator;
 @property (nonatomic) UIViewController * presentViewController;
 @property (nonatomic, weak) UIViewController * viewController;
 
@@ -43,7 +42,6 @@
         self.presentViewController = presentViewController;
         self.viewController = viewController;
         self.animator = animator;
-        self.animator.originalFrame = viewController.view.frame;
     }
     return self;
 }
@@ -55,7 +53,6 @@
         self.isDismiss = YES;
         self.viewController = dismissViewController;
         self.animator = animator;
-        self.animator.originalFrame = dismissViewController.view.frame;
     }
     return self;
 }

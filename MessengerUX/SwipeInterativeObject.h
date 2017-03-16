@@ -8,18 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@class TransitionAnimator;
-
 @interface SwipeInterativeObject : NSObject
 
 @property (nonatomic) UIPercentDrivenInteractiveTransition * interative;
 
 - (instancetype)initPresentViewController:(UIViewController *)presentViewController
                        fromViewController:(UIViewController *)viewController
-                            withAnimation:(TransitionAnimator *)animator;
+                            withAnimation:(id<UIViewControllerAnimatedTransitioning>)animator;
 
 - (instancetype)initDismisViewController:(UIViewController *)dismissViewController
-                           withAnimation:(TransitionAnimator *)animator;
+                           withAnimation:(id<UIViewControllerAnimatedTransitioning>)animator;
 
 - (void)excuteAction;
 

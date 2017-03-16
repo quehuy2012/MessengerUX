@@ -21,7 +21,7 @@
 @property (nonatomic) NITableViewModel *model;
 @property (nonatomic) NITableViewActions *action;
 
-@property (nonatomic) TableViewInteractiveActions * interactiveActions;
+@property (nonatomic) ScrollViewInteractiveActions * interactiveActions;
 
 @end
 
@@ -61,22 +61,31 @@
     
     self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
     self.tableView.dataSource = self.model;
-    self.tableView.delegate = self;
+    
 }
 
 - (void)initTableViewInteractiveAction {
-    self.interactiveActions = [[TableViewInteractiveActions alloc] initForViewController:self];
+    self.interactiveActions = [[ScrollViewInteractiveActions alloc] initForViewController:self];
     
     CameraViewController * cameraVC = [CameraViewController viewController];
     
     StackTrainsitionAnimator * cameraPresentAnimator = [StackTrainsitionAnimator animationWithOption:AnimateOptionToDown
                                                                                  forPresentionOption:PresentingOptionWillShow];
     SwipeInterativeObject * bottomPresentAction = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator];
-    [self.interactiveActions setTopBoucingAction:bottomPresentAction];
+    [self.interactiveActions setTopBouncingAction:bottomPresentAction];
+    
+    
+    StackTrainsitionAnimator * cameraPresentAnimator2 = [StackTrainsitionAnimator animationWithOption:AnimateOptionToUp
+                                                                                  forPresentionOption:PresentingOptionWillShow];
+    SwipeInterativeObject * bottomPresentAction2 = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator2];
+    [self.interactiveActions setBottomBouncingAction:bottomPresentAction2];
+    
+    
+    self.tableView.delegate = self.interactiveActions;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.interactiveActions scrollViewDidScroll:scrollView];
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [self.interactiveActions scrollViewDidScroll:scrollView];
+//}
 
 @end

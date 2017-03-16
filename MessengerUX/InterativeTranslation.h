@@ -12,7 +12,7 @@
 #import "SwipeInteractiveActions.h"
 #import "SwipeGestureReconizer.h"
 #import "SwipeInterativeObject.h"
-#import "TableViewInteractiveActions.h"
+#import "ScrollViewInteractiveActions.h"
 
 // animation
 #import "ScrollTransitionAnimator.h"

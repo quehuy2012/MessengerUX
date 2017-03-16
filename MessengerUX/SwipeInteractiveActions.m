@@ -21,7 +21,7 @@
 
 @property (nonatomic) SwipeGestureReconizer * gesture;
 
-@property (nonatomic) BOOL _interactionInProgress;
+@property (nonatomic) BOOL mInteractionInProgress;
 @end
 
 @implementation SwipeInteractiveActions
@@ -104,7 +104,7 @@
 #pragma mark - SwipeGestureReconizerDelegate
 
 - (BOOL)swipeGesture:(SwipeGestureReconizer *)gesture beginSwipeWithDirection:(NavigationState)direction {
-    self._interactionInProgress = YES;
+    self.mInteractionInProgress = YES;
     switch (direction) {
         case NavigationStateToUp:
             self.internalCurrentAction = self.actionTop;
@@ -177,11 +177,11 @@
     }
     
     self.internalCurrentAction = nil;
-    self._interactionInProgress = NO;
+    self.mInteractionInProgress = NO;
 }
 
 - (BOOL)interactionInProgress {
-    return self._interactionInProgress;
+    return self.mInteractionInProgress;
 }
 
 @end

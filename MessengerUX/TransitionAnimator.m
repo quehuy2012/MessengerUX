@@ -43,6 +43,8 @@
     UIViewController * toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView * containerView = [transitionContext containerView];
     
+    self.originalFrame = containerView.frame;
+    
     // We must have enough elements to start animate translation
     if (fromVC && toVC && containerView) {
         
@@ -57,7 +59,7 @@
         [self arrangeToVC:toVC andSnapShot:finalScreenSnapshot inContainer:containerView];
         
         NSTimeInterval duration = [self transitionDuration:transitionContext];
-        [UIView animateKeyframesWithDuration:duration delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
+        [UIView animateKeyframesWithDuration:duration delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
             
             [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:1.0 animations:^{
                 

@@ -43,7 +43,7 @@
 		F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EEA1E79332D005F8B10 /* DrawViewController.m */; };
 		F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EEE1E793343005F8B10 /* GalleryViewController.m */; };
 		F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */; };
-		F2134EF71E79546E005F8B10 /* TableViewInteractiveActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF61E79546E005F8B10 /* TableViewInteractiveActions.m */; };
+		F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,8 +135,8 @@
 		F2134EEE1E793343005F8B10 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		F2134EF11E7936C9005F8B10 /* UIView+AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoLayout.h"; sourceTree = "<group>"; };
 		F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
-		F2134EF51E79546E005F8B10 /* TableViewInteractiveActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewInteractiveActions.h; sourceTree = "<group>"; };
-		F2134EF61E79546E005F8B10 /* TableViewInteractiveActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewInteractiveActions.m; sourceTree = "<group>"; };
+		F2134EF51E79546E005F8B10 /* ScrollViewInteractiveActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewInteractiveActions.h; sourceTree = "<group>"; };
+		F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewInteractiveActions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,8 +374,8 @@
 				F2134EE31E7932F4005F8B10 /* SwipeInteractiveActions.m */,
 				F2134EE41E7932F4005F8B10 /* SwipeInterativeObject.h */,
 				F2134EE51E7932F4005F8B10 /* SwipeInterativeObject.m */,
-				F2134EF51E79546E005F8B10 /* TableViewInteractiveActions.h */,
-				F2134EF61E79546E005F8B10 /* TableViewInteractiveActions.m */,
+				F2134EF51E79546E005F8B10 /* ScrollViewInteractiveActions.h */,
+				F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */,
 				F2134EE11E7932F4005F8B10 /* InterativeTranslation.h */,
 			);
 			name = InterativeTranslation;
@@ -726,7 +726,7 @@
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
 				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
 				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
-				F2134EF71E79546E005F8B10 /* TableViewInteractiveActions.m in Sources */,
+				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,
 				8A6B9E201E77D01F002ACB87 /* Group.m in Sources */,
