@@ -65,7 +65,7 @@
 }
 
 - (void)initTableViewInteractiveAction {
-    self.interactiveActions = [[ScrollViewInteractiveActions alloc] initForViewController:self];
+    self.interactiveActions = [[ScrollViewInteractiveActions alloc] initForViewController:self andScrollView:self.tableView];
     
     CameraViewController * cameraVC = [CameraViewController viewController];
     
@@ -79,9 +79,6 @@
                                                                                   forPresentionOption:PresentingOptionWillShow];
     SwipeInterativeObject * bottomPresentAction2 = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator2];
     [self.interactiveActions setBottomBouncingAction:bottomPresentAction2];
-    
-    
-    self.tableView.delegate = self.interactiveActions;
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {

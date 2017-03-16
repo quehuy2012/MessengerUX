@@ -59,7 +59,7 @@
         [self arrangeToVC:toVC andSnapShot:finalScreenSnapshot inContainer:containerView];
         
         NSTimeInterval duration = [self transitionDuration:transitionContext];
-        [UIView animateKeyframesWithDuration:duration delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
+        [UIView animateKeyframesWithDuration:duration delay:0 options:UIViewKeyframeAnimationOptionCalculationModePaced animations:^{
             
             [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:1.0 animations:^{
                 

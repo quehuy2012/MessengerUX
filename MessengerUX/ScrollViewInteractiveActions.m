@@ -16,6 +16,7 @@
 @property (nonatomic) SwipeInterativeObject * actionBouncingBottom;
 
 @property (nonatomic, weak) UIViewController * viewController;
+@property (nonatomic, weak) UIScrollView * scrollView;
 @property (nonatomic) BOOL mInteractionInProgress;
 
 @property (nonatomic) BouncingState currentBouncingState;
@@ -23,10 +24,11 @@
 
 @property (nonatomic) BOOL canBouncing;
 @property (nonatomic) BOOL scrollViewDecelerating;
-@property (nonatomic) CGFloat currentBouncingAmong;
 @property (nonatomic) CGFloat fullHeightForProcess;
-@property (nonatomic) CGFloat lastYOffset;
 @property (nonatomic) NSUInteger bouncingThreadhold;
+
+@property (nonatomic) CGFloat beforeScrollTableViewOffset;
+@property (nonatomic) CGFloat currentPanAmount;
 
 @end
 
@@ -36,22 +38,30 @@
     self = [super init];
     if (self) {
         self.viewController = nil;
-        self.currentBouncingState = BouncingStateNone;
+        self.scrollView = nil;
+        self.canBouncing = NO;
+        self.currentPanAmount = 0;
+        self.bouncingThreadhold = 300;
         self.mInteractionInProgress = NO;
         self.scrollViewDecelerating = NO;
-        self.canBouncing = NO;
-        self.bouncingThreadhold = 300;
-        self.currentBouncingAmong = 0;
-        self.lastYOffset = 0;
+        self.interactiveWhenDecelerating = YES;
+        self.beforeScrollTableViewOffset = 0;
+        self.currentBouncingState = BouncingStateNone;
     }
     return self;
 }
 
-- (instancetype)initForViewController:(UIViewController *)controller {
+- (instancetype)initForViewController:(UIViewController *)controller andScrollView:(UIScrollView *)scrollView {
     self = [self init];
     if (self) {
         self.viewController = controller;
+        self.scrollView = scrollView;
         self.fullHeightForProcess = controller.view.frame.size.height;
+        
+        [self.scrollView.panGestureRecognizer addTarget:self action:@selector(panGestureCallback:)];
+        [self.scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+        self.scrollView.delegate = self;
+        self.scrollView.decelerationRate = 1.2;
     }
     return self;
 }
@@ -67,7 +77,7 @@
 }
 
 - (void)startBouncingAction:(SwipeInterativeObject *)action {
-    if (action) {
+    if (action && !self.mInteractionInProgress) {
         self.mInteractionInProgress = YES;
         [action excuteAction];
     }
@@ -80,6 +90,11 @@
 }
 
 - (void)endInteractiveWithSuccess:(BOOL)success {
+    
+    if (!self.mInteractionInProgress) {
+        return;
+    }
+    
     if (success) {
         [self finishInteractiveTransition];
     } else {
@@ -89,20 +104,67 @@
     self.mInteractionInProgress = NO;
     self.scrollViewDecelerating = NO;
     self.canBouncing = NO;
-    self.currentBouncingAmong = 0;
-    self.lastYOffset = 0;
 }
 
 - (BOOL)interactionInProgress {
     return self.mInteractionInProgress;
 }
 
+#pragma mark - UIPanGestureCallBack
+
+- (void)panGestureCallback:(UIPanGestureRecognizer *)gesture {
+    CGPoint velocityPoint = [gesture velocityInView:self.viewController.view];
+    CGPoint translationPoint = [gesture translationInView:self.viewController.view];
+    
+    if (fabs(velocityPoint.y) > fabs(velocityPoint.x)) {
+        // User swipe along vertical axis
+        if (velocityPoint.y > 0) {
+            // User swipe to down
+            self.currentScrollDirection = ScrollDrirectionDown;
+        } else {
+            // User swipe to up
+            self.currentScrollDirection = ScrollDrirectionUp;
+        }
+    }
+    self.currentPanAmount = translationPoint.y;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([@"contentOffset" compare:keyPath] == NSOrderedSame && self.interactiveWhenDecelerating) {
+
+        UIScrollView * scrollView = object;
+        
+        BOOL bouncingTop = scrollView.contentOffset.y < 0;
+        BOOL bouncingBottom = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height) > 0;
+        
+        if (bouncingTop && !self.mInteractionInProgress) {
+            self.currentBouncingState = BouncingStateTop;
+            [self startBouncingAction:self.actionBouncingTop];
+        } else if (bouncingBottom && !self.mInteractionInProgress) {
+            self.currentBouncingState = BouncingStateBottom;
+            [self startBouncingAction:self.actionBouncingBottom];
+        }
+        
+        CGFloat process = 0;
+        
+        if (bouncingTop) {
+            process = -scrollView.contentOffset.y / self.bouncingThreadhold;
+            [self updateInteractiveTransition:process];
+            
+        } else if (bouncingBottom) {
+            process = (scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height)) / self.bouncingThreadhold;
+            [self updateInteractiveTransition:process];
+        }
+    }
+}
+
 #pragma mark - UIScrollViewDelegate
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.beforeScrollTableViewOffset = scrollView.contentOffset.y;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat currentYOffset = scrollView.contentOffset.y;
-    
     switch (scrollView.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             [self checkCurrentStateOfScrollView:scrollView];
@@ -122,82 +184,45 @@
         default:
             break;
     }
-    self.lastYOffset = currentYOffset;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     
+    
+    
+    NSLog(@"vel %f tar %f rate %f cur %f", velocity.y, targetContentOffset->y, scrollView.decelerationRate, scrollView.contentOffset.y);
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (decelerate) {
-        
-    } else {
-        [self checkEndStateOffsetChangedOfScrollView:scrollView];
-    }
+    [self checkEndStateOffsetChangedOfScrollView:scrollView];
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     // Case: when user is not boucing, they release thier finger then scroll view scroll to top with bouncing
     // We need to do a hack to detect change of scroll view offset
-//    NSLog(@"start decel %f", scrollView.contentOffset.y);
-//    self.scrollViewDecelerating = YES;
-//    [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    self.scrollViewDecelerating = YES;
+    [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     // Scroll view completely stop!
-//    NSLog(@"end decel %f", scrollView.contentOffset.y);
-//    self.lastYOffset = scrollView.contentOffset.y;
-//    [scrollView removeObserver:self forKeyPath:@"contentOffset"];
-//    [self checkEndStateOffsetChangedOfScrollView:scrollView];
-//    self.scrollViewDecelerating = NO;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([@"contentOffset" compare:keyPath] == NSOrderedSame) {
-        UIScrollView * scrollView = object;
-        
-        BOOL bouncingTop = scrollView.contentOffset.y < 0;
-        BOOL bouncingBottom = scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.bounds.size.height);
-        if (bouncingTop) {
-            self.currentBouncingAmong = scrollView.contentOffset.y;
-            if (!self.mInteractionInProgress) {
-                // On scroll view offset changing and we just want to check state, not start action
-                [self startBouncingAction:self.actionBouncingTop];
-            }
-        } else if (bouncingBottom){
-            self.currentBouncingAmong = scrollView.contentOffset.y;
-            if (!self.mInteractionInProgress) {
-                // On scroll view offset changing and we just want to check state, not start action
-                [self startBouncingAction:self.actionBouncingTop];
-            }
-        }
-        
-        if (bouncingTop || bouncingBottom) {
-            self.canBouncing = fabs(self.currentBouncingAmong) >= self.bouncingThreadhold;
-            CGFloat process = fabs(self.currentBouncingAmong) / self.fullHeightForProcess;
-            [self updateInteractiveTransition:process];
-        }
-    }
+    [scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    [self checkEndStateOffsetChangedOfScrollView:scrollView];
+    self.scrollViewDecelerating = NO;
 }
 
 #pragma mark - State change checker
 
 - (void)checkCurrentStateOfScrollView:(UIScrollView *)scrollView {
+    BOOL bouncingTop = self.beforeScrollTableViewOffset - self.currentPanAmount < 0;
+    BOOL bouncingBottom = self.beforeScrollTableViewOffset + (-self.currentPanAmount) > (scrollView.contentSize.height - scrollView.bounds.size.height);
     
-    if (scrollView.contentOffset.y - self.lastYOffset == 0) {
-        self.currentScrollDirection = ScrollDrirectionStill;
-    } else if (scrollView.contentOffset.y - self.lastYOffset < 0) {
-        self.currentScrollDirection = ScrollDrirectionUp;
-    } else if (scrollView.contentOffset.y - self.lastYOffset > 0){
-        self.currentScrollDirection = ScrollDrirectionDown;
+    if (self.currentBouncingState != BouncingStateNone) {
+        CGFloat amountTop = self.beforeScrollTableViewOffset - self.currentPanAmount;
+        CGFloat amountBottom = self.beforeScrollTableViewOffset + (-self.currentPanAmount) - (scrollView.contentSize.height - scrollView.bounds.size.height);
+        bouncingTop = bouncingTop || (amountTop < 0 && self.currentScrollDirection == ScrollDrirectionDown);
+        bouncingBottom = bouncingBottom || (amountBottom > 0 && self.currentScrollDirection == ScrollDrirectionUp);
     }
-    
-    BOOL bouncingTop = scrollView.contentOffset.y < 0
-                        || (self.currentBouncingAmong < 0 && self.currentScrollDirection == ScrollDrirectionDown);
-    BOOL bouncingBottom = scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.bounds.size.height)
-                        || (self.currentBouncingAmong > 0 && self.currentScrollDirection == ScrollDrirectionUp);
     
     if (bouncingTop) {
         self.currentBouncingState = BouncingStateTop;
@@ -217,23 +242,18 @@
 }
 
 - (void)checkOffsetChangeAndActionScrollView:(UIScrollView *)scrollView {
-    
     if (self.currentBouncingState != BouncingStateNone
         && self.mInteractionInProgress /* Interactive action started */) {
         
         // Prevent from boucing for interactive action
         if (self.currentBouncingState == BouncingStateTop) {
-            self.currentBouncingAmong += scrollView.contentOffset.y;
             [scrollView setContentOffset:CGPointMake(0, 0)];
         } else if (self.currentBouncingState == BouncingStateBottom){
-            CGFloat val = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height);
-            self.currentBouncingAmong += val;
             [scrollView setContentOffset:CGPointMake(0, scrollView.contentSize.height - scrollView.bounds.size.height)];
         }
         
-        self.canBouncing = fabs(self.currentBouncingAmong) >= self.bouncingThreadhold;
-        
-        CGFloat process = fabs(self.currentBouncingAmong) / self.fullHeightForProcess;
+        self.canBouncing = fabs(self.currentPanAmount) >= self.bouncingThreadhold;
+        CGFloat process = fabs(self.currentPanAmount) / self.fullHeightForProcess;
         [self updateInteractiveTransition:process];
     }
 }
