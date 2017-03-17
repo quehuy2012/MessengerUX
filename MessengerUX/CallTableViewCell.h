@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <NICellFactory.h>
 
-@interface CallCell : UITableViewCell  <NICell>
+@interface CallTableViewCell : UITableViewCell  <NICell>
 
 @property (weak, nonatomic) IBOutlet UIImageView *thumbView;
 

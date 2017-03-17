@@ -8,7 +8,7 @@
 
 #import <NICellFactory.h>
 
-@interface Call : NICellObject
+@interface CallCellObject : NICellObject
 
 @property (strong, nonatomic) UIImage *image;
 

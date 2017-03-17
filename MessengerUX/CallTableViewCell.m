@@ -6,13 +6,13 @@
 //  Copyright © 2017 CPU11815. All rights reserved.
 //
 
-#import "CallCell.h"
-#import "Call.h"
+#import "CallCellObject.h"
+#import "CallTableViewCell.h"
 
-@implementation CallCell
+@implementation CallTableViewCell
 
 - (BOOL)shouldUpdateCellWithObject:(id)object {
-    Call *call = (Call *)object;
+    CallCellObject *call = (CallCellObject *)object;
     self.thumbView.image = call.image;
     self.name.text = call.name;
     self.profileID.text = call.profileID;

@@ -21,8 +21,8 @@
 		8A6B9E161E764014002ACB87 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E151E764014002ACB87 /* Camera.storyboard */; };
 		8A6B9E201E77D01F002ACB87 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E1F1E77D01F002ACB87 /* Group.m */; };
 		8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E221E77D04D002ACB87 /* GroupCell.m */; };
-		8A6B9E291E77F976002ACB87 /* Call.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E281E77F976002ACB87 /* Call.m */; };
-		8A6B9E2C1E77FA87002ACB87 /* CallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E2B1E77FA87002ACB87 /* CallCell.m */; };
+		8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E281E77F976002ACB87 /* CallCellObject.m */; };
+		8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */; };
 		A5AC0AEDDCBBD73C2D46C03C /* libPods-MessengerUX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */; };
 		DCE27C0DFB81BE4E6296B6AD /* libPods-MessengerUXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */; };
 		F20C828D1E6D0B9B006D3594 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C828C1E6D0B9B006D3594 /* main.m */; };
@@ -89,10 +89,10 @@
 		8A6B9E1F1E77D01F002ACB87 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		8A6B9E211E77D04D002ACB87 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
 		8A6B9E221E77D04D002ACB87 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
-		8A6B9E271E77F976002ACB87 /* Call.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Call.h; sourceTree = "<group>"; };
-		8A6B9E281E77F976002ACB87 /* Call.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Call.m; sourceTree = "<group>"; };
-		8A6B9E2A1E77FA87002ACB87 /* CallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallCell.h; sourceTree = "<group>"; };
-		8A6B9E2B1E77FA87002ACB87 /* CallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallCell.m; sourceTree = "<group>"; };
+		8A6B9E271E77F976002ACB87 /* CallCellObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallCellObject.h; sourceTree = "<group>"; };
+		8A6B9E281E77F976002ACB87 /* CallCellObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallCellObject.m; sourceTree = "<group>"; };
+		8A6B9E2A1E77FA87002ACB87 /* CallTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallTableViewCell.h; sourceTree = "<group>"; };
+		8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallTableViewCell.m; sourceTree = "<group>"; };
 		A187AEB0D64309D2C2012FA0 /* Pods-MessengerUXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXTests/Pods-MessengerUXTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,10 +256,10 @@
 		8A6B9E261E77F946002ACB87 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				8A6B9E271E77F976002ACB87 /* Call.h */,
-				8A6B9E281E77F976002ACB87 /* Call.m */,
-				8A6B9E2A1E77FA87002ACB87 /* CallCell.h */,
-				8A6B9E2B1E77FA87002ACB87 /* CallCell.m */,
+				8A6B9E271E77F976002ACB87 /* CallCellObject.h */,
+				8A6B9E281E77F976002ACB87 /* CallCellObject.m */,
+				8A6B9E2A1E77FA87002ACB87 /* CallTableViewCell.h */,
+				8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -723,7 +723,7 @@
 				8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
-				8A6B9E2C1E77FA87002ACB87 /* CallCell.m in Sources */,
+				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
 				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
@@ -735,7 +735,7 @@
 				8A6B9E141E763FE8002ACB87 /* CameraViewController.m in Sources */,
 				8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */,
 				F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */,
-				8A6B9E291E77F976002ACB87 /* Call.m in Sources */,
+				8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */,
 				F2134EDE1E7932E3005F8B10 /* ScrollTransitionAnimator.m in Sources */,
 				8A6B9E091E763EBB002ACB87 /* GroupViewController.m in Sources */,
 				F2134EE71E7932F4005F8B10 /* SwipeInterativeObject.m in Sources */,

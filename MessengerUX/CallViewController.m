@@ -10,7 +10,7 @@
 #import <NITableViewModel.h>
 #import <NITableViewActions.h>
 #import <NICellFactory.h>
-#import "Call.h"
+#import "CallCellObject.h"
 
 const int CallCellHeiht = 56;
 
@@ -57,7 +57,7 @@ const int CallCellHeiht = 56;
         NSString *name = [NSString stringWithFormat:@"Person %c", c];
         NSString *profileID = [NSString stringWithFormat:@"@person_%c", c];
         
-        [arr addObject:[[Call alloc] initWithImage:image name:name profileID:profileID]];
+        [arr addObject:[[CallCellObject alloc] initWithImage:image name:name profileID:profileID]];
     }
     
     self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];

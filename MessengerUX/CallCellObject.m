@@ -6,10 +6,10 @@
 //  Copyright © 2017 CPU11815. All rights reserved.
 //
 
-#import "Call.h"
-#import "CallCell.h"
+#import "CallCellObject.h"
+#import "CallTableViewCell.h"
 
-@implementation Call
+@implementation CallCellObject
 
 - (instancetype)initWithImage:(UIImage *)image {
     if (self = [super init]) {
@@ -27,7 +27,7 @@
 }
 
 - (Class)cellClass {
-    return [CallCell class];
+    return [CallTableViewCell class];
 }
 
 @end
