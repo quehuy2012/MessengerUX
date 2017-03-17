@@ -13,10 +13,7 @@
 
 @interface SwipeInterativeObject () <UIViewControllerTransitioningDelegate>
 
-@property (nonatomic) BOOL isDismiss;
-@property (nonatomic) id<UIViewControllerAnimatedTransitioning> animator;
-@property (nonatomic) UIViewController * presentViewController;
-@property (nonatomic, weak) UIViewController * viewController;
+
 
 @end
 
@@ -35,7 +32,7 @@
 
 - (instancetype)initPresentViewController:(UIViewController *)presentViewController
                        fromViewController:(UIViewController *)viewController
-                            withAnimation:(TransitionAnimator *)animator {
+                            withAnimation:(id<UIViewControllerAnimatedTransitioning, InteractiveAnimation>)animator {
     self = [self init];
     if (self) {
         self.isDismiss = NO;
@@ -47,7 +44,7 @@
 }
 
 - (instancetype)initDismisViewController:(UIViewController *)dismissViewController
-                           withAnimation:(TransitionAnimator *)animator {
+                           withAnimation:(id<UIViewControllerAnimatedTransitioning, InteractiveAnimation>)animator {
     self = [self init];
     if (self) {
         self.isDismiss = YES;
@@ -57,7 +54,7 @@
     return self;
 }
 
-- (void)excuteAction {
+- (BOOL)excuteAction {
     if (self.isDismiss) {
         if (self.viewController) {
             self.viewController.transitioningDelegate = self;
@@ -66,9 +63,15 @@
     } else {
         if (self.viewController && self.presentViewController) {
             self.presentViewController.transitioningDelegate = self;
-            [self.viewController presentViewController:self.presentViewController animated:YES completion:nil];
+            if ([self.viewController presentingViewController] == self.presentViewController) {
+                return NO;
+            } else {
+                [self.viewController presentViewController:self.presentViewController animated:YES completion:nil];
+                return YES;
+            }
         }
     }
+    return YES;
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate

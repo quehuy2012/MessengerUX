@@ -9,6 +9,7 @@
 #import "ScrollViewInteractiveActions.h"
 #import "SwipeInterativeObject.h"
 #import "SwipeInteractiveActions.h"
+#import "InteractiveAnimation.h"
 
 @interface ScrollViewInteractiveActions ()
 
@@ -24,11 +25,14 @@
 
 @property (nonatomic) BOOL canBouncing;
 @property (nonatomic) BOOL scrollViewDecelerating;
+@property (nonatomic) NSInteger scrollingWithHighSpeed; // 0: slow speed, 1: to top, 2: to bottom
 @property (nonatomic) CGFloat fullHeightForProcess;
 @property (nonatomic) NSUInteger bouncingThreadhold;
+@property (nonatomic) NSUInteger scrollSpeedThreadhold;
 
 @property (nonatomic) CGFloat beforeScrollTableViewOffset;
 @property (nonatomic) CGFloat currentPanAmount;
+@property (nonatomic) CGFloat lastDeleceratingOffset;
 
 @end
 
@@ -42,6 +46,7 @@
         self.canBouncing = NO;
         self.currentPanAmount = 0;
         self.bouncingThreadhold = 300;
+        self.scrollSpeedThreadhold = 1000;
         self.mInteractionInProgress = NO;
         self.scrollViewDecelerating = NO;
         self.interactiveWhenDecelerating = YES;
@@ -61,7 +66,7 @@
         [self.scrollView.panGestureRecognizer addTarget:self action:@selector(panGestureCallback:)];
         [self.scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
         self.scrollView.delegate = self;
-        self.scrollView.decelerationRate = 1.2;
+        self.scrollView.decelerationRate = 0.7;
     }
     return self;
 }
@@ -116,6 +121,15 @@
     CGPoint velocityPoint = [gesture velocityInView:self.viewController.view];
     CGPoint translationPoint = [gesture translationInView:self.viewController.view];
     
+    // For detect scrolling speed
+    if (velocityPoint.y > self.scrollingWithHighSpeed) {
+        // To top
+        self.scrollingWithHighSpeed = 1;
+    } else if (-velocityPoint.y > self.scrollingWithHighSpeed) {
+        // To bottom
+        self.scrollingWithHighSpeed = 2;
+    }
+    
     if (fabs(velocityPoint.y) > fabs(velocityPoint.x)) {
         // User swipe along vertical axis
         if (velocityPoint.y > 0) {
@@ -132,7 +146,23 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([@"contentOffset" compare:keyPath] == NSOrderedSame && self.interactiveWhenDecelerating) {
 
+        // Decelerating is very different from scrolling events, so we need to handle it by hand
+        
         UIScrollView * scrollView = object;
+        
+        CGFloat delta = 0;
+        BOOL isIncreasing = YES;
+        if (self.currentBouncingState == BouncingStateNone) {
+            self.lastDeleceratingOffset = scrollView.contentOffset.y;
+        } else {
+            delta = scrollView.contentOffset.y - self.lastDeleceratingOffset;
+            self.lastDeleceratingOffset = scrollView.contentOffset.y;
+            if (self.currentBouncingState == BouncingStateTop) {
+                isIncreasing = delta > 0;
+            } else if (self.currentBouncingState == BouncingStateBottom) {
+                isIncreasing = delta < 0;
+            }
+        }
         
         BOOL bouncingTop = scrollView.contentOffset.y < 0;
         BOOL bouncingBottom = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height) > 0;
@@ -146,14 +176,21 @@
         }
         
         CGFloat process = 0;
-        
         if (bouncingTop) {
             process = -scrollView.contentOffset.y / self.bouncingThreadhold;
-            [self updateInteractiveTransition:process];
-            
+            [self updateInteractiveTransition:process*0.8];
         } else if (bouncingBottom) {
             process = (scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height)) / self.bouncingThreadhold;
-            [self updateInteractiveTransition:process];
+            [self updateInteractiveTransition:process*0.8];
+        }
+        
+        // If the decelerating reach it max process, we need to cancel interactive transition
+        // This is nececcery for user when they want to interact with the scrollview during it is decelerating
+        if (!isIncreasing) {
+            [scrollView removeObserver:self forKeyPath:@"contentOffset"];
+            if (self.mInteractionInProgress) {
+                [self endInteractiveWithSuccess:NO];
+            }
         }
     }
 }
@@ -187,10 +224,7 @@
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    
-    
-    
-    NSLog(@"vel %f tar %f rate %f cur %f", velocity.y, targetContentOffset->y, scrollView.decelerationRate, scrollView.contentOffset.y);
+//    NSLog(@"vel %f tar %f rate %f cur %f", velocity.y, targetContentOffset->y, scrollView.decelerationRate, scrollView.contentOffset.y);
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -206,8 +240,6 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     // Scroll view completely stop!
-    [scrollView removeObserver:self forKeyPath:@"contentOffset"];
-    [self checkEndStateOffsetChangedOfScrollView:scrollView];
     self.scrollViewDecelerating = NO;
 }
 
@@ -252,8 +284,32 @@
             [scrollView setContentOffset:CGPointMake(0, scrollView.contentSize.height - scrollView.bounds.size.height)];
         }
         
-        self.canBouncing = fabs(self.currentPanAmount) >= self.bouncingThreadhold;
-        CGFloat process = fabs(self.currentPanAmount) / self.fullHeightForProcess;
+        // Calculate process amount, if user started scrolling with BouncingStateNone to Bouncing state
+        // We need to calculate delta bounce among for process
+        CGFloat bouncingAmount = 0;
+        if (self.currentBouncingState == BouncingStateTop) {
+            bouncingAmount = self.currentPanAmount - self.beforeScrollTableViewOffset;
+        } else if (self.currentBouncingState == BouncingStateBottom) {
+            CGFloat bottomDistance = (scrollView.contentSize.height - scrollView.bounds.size.height) - self.beforeScrollTableViewOffset;
+            bouncingAmount = -self.currentPanAmount - bottomDistance;
+        }
+        
+        self.canBouncing = fabs(bouncingAmount) >= self.bouncingThreadhold;
+        
+        if (self.currentBouncingState == BouncingStateTop) {
+            
+            // When user is nearly top, they scroll quickly to bottom, this case is needed for start translation too
+            BOOL scrollHighSpeedToTop = self.scrollingWithHighSpeed == 1 && self.beforeScrollTableViewOffset < 100;
+            self.canBouncing = self.canBouncing || scrollHighSpeedToTop;
+            
+        } else if (self.currentBouncingState == BouncingStateBottom) {
+            
+            // When user is nearly bottom, they scroll quickly to top, this case is needed for start translation too
+            CGFloat bottomDistance = (scrollView.contentSize.height - scrollView.bounds.size.height) - self.beforeScrollTableViewOffset;
+            self.canBouncing = self.canBouncing || (self.scrollingWithHighSpeed == 2 && bottomDistance < 100);
+        }
+        
+        CGFloat process = fabs(bouncingAmount) / self.fullHeightForProcess;
         [self updateInteractiveTransition:process];
     }
 }

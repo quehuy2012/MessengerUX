@@ -25,7 +25,8 @@
         __weak typeof(self) weakSelf = self;
         [self addTarget:weakSelf action:@selector(callSelfAction)];
         self.attactView = view;
-        self.swipeThreadhold = 220;
+        self.swipeThreadhold = 180;
+        self.swipeVelocityThreadhold = 1000;
     }
     return self;
 }
@@ -68,23 +69,23 @@
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            BOOL canMove = NO;
             
+            BOOL canMove = NO;
             switch (self.navigationState) {
                 case NavigationStateToDown: {
-                    canMove = translationPoint.y > self.swipeThreadhold;
+                    canMove = translationPoint.y > self.swipeThreadhold || velocityPoint.y > self.swipeVelocityThreadhold;
                     break;
                 }
                 case NavigationStateToUp: {
-                    canMove = translationPoint.y < -self.swipeThreadhold;
+                    canMove = translationPoint.y < -self.swipeThreadhold || velocityPoint.y < -self.swipeVelocityThreadhold;
                     break;
                 }
                 case NavigationStateToRight: {
-                    canMove = translationPoint.x > self.swipeThreadhold;
+                    canMove = translationPoint.x > self.swipeThreadhold || velocityPoint.x > self.swipeVelocityThreadhold;
                     break;
                 }
                 case NavigationStateToLeft: {
-                    canMove = translationPoint.x < -self.swipeThreadhold;
+                    canMove = translationPoint.x < -self.swipeThreadhold || velocityPoint.x < -self.swipeVelocityThreadhold;
                     break;
                 }
                 default:

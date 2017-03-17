@@ -10,6 +10,9 @@
 
 @interface TransitionAnimator ()
 
+@property (nonatomic) CGFloat quickActionDuration;
+@property (nonatomic) CGFloat normalActionDuration;
+
 @end
 
 @implementation TransitionAnimator
@@ -26,7 +29,9 @@
     if (self) {
         self.animateOption = AnimateOptionToDown;
         self.presentingOption = PresentingOptionWillHide;
-        self.duration = 0.3;
+        self.quickActionDuration = 0.1;
+        self.normalActionDuration = 0.5;
+        self.duration = self.normalActionDuration;
     }
     return self;
 }
@@ -59,7 +64,14 @@
         [self arrangeToVC:toVC andSnapShot:finalScreenSnapshot inContainer:containerView];
         
         NSTimeInterval duration = [self transitionDuration:transitionContext];
-        [UIView animateKeyframesWithDuration:duration delay:0 options:UIViewKeyframeAnimationOptionCalculationModePaced animations:^{
+        
+        NSUInteger animOption = UIViewKeyframeAnimationOptionAllowUserInteraction;
+        
+        if ([transitionContext isInteractive]) {
+            animOption = animOption | UIViewKeyframeAnimationOptionCalculationModeLinear;
+        }
+        
+        [UIView animateKeyframesWithDuration:duration delay:0 options:animOption animations:^{
             
             [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:1.0 animations:^{
                 
@@ -120,6 +132,16 @@
             snapshot.hidden = YES;
             break;
         }
+    }
+}
+
+#pragma mark - InteractiveAnimation
+
+- (void)setupForQuickAnimation:(BOOL)flag {
+    if (flag) {
+        self.duration = self.quickActionDuration;
+    } else {
+        self.duration = self.normalActionDuration;
     }
 }
 

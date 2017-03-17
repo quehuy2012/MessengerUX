@@ -156,7 +156,7 @@
         }
     }
     
-    [self updateInteractiveTransition:progress];
+    [self updateInteractiveTransition:progress*0.9];
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(swipeInteractiveActions:transferingAction:withProcess:)]) {
         [self.delegate swipeInteractiveActions:self transferingAction:self.internalCurrentAction withProcess:progress];

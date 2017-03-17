@@ -41,6 +41,7 @@ typedef NS_ENUM(NSUInteger, NavigationDoingState) {
 @property (nonatomic, readonly) NavigationState direction;
 
 @property (nonatomic) CGFloat swipeThreadhold;
+@property (nonatomic) CGFloat swipeVelocityThreadhold;
 
 - (instancetype)initWithDelegate:(id<SwipeGestureReconizerDelegate>)delegate toView:(UIView *)view;
 

@@ -50,7 +50,7 @@
     UIImage *image = [UIImage imageNamed:@"personImage"];
     NSMutableArray *arr = [NSMutableArray new];
     
-    for (char c = 'A'; c <= 'Z'; c++) {
+    for (char c = '0'; c <= 'Z'; c++) {
         NSString *name = [NSString stringWithFormat:@"Person %c", c];
         NSString *profileID = [NSString stringWithFormat:@"@text_%c", c];
         
@@ -75,9 +75,10 @@
     [self.interactiveActions setTopBouncingAction:bottomPresentAction];
     
     
+    CameraViewController * cameraVC2 = [CameraViewController viewController];
     StackTrainsitionAnimator * cameraPresentAnimator2 = [StackTrainsitionAnimator animationWithOption:AnimateOptionToUp
                                                                                   forPresentionOption:PresentingOptionWillShow];
-    SwipeInterativeObject * bottomPresentAction2 = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator2];
+    SwipeInterativeObject * bottomPresentAction2 = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC2 fromViewController:self withAnimation:cameraPresentAnimator2];
     [self.interactiveActions setBottomBouncingAction:bottomPresentAction2];
 }
 
