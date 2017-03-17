@@ -30,7 +30,7 @@
         self.animateOption = AnimateOptionToDown;
         self.presentingOption = PresentingOptionWillHide;
         self.quickActionDuration = 0.1;
-        self.normalActionDuration = 0.5;
+        self.normalActionDuration = 0.4;
         self.duration = self.normalActionDuration;
     }
     return self;

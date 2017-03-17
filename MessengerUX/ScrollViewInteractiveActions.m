@@ -33,6 +33,7 @@
 @property (nonatomic) CGFloat beforeScrollTableViewOffset;
 @property (nonatomic) CGFloat currentPanAmount;
 @property (nonatomic) CGFloat lastDeleceratingOffset;
+@property (nonatomic) CGFloat deceleratingOffsetAmount;
 
 @end
 
@@ -45,7 +46,7 @@
         self.scrollView = nil;
         self.canBouncing = NO;
         self.currentPanAmount = 0;
-        self.bouncingThreadhold = 300;
+        self.bouncingThreadhold = 250;
         self.scrollSpeedThreadhold = 1000;
         self.mInteractionInProgress = NO;
         self.scrollViewDecelerating = NO;
@@ -149,14 +150,15 @@
         // Decelerating is very different from scrolling events, so we need to handle it by hand
         
         UIScrollView * scrollView = object;
+        self.deceleratingOffsetAmount = scrollView.contentOffset.y;
         
         CGFloat delta = 0;
         BOOL isIncreasing = YES;
         if (self.currentBouncingState == BouncingStateNone) {
-            self.lastDeleceratingOffset = scrollView.contentOffset.y;
+            self.lastDeleceratingOffset = self.deceleratingOffsetAmount;
         } else {
-            delta = scrollView.contentOffset.y - self.lastDeleceratingOffset;
-            self.lastDeleceratingOffset = scrollView.contentOffset.y;
+            delta = self.deceleratingOffsetAmount - self.lastDeleceratingOffset;
+            self.lastDeleceratingOffset = self.deceleratingOffsetAmount;
             if (self.currentBouncingState == BouncingStateTop) {
                 isIncreasing = delta > 0;
             } else if (self.currentBouncingState == BouncingStateBottom) {
@@ -164,8 +166,8 @@
             }
         }
         
-        BOOL bouncingTop = scrollView.contentOffset.y < 0;
-        BOOL bouncingBottom = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height) > 0;
+        BOOL bouncingTop = self.deceleratingOffsetAmount < 0;
+        BOOL bouncingBottom = self.deceleratingOffsetAmount - (scrollView.contentSize.height - scrollView.bounds.size.height) > 0;
         
         if (bouncingTop && !self.mInteractionInProgress) {
             self.currentBouncingState = BouncingStateTop;
@@ -177,12 +179,19 @@
         
         CGFloat process = 0;
         if (bouncingTop) {
-            process = -scrollView.contentOffset.y / self.bouncingThreadhold;
-            [self updateInteractiveTransition:process*0.8];
+            process = -self.deceleratingOffsetAmount / self.bouncingThreadhold;
+            [self updateInteractiveTransition:process];
         } else if (bouncingBottom) {
-            process = (scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height)) / self.bouncingThreadhold;
-            [self updateInteractiveTransition:process*0.8];
+            process = (self.deceleratingOffsetAmount - (scrollView.contentSize.height - scrollView.bounds.size.height)) / self.bouncingThreadhold;
+            [self updateInteractiveTransition:process];
         }
+        
+//        // Reset scrollview rect (not bounce content)
+//        if (self.currentBouncingState == BouncingStateTop) {
+//            scrollView.contentOffset = CGPointMake(0, 0);
+//        } else if (self.currentBouncingState == BouncingStateBottom) {
+//            scrollView.contentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.bounds.size.height);
+//        }
         
         // If the decelerating reach it max process, we need to cancel interactive transition
         // This is nececcery for user when they want to interact with the scrollview during it is decelerating
@@ -235,6 +244,7 @@
     // Case: when user is not boucing, they release thier finger then scroll view scroll to top with bouncing
     // We need to do a hack to detect change of scroll view offset
     self.scrollViewDecelerating = YES;
+    self.deceleratingOffsetAmount = 0;
     [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -295,18 +305,22 @@
         }
         
         self.canBouncing = fabs(bouncingAmount) >= self.bouncingThreadhold;
-        
         if (self.currentBouncingState == BouncingStateTop) {
             
             // When user is nearly top, they scroll quickly to bottom, this case is needed for start translation too
-            BOOL scrollHighSpeedToTop = self.scrollingWithHighSpeed == 1 && self.beforeScrollTableViewOffset < 100;
-            self.canBouncing = self.canBouncing || scrollHighSpeedToTop;
+//            BOOL scrollHighSpeedToTop = self.scrollingWithHighSpeed == 1 && self.beforeScrollTableViewOffset < 200;
+//            if (scrollHighSpeedToTop) {
+//                [self endInteractiveWithSuccess:YES];
+//            }
             
         } else if (self.currentBouncingState == BouncingStateBottom) {
             
             // When user is nearly bottom, they scroll quickly to top, this case is needed for start translation too
-            CGFloat bottomDistance = (scrollView.contentSize.height - scrollView.bounds.size.height) - self.beforeScrollTableViewOffset;
-            self.canBouncing = self.canBouncing || (self.scrollingWithHighSpeed == 2 && bottomDistance < 100);
+//            CGFloat bottomDistance = (scrollView.contentSize.height - scrollView.bounds.size.height) - self.beforeScrollTableViewOffset;
+//            BOOL scrollHighSpeedToBottom = self.scrollingWithHighSpeed == 2 && bottomDistance < 200;
+//            if (scrollHighSpeedToBottom) {
+//                [self endInteractiveWithSuccess:YES];
+//            }
         }
         
         CGFloat process = fabs(bouncingAmount) / self.fullHeightForProcess;

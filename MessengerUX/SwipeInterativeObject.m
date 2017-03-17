@@ -63,12 +63,7 @@
     } else {
         if (self.viewController && self.presentViewController) {
             self.presentViewController.transitioningDelegate = self;
-            if ([self.viewController presentingViewController] == self.presentViewController) {
-                return NO;
-            } else {
-                [self.viewController presentViewController:self.presentViewController animated:YES completion:nil];
-                return YES;
-            }
+            [self.viewController presentViewController:self.presentViewController animated:YES completion:nil];
         }
     }
     return YES;

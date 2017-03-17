@@ -80,6 +80,8 @@
                                                                                   forPresentionOption:PresentingOptionWillShow];
     SwipeInterativeObject * bottomPresentAction2 = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC2 fromViewController:self withAnimation:cameraPresentAnimator2];
     [self.interactiveActions setBottomBouncingAction:bottomPresentAction2];
+    
+    self.interactiveActions.interactiveWhenDecelerating = NO;
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
