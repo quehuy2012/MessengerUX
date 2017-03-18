@@ -31,6 +31,10 @@ static const int CameraButtonheight = 50;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+//    self.edgesForExtendedLayout = UIRectEdgeAll;
+//    self.extendedLayoutIncludesOpaqueBars = NO;
+    
     [self addSwipeDownToCamera];
     
     [self setupTabBarButton];
@@ -42,21 +46,11 @@ static const int CameraButtonheight = 50;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-//    self.statusBarHidden = NO;
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-//    self.statusBarHidden = YES;
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
 }
-
-//- (BOOL)prefersStatusBarHidden {
-//    return YES;
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

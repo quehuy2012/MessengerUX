@@ -88,14 +88,26 @@
 
 - (void)startBouncingAction:(SwipeInterativeObject *)action {
     if (action && !self.mInteractionInProgress) {
-        self.mInteractionInProgress = YES;
-        [action excuteAction];
+        
+        BOOL allowStart = YES;
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(scrollViewInteractiveActions:startAction:)]) {
+            allowStart = [self.delegate scrollViewInteractiveActions:self startAction:action];
+        }
+        
+        if (allowStart) {
+            self.mInteractionInProgress = YES;
+            [action excuteAction];
+        }
     }
 }
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
     if (self.mInteractionInProgress) {
         [super updateInteractiveTransition:percentComplete];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(scrollViewInteractiveActions:transferingAction:withProcess:)]) {
+            [self.delegate scrollViewInteractiveActions:self transferingAction:[self getCurrentAction] withProcess:percentComplete];
+        }
     }
 }
 
@@ -103,6 +115,10 @@
     
     if (!self.mInteractionInProgress) {
         return;
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(scrollViewInteractiveActions:endAction:success:)]) {
+        [self.delegate scrollViewInteractiveActions:self endAction:[self getCurrentAction] success:success];
     }
     
     if (success) {
@@ -114,10 +130,23 @@
     self.mInteractionInProgress = NO;
     self.scrollViewDecelerating = NO;
     self.canBouncing = NO;
+    
+    
 }
 
 - (BOOL)interactionInProgress {
     return self.mInteractionInProgress;
+}
+
+- (SwipeInterativeObject *)getCurrentAction {
+    
+    if (!self.mInteractionInProgress) {
+        return nil;
+    }
+    
+    if (self.currentBouncingState == BouncingStateTop) return self.actionBouncingTop;
+    else if (self.currentBouncingState == BouncingStateBottom) return self.actionBouncingBottom;
+    else return nil;
 }
 
 #pragma mark - UIPanGestureCallBack
@@ -321,10 +350,10 @@
     CGFloat process = 0;
     if (bouncingTop) {
         process = -self.deceleratingOffsetAmount / self.bouncingThreadhold;
-        [self updateInteractiveTransition:process];
+        [self updateInteractiveTransition:process*0.8];
     } else if (bouncingBottom) {
         process = (self.deceleratingOffsetAmount - (scrollView.contentSize.height - scrollView.bounds.size.height)) / self.bouncingThreadhold;
-        [self updateInteractiveTransition:process];
+        [self updateInteractiveTransition:process*0.8];
     }
     
     //        // Reset scrollview rect (not bounce content)

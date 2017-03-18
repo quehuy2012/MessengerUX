@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TransitionAnimator.h"
+#import "SwipeInteractiveActions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,9 +27,23 @@ typedef NS_ENUM(NSUInteger, ScrollDrirection) {
     ScrollDrirectionDown
 };
 
+@class ScrollViewInteractiveActions;
+
+@protocol ScrollViewInteractiveActionsDelegate <NSObject>
+
+- (BOOL)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions startAction:(SwipeInterativeObject *)action;
+
+- (void)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions transferingAction:(SwipeInterativeObject *)action withProcess:(CGFloat)process;
+
+- (void)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions endAction:(SwipeInterativeObject *)action success:(BOOL)success;
+
+@end
+
 @interface ScrollViewInteractiveActions : UIPercentDrivenInteractiveTransition <SwipeInteractiveActionProgress, UIScrollViewDelegate>
 
 @property (nonatomic) BOOL interactiveWhenDecelerating;
+@property (nonatomic, weak) id<ScrollViewInteractiveActionsDelegate> delegate;
+
 
 - (instancetype)initForViewController:(UIViewController *)controller andScrollView:(UIScrollView *)scrollView;
 

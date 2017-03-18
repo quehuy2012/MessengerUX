@@ -14,7 +14,7 @@
 #import "InterativeTranslation.h"
 #import "CameraViewController.h"
 
-@interface HomeViewController () <UITableViewDelegate>
+@interface HomeViewController () <UITableViewDelegate, ScrollViewInteractiveActionsDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -41,9 +41,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     [self initTableView];
     
     [self initTableViewInteractiveAction];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
 
 - (void)initTableView {
@@ -82,10 +90,28 @@
     [self.interactiveActions setBottomBouncingAction:bottomPresentAction2];
     
     self.interactiveActions.interactiveWhenDecelerating = YES;
+    
+    self.interactiveActions.delegate = self;
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [self.interactiveActions scrollViewDidScroll:scrollView];
-//}
+#pragma mark - ScrollViewInteractiveActionsDelegate
+
+- (BOOL)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions startAction:(SwipeInterativeObject *)action {
+    return YES;
+}
+
+- (void)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions transferingAction:(SwipeInterativeObject *)action withProcess:(CGFloat)process {
+    
+    if (process > 0.3) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    } else if ([UIApplication sharedApplication].isStatusBarHidden){
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+    }
+    
+}
+
+- (void)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions endAction:(SwipeInterativeObject *)action success:(BOOL)success {
+    
+}
 
 @end
