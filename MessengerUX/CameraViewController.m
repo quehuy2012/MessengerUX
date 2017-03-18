@@ -11,6 +11,8 @@
 #import "DrawViewController.h"
 #import "InterativeTranslation.h"
 
+#import "UIView+AutoLayout.h"
+
 @interface CameraViewController ()
 
 @property (nonatomic) SwipeInteractiveActions * swipeActions;
@@ -29,9 +31,13 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
     
-    UILabel * tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 60, 100, 30)];
-    tempLabel.text = @"abc";
-    [self.view addSubview:tempLabel];
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cameraThumb"]];
+    [self.view addSubview:imageView];
+    
+    [imageView atLeadingWith:self.view value:0];
+    [imageView atTrailingWith:self.view value:0];
+    [imageView atTopingWith:self.view value:0];
+    [imageView atBottomingWith:self.view value:0];
     
     [self addSwipeNavigation];
 }

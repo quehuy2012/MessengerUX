@@ -34,6 +34,7 @@
 - (void)initView {
     self.navigationItem.title = self.tabBarItem.title;
     self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 @end

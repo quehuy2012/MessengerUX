@@ -22,6 +22,8 @@ static const int CameraButtonheight = 50;
 
 @property (nonatomic) SwipeInteractiveActions * swipeActions;
 
+@property (nonatomic) BOOL statusBarHidden;
+
 @end
 
 @implementation CustomTabBarViewController
@@ -37,6 +39,24 @@ static const int CameraButtonheight = 50;
     
     self.delegate = self;
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+//    self.statusBarHidden = NO;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+//    self.statusBarHidden = YES;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+}
+
+//- (BOOL)prefersStatusBarHidden {
+//    return YES;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -59,16 +79,21 @@ static const int CameraButtonheight = 50;
 - (void)setupTabBarButton {
     
     BaseTabViewController *homeVC = [HomeViewController viewControllerWithName:@"Home"];
+    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
     
     BaseTabViewController *callVC = [CallViewController viewControllerWithName:@"Calls"];
+    UINavigationController *callNav = [[UINavigationController alloc] initWithRootViewController:callVC];
     
     BaseTabViewController *cameraVC = [CallViewController viewControllerWithName:@""];
+    UINavigationController *cameraNav = [[UINavigationController alloc] initWithRootViewController:cameraVC];
     
     BaseTabViewController *groupVC = [GroupViewController viewControllerWithName:@"Groups"];
+    UINavigationController *groupNav = [[UINavigationController alloc] initWithRootViewController:groupVC];
     
     BaseTabViewController *peopleVC = [PeopleViewController viewControllerWithName:@"People"];
+    UINavigationController *peopleNav = [[UINavigationController alloc] initWithRootViewController:peopleVC];
     
-    self.viewControllers = @[homeVC, callVC, cameraVC, groupVC, peopleVC];
+    self.viewControllers = @[homeNav, callNav, cameraNav, groupNav, peopleNav];
 }
 
 - (void)setupCameraButton {

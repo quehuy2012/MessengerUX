@@ -9,6 +9,8 @@
 #import "DrawViewController.h"
 #import "InterativeTranslation.h"
 
+#import "UIView+AutoLayout.h"
+
 @interface DrawViewController ()
 
 @property (nonatomic) SwipeInteractiveActions * swipeActions;
@@ -26,6 +28,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor purpleColor];
+    
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drawThumb"]];
+    [self.view addSubview:imageView];
+    
+    [imageView atLeadingWith:self.view value:0];
+    [imageView atTrailingWith:self.view value:0];
+    [imageView atTopingWith:self.view value:0];
+    [imageView atBottomingWith:self.view value:0];
     
     [self addSwipeNavigation];
 }
