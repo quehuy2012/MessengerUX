@@ -107,7 +107,6 @@
     } else if ([UIApplication sharedApplication].isStatusBarHidden){
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
     }
-    
 }
 
 - (void)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions endAction:(SwipeInterativeObject *)action success:(BOOL)success {

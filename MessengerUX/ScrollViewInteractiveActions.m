@@ -35,10 +35,6 @@
 @property (nonatomic) CGFloat lastDeleceratingOffset;
 @property (nonatomic) CGFloat deceleratingOffsetAmount;
 
-@property (nonatomic) UIEdgeInsets originalContentInsets;
-
-@property (nonatomic) NSTimeInterval lastTime;
-
 @end
 
 @implementation ScrollViewInteractiveActions
@@ -67,11 +63,10 @@
         self.viewController = controller;
         self.scrollView = scrollView;
         self.fullHeightForProcess = controller.view.frame.size.height;
-        self.originalContentInsets = scrollView.contentInset;
         
         [self.scrollView.panGestureRecognizer addTarget:self action:@selector(panGestureCallback:)];
         self.scrollView.delegate = self;
-        self.scrollView.decelerationRate = 0.7;
+        self.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
     }
     return self;
 }
@@ -130,8 +125,6 @@
     self.mInteractionInProgress = NO;
     self.scrollViewDecelerating = NO;
     self.canBouncing = NO;
-    
-    
 }
 
 - (BOOL)interactionInProgress {
@@ -159,9 +152,17 @@
     if (velocityPoint.y > self.scrollingWithHighSpeed) {
         // To top
         self.scrollingWithHighSpeed = 1;
+//        if (self.beforeScrollTableViewOffset < self.bouncingThreadhold) {
+        
+//        }
     } else if (-velocityPoint.y > self.scrollingWithHighSpeed) {
         // To bottom
         self.scrollingWithHighSpeed = 2;
+//        if (self.beforeScrollTableViewOffset > (self.scrollView.contentSize.height - self.bouncingThreadhold)) {
+        
+//        }
+    } else {
+        self.scrollingWithHighSpeed = 0;
     }
     
     if (fabs(velocityPoint.y) > fabs(velocityPoint.x)) {
@@ -224,7 +225,6 @@
     // We need to do a hack to detect change of scroll view offset
     self.scrollViewDecelerating = YES;
     self.deceleratingOffsetAmount = 0;
-    self.lastTime = [NSDate timeIntervalSinceReferenceDate];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -260,7 +260,6 @@
         }
     } else {
         self.currentBouncingState = BouncingStateNone;
-        self.scrollView.contentInset = self.originalContentInsets;
     }
 }
 
