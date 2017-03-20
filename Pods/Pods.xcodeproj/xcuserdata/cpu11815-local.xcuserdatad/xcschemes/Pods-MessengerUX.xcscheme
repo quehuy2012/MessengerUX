@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '11F711ECAFFC77EBB1E2F2484D06649C'
+               BlueprintIdentifier = '67BB42CF41A6C6745C74B385C835577A'
                BlueprintName = 'Pods-MessengerUX'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-MessengerUX.a'>

@@ -9,12 +9,32 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AsyncDisplayKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Nimbus-WebController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Nimbus.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINOperation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINRemoteImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -34,10 +54,15 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>pop.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>11F711ECAFFC77EBB1E2F2484D06649C</key>
+		<key>1998CA3029B7202E0A3CAC7A9AAD615E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,7 +77,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>67BB42CF41A6C6745C74B385C835577A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6D5D0AC43CE951D43A6B317FEBC74081</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>700758C6C76B91FE462532FED6E4131D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7E003E2CA3BDB0CAEE2D034708CA6D8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8586BC1CCCEA41239BBA567020B94D71</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A89C52C6948621A698B8D27A2503EAF0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
