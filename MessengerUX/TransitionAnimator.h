@@ -30,14 +30,12 @@ typedef NS_ENUM(NSUInteger, PresentingOption) {
 
 + (instancetype)animationWithOption:(AnimateOption)animOption forPresentionOption:(PresentingOption)presentingOption;
 
-- (void)setupBeforeAnimationForFromViewView:(UIView *)fromView
+- (void)setupBeforeAnimationForFromView:(UIView *)fromView
                                   andToView:(UIView *)toView
-                          andToViewSnapshot:(UIView *)snapshot
                                 withContext:(id <UIViewControllerContextTransitioning>)context;
 
-- (void)setupAnimatingForFromViewView:(UIView *)fromView
+- (void)setupAnimatingForFromView:(UIView *)fromView
                             andToView:(UIView *)toView
-                    andToViewSnapshot:(UIView *)snapshot
                           withContext:(id <UIViewControllerContextTransitioning>)context;
 
 @end

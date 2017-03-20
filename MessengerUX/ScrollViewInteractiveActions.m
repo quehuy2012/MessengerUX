@@ -152,15 +152,11 @@
     if (velocityPoint.y > self.scrollingWithHighSpeed) {
         // To top
         self.scrollingWithHighSpeed = 1;
-//        if (self.beforeScrollTableViewOffset < self.bouncingThreadhold) {
         
-//        }
     } else if (-velocityPoint.y > self.scrollingWithHighSpeed) {
         // To bottom
         self.scrollingWithHighSpeed = 2;
-//        if (self.beforeScrollTableViewOffset > (self.scrollView.contentSize.height - self.bouncingThreadhold)) {
         
-//        }
     } else {
         self.scrollingWithHighSpeed = 0;
     }

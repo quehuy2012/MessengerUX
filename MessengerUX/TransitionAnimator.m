@@ -56,12 +56,11 @@
         UIView * finalScreenSnapshot = [toVC.view snapshotViewAfterScreenUpdates:YES];
         finalScreenSnapshot.clipsToBounds = YES;
         
-        [self setupBeforeAnimationForFromViewView:fromVC.view
+        [self setupBeforeAnimationForFromView:fromVC.view
                                         andToView:toVC.view
-                                andToViewSnapshot:finalScreenSnapshot
                                       withContext:transitionContext];
         
-        [self arrangeToVC:toVC andSnapShot:finalScreenSnapshot inContainer:containerView];
+        [self arrangeToVC:toVC inContainer:containerView];
         
         NSTimeInterval duration = [self transitionDuration:transitionContext];
         
@@ -75,9 +74,8 @@
             
             [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:1.0 animations:^{
                 
-                [self setupAnimatingForFromViewView:fromVC.view
+                [self setupAnimatingForFromView:fromVC.view
                                           andToView:toVC.view
-                                  andToViewSnapshot:finalScreenSnapshot
                                         withContext:transitionContext];
                 
             }];
@@ -94,42 +92,31 @@
     }
 }
 
-- (void)setupBeforeAnimationForFromViewView:(UIView *)fromView
+- (void)setupBeforeAnimationForFromView:(UIView *)fromView
                                   andToView:(UIView *)toView
-                          andToViewSnapshot:(UIView *)snapshot
                                 withContext:(id <UIViewControllerContextTransitioning>)context {
-    snapshot.frame = self.originalFrame;
     toView.frame = self.originalFrame;
     fromView.frame = self.originalFrame;
 }
 
-- (void)setupAnimatingForFromViewView:(UIView *)fromView
+- (void)setupAnimatingForFromView:(UIView *)fromView
                             andToView:(UIView *)toView
-                    andToViewSnapshot:(UIView *)snapshot
                           withContext:(id <UIViewControllerContextTransitioning>)context {
-    snapshot.frame = self.originalFrame;
     toView.frame = self.originalFrame;
     fromView.frame = self.originalFrame;
 }
 
-- (void)arrangeToVC:(UIViewController *)toVC andSnapShot:(UIView *)snapshot inContainer:(UIView *)container {
+- (void)arrangeToVC:(UIViewController *)toVC inContainer:(UIView *)container {
     
     [container addSubview:toVC.view];
-    [container addSubview:snapshot];
     
     switch (self.presentingOption) {
         case PresentingOptionWillHide: {
             [container bringSubviewToFront:toVC.view];
-            [container bringSubviewToFront:snapshot];
-            toVC.view.hidden = YES;
-            snapshot.hidden = NO;
             break;
         }
         case PresentingOptionWillShow: {
-            [container sendSubviewToBack:snapshot];
             [container sendSubviewToBack:toVC.view];
-            toVC.view.hidden = YES;
-            snapshot.hidden = YES;
             break;
         }
     }

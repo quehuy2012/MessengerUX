@@ -17,34 +17,26 @@
     return animator;
 }
 
-- (void)setupBeforeAnimationForFromViewView:(UIView *)fromView
+- (void)setupBeforeAnimationForFromView:(UIView *)fromView
                                   andToView:(UIView *)toView
-                          andToViewSnapshot:(UIView *)snapshot
                                 withContext:(nonnull id<UIViewControllerContextTransitioning>)context {
     
     CGRect initTo = [self getInitialFrameForToView:context];
     CGRect initFrom = [self getInitialFramForFromView:context];
     
-    snapshot.frame = initTo;
     toView.frame = initTo;
     fromView.frame = initFrom;
-    
-    snapshot.hidden = YES;
 }
 
-- (void)setupAnimatingForFromViewView:(UIView *)fromView
+- (void)setupAnimatingForFromView:(UIView *)fromView
                             andToView:(UIView *)toView
-                    andToViewSnapshot:(UIView *)snapshot
                           withContext:(nonnull id<UIViewControllerContextTransitioning>)context {
     
     CGRect finalTo = [self getFinalFrameForToView:context];;
     CGRect finalFrom = [self getFinalFrameForFromView:context];
     
-    snapshot.frame = finalTo;
     toView.frame = finalTo;
     fromView.frame = finalFrom;
-    
-    snapshot.hidden = NO;
 }
 
 - (CGRect)getFinalFrameForFromView:(nonnull id <UIViewControllerContextTransitioning>)transitionContext {

@@ -44,7 +44,6 @@ typedef NS_ENUM(NSUInteger, ScrollDrirection) {
 @property (nonatomic) BOOL interactiveWhenDecelerating;
 @property (nonatomic, weak) id<ScrollViewInteractiveActionsDelegate> delegate;
 
-
 - (instancetype)initForViewController:(UIViewController *)controller andScrollView:(UIScrollView *)scrollView;
 
 - (void)setTopBouncingAction:(SwipeInterativeObject *)action;
