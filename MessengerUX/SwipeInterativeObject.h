@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "InteractiveAnimation.h"
+
 @interface SwipeInterativeObject : NSObject
 
 @property (nonatomic) BOOL isDismiss;
@@ -17,15 +17,15 @@
 
 @property (nonatomic) UIPercentDrivenInteractiveTransition * interative;
 
-@property (nonatomic) id<UIViewControllerAnimatedTransitioning, InteractiveAnimation> animator;
+@property (nonatomic) id<UIViewControllerAnimatedTransitioning> animator;
 
 
 - (instancetype)initPresentViewController:(UIViewController *)presentViewController
                        fromViewController:(UIViewController *)viewController
-                            withAnimation:(id<UIViewControllerAnimatedTransitioning, InteractiveAnimation>)animator;
+                            withAnimation:(id<UIViewControllerAnimatedTransitioning>)animator;
 
 - (instancetype)initDismisViewController:(UIViewController *)dismissViewController
-                           withAnimation:(id<UIViewControllerAnimatedTransitioning, InteractiveAnimation>)animator;
+                           withAnimation:(id<UIViewControllerAnimatedTransitioning>)animator;
 
 - (BOOL)excuteAction;
 

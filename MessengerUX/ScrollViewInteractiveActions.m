@@ -9,7 +9,6 @@
 #import "ScrollViewInteractiveActions.h"
 #import "SwipeInterativeObject.h"
 #import "SwipeInteractiveActions.h"
-#import "InteractiveAnimation.h"
 
 @interface ScrollViewInteractiveActions ()
 
@@ -63,9 +62,8 @@
         self.viewController = controller;
         self.scrollView = scrollView;
         self.fullHeightForProcess = controller.view.frame.size.height;
-        
+
         [self.scrollView.panGestureRecognizer addTarget:self action:@selector(panGestureCallback:)];
-        self.scrollView.delegate = self;
         self.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
     }
     return self;
@@ -216,11 +214,6 @@
         default:
             break;
     }
-    NSLog(@"%f", scrollView.contentOffset.y);
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//    NSLog(@"vel %f tar %f rate %f cur %f", velocity.y, targetContentOffset->y, scrollView.decelerationRate, scrollView.contentOffset.y);
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -324,20 +317,6 @@
     
     self.deceleratingOffsetAmount = scrollView.contentOffset.y;
     
-    CGFloat delta = 0;
-    BOOL isIncreasing = YES;
-    if (self.currentBouncingState == BouncingStateNone) {
-        self.lastDeleceratingOffset = self.deceleratingOffsetAmount;
-    } else {
-        delta = self.deceleratingOffsetAmount - self.lastDeleceratingOffset;
-        self.lastDeleceratingOffset = self.deceleratingOffsetAmount;
-        if (self.currentBouncingState == BouncingStateTop) {
-            isIncreasing = delta > 0;
-        } else if (self.currentBouncingState == BouncingStateBottom) {
-            isIncreasing = delta < 0;
-        }
-    }
-    
     BOOL bouncingTop = self.deceleratingOffsetAmount < [self topBaseValueForScrollView:scrollView];
     BOOL bouncingBottom = self.deceleratingOffsetAmount > [self bottomBaseValueForScrollView:scrollView];
     
@@ -362,15 +341,22 @@
         [self updateInteractiveTransition:process*0.8];
     }
     
-    //        // Reset scrollview rect (not bounce content)
-    //        if (self.currentBouncingState == BouncingStateTop) {
-    //            scrollView.contentOffset = CGPointMake(0, 0);
-    //        } else if (self.currentBouncingState == BouncingStateBottom) {
-    //            scrollView.contentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.bounds.size.height);
-    //        }
-    
     // If the decelerating reach it max process, we need to cancel interactive transition
     // This is nececcery for user when they want to interact with the scrollview during it is decelerating
+//    CGFloat delta = 0;
+//    BOOL isIncreasing = YES;
+//    if (self.currentBouncingState == BouncingStateNone) {
+//        self.lastDeleceratingOffset = self.deceleratingOffsetAmount;
+//    } else {
+//        delta = self.deceleratingOffsetAmount - self.lastDeleceratingOffset;
+//        self.lastDeleceratingOffset = self.deceleratingOffsetAmount;
+//        if (self.currentBouncingState == BouncingStateTop) {
+//            isIncreasing = delta > 0;
+//        } else if (self.currentBouncingState == BouncingStateBottom) {
+//            isIncreasing = delta < 0;
+//        }
+//    }
+//
 //    if (!isIncreasing) {
 //        if (self.mInteractionInProgress) {
 //            [self endInteractiveWithSuccess:NO];

@@ -50,6 +50,18 @@ typedef NS_ENUM(NSUInteger, ScrollDrirection) {
 
 - (void)setBottomBouncingAction:(SwipeInterativeObject *)action;
 
+#pragma mark - Need forward for UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView;
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -137,7 +137,6 @@
 		F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
 		F2134EF51E79546E005F8B10 /* ScrollViewInteractiveActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewInteractiveActions.h; sourceTree = "<group>"; };
 		F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewInteractiveActions.m; sourceTree = "<group>"; };
-		F2134EF81E7BE2F9005F8B10 /* InteractiveAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveAnimation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,10 +370,10 @@
 			children = (
 				F2134EF41E795412005F8B10 /* Gesture */,
 				F2134ED71E7932CB005F8B10 /* Animator */,
-				F2134EE21E7932F4005F8B10 /* SwipeInteractiveActions.h */,
-				F2134EE31E7932F4005F8B10 /* SwipeInteractiveActions.m */,
 				F2134EE41E7932F4005F8B10 /* SwipeInterativeObject.h */,
 				F2134EE51E7932F4005F8B10 /* SwipeInterativeObject.m */,
+				F2134EE21E7932F4005F8B10 /* SwipeInteractiveActions.h */,
+				F2134EE31E7932F4005F8B10 /* SwipeInteractiveActions.m */,
 				F2134EF51E79546E005F8B10 /* ScrollViewInteractiveActions.h */,
 				F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */,
 				F2134EE11E7932F4005F8B10 /* InterativeTranslation.h */,
@@ -391,7 +390,6 @@
 				F2134EDB1E7932E3005F8B10 /* StackTrainsitionAnimator.m */,
 				F2134EDC1E7932E3005F8B10 /* TransitionAnimator.h */,
 				F2134EDD1E7932E3005F8B10 /* TransitionAnimator.m */,
-				F2134EF81E7BE2F9005F8B10 /* InteractiveAnimation.h */,
 			);
 			name = Animator;
 			sourceTree = "<group>";

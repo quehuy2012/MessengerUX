@@ -7,6 +7,7 @@
 //
 
 #import "StackTrainsitionAnimator.h"
+#import <pop/POP.h>
 
 @interface StackTrainsitionAnimator ()
 
@@ -30,8 +31,6 @@
     
     toView.frame = initTo;
     fromView.frame = initFrom;
-    
-    toView.hidden = YES;
 }
 
 - (void)setupAnimatingForFromView:(UIView *)fromView
@@ -44,7 +43,7 @@
     toView.frame = finalTo;
     fromView.frame = finalFrom;
     
-    toView.hidden = NO;
+//    [context completeTransition:![context transitionWasCancelled]];
 }
 
 - (CGRect)getFinalFrameForFromView:(nonnull id <UIViewControllerContextTransitioning>)transitionContext {

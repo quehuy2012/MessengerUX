@@ -15,7 +15,6 @@
 #import "ScrollViewInteractiveActions.h"
 
 // animation
-#import "InteractiveAnimation.h"
 #import "ScrollTransitionAnimator.h"
 #import "StackTrainsitionAnimator.h"
 #import "TransitionAnimator.h"

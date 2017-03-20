@@ -14,7 +14,7 @@
 #import "InterativeTranslation.h"
 #import "CameraViewController.h"
 
-@interface HomeViewController () <UITableViewDelegate, ScrollViewInteractiveActionsDelegate>
+@interface HomeViewController () <UITableViewDelegate, ScrollViewInteractiveActionsDelegate, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -70,13 +70,14 @@
     self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
     self.tableView.dataSource = self.model;
     
+    self.tableView.delegate = self;
 }
 
 - (void)initTableViewInteractiveAction {
     self.interactiveActions = [[ScrollViewInteractiveActions alloc] initForViewController:self andScrollView:self.tableView];
     
-    CameraViewController * cameraVC = [CameraViewController viewController];
     
+    CameraViewController * cameraVC = [CameraViewController viewController];
     StackTrainsitionAnimator * cameraPresentAnimator = [StackTrainsitionAnimator animationWithOption:AnimateOptionToDown
                                                                                  forPresentionOption:PresentingOptionWillShow];
     SwipeInterativeObject * bottomPresentAction = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC fromViewController:self withAnimation:cameraPresentAnimator];
@@ -89,9 +90,31 @@
     SwipeInterativeObject * bottomPresentAction2 = [[SwipeInterativeObject alloc] initPresentViewController:cameraVC2 fromViewController:self withAnimation:cameraPresentAnimator2];
     [self.interactiveActions setBottomBouncingAction:bottomPresentAction2];
     
-    self.interactiveActions.interactiveWhenDecelerating = YES;
     
+    self.interactiveActions.interactiveWhenDecelerating = YES;
     self.interactiveActions.delegate = self;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.interactiveActions scrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.interactiveActions scrollViewWillBeginDragging:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self.interactiveActions scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    [self.interactiveActions scrollViewWillBeginDecelerating:scrollView];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.interactiveActions scrollViewDidEndDecelerating:scrollView];
 }
 
 #pragma mark - ScrollViewInteractiveActionsDelegate
@@ -102,7 +125,7 @@
 
 - (void)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions transferingAction:(SwipeInterativeObject *)action withProcess:(CGFloat)process {
     
-    if (process > 0.4) {
+    if (process > 0.3) {
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     } else if ([UIApplication sharedApplication].isStatusBarHidden){
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];

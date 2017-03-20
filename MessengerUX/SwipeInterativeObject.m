@@ -32,7 +32,7 @@
 
 - (instancetype)initPresentViewController:(UIViewController *)presentViewController
                        fromViewController:(UIViewController *)viewController
-                            withAnimation:(id<UIViewControllerAnimatedTransitioning, InteractiveAnimation>)animator {
+                            withAnimation:(id<UIViewControllerAnimatedTransitioning>)animator {
     self = [self init];
     if (self) {
         self.isDismiss = NO;
@@ -44,7 +44,7 @@
 }
 
 - (instancetype)initDismisViewController:(UIViewController *)dismissViewController
-                           withAnimation:(id<UIViewControllerAnimatedTransitioning, InteractiveAnimation>)animator {
+                           withAnimation:(id<UIViewControllerAnimatedTransitioning>)animator {
     self = [self init];
     if (self) {
         self.isDismiss = YES;

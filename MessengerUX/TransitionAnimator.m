@@ -53,9 +53,6 @@
     // We must have enough elements to start animate translation
     if (fromVC && toVC && containerView) {
         
-        UIView * finalScreenSnapshot = [toVC.view snapshotViewAfterScreenUpdates:YES];
-        finalScreenSnapshot.clipsToBounds = YES;
-        
         [self setupBeforeAnimationForFromView:fromVC.view
                                         andToView:toVC.view
                                       withContext:transitionContext];
@@ -70,25 +67,51 @@
             animOption = animOption | UIViewKeyframeAnimationOptionCalculationModeLinear;
         }
         
-        [UIView animateKeyframesWithDuration:duration delay:0 options:animOption animations:^{
-            
-            [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:1.0 animations:^{
-                
-                [self setupAnimatingForFromView:fromVC.view
-                                          andToView:toVC.view
-                                        withContext:transitionContext];
-                
-            }];
-            
+        [UIView animateWithDuration:duration delay:0 options:animOption animations:^{
+            [self setupAnimatingForFromView:fromVC.view
+                                  andToView:toVC.view
+                                withContext:transitionContext];
         } completion:^(BOOL finished) {
             if (finished) {
                 toVC.view.hidden = NO;
-                [finalScreenSnapshot removeFromSuperview];
                 [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
             } else {
                 [transitionContext completeTransition:NO];
             }
         }];
+        
+//        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.0 options:animOption animations:^{
+//            [self setupAnimatingForFromView:fromVC.view
+//                                  andToView:toVC.view
+//                                withContext:transitionContext];
+//        } completion:^(BOOL finished) {
+//            if (finished) {
+//                toVC.view.hidden = NO;
+//                [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+//            } else {
+//                [transitionContext completeTransition:NO];
+//            }
+//        }];
+        
+        
+//        [UIView animateKeyframesWithDuration:duration delay:0 options:animOption animations:^{
+//            
+//            [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:1.0 animations:^{
+//                
+//                [self setupAnimatingForFromView:fromVC.view
+//                                          andToView:toVC.view
+//                                        withContext:transitionContext];
+//                
+//            }];
+//            
+//        } completion:^(BOOL finished) {
+//            if (finished) {
+//                toVC.view.hidden = NO;
+//                [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+//            } else {
+//                [transitionContext completeTransition:NO];
+//            }
+//        }];
     }
 }
 
@@ -119,16 +142,6 @@
             [container sendSubviewToBack:toVC.view];
             break;
         }
-    }
-}
-
-#pragma mark - InteractiveAnimation
-
-- (void)setupForQuickAnimation:(BOOL)flag {
-    if (flag) {
-        self.duration = self.quickActionDuration;
-    } else {
-        self.duration = self.normalActionDuration;
     }
 }
 

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "InteractiveAnimation.h"
 
 typedef NS_ENUM(NSUInteger, AnimateOption) {
     AnimateOptionToUp = 0,
@@ -21,7 +20,7 @@ typedef NS_ENUM(NSUInteger, PresentingOption) {
     PresentingOptionWillHide
 };
 
-@interface TransitionAnimator : NSObject <UIViewControllerAnimatedTransitioning, InteractiveAnimation>
+@interface TransitionAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic) CGRect originalFrame;
 @property (nonatomic) NSTimeInterval duration;
