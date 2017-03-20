@@ -102,7 +102,7 @@
 
 - (void)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions transferingAction:(SwipeInterativeObject *)action withProcess:(CGFloat)process {
     
-    if (process > 0.3) {
+    if (process > 0.4) {
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     } else if ([UIApplication sharedApplication].isStatusBarHidden){
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];

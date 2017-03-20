@@ -131,6 +131,16 @@
     return self.mInteractionInProgress;
 }
 
+- (CGFloat)topBaseValueForScrollView:(UIScrollView *)scrollView {
+    
+    return -scrollView.contentInset.top;
+}
+
+- (CGFloat)bottomBaseValueForScrollView:(UIScrollView *)scrollView {
+    
+    return (scrollView.contentSize.height - scrollView.bounds.size.height) + scrollView.contentInset.bottom;
+}
+
 - (SwipeInterativeObject *)getCurrentAction {
     
     if (!self.mInteractionInProgress) {
@@ -206,6 +216,7 @@
         default:
             break;
     }
+    NSLog(@"%f", scrollView.contentOffset.y);
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
@@ -232,12 +243,12 @@
 #pragma mark - State change checker
 
 - (void)checkCurrentStateOfScrollView:(UIScrollView *)scrollView {
-    BOOL bouncingTop = self.beforeScrollTableViewOffset - self.currentPanAmount < 0;
-    BOOL bouncingBottom = self.beforeScrollTableViewOffset + (-self.currentPanAmount) > (scrollView.contentSize.height - scrollView.bounds.size.height);
+    BOOL bouncingTop = self.beforeScrollTableViewOffset - self.currentPanAmount < [self topBaseValueForScrollView:scrollView];
+    BOOL bouncingBottom = self.beforeScrollTableViewOffset + (-self.currentPanAmount) > [self bottomBaseValueForScrollView:scrollView];
     
     if (self.currentBouncingState != BouncingStateNone) {
-        CGFloat amountTop = self.beforeScrollTableViewOffset - self.currentPanAmount;
-        CGFloat amountBottom = self.beforeScrollTableViewOffset + (-self.currentPanAmount) - (scrollView.contentSize.height - scrollView.bounds.size.height);
+        CGFloat amountTop = self.beforeScrollTableViewOffset - self.currentPanAmount + [self topBaseValueForScrollView:scrollView];
+        CGFloat amountBottom = self.beforeScrollTableViewOffset + (-self.currentPanAmount) - [self bottomBaseValueForScrollView:scrollView];
         bouncingTop = bouncingTop || (amountTop < 0 && self.currentScrollDirection == ScrollDrirectionDown);
         bouncingBottom = bouncingBottom || (amountBottom > 0 && self.currentScrollDirection == ScrollDrirectionUp);
     }
@@ -265,18 +276,18 @@
         
         // Prevent from boucing for interactive action
         if (self.currentBouncingState == BouncingStateTop) {
-            [scrollView setContentOffset:CGPointMake(0, 0)];
+            [scrollView setContentOffset:CGPointMake(0, [self topBaseValueForScrollView:scrollView])];
         } else if (self.currentBouncingState == BouncingStateBottom){
-            [scrollView setContentOffset:CGPointMake(0, scrollView.contentSize.height - scrollView.bounds.size.height)];
+            [scrollView setContentOffset:CGPointMake(0, [self bottomBaseValueForScrollView:scrollView])];
         }
         
         // Calculate process amount, if user started scrolling with BouncingStateNone to Bouncing state
         // We need to calculate delta bounce among for process
         CGFloat bouncingAmount = 0;
         if (self.currentBouncingState == BouncingStateTop) {
-            bouncingAmount = self.currentPanAmount - self.beforeScrollTableViewOffset;
+            bouncingAmount = self.currentPanAmount - self.beforeScrollTableViewOffset - [self topBaseValueForScrollView:scrollView];
         } else if (self.currentBouncingState == BouncingStateBottom) {
-            CGFloat bottomDistance = (scrollView.contentSize.height - scrollView.bounds.size.height) - self.beforeScrollTableViewOffset;
+            CGFloat bottomDistance = [self bottomBaseValueForScrollView:scrollView] - self.beforeScrollTableViewOffset;
             bouncingAmount = -self.currentPanAmount - bottomDistance;
         }
         
@@ -327,8 +338,8 @@
         }
     }
     
-    BOOL bouncingTop = self.deceleratingOffsetAmount < 0;
-    BOOL bouncingBottom = self.deceleratingOffsetAmount - (scrollView.contentSize.height - scrollView.bounds.size.height) > 0;
+    BOOL bouncingTop = self.deceleratingOffsetAmount < [self topBaseValueForScrollView:scrollView];
+    BOOL bouncingBottom = self.deceleratingOffsetAmount > [self bottomBaseValueForScrollView:scrollView];
     
     if (bouncingTop && !self.mInteractionInProgress) {
         self.currentBouncingState = BouncingStateTop;
@@ -344,10 +355,10 @@
     
     CGFloat process = 0;
     if (bouncingTop) {
-        process = -self.deceleratingOffsetAmount / self.bouncingThreadhold;
+        process = (-self.deceleratingOffsetAmount + [self topBaseValueForScrollView:scrollView])/ self.bouncingThreadhold;
         [self updateInteractiveTransition:process*0.8];
     } else if (bouncingBottom) {
-        process = (self.deceleratingOffsetAmount - (scrollView.contentSize.height - scrollView.bounds.size.height)) / self.bouncingThreadhold;
+        process = (self.deceleratingOffsetAmount - [self bottomBaseValueForScrollView:scrollView]) / self.bouncingThreadhold;
         [self updateInteractiveTransition:process*0.8];
     }
     
