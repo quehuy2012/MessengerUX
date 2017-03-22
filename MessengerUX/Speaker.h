@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Speacker : NSObject
+@interface Speaker : NSObject
 
 @property (nonatomic) NSString * ID;
 @property (nonatomic) NSString * name;

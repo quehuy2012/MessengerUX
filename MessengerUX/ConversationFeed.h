@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Sentence.h"
 
 @interface ConversationFeed : NSObject
+
+- (NSArray<Sentence *> *)getDataArray;
+
+- (void)getNextDataPageWithCompletion:(void (^)(NSArray<Sentence *> * datas))completion;
+
+//- (void)
 
 @end

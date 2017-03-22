@@ -6,8 +6,8 @@
 //  Copyright © 2017 CPU11815. All rights reserved.
 //
 
-#import "Speacker.h"
+#import "Speaker.h"
 
-@implementation Speacker
+@implementation Speaker
 
 @end

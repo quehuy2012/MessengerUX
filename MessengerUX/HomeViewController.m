@@ -117,6 +117,12 @@
     [self.interactiveActions scrollViewDidEndDecelerating:scrollView];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    
+}
+
 #pragma mark - ScrollViewInteractiveActionsDelegate
 
 - (BOOL)scrollViewInteractiveActions:(ScrollViewInteractiveActions *)interactiveActions startAction:(SwipeInterativeObject *)action {

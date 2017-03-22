@@ -23,6 +23,8 @@
 		8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E221E77D04D002ACB87 /* GroupCell.m */; };
 		8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E281E77F976002ACB87 /* CallCellObject.m */; };
 		8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */; };
+		94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CB8C5F1E82D785000C64EF /* ConversationViewController.m */; };
+		94CB8C641E82DA3C000C64EF /* ConversationCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CB8C631E82DA3C000C64EF /* ConversationCellNode.m */; };
 		A5AC0AEDDCBBD73C2D46C03C /* libPods-MessengerUX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */; };
 		DCE27C0DFB81BE4E6296B6AD /* libPods-MessengerUXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */; };
 		F20C828D1E6D0B9B006D3594 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C828C1E6D0B9B006D3594 /* main.m */; };
@@ -46,8 +48,8 @@
 		F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */; };
 		F2134EFD1E82387C005F8B10 /* Sentence.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFC1E82387C005F8B10 /* Sentence.m */; };
 		F2134F001E8238B4005F8B10 /* ConversationFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFF1E8238B4005F8B10 /* ConversationFeed.m */; };
-		F2134F031E82393C005F8B10 /* Speacker.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F021E82393C005F8B10 /* Speacker.m */; };
-		F2134F1B1E823BC4005F8B10 /* supreme.conversations.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F191E823BC3005F8B10 /* supreme.conversations.txt */; };
+		F2134F031E82393C005F8B10 /* Speaker.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F021E82393C005F8B10 /* Speaker.m */; };
+		F2134F1B1E823BC4005F8B10 /* conversations.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F191E823BC3005F8B10 /* conversations.txt */; };
 		F2134F1C1E823BC4005F8B10 /* supreme.README.v1.01.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +100,10 @@
 		8A6B9E281E77F976002ACB87 /* CallCellObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallCellObject.m; sourceTree = "<group>"; };
 		8A6B9E2A1E77FA87002ACB87 /* CallTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallTableViewCell.h; sourceTree = "<group>"; };
 		8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallTableViewCell.m; sourceTree = "<group>"; };
+		94CB8C5E1E82D785000C64EF /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
+		94CB8C5F1E82D785000C64EF /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		94CB8C621E82DA3C000C64EF /* ConversationCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationCellNode.h; sourceTree = "<group>"; };
+		94CB8C631E82DA3C000C64EF /* ConversationCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationCellNode.m; sourceTree = "<group>"; };
 		A187AEB0D64309D2C2012FA0 /* Pods-MessengerUXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXTests/Pods-MessengerUXTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,9 +152,9 @@
 		F2134EFC1E82387C005F8B10 /* Sentence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sentence.m; sourceTree = "<group>"; };
 		F2134EFE1E8238B4005F8B10 /* ConversationFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationFeed.h; sourceTree = "<group>"; };
 		F2134EFF1E8238B4005F8B10 /* ConversationFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationFeed.m; sourceTree = "<group>"; };
-		F2134F011E82393C005F8B10 /* Speacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speacker.h; sourceTree = "<group>"; };
-		F2134F021E82393C005F8B10 /* Speacker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Speacker.m; sourceTree = "<group>"; };
-		F2134F191E823BC3005F8B10 /* supreme.conversations.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = supreme.conversations.txt; sourceTree = "<group>"; };
+		F2134F011E82393C005F8B10 /* Speaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speaker.h; sourceTree = "<group>"; };
+		F2134F021E82393C005F8B10 /* Speaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Speaker.m; sourceTree = "<group>"; };
+		F2134F191E823BC3005F8B10 /* conversations.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = conversations.txt; sourceTree = "<group>"; };
 		F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = supreme.README.v1.01.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,6 +282,25 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		94CB8C5D1E82D748000C64EF /* ConversationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				94CB8C611E82DA17000C64EF /* Cell */,
+				94CB8C5E1E82D785000C64EF /* ConversationViewController.h */,
+				94CB8C5F1E82D785000C64EF /* ConversationViewController.m */,
+			);
+			name = ConversationViewController;
+			sourceTree = "<group>";
+		};
+		94CB8C611E82DA17000C64EF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				94CB8C621E82DA3C000C64EF /* ConversationCellNode.h */,
+				94CB8C631E82DA3C000C64EF /* ConversationCellNode.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		F20C827F1E6D0B9B006D3594 = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +373,7 @@
 		F20C82E11E70F49F006D3594 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				94CB8C5D1E82D748000C64EF /* ConversationViewController */,
 				F2134EEC1E793334005F8B10 /* GalleryViewController */,
 				F2134EE81E79331B005F8B10 /* DrawViewController */,
 				F20C82E61E70F7BD006D3594 /* CameraViewController */,
@@ -452,8 +478,8 @@
 				F2134EFF1E8238B4005F8B10 /* ConversationFeed.m */,
 				F2134EFB1E82387C005F8B10 /* Sentence.h */,
 				F2134EFC1E82387C005F8B10 /* Sentence.m */,
-				F2134F011E82393C005F8B10 /* Speacker.h */,
-				F2134F021E82393C005F8B10 /* Speacker.m */,
+				F2134F011E82393C005F8B10 /* Speaker.h */,
+				F2134F021E82393C005F8B10 /* Speaker.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -461,7 +487,7 @@
 		F2134F041E823B9E005F8B10 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				F2134F191E823BC3005F8B10 /* supreme.conversations.txt */,
+				F2134F191E823BC3005F8B10 /* conversations.txt */,
 				F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */,
 			);
 			name = Data;
@@ -592,7 +618,7 @@
 				F20C82961E6D0B9B006D3594 /* Main.storyboard in Resources */,
 				8A6B9E111E763F62002ACB87 /* People.storyboard in Resources */,
 				8A6B9DFF1E763BFC002ACB87 /* Home.storyboard in Resources */,
-				F2134F1B1E823BC4005F8B10 /* supreme.conversations.txt in Resources */,
+				F2134F1B1E823BC4005F8B10 /* conversations.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,11 +789,13 @@
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
 				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
-				F2134F031E82393C005F8B10 /* Speacker.m in Sources */,
+				F2134F031E82393C005F8B10 /* Speaker.m in Sources */,
+				94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */,
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
 				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
 				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
 				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
+				94CB8C641E82DA3C000C64EF /* ConversationCellNode.m in Sources */,
 				F2134F001E8238B4005F8B10 /* ConversationFeed.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,

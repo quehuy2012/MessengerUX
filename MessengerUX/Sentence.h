@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class Speacker;
+#import "Speaker.h"
 
 @interface Sentence : NSObject
 
 @property (nonatomic) NSString * ID;
-@property (nonatomic) Speacker * owner;
+@property (nonatomic) Speaker * owner;
 @property (nonatomic) NSString * content;
 @property (nonatomic) NSTimeInterval time;
+
++ (instancetype)sentenceFromString:(NSString *)string;
 
 @end
