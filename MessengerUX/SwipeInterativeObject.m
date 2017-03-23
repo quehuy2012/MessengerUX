@@ -13,8 +13,6 @@
 
 @interface SwipeInterativeObject () <UIViewControllerTransitioningDelegate>
 
-
-
 @end
 
 @implementation SwipeInterativeObject

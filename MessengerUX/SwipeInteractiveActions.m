@@ -22,6 +22,7 @@
 @property (nonatomic) SwipeGestureReconizer * gesture;
 
 @property (nonatomic) BOOL mInteractionInProgress;
+
 @end
 
 @implementation SwipeInteractiveActions

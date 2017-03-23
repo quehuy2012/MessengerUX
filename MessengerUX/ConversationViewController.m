@@ -31,33 +31,27 @@
     self = [super init];
     if (self) {
         ASTableNode * tableNode = [[ASTableNode alloc] initWithStyle:UITableViewStylePlain];
-        tableNode.inverted = YES;
         self.tableNode = tableNode;
         self.tableNode.delegate = self;
         self.tableNode.dataSource = self;
+        self.tableNode.inverted = YES;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
     [self initView];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)initView {
     
     self.navigationItem.title = @"Chat";
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.dataFeed = [[UXConversationFeed alloc] init];
-    //    [self refreshFeed];
+    
+    // init view
     
     UIView * textInputHolder = [[UIView alloc] init];
     textInputHolder.backgroundColor = [UIColor whiteColor];
@@ -100,13 +94,6 @@
         [textInputBack addSubview:inputText];
         [inputText atCenterVerticalInParent];
         [inputText atLeadingWith:textInputBack value:16];
-        
-//        UITextField * inputTextField = [[UITextField alloc] init];
-//        inputTextField.placeholder = @"Enter message...";
-//        [textInputBack addSubview:inputTextField];
-//        [inputTextField atCenterVerticalInParent];
-//        [inputTextField atLeadingWith:textInputBack value:16];
-        
     }
     
     
@@ -123,8 +110,6 @@
     
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
     self.navigationItem.leftBarButtonItem = backButton;
-    
-    
 }
 
 - (void)onPressBack {
@@ -138,8 +123,8 @@
 }
 
 - (void)loadPageWithContext:(ASBatchContext *)context {
-    __weak typeof(self) weakSelf = self;
     
+    __weak typeof(self) weakSelf = self;
     [self.dataFeed getNextDataPageWithCompletion:^(NSArray<UXSentence *> *datas) {
         [self.dataFeed insertNewPage:datas withCompletion:^(NSUInteger fromIndex, NSUInteger toIndex) {
             
@@ -189,8 +174,8 @@
     [self loadPageWithContext:context];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.view endEditing:YES];
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [self.view endEditing:YES];
+//}
 
 @end

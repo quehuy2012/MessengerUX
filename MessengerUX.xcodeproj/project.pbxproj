@@ -329,9 +329,9 @@
 		F20C828A1E6D0B9B006D3594 /* MessengerUX */ = {
 			isa = PBXGroup;
 			children = (
+				F2134EF01E7936C0005F8B10 /* Utils */,
 				F2134F041E823B9E005F8B10 /* Data */,
 				F2134EF91E823837005F8B10 /* Models */,
-				F2134EF01E7936C0005F8B10 /* Utils */,
 				F20C82ED1E710BB0006D3594 /* InterativeTranslation */,
 				F20C82E11E70F49F006D3594 /* ViewController */,
 				F20C828E1E6D0B9B006D3594 /* AppDelegate.h */,

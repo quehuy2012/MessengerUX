@@ -25,9 +25,9 @@
 @property (nonatomic) BOOL canBouncing;
 @property (nonatomic) BOOL scrollViewDecelerating;
 @property (nonatomic) NSInteger scrollingWithHighSpeed; // 0: slow speed, 1: fast to top, 2: fast to bottom
-@property (nonatomic) CGFloat fullHeightForProcess;
 @property (nonatomic) NSUInteger bouncingThreadhold;
 @property (nonatomic) NSUInteger scrollSpeedThreadhold;
+@property (nonatomic) CGFloat fullHeightForProcess;
 
 @property (nonatomic) CGFloat beforeScrollTableViewOffset;
 @property (nonatomic) CGFloat currentPanAmount;
@@ -80,6 +80,7 @@
 }
 
 - (void)startBouncingAction:(SwipeInterativeObject *)action {
+    
     if (action && !self.mInteractionInProgress) {
         
         BOOL allowStart = YES;
@@ -96,6 +97,7 @@
 }
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
+    
     if (self.mInteractionInProgress) {
         [super updateInteractiveTransition:percentComplete];
         if (self.delegate && [self.delegate respondsToSelector:@selector(scrollViewInteractiveActions:transferingAction:withProcess:)]) {
@@ -130,12 +132,10 @@
 }
 
 - (CGFloat)topBaseValueForScrollView:(UIScrollView *)scrollView {
-    
     return -scrollView.contentInset.top;
 }
 
 - (CGFloat)bottomBaseValueForScrollView:(UIScrollView *)scrollView {
-    
     return (scrollView.contentSize.height - scrollView.bounds.size.height) + scrollView.contentInset.bottom;
 }
 
@@ -153,6 +153,7 @@
 #pragma mark - UIPanGestureCallBack
 
 - (void)panGestureCallback:(UIPanGestureRecognizer *)gesture {
+    
     CGPoint velocityPoint = [gesture velocityInView:self.viewController.view];
     CGPoint translationPoint = [gesture translationInView:self.viewController.view];
     
@@ -189,6 +190,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
     switch (scrollView.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             [self checkCurrentStateOfScrollView:scrollView];
@@ -236,6 +238,7 @@
 #pragma mark - State change checker
 
 - (void)checkCurrentStateOfScrollView:(UIScrollView *)scrollView {
+    
     BOOL bouncingTop = self.beforeScrollTableViewOffset - self.currentPanAmount < [self topBaseValueForScrollView:scrollView];
     BOOL bouncingBottom = self.beforeScrollTableViewOffset + (-self.currentPanAmount) > [self bottomBaseValueForScrollView:scrollView];
     
@@ -264,6 +267,7 @@
 }
 
 - (void)checkOffsetChangeAndActionScrollView:(UIScrollView *)scrollView {
+    
     if (self.currentBouncingState != BouncingStateNone
         && self.mInteractionInProgress /* Interactive action started */) {
         
@@ -309,6 +313,7 @@
 }
 
 - (void)checkDeceleratingStateOfScrollView:(UIScrollView *)scrollView {
+    
     // Decelerating is very different from scrolling events, so we need to handle it by hand
     
     if (!self.interactiveWhenDecelerating) {

@@ -37,7 +37,6 @@
         
         
         self.contentBackgroundNode = [[ASDisplayNode alloc] init];
-        
         if (self.sentence.commingMessage) {
             self.contentBackgroundNode.backgroundColor = [UIColor colorWithRed:1.0/255.0 green:147.0/255.0 blue:238.0/255.0 alpha:1.0];
         } else {
@@ -79,15 +78,9 @@
     [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
                                            child:self.contentNode];
     
-//    ASOverlayLayoutSpec * contentWithBackgroundSpec =
-//    [ASOverlayLayoutSpec overlayLayoutSpecWithChild:contentInsetsSpec overlay:self.contentBackgroundNode];
-    
     ASBackgroundLayoutSpec * backgroung =
     [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:contentInsetsSpec background:self.contentBackgroundNode];
     
-//    ASOverlayLayoutSpec * contentBubbleSpec =
-//    [ASOverlayLayoutSpec overlayLayoutSpecWithChild:contentWithBackgroundSpec overlay:contentInsetsSpec];
-
     if (self.sentence.commingMessage) {
     
         ASStackLayoutSpec * contentStackSpec =

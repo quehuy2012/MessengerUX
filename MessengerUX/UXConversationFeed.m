@@ -40,6 +40,7 @@
 }
 
 - (void)getNextDataPageWithCompletion:(void (^)(NSArray<UXSentence *> * datas))completion {
+    
     if (completion) {
         __weak typeof(self) weakSelf = self;
         dispatch_async(self.internalConcurrentQueue, ^{
@@ -51,8 +52,8 @@
 }
 
 - (NSArray<UXSentence *> *)getDataArrayFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
-    __block NSMutableArray * ret = [NSMutableArray array];
     
+    __block NSMutableArray * ret = [NSMutableArray array];
     dispatch_sync(self.internalSerialQueue, ^{
         NSError * error;
         
@@ -83,13 +84,16 @@
 }
 
 - (void)insertNewPage:(NSArray<UXSentence *> *)datas withCompletion:(void (^)(NSUInteger fromIndex, NSUInteger toIndex))completion {
-    NSUInteger fromIndex = [self getDataArray].count;
-    NSUInteger toIndex = fromIndex + datas.count - 1;
     
-    [self.dataArray addObjectsFromArray:datas];
-    
-    if (completion) {
-        completion(fromIndex, toIndex);
+    if (datas) {
+        NSUInteger fromIndex = [self getDataArray].count;
+        NSUInteger toIndex = fromIndex + datas.count - 1;
+        
+        [self.dataArray addObjectsFromArray:datas];
+        
+        if (completion) {
+            completion(fromIndex, toIndex);
+        }
     }
 }
 
