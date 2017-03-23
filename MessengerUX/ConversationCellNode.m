@@ -78,7 +78,7 @@
     [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
                                            child:self.contentNode];
     
-    ASBackgroundLayoutSpec * backgroung =
+    ASBackgroundLayoutSpec * contentBackgroundSpec =
     [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:contentInsetsSpec background:self.contentBackgroundNode];
     
     if (self.sentence.commingMessage) {
@@ -88,7 +88,7 @@
                                                 spacing:8
                                          justifyContent:ASStackLayoutJustifyContentStart
                                              alignItems:ASStackLayoutAlignItemsEnd
-                                               children:@[avatarSpec, backgroung]];
+                                               children:@[avatarSpec, contentBackgroundSpec]];
         
         return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(16, 8, 16, 8)
                                                       child:contentStackSpec];
@@ -99,7 +99,7 @@
                                                 spacing:8
                                          justifyContent:ASStackLayoutJustifyContentEnd
                                              alignItems:ASStackLayoutAlignItemsEnd
-                                               children:@[backgroung, avatarSpec]];
+                                               children:@[contentBackgroundSpec, avatarSpec]];
         
         return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(16, 8, 16, 8)
                                                       child:contentStackSpec];
