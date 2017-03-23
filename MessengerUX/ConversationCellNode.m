@@ -7,35 +7,58 @@
 //
 
 #import "ConversationCellNode.h"
-#import "Sentence.h"
+#import "UXSentence.h"
+#import "UXSentence+DummyComming.h"
 
 @interface ConversationCellNode ()
 
-@property (nonatomic) Sentence * sentence;
+@property (nonatomic) UXSentence * sentence;
 @property (nonatomic) ASImageNode * avatarNode;
 @property (nonatomic) ASTextNode * contentNode;
+@property (nonatomic) ASDisplayNode * contentBackgroundNode;
 
 @end
 
 @implementation ConversationCellNode
 
-- (instancetype)initWithSentence:(Sentence *)sentence {
+- (instancetype)initWithSentence:(UXSentence *)sentence {
     self = [super init];
     if (self) {
         self.sentence = sentence;
         
         self.avatarNode = [[ASImageNode alloc] init];
         self.avatarNode.backgroundColor = [UIColor whiteColor];
-        self.avatarNode.style.width = ASDimensionMakeWithPoints(24);
-        self.avatarNode.style.height = ASDimensionMakeWithPoints(24);
-        self.avatarNode.cornerRadius = 12;
+        self.avatarNode.style.width = ASDimensionMakeWithPoints(34);
+        self.avatarNode.style.height = ASDimensionMakeWithPoints(34);
+        self.avatarNode.cornerRadius = 17;
         self.avatarNode.image = [UIImage imageNamed:@"cameraThumb"];
+        self.avatarNode.clipsToBounds = YES;
         [self addSubnode:self.avatarNode];
         
+        
+        self.contentBackgroundNode = [[ASDisplayNode alloc] init];
+        
+        if (self.sentence.commingMessage) {
+            self.contentBackgroundNode.backgroundColor = [UIColor colorWithRed:1.0/255.0 green:147.0/255.0 blue:238.0/255.0 alpha:1.0];
+        } else {
+            self.contentBackgroundNode.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0];
+        }
+        self.contentBackgroundNode.cornerRadius = 16;
+        self.contentBackgroundNode.clipsToBounds = YES;
+        [self addSubnode:self.contentBackgroundNode];
+        
+        
         self.contentNode = [[ASTextNode alloc] init];
+        
+        UIColor * textColor = [UIColor whiteColor];
+        if (self.sentence.commingMessage) {
+            textColor = [UIColor whiteColor];
+        } else {
+            textColor = [UIColor colorWithRed:40.0/255.0 green:40.0/255.0 blue:40.0/255.0 alpha:1.0];
+        }
         self.contentNode.attributedText = [[NSAttributedString alloc] initWithString:self.sentence.content
-                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0],
-                                                                                       NSForegroundColorAttributeName: [UIColor whiteColor]}];
+                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0],
+                                                                                       NSForegroundColorAttributeName: textColor}];
         self.contentNode.style.flexShrink = 1.0;
         self.contentNode.truncationMode = NSLineBreakByTruncatingTail;
         self.contentNode.style.maxWidth = ASDimensionMake(240);
@@ -44,17 +67,50 @@
     return self;
 }
 
-- (ASLayout *)layoutThatFits:(ASSizeRange)constrainedSize {
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    
     ASRelativeLayoutSpec * avatarSpec =
-    [[ASRelativeLayoutSpec alloc] initWithHorizontalPosition:ASRelativeLayoutSpecPositionCenter
-                                            verticalPosition:ASRelativeLayoutSpecPositionEnd
-                                                sizingOption:ASRelativeLayoutSpecSizingOptionMinimumWidth
-                                                       child:self.avatarNode];
+    [ASRelativeLayoutSpec relativePositionLayoutSpecWithHorizontalPosition:ASRelativeLayoutSpecPositionCenter
+                                                          verticalPosition:ASRelativeLayoutSpecPositionEnd
+                                                              sizingOption:ASRelativeLayoutSpecSizingOptionMinimumWidth
+                                                                     child:self.avatarNode];
     
-    ASInsetLayoutSpec * avatarInsetsSpec =
-    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, 8, 8, 8) child:avatarSpec];
+    ASInsetLayoutSpec * contentInsetsSpec =
+    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
+                                           child:self.contentNode];
     
-    return avatarInsetsSpec;
+//    ASOverlayLayoutSpec * contentWithBackgroundSpec =
+//    [ASOverlayLayoutSpec overlayLayoutSpecWithChild:contentInsetsSpec overlay:self.contentBackgroundNode];
+    
+    ASBackgroundLayoutSpec * backgroung =
+    [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:contentInsetsSpec background:self.contentBackgroundNode];
+    
+//    ASOverlayLayoutSpec * contentBubbleSpec =
+//    [ASOverlayLayoutSpec overlayLayoutSpecWithChild:contentWithBackgroundSpec overlay:contentInsetsSpec];
+
+    if (self.sentence.commingMessage) {
+    
+        ASStackLayoutSpec * contentStackSpec =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                spacing:8
+                                         justifyContent:ASStackLayoutJustifyContentStart
+                                             alignItems:ASStackLayoutAlignItemsEnd
+                                               children:@[avatarSpec, backgroung]];
+        
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(16, 8, 16, 8)
+                                                      child:contentStackSpec];
+    } else {
+        
+        ASStackLayoutSpec * contentStackSpec =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                spacing:8
+                                         justifyContent:ASStackLayoutJustifyContentEnd
+                                             alignItems:ASStackLayoutAlignItemsEnd
+                                               children:@[backgroung, avatarSpec]];
+        
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(16, 8, 16, 8)
+                                                      child:contentStackSpec];
+    }
 }
 
 @end

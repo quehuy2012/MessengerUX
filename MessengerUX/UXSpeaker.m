@@ -6,8 +6,8 @@
 //  Copyright © 2017 CPU11815. All rights reserved.
 //
 
-#import "Speaker.h"
+#import "UXSpeaker.h"
 
-@implementation Speaker
+@implementation UXSpeaker
 
 @end

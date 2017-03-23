@@ -8,11 +8,11 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
-@class Sentence;
-@class Speaker;
+@class UXSentence;
+@class UXSpeaker;
 
 @interface ConversationCellNode : ASCellNode
 
-- (instancetype)initWithSentence:(Sentence *)sentence;
+- (instancetype)initWithSentence:(UXSentence *)sentence;
 
 @end

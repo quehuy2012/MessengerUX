@@ -8,6 +8,8 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
-@interface ConversationViewController : ASViewController
+@interface ConversationViewController : UIViewController
+
++ (instancetype)viewController;
 
 @end

@@ -13,6 +13,7 @@
 #import <NICellCatalog.h>
 #import "InterativeTranslation.h"
 #import "CameraViewController.h"
+#import "ConversationViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, ScrollViewInteractiveActionsDelegate, UITableViewDelegate>
 
@@ -120,7 +121,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    
+    ConversationViewController * chatVC = [ConversationViewController viewController];
+    UINavigationController * chatNav = [[UINavigationController alloc] initWithRootViewController:chatVC];
+    [self presentViewController:chatNav animated:YES completion:nil];
+//    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 #pragma mark - ScrollViewInteractiveActionsDelegate

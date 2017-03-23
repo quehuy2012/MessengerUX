@@ -46,11 +46,12 @@
 		F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EEE1E793343005F8B10 /* GalleryViewController.m */; };
 		F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */; };
 		F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */; };
-		F2134EFD1E82387C005F8B10 /* Sentence.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFC1E82387C005F8B10 /* Sentence.m */; };
-		F2134F001E8238B4005F8B10 /* ConversationFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFF1E8238B4005F8B10 /* ConversationFeed.m */; };
-		F2134F031E82393C005F8B10 /* Speaker.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F021E82393C005F8B10 /* Speaker.m */; };
+		F2134EFD1E82387C005F8B10 /* UXSentence.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFC1E82387C005F8B10 /* UXSentence.m */; };
+		F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFF1E8238B4005F8B10 /* UXConversationFeed.m */; };
+		F2134F031E82393C005F8B10 /* UXSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F021E82393C005F8B10 /* UXSpeaker.m */; };
 		F2134F1B1E823BC4005F8B10 /* conversations.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F191E823BC3005F8B10 /* conversations.txt */; };
 		F2134F1C1E823BC4005F8B10 /* supreme.README.v1.01.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */; };
+		F2134F1F1E837DC6005F8B10 /* UXSentence+DummyComming.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F1E1E837DC6005F8B10 /* UXSentence+DummyComming.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,14 +149,16 @@
 		F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
 		F2134EF51E79546E005F8B10 /* ScrollViewInteractiveActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewInteractiveActions.h; sourceTree = "<group>"; };
 		F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewInteractiveActions.m; sourceTree = "<group>"; };
-		F2134EFB1E82387C005F8B10 /* Sentence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sentence.h; sourceTree = "<group>"; };
-		F2134EFC1E82387C005F8B10 /* Sentence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sentence.m; sourceTree = "<group>"; };
-		F2134EFE1E8238B4005F8B10 /* ConversationFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationFeed.h; sourceTree = "<group>"; };
-		F2134EFF1E8238B4005F8B10 /* ConversationFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationFeed.m; sourceTree = "<group>"; };
-		F2134F011E82393C005F8B10 /* Speaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speaker.h; sourceTree = "<group>"; };
-		F2134F021E82393C005F8B10 /* Speaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Speaker.m; sourceTree = "<group>"; };
+		F2134EFB1E82387C005F8B10 /* UXSentence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSentence.h; sourceTree = "<group>"; };
+		F2134EFC1E82387C005F8B10 /* UXSentence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSentence.m; sourceTree = "<group>"; };
+		F2134EFE1E8238B4005F8B10 /* UXConversationFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXConversationFeed.h; sourceTree = "<group>"; };
+		F2134EFF1E8238B4005F8B10 /* UXConversationFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXConversationFeed.m; sourceTree = "<group>"; };
+		F2134F011E82393C005F8B10 /* UXSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSpeaker.h; sourceTree = "<group>"; };
+		F2134F021E82393C005F8B10 /* UXSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSpeaker.m; sourceTree = "<group>"; };
 		F2134F191E823BC3005F8B10 /* conversations.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = conversations.txt; sourceTree = "<group>"; };
 		F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = supreme.README.v1.01.txt; sourceTree = "<group>"; };
+		F2134F1D1E837DC6005F8B10 /* UXSentence+DummyComming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXSentence+DummyComming.h"; sourceTree = "<group>"; };
+		F2134F1E1E837DC6005F8B10 /* UXSentence+DummyComming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UXSentence+DummyComming.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,12 +477,14 @@
 		F2134EF91E823837005F8B10 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F2134EFE1E8238B4005F8B10 /* ConversationFeed.h */,
-				F2134EFF1E8238B4005F8B10 /* ConversationFeed.m */,
-				F2134EFB1E82387C005F8B10 /* Sentence.h */,
-				F2134EFC1E82387C005F8B10 /* Sentence.m */,
-				F2134F011E82393C005F8B10 /* Speaker.h */,
-				F2134F021E82393C005F8B10 /* Speaker.m */,
+				F2134EFE1E8238B4005F8B10 /* UXConversationFeed.h */,
+				F2134EFF1E8238B4005F8B10 /* UXConversationFeed.m */,
+				F2134EFB1E82387C005F8B10 /* UXSentence.h */,
+				F2134EFC1E82387C005F8B10 /* UXSentence.m */,
+				F2134F011E82393C005F8B10 /* UXSpeaker.h */,
+				F2134F021E82393C005F8B10 /* UXSpeaker.m */,
+				F2134F1D1E837DC6005F8B10 /* UXSentence+DummyComming.h */,
+				F2134F1E1E837DC6005F8B10 /* UXSentence+DummyComming.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -783,20 +788,21 @@
 			files = (
 				8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */,
 				F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */,
-				F2134EFD1E82387C005F8B10 /* Sentence.m in Sources */,
+				F2134EFD1E82387C005F8B10 /* UXSentence.m in Sources */,
 				8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
 				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
+				F2134F1F1E837DC6005F8B10 /* UXSentence+DummyComming.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
-				F2134F031E82393C005F8B10 /* Speaker.m in Sources */,
+				F2134F031E82393C005F8B10 /* UXSpeaker.m in Sources */,
 				94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */,
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
 				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
 				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
 				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
 				94CB8C641E82DA3C000C64EF /* ConversationCellNode.m in Sources */,
-				F2134F001E8238B4005F8B10 /* ConversationFeed.m in Sources */,
+				F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,
 				8A6B9E201E77D01F002ACB87 /* Group.m in Sources */,

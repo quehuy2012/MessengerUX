@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Speaker.h"
+#import "UXSpeaker.h"
 
-@interface Sentence : NSObject
+@interface UXSentence : NSObject
 
 @property (nonatomic) NSString * ID;
-@property (nonatomic) Speaker * owner;
+@property (nonatomic) UXSpeaker * owner;
 @property (nonatomic) NSString * content;
 @property (nonatomic) NSTimeInterval time;
+@property (nonatomic) BOOL commingMessage;
 
 + (instancetype)sentenceFromString:(NSString *)string;
 
