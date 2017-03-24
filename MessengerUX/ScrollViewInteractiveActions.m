@@ -64,7 +64,6 @@
         self.fullHeightForProcess = controller.view.frame.size.height;
 
         [self.scrollView.panGestureRecognizer addTarget:self action:@selector(panGestureCallback:)];
-        self.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
     }
     return self;
 }
@@ -282,7 +281,7 @@
         // We need to calculate delta bounce among for process
         CGFloat bouncingAmount = 0;
         if (self.currentBouncingState == BouncingStateTop) {
-            bouncingAmount = self.currentPanAmount - self.beforeScrollTableViewOffset - [self topBaseValueForScrollView:scrollView];
+            bouncingAmount = self.currentPanAmount - self.beforeScrollTableViewOffset + [self topBaseValueForScrollView:scrollView];
         } else if (self.currentBouncingState == BouncingStateBottom) {
             CGFloat bottomDistance = [self bottomBaseValueForScrollView:scrollView] - self.beforeScrollTableViewOffset;
             bouncingAmount = -self.currentPanAmount - bottomDistance;

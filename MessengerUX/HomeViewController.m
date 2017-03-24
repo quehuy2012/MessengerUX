@@ -42,15 +42,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = YES;
     
     [self initTableView];
     
     [self initTableViewInteractiveAction];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
@@ -124,7 +124,6 @@
     ConversationViewController * chatVC = [ConversationViewController viewController];
     UINavigationController * chatNav = [[UINavigationController alloc] initWithRootViewController:chatVC];
     [self presentViewController:chatNav animated:YES completion:nil];
-//    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 #pragma mark - ScrollViewInteractiveActionsDelegate
