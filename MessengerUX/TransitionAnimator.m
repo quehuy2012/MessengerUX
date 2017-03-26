@@ -59,26 +59,30 @@
         
         [self arrangeToVC:toVC inContainer:containerView];
         
-        NSTimeInterval duration = [self transitionDuration:transitionContext];
+        //NSTimeInterval duration = [self transitionDuration:transitionContext];
         
-        NSUInteger animOption = UIViewKeyframeAnimationOptionAllowUserInteraction;
+//        NSUInteger animOption = UIViewKeyframeAnimationOptionAllowUserInteraction;
+//        
+//        if ([transitionContext isInteractive]) {
+//            animOption = animOption | UIViewKeyframeAnimationOptionCalculationModeLinear;
+//        }
         
-        if ([transitionContext isInteractive]) {
-            animOption = animOption | UIViewKeyframeAnimationOptionCalculationModeLinear;
-        }
+        [self setupAnimatingForFromView:fromVC.view
+                              andToView:toVC.view
+                            withContext:transitionContext];
         
-        [UIView animateWithDuration:duration delay:0 options:animOption animations:^{
-            [self setupAnimatingForFromView:fromVC.view
-                                  andToView:toVC.view
-                                withContext:transitionContext];
-        } completion:^(BOOL finished) {
-            if (finished) {
-                toVC.view.hidden = NO;
-                [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-            } else {
-                [transitionContext completeTransition:NO];
-            }
-        }];
+//        [UIView animateWithDuration:duration delay:0 options:animOption animations:^{
+//            [self setupAnimatingForFromView:fromVC.view
+//                                  andToView:toVC.view
+//                                withContext:transitionContext];
+//        } completion:^(BOOL finished) {
+//            if (finished) {
+//                toVC.view.hidden = NO;
+//                [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+//            } else {
+//                [transitionContext completeTransition:NO];
+//            }
+//        }];
         
 //        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.0 options:animOption animations:^{
 //            [self setupAnimatingForFromView:fromVC.view

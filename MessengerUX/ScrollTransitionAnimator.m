@@ -7,6 +7,7 @@
 //
 
 #import "ScrollTransitionAnimator.h"
+#include <pop/Pop.h>
 
 @implementation ScrollTransitionAnimator
 
@@ -20,12 +21,26 @@
 - (void)setupBeforeAnimationForFromView:(UIView *)fromView
                                   andToView:(UIView *)toView
                                 withContext:(nonnull id<UIViewControllerContextTransitioning>)context {
+    CGRect finalTo = [self getFinalFrameForToView:context];
+    CGRect finalFrom = [self getFinalFrameForFromView:context];
     
-    CGRect initTo = [self getInitialFrameForToView:context];
-    CGRect initFrom = [self getInitialFramForFromView:context];
+    POPSpringAnimation *toViewAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+    toViewAnimation.toValue = [NSValue valueWithCGRect:finalTo];
+    toViewAnimation.springBounciness = 10.f;
+    [toViewAnimation setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+        [context completeTransition:YES];
+    }];
     
-    toView.frame = initTo;
-    fromView.frame = initFrom;
+    POPSpringAnimation *fromViewAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+    fromViewAnimation.toValue = [NSValue valueWithCGRect:finalFrom];
+    
+    [fromView pop_addAnimation:fromViewAnimation forKey:@"fromViewAnimation"];
+    [toView pop_addAnimation:toViewAnimation forKey:@"toViewAnimation"];
+//    CGRect initTo = [self getInitialFrameForToView:context];
+//    CGRect initFrom = [self getInitialFramForFromView:context];
+//    
+//    toView.frame = initTo;
+//    fromView.frame = initFrom;
 }
 
 - (void)setupAnimatingForFromView:(UIView *)fromView

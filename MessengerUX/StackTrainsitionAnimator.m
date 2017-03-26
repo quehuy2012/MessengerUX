@@ -37,11 +37,25 @@
                             andToView:(UIView *)toView
                           withContext:(nonnull id<UIViewControllerContextTransitioning>)context {
     
-    CGRect finalTo = [self getFinalFrameForToView:context];;
-    CGRect finalFrom = [self getFinalFrameForFromView:context];
+    CGRect finalToFrame = [self getFinalFrameForToView:context];
+    CGRect finalFromFrame = [self getFinalFrameForFromView:context];
     
-    toView.frame = finalTo;
-    fromView.frame = finalFrom;
+    POPSpringAnimation *toViewAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+    toViewAnimation.toValue = [NSValue valueWithCGRect:finalToFrame];
+    toViewAnimation.springBounciness = 10.f;
+    [toViewAnimation setCompletionBlock:^(POPAnimation *anim, BOOL finished) {
+        [context completeTransition:YES];
+    }];
+    
+    POPSpringAnimation *fromViewAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
+    fromViewAnimation.toValue = [NSValue valueWithCGRect:finalFromFrame];
+    fromViewAnimation.springBounciness = 20.f;
+    
+    [fromView pop_addAnimation:fromViewAnimation forKey:@"fromViewAnimation"];
+    [toView pop_addAnimation:toViewAnimation forKey:@"toViewAnimation"];
+    
+//    toView.frame = finalTo;
+//    fromView.frame = finalFrom;
     
 //    [context completeTransition:![context transitionWasCancelled]];
 }
