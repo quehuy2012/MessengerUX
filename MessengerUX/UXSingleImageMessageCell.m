@@ -27,7 +27,9 @@
         self.imageContentNode = [[ASImageNode alloc] init];
         self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
         self.imageContentNode.style.maxWidth = ASDimensionMake(240);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(240);
         self.imageDimentionRatio = image.size.height / image.size.width;
+        self.imageContentNode.clipsToBounds = YES;
         ((ASImageNode *)self.imageContentNode).image = image;
         
         [self addSubnode:self.imageContentNode];
@@ -40,8 +42,11 @@
     self = [self initWithConfigure:configure isIncomming:incomming andOwner:owner];
     if (self) {
         self.imageContentNode = [[ASNetworkImageNode alloc] init];
+        self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
         self.imageContentNode.style.maxWidth = ASDimensionMake(240);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(240);
         self.imageDimentionRatio = ratio;
+        self.imageContentNode.clipsToBounds = YES;
         ((ASNetworkImageNode *)self.imageContentNode).URL = imageURL;
         
         [self addSubnode:self.imageContentNode];
@@ -50,6 +55,57 @@
     return self;
 }
 
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    
+    ASInsetLayoutSpec * imageInset =
+    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
+                                           child:self.imageContentNode];
+    
+    NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
+    if (self.showTextAsTop) {
+        ASInsetLayoutSpec * topTextInset =
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left, 0, self.configure.insets.right)
+                                               child:self.topTextNode];
+        [stackedMessageChilds addObject:topTextInset];
+    }
+    [stackedMessageChilds addObject:imageInset];
+    if (self.showTextAsBottom) {
+        ASInsetLayoutSpec * bottomTextInset =
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left, 0, self.configure.insets.right)
+                                               child:self.bottomTextNode];
+        [stackedMessageChilds addObject:bottomTextInset];
+    }
+    
+    ASStackLayoutAlignItems supportAlignItem = ASStackLayoutAlignItemsStart;
+    if (!self.isIncomming) {
+        supportAlignItem = ASStackLayoutAlignItemsEnd;
+    }
+    
+    ASStackLayoutSpec * stackedMessage =
+    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
+                                            spacing:0
+                                     justifyContent:ASStackLayoutJustifyContentCenter
+                                         alignItems:supportAlignItem
+                                           children:stackedMessageChilds];
+    
+    NSArray * mainChilds = nil;
+    ASStackLayoutJustifyContent mainLayoutJustify = ASStackLayoutJustifyContentStart;
+    if (self.isIncomming) {
+        mainChilds = @[self.avatarNode, stackedMessage];
+    } else {
+        mainChilds = @[stackedMessage, self.avatarNode];
+        mainLayoutJustify = ASStackLayoutJustifyContentEnd;
+    }
+    
+    ASStackLayoutSpec * mainContent =
+    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                            spacing:8
+                                     justifyContent:mainLayoutJustify
+                                         alignItems:ASStackLayoutAlignItemsEnd
+                                           children:mainChilds];
+    
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
+}
 
 
 @end

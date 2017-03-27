@@ -27,16 +27,12 @@
     return [UIColor colorWithRed:40.0/255.0 green:40.0/255.0 blue:40.0/255.0 alpha:1.0];
 }
 
-- (NSUInteger)supportTextSize {
-    return 12;
-}
-
 - (NSUInteger)contentTextSize {
     return 16;
 }
 
 - (UIEdgeInsets)insets {
-    return UIEdgeInsetsMake(16, 8, 16, 8);
+    return UIEdgeInsetsMake(8, 8, 8, 8);
 }
 
 - (UXMessageBackgroundStyle *)getMessageBackgroundStyle {

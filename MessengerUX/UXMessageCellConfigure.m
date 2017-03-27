@@ -31,7 +31,7 @@
 }
 
 - (UIColor *)supportTextColor {
-    return [UIColor lightTextColor];
+    return [UIColor lightGrayColor];
 }
 
 - (NSUInteger)supportTextSize {

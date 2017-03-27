@@ -10,6 +10,15 @@
 
 @implementation UXRoundedBackgroundStyle
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.cornerRadius = 16;
+    }
+    
+    return self;
+}
+
 - (ASDisplayNode *)getMessageBackground {
     ASDisplayNode * ret = [[ASDisplayNode alloc] init];
     ret.clipsToBounds = YES;

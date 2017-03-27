@@ -10,6 +10,15 @@
 
 @implementation UXImageBackgroundStyle
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.cornerRadius = 16;
+    }
+    
+    return self;
+}
+
 - (ASDisplayNode *)getMessageBackground {
     ASImageNode * ret = [[ASImageNode alloc] init];
     ret.clipsToBounds = YES;

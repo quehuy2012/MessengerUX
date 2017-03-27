@@ -7,7 +7,6 @@
 //
 
 #import "UXTextMessageCell.h"
-#import "UXMessageCell+Private.h"
 
 #import "UXMessageCellConfigure.h"
 #import "UXSpeaker.h"
@@ -30,6 +29,7 @@
         self.messageNode.style.flexShrink = 1.0;
         self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
         self.messageNode.style.maxWidth = ASDimensionMake(240);
+        self.messageNode.backgroundColor = [UIColor clearColor];
         self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:string
                                                                           attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.contentTextSize],
                                                                                        NSForegroundColorAttributeName: textColor}];
@@ -50,12 +50,39 @@
     [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:messageInsetsSpec
                                                background:self.messageBackgroundNode];
     
+    NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
+    if (self.showTextAsTop) {
+        ASInsetLayoutSpec * topTextInset =
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left, 0, self.configure.insets.right) child:self.topTextNode];
+        
+        [stackedMessageChilds addObject:topTextInset];
+    }
+    [stackedMessageChilds addObject:messageBubble];
+    if (self.showTextAsBottom) {
+        ASInsetLayoutSpec * bottomTextInset =
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left, 0, self.configure.insets.right) child:self.bottomTextNode];
+        [stackedMessageChilds addObject:bottomTextInset];
+    }
+    
+    ASStackLayoutAlignItems supportAlignItem = ASStackLayoutAlignItemsStart;
+    if (!self.isIncomming) {
+        supportAlignItem = ASStackLayoutAlignItemsEnd;
+    }
+    
+    ASStackLayoutSpec * stackedMessage =
+    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
+                                            spacing:2
+                                     justifyContent:ASStackLayoutJustifyContentCenter
+                                         alignItems:supportAlignItem
+                                           children:stackedMessageChilds];
+    
+    
     NSArray * mainChilds = nil;
     ASStackLayoutJustifyContent mainLayoutJustify = ASStackLayoutJustifyContentStart;
     if (self.isIncomming) {
-        mainChilds = @[self.avatarNode, messageBubble];
+        mainChilds = @[self.avatarNode, stackedMessage];
     } else {
-        mainChilds = @[messageBubble, self.avatarNode];
+        mainChilds = @[stackedMessage, self.avatarNode];
         mainLayoutJustify = ASStackLayoutJustifyContentEnd;
     }
     
@@ -66,18 +93,7 @@
                                          alignItems:ASStackLayoutAlignItemsEnd
                                            children:mainChilds];
     
-    ASStackLayoutAlignItems supportAlignItem = ASStackLayoutAlignItemsStart;
-    if (!self.isIncomming) {
-        supportAlignItem = ASStackLayoutAlignItemsEnd;
-    }
-    
-    ASStackLayoutSpec * supportMainSpec =
-    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
-                                            spacing:4 justifyContent:ASStackLayoutJustifyContentCenter
-                                         alignItems:supportAlignItem
-                                           children:@[self.topTextNode, mainContent, self.bottomTextNode]];
-    
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:supportMainSpec];
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
 }
 
 @end

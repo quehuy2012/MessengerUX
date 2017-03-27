@@ -182,7 +182,6 @@
 		F2134F331E88CEC3005F8B10 /* UXIMessageCellConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXIMessageCellConfigure.m; sourceTree = "<group>"; };
 		F2134F361E88D1E2005F8B10 /* UXMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageCell.h; sourceTree = "<group>"; };
 		F2134F371E88D1E2005F8B10 /* UXMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCell.m; sourceTree = "<group>"; };
-		F2134F391E88E60C005F8B10 /* UXMessageCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXMessageCell+Private.h"; sourceTree = "<group>"; };
 		F2134F3C1E88EBF9005F8B10 /* UXTextMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXTextMessageCell.h; sourceTree = "<group>"; };
 		F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTextMessageCell.m; sourceTree = "<group>"; };
 		F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSingleImageMessageCell.h; sourceTree = "<group>"; };
@@ -568,7 +567,6 @@
 			children = (
 				F2134F361E88D1E2005F8B10 /* UXMessageCell.h */,
 				F2134F371E88D1E2005F8B10 /* UXMessageCell.m */,
-				F2134F391E88E60C005F8B10 /* UXMessageCell+Private.h */,
 				F2134F3C1E88EBF9005F8B10 /* UXTextMessageCell.h */,
 				F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */,
 				F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */,

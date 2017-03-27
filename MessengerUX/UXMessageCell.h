@@ -14,17 +14,22 @@
 @interface UXMessageCell : ASCellNode
 
 @property (nonatomic) BOOL isIncomming;
+@property (nonatomic) BOOL showTextAsTop;
+@property (nonatomic) BOOL showTextAsBottom;
 @property (nonatomic) UXSpeaker * owner;
 @property (nonatomic) UXMessageCellConfigure * configure;
+
+@property (nonatomic) ASTextNode * topTextNode;
+@property (nonatomic) ASTextNode * bottomTextNode;
+@property (nonatomic) ASImageNode * avatarNode;
+@property (nonatomic) ASDisplayNode * messageBackgroundNode;
+
+
 
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner;
 
 - (void)setTopText:(NSString *)string;
 
 - (void)setBottomText:(NSString *)string;
-
-- (void)showTopText:(BOOL)flag;
-
-- (void)showBottomText:(BOOL)flag;
 
 @end

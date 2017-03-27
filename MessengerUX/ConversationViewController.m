@@ -12,6 +12,10 @@
 
 #import "UIView+AutoLayout.h"
 
+#import "UXTextMessageCell.h"
+#import "UXSingleImageMessageCell.h"
+#import "UXMessagerCellConfigure.h"
+
 @interface ConversationViewController () <ASTableDelegate, ASTableDataSource>
 
 @property (nonatomic) UXConversationFeed * dataFeed;
@@ -159,9 +163,44 @@
 
 - (ASCellNodeBlock)tableNode:(ASTableNode *)tableNode nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
     UXSentence * sentence = [self.dataFeed getDataArray][indexPath.row];
+    
     ASCellNode *(^cellNodeBlock)() = ^ASCellNode *() {
-        ConversationCellNode * sentenceNode = [[ConversationCellNode alloc] initWithSentence:sentence];
-        return sentenceNode;
+        UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+        
+        if (indexPath.row == 5 || indexPath.row == 17) {
+            BOOL dummyIncomming = indexPath.row % 2 == 0 || indexPath.row % 13 == 0;
+            
+            UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
+                                                                                           isIncomming:dummyIncomming
+                                                                                              andOwner:sentence.owner
+                                                                                          contentImage:[UIImage imageNamed:@"cameraThumb"]];
+            
+            if (sentence.owner.name) {
+                [imageCell setTopText:sentence.owner.name];
+            }
+            if (sentence.ID && indexPath.row % 3 == 0) {
+                [imageCell setBottomText:sentence.ID];
+            }
+            
+            return imageCell;
+            
+        } else {
+            BOOL dummyIncomming = indexPath.row % 2 == 0 || indexPath.row % 13 == 0;
+            
+            UXTextMessageCell * textMessage = [[UXTextMessageCell alloc] initWithConfigure:configure
+                                                                               isIncomming:dummyIncomming
+                                                                                  andOwner:sentence.owner
+                                                                               contentText:sentence.content];
+            
+            if (sentence.owner.name) {
+                [textMessage setTopText:sentence.owner.name];
+            }
+            if (sentence.ID && indexPath.row % 3 == 0) {
+                [textMessage setBottomText:sentence.ID];
+            }
+            
+            return textMessage;
+        }
     };
     return cellNodeBlock;
 }

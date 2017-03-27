@@ -27,10 +27,6 @@
     return [UIColor blackColor];;
 }
 
-- (NSUInteger)supportTextSize {
-    return 12;
-}
-
 - (NSUInteger)contentTextSize {
     return 16;
 }
