@@ -8,7 +8,7 @@
 
 #import "UXConversationFeed.h"
 
-#define PAGE_SIZE 20
+#define PAGE_FETCH_SIZE 20
 
 @interface UXConversationFeed ()
 
@@ -45,7 +45,7 @@
         __weak typeof(self) weakSelf = self;
         dispatch_async(self.internalConcurrentQueue, ^{
             NSUInteger currentMaxIndex = [weakSelf getDataArray].count;
-            NSArray * ret = [weakSelf getDataArrayFromIndex:currentMaxIndex toIndex:currentMaxIndex + PAGE_SIZE];
+            NSArray * ret = [weakSelf getDataArrayFromIndex:currentMaxIndex toIndex:currentMaxIndex + PAGE_FETCH_SIZE];
             completion(ret);
         });
     }

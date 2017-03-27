@@ -52,6 +52,15 @@
 		F2134F1B1E823BC4005F8B10 /* conversations.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F191E823BC3005F8B10 /* conversations.txt */; };
 		F2134F1C1E823BC4005F8B10 /* supreme.README.v1.01.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */; };
 		F2134F1F1E837DC6005F8B10 /* UXSentence+DummyComming.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F1E1E837DC6005F8B10 /* UXSentence+DummyComming.m */; };
+		F2134F231E88C8AC005F8B10 /* UXMessageBackgroundStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F221E88C8AC005F8B10 /* UXMessageBackgroundStyle.m */; };
+		F2134F271E88C999005F8B10 /* UXRoundedBackgroundStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F261E88C999005F8B10 /* UXRoundedBackgroundStyle.m */; };
+		F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F291E88CA4E005F8B10 /* UXImageBackgroundStyle.m */; };
+		F2134F2E1E88CAD2005F8B10 /* UXMessageCellConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F2D1E88CAD2005F8B10 /* UXMessageCellConfigure.m */; };
+		F2134F311E88CCA4005F8B10 /* UXMessagerCellConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F301E88CCA4005F8B10 /* UXMessagerCellConfigure.m */; };
+		F2134F341E88CEC3005F8B10 /* UXIMessageCellConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F331E88CEC3005F8B10 /* UXIMessageCellConfigure.m */; };
+		F2134F381E88D1E2005F8B10 /* UXMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F371E88D1E2005F8B10 /* UXMessageCell.m */; };
+		F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */; };
+		F2134F411E88F402005F8B10 /* UXSingleImageMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +168,25 @@
 		F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = supreme.README.v1.01.txt; sourceTree = "<group>"; };
 		F2134F1D1E837DC6005F8B10 /* UXSentence+DummyComming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXSentence+DummyComming.h"; sourceTree = "<group>"; };
 		F2134F1E1E837DC6005F8B10 /* UXSentence+DummyComming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UXSentence+DummyComming.m"; sourceTree = "<group>"; };
+		F2134F211E88C8AC005F8B10 /* UXMessageBackgroundStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageBackgroundStyle.h; sourceTree = "<group>"; };
+		F2134F221E88C8AC005F8B10 /* UXMessageBackgroundStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageBackgroundStyle.m; sourceTree = "<group>"; };
+		F2134F251E88C999005F8B10 /* UXRoundedBackgroundStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXRoundedBackgroundStyle.h; sourceTree = "<group>"; };
+		F2134F261E88C999005F8B10 /* UXRoundedBackgroundStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXRoundedBackgroundStyle.m; sourceTree = "<group>"; };
+		F2134F281E88CA4E005F8B10 /* UXImageBackgroundStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXImageBackgroundStyle.h; sourceTree = "<group>"; };
+		F2134F291E88CA4E005F8B10 /* UXImageBackgroundStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXImageBackgroundStyle.m; sourceTree = "<group>"; };
+		F2134F2C1E88CAD2005F8B10 /* UXMessageCellConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageCellConfigure.h; sourceTree = "<group>"; };
+		F2134F2D1E88CAD2005F8B10 /* UXMessageCellConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCellConfigure.m; sourceTree = "<group>"; };
+		F2134F2F1E88CCA4005F8B10 /* UXMessagerCellConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessagerCellConfigure.h; sourceTree = "<group>"; };
+		F2134F301E88CCA4005F8B10 /* UXMessagerCellConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessagerCellConfigure.m; sourceTree = "<group>"; };
+		F2134F321E88CEC3005F8B10 /* UXIMessageCellConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXIMessageCellConfigure.h; sourceTree = "<group>"; };
+		F2134F331E88CEC3005F8B10 /* UXIMessageCellConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXIMessageCellConfigure.m; sourceTree = "<group>"; };
+		F2134F361E88D1E2005F8B10 /* UXMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageCell.h; sourceTree = "<group>"; };
+		F2134F371E88D1E2005F8B10 /* UXMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCell.m; sourceTree = "<group>"; };
+		F2134F391E88E60C005F8B10 /* UXMessageCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXMessageCell+Private.h"; sourceTree = "<group>"; };
+		F2134F3C1E88EBF9005F8B10 /* UXTextMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXTextMessageCell.h; sourceTree = "<group>"; };
+		F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTextMessageCell.m; sourceTree = "<group>"; };
+		F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSingleImageMessageCell.h; sourceTree = "<group>"; };
+		F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSingleImageMessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,7 +359,7 @@
 			children = (
 				F2134EF01E7936C0005F8B10 /* Utils */,
 				F2134F041E823B9E005F8B10 /* Data */,
-				F2134EF91E823837005F8B10 /* Models */,
+				F2134F201E88B570005F8B10 /* UXMessageTimeline */,
 				F20C82ED1E710BB0006D3594 /* InterativeTranslation */,
 				F20C82E11E70F49F006D3594 /* ViewController */,
 				F20C828E1E6D0B9B006D3594 /* AppDelegate.h */,
@@ -496,6 +524,57 @@
 				F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		F2134F201E88B570005F8B10 /* UXMessageTimeline */ = {
+			isa = PBXGroup;
+			children = (
+				F2134F351E88D1B0005F8B10 /* MessageCell */,
+				F2134F2B1E88CAAB005F8B10 /* Configure */,
+				F2134F241E88C971005F8B10 /* BackgroundStyle */,
+				F2134EF91E823837005F8B10 /* Models */,
+			);
+			name = UXMessageTimeline;
+			sourceTree = "<group>";
+		};
+		F2134F241E88C971005F8B10 /* BackgroundStyle */ = {
+			isa = PBXGroup;
+			children = (
+				F2134F211E88C8AC005F8B10 /* UXMessageBackgroundStyle.h */,
+				F2134F221E88C8AC005F8B10 /* UXMessageBackgroundStyle.m */,
+				F2134F251E88C999005F8B10 /* UXRoundedBackgroundStyle.h */,
+				F2134F261E88C999005F8B10 /* UXRoundedBackgroundStyle.m */,
+				F2134F281E88CA4E005F8B10 /* UXImageBackgroundStyle.h */,
+				F2134F291E88CA4E005F8B10 /* UXImageBackgroundStyle.m */,
+			);
+			name = BackgroundStyle;
+			sourceTree = "<group>";
+		};
+		F2134F2B1E88CAAB005F8B10 /* Configure */ = {
+			isa = PBXGroup;
+			children = (
+				F2134F2C1E88CAD2005F8B10 /* UXMessageCellConfigure.h */,
+				F2134F2D1E88CAD2005F8B10 /* UXMessageCellConfigure.m */,
+				F2134F2F1E88CCA4005F8B10 /* UXMessagerCellConfigure.h */,
+				F2134F301E88CCA4005F8B10 /* UXMessagerCellConfigure.m */,
+				F2134F321E88CEC3005F8B10 /* UXIMessageCellConfigure.h */,
+				F2134F331E88CEC3005F8B10 /* UXIMessageCellConfigure.m */,
+			);
+			name = Configure;
+			sourceTree = "<group>";
+		};
+		F2134F351E88D1B0005F8B10 /* MessageCell */ = {
+			isa = PBXGroup;
+			children = (
+				F2134F361E88D1E2005F8B10 /* UXMessageCell.h */,
+				F2134F371E88D1E2005F8B10 /* UXMessageCell.m */,
+				F2134F391E88E60C005F8B10 /* UXMessageCell+Private.h */,
+				F2134F3C1E88EBF9005F8B10 /* UXTextMessageCell.h */,
+				F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */,
+				F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */,
+				F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */,
+			);
+			name = MessageCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -790,6 +869,7 @@
 				F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */,
 				F2134EFD1E82387C005F8B10 /* UXSentence.m in Sources */,
 				8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */,
+				F2134F271E88C999005F8B10 /* UXRoundedBackgroundStyle.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
 				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
@@ -802,18 +882,26 @@
 				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
 				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
 				94CB8C641E82DA3C000C64EF /* ConversationCellNode.m in Sources */,
+				F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */,
 				F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,
+				F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */,
 				8A6B9E201E77D01F002ACB87 /* Group.m in Sources */,
+				F2134F231E88C8AC005F8B10 /* UXMessageBackgroundStyle.m in Sources */,
 				8A6B9E141E763FE8002ACB87 /* CameraViewController.m in Sources */,
 				8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */,
 				F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */,
 				8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */,
 				F2134EDE1E7932E3005F8B10 /* ScrollTransitionAnimator.m in Sources */,
 				8A6B9E091E763EBB002ACB87 /* GroupViewController.m in Sources */,
+				F2134F341E88CEC3005F8B10 /* UXIMessageCellConfigure.m in Sources */,
+				F2134F2E1E88CAD2005F8B10 /* UXMessageCellConfigure.m in Sources */,
 				F2134EE71E7932F4005F8B10 /* SwipeInterativeObject.m in Sources */,
+				F2134F411E88F402005F8B10 /* UXSingleImageMessageCell.m in Sources */,
+				F2134F381E88D1E2005F8B10 /* UXMessageCell.m in Sources */,
 				F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */,
+				F2134F311E88CCA4005F8B10 /* UXMessagerCellConfigure.m in Sources */,
 				F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */,
 				F2134EE01E7932E3005F8B10 /* TransitionAnimator.m in Sources */,
 			);
@@ -910,7 +998,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -952,7 +1040,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
