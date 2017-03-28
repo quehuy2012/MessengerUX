@@ -65,6 +65,25 @@
     [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)
                                            child:self.imageContentNode];
     
+    NSArray * mainChild = nil;
+    if (self.showSubFunction) {
+        if (self.isIncomming) {
+            mainChild = @[imageInset, self.subFuntionNode];
+        } else {
+            mainChild = @[self.subFuntionNode, imageInset];
+        }
+    } else {
+        mainChild = @[imageInset];
+    }
+    
+    ASStackLayoutSpec * mainWithSubFunctionStack =
+    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                            spacing:16
+                                     justifyContent:ASStackLayoutJustifyContentCenter
+                                         alignItems:ASStackLayoutAlignItemsCenter
+                                           children:mainChild];
+    
+    
     NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
     
     if (self.showTextAsTop) {
@@ -74,7 +93,7 @@
         [stackedMessageChilds addObject:topTextInset];
     }
     
-    [stackedMessageChilds addObject:imageInset];
+    [stackedMessageChilds addObject:mainWithSubFunctionStack];
     
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =

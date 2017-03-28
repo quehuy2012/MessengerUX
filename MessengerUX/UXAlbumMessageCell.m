@@ -115,6 +115,24 @@
                                          alignItems:ASStackLayoutAlignItemsStart
                                            children:rowSpecChilds];
     
+    NSArray * mainChild = nil;
+    if (self.showSubFunction) {
+        if (self.isIncomming) {
+            mainChild = @[albumNodeStack, self.subFuntionNode];
+        } else {
+            mainChild = @[self.subFuntionNode, albumNodeStack];
+        }
+    } else {
+        mainChild = @[albumNodeStack];
+    }
+    
+    ASStackLayoutSpec * mainWithSubFunctionStack =
+    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                            spacing:16
+                                     justifyContent:ASStackLayoutJustifyContentCenter
+                                         alignItems:ASStackLayoutAlignItemsCenter
+                                           children:mainChild];
+    
     NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
@@ -122,7 +140,9 @@
                                                child:self.topTextNode];
         [stackedMessageChilds addObject:topTextInset];
     }
-    [stackedMessageChilds addObject:albumNodeStack];
+    
+    [stackedMessageChilds addObject:mainWithSubFunctionStack];
+    
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)

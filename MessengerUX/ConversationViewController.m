@@ -205,6 +205,8 @@
                 [albumCell setBottomText:@"galleryThumb"];
             }
             
+            albumCell.showSubFunction = YES;
+            
             albumCell.delegate = weakSelf;
             
             return albumCell;
@@ -224,6 +226,8 @@
                                                                                           contentImage:[UIImage imageNamed:@"cameraThumb"]];
             
             [imageCell setTopText:@"cameraThumb"];
+            
+            imageCell.showSubFunction = YES;
             
             imageCell.delegate = weakSelf;
             
@@ -281,6 +285,10 @@
 
 - (void)messageCell:(UXMessageCell *)messageCell supportLabelClicked:(ASTextNode *)supportLabel isTopLabel:(BOOL)topLabel {
     NSLog(@"Support label %d clicked %@", topLabel, supportLabel);
+}
+
+- (void)messageCell:(UXMessageCell *)messageCell subFunctionClicked:(ASImageNode *)subFunctionNode {
+    NSLog(@"Sub function clicked %@", subFunctionNode);
 }
 
 - (void)messageCell:(UXMessageCell *)messageCell messageClicked:(ASTextNode *)messageNode{

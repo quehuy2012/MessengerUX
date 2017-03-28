@@ -17,12 +17,14 @@
 @property (nonatomic) BOOL isIncomming;
 @property (nonatomic) BOOL showTextAsTop;
 @property (nonatomic) BOOL showTextAsBottom;
+@property (nonatomic) BOOL showSubFunction;
 @property (nonatomic) UXSpeaker * owner;
 @property (nonatomic) UXMessageCellConfigure * configure;
 
 @property (nonatomic) ASTextNode * topTextNode;
 @property (nonatomic) ASTextNode * bottomTextNode;
 @property (nonatomic) ASImageNode * avatarNode;
+@property (nonatomic) ASImageNode * subFuntionNode;
 @property (nonatomic) ASDisplayNode * messageBackgroundNode;
 
 @property (nonatomic, weak) id<UXMessageCellDelegate> delegate;
@@ -42,5 +44,7 @@
 - (void)messageCell:(UXMessageCell *)messageCell avatarClicked:(ASImageNode *)avatarNode;
 
 - (void)messageCell:(UXMessageCell *)messageCell supportLabelClicked:(ASTextNode *)supportLabel isTopLabel:(BOOL)topLabel;
+
+- (void)messageCell:(UXMessageCell *)messageCell subFunctionClicked:(ASImageNode *)subFunctionNode;
 
 @end

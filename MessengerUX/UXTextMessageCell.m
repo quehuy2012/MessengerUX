@@ -53,6 +53,25 @@
     [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:messageInsetsSpec
                                                background:self.messageBackgroundNode];
     
+    NSArray * mainChild = nil;
+    if (self.showSubFunction) {
+        if (self.isIncomming) {
+            mainChild = @[messageBubble, self.subFuntionNode];
+        } else {
+            mainChild = @[self.subFuntionNode, messageBubble];
+        }
+    } else {
+        mainChild = @[messageBubble];
+    }
+    
+    ASStackLayoutSpec * mainWithSubFunctionStack =
+    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                            spacing:16
+                                     justifyContent:ASStackLayoutJustifyContentCenter
+                                         alignItems:ASStackLayoutAlignItemsCenter
+                                           children:mainChild];
+    
+    
     NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
     
     if (self.showTextAsTop) {
@@ -62,7 +81,7 @@
         [stackedMessageChilds addObject:topTextInset];
     }
     
-    [stackedMessageChilds addObject:messageBubble];
+    [stackedMessageChilds addObject:mainWithSubFunctionStack];
     
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
