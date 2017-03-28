@@ -20,6 +20,7 @@
 
 @property (nonatomic) UXConversationFeed * dataFeed;
 @property (nonatomic) ASTableNode * tableNode;
+@property (nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
 
@@ -106,6 +107,11 @@
     [self.tableNode.view atTrailingWith:self.view value:0];
     [self.tableNode.view atLeadingWith:self.view value:0];
     [self.tableNode.view atBottomMarginTo:textInputHolder value:0];
+    
+    // Add long press gesture
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    gesture.minimumPressDuration = 1.0;
+    [self.tableNode.view addGestureRecognizer:gesture];
     
     self.tableNode.view.allowsSelection = NO;
     self.tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -265,11 +271,100 @@
 
 - (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath {
     
-    [self.dataFeed deleteDataAtIndex:indexPath.row];
+    __weak typeof(self) weakself = self;
+    [self.tableNode performBatchUpdates:^{
+        
+        UXMessageCell *cell = [weakself.tableNode nodeForRowAtIndexPath:indexPath];
+        
+        if (cell) {
+            BOOL isComming = cell.isIncomming;
+            [self.dataFeed deleteDataAtIndex:indexPath.row];
+            NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+            UITableViewRowAnimation animation = isComming ? UITableViewRowAnimationLeft : UITableViewRowAnimationRight;
+            [self.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+        }
+    } completion:nil];
     
-    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
-    [self.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint point = [gestureRecognizer locationInView:self.tableNode.view];
+        NSIndexPath *indexPath = [self.tableNode indexPathForRowAtPoint:point];
+        
+        if (indexPath) {
+            if ([self tableView:self.tableNode.view canEditRowAtIndexPath:indexPath]) {
+                
+                UXMessageCell *cell = [self.tableNode nodeForRowAtIndexPath:indexPath];
+                CGPoint cellPoint = [gestureRecognizer locationInView:cell.view];
+                
+                if (CGRectContainsPoint(cell.messageBackgroundNode.frame, cellPoint)) {
+                    [self showEditingMenuAtPoint:point];
+                    self.selectedIndexPath = indexPath;
+                }
+            }
+        }
+    }
+}
+
+- (void)showEditingMenuAtPoint:(CGPoint)point {
+//    NSLog(@"Show menu");
+    CGRect targetRectangle = CGRectMake(point.x, point.y, 0, 0);
+    [[UIMenuController sharedMenuController] setTargetRect:targetRectangle
+                                                    inView:self.tableNode.view];
+    
+    UIMenuItem *menuItem = [[UIMenuItem alloc] initWithTitle:@"Delete"
+                                                      action:@selector(deleteAction:)];
+    
+    [[UIMenuController sharedMenuController] setMenuItems:@[menuItem]];
+    [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (BOOL)canPerformAction:(SEL)action
+              withSender:(id)sender
+{
+    BOOL result = NO;
+    if(@selector(copy:) == action ||
+       @selector(deleteAction:) == action) {
+        result = YES;
+    }
+    return result;
+}
+
+- (void)deleteAction:(id)sender {
+    if (self.selectedIndexPath) {
+        [self removeMessageAtIndexPath:self.selectedIndexPath];
+    }
+    self.selectedIndexPath = nil;
+}
+
+- (void)copy:(id)sender {
+    NSLog(@"Method is not implemented");
+}
+
+//- (BOOL)tableNode:(ASTableNode *)tableNode shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    return YES;
+//}
+//
+//- (BOOL)tableNode:(ASTableNode *)tableNode canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+//    BOOL result = (action == @selector(copy:) || action == @selector(deleteMessage:));
+//    return result;
+//}
+//
+//- (void)tableNode:(ASTableNode *)tableNode performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+//    
+//    if (action == @selector(copy:)){
+//        //[tableNode deselectRowAtIndexPath:indexPath animated:YES];
+//    } else if (action == @selector(deleteMessage:)) {
+//        //[tableNode deselectRowAtIndexPath:indexPath animated:YES];
+//    }
+//}
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 //    [self.view endEditing:YES];
