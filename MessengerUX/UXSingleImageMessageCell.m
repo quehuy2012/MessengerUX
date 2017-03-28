@@ -58,20 +58,20 @@
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     
     ASInsetLayoutSpec * imageInset =
-    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
+    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)
                                            child:self.imageContentNode];
     
     NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left, 0, self.configure.insets.right)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
                                                child:self.topTextNode];
         [stackedMessageChilds addObject:topTextInset];
     }
     [stackedMessageChilds addObject:imageInset];
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left, 0, self.configure.insets.right)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
                                                child:self.bottomTextNode];
         [stackedMessageChilds addObject:bottomTextInset];
     }

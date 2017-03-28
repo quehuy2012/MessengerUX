@@ -8,7 +8,6 @@
 
 #import "ConversationViewController.h"
 #import "UXConversationFeed.h"
-#import "ConversationCellNode.h"
 
 #import "UIView+AutoLayout.h"
 
@@ -167,26 +166,31 @@
     
     ASCellNode *(^cellNodeBlock)() = ^ASCellNode *() {
         UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+        
         if (indexPath.row % 9 == 0) {
             
             UXTitleMessageCell * titleCell = [[UXTitleMessageCell alloc] initWithConfigure:configure title:@"Section"];
             
             return titleCell;
             
-        } else if (indexPath.row == 5 || indexPath.row == 17) {
-            BOOL dummyIncomming = indexPath.row % 2 == 0 || indexPath.row % 13 == 0;
-            
+        } else if (indexPath.row == 5) {
             UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
-                                                                                           isIncomming:dummyIncomming
+                                                                                           isIncomming:YES
                                                                                               andOwner:sentence.owner
                                                                                           contentImage:[UIImage imageNamed:@"cameraThumb"]];
             
-            if (sentence.owner.name) {
-                [imageCell setTopText:sentence.owner.name];
-            }
-            if (sentence.ID && indexPath.row % 3 == 0) {
-                [imageCell setBottomText:sentence.ID];
-            }
+            [imageCell setTopText:@"cameraThumb"];
+            
+            return imageCell;
+            
+        } else if (indexPath.row == 17) {
+            
+            UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
+                                                                                           isIncomming:NO
+                                                                                              andOwner:sentence.owner
+                                                                                          contentImage:[UIImage imageNamed:@"tempImg"]];
+            
+            [imageCell setBottomText:@"tempImg"];
             
             return imageCell;
             
