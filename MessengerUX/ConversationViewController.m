@@ -234,6 +234,13 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ASCellNode * cell = [self.tableNode nodeForRowAtIndexPath:indexPath];
+    
+    if ([cell isKindOfClass:[UXTitleMessageCell class]]) {
+        return NO;
+    }
+    
     return YES;
 }
 
@@ -249,7 +256,7 @@
 }
 
 - (void)removeMessageAtIndex:(NSInteger)index {
-    
+    [self.dataFeed deleteDataAtIndex:index];
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
