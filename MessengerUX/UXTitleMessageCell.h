@@ -8,7 +8,17 @@
 
 #import "UXMessageCell.h"
 
+@protocol UXTitleMessageCellDelegate <NSObject, UXMessageCellDelegate>
+
+@optional
+
+- (void)messageCell:(UXMessageCell *)messageCell titleClicked:(ASTextNode *)titleNode;
+
+@end
+
 @interface UXTitleMessageCell : UXMessageCell
+
+@property (nonatomic, weak) id <UXTitleMessageCellDelegate> delegate;
 
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure title:(NSString *)title;
 

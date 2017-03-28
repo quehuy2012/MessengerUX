@@ -21,15 +21,18 @@
 
 @implementation UXSingleImageMessageCell
 
+@synthesize delegate;
+
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImage:(UIImage *)image {
     self = [self initWithConfigure:configure isIncomming:incomming andOwner:owner];
     if (self) {
         self.imageContentNode = [[ASImageNode alloc] init];
         self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
         self.imageDimentionRatio = image.size.height / image.size.width;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(240*self.imageDimentionRatio);
+        self.imageContentNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(configure.maxWidthOfCell*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
+        [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         ((ASImageNode *)self.imageContentNode).image = image;
         
         [self addSubnode:self.imageContentNode];
@@ -44,9 +47,10 @@
         self.imageContentNode = [[ASNetworkImageNode alloc] init];
         self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
         self.imageDimentionRatio = ratio;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(240*ratio);
+        self.imageContentNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(configure.maxWidthOfCell*ratio);
         self.imageContentNode.clipsToBounds = YES;
+        [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         ((ASNetworkImageNode *)self.imageContentNode).URL = imageURL;
         
         [self addSubnode:self.imageContentNode];
@@ -61,14 +65,36 @@
     [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)
                                            child:self.imageContentNode];
     
+    NSArray * mainChild = nil;
+    if (self.showSubFunction) {
+        if (self.isIncomming) {
+            mainChild = @[imageInset, self.subFuntionNode];
+        } else {
+            mainChild = @[self.subFuntionNode, imageInset];
+        }
+    } else {
+        mainChild = @[imageInset];
+    }
+    
+    ASStackLayoutSpec * mainWithSubFunctionStack =
+    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                            spacing:16
+                                     justifyContent:ASStackLayoutJustifyContentCenter
+                                         alignItems:ASStackLayoutAlignItemsCenter
+                                           children:mainChild];
+    
+    
     NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
+    
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
                                                child:self.topTextNode];
         [stackedMessageChilds addObject:topTextInset];
     }
-    [stackedMessageChilds addObject:imageInset];
+    
+    [stackedMessageChilds addObject:mainWithSubFunctionStack];
+    
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
@@ -107,5 +133,12 @@
     return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
 }
 
+#pragma mark - Action
+
+- (void) imageClicked:(ASControlNode *)imageNode {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:imageClicked:)]) {
+        [self.delegate messageCell:self imageClicked:imageNode];
+    }
+}
 
 @end

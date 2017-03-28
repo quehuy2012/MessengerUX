@@ -19,6 +19,8 @@
 
 @implementation UXTextMessageCell
 
+@synthesize delegate;
+
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentText:(NSString *)string {
     self = [super initWithConfigure:configure isIncomming:incomming andOwner:owner];
     if (self) {
@@ -28,11 +30,12 @@
         self.messageNode = [[ASTextNode alloc] init];
         self.messageNode.style.flexShrink = 1.0;
         self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.messageNode.style.maxWidth = ASDimensionMake(240);
+        self.messageNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
         self.messageNode.backgroundColor = [UIColor clearColor];
         self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:string
                                                                           attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.contentTextSize],
                                                                                        NSForegroundColorAttributeName: textColor}];
+        [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self addSubnode:self.messageNode];
         
     }
@@ -50,14 +53,36 @@
     [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:messageInsetsSpec
                                                background:self.messageBackgroundNode];
     
+    NSArray * mainChild = nil;
+    if (self.showSubFunction) {
+        if (self.isIncomming) {
+            mainChild = @[messageBubble, self.subFuntionNode];
+        } else {
+            mainChild = @[self.subFuntionNode, messageBubble];
+        }
+    } else {
+        mainChild = @[messageBubble];
+    }
+    
+    ASStackLayoutSpec * mainWithSubFunctionStack =
+    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                            spacing:16
+                                     justifyContent:ASStackLayoutJustifyContentCenter
+                                         alignItems:ASStackLayoutAlignItemsCenter
+                                           children:mainChild];
+    
+    
     NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
+    
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2) child:self.topTextNode];
         
         [stackedMessageChilds addObject:topTextInset];
     }
-    [stackedMessageChilds addObject:messageBubble];
+    
+    [stackedMessageChilds addObject:mainWithSubFunctionStack];
+    
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2) child:self.bottomTextNode];
@@ -79,6 +104,7 @@
     
     NSArray * mainChilds = nil;
     ASStackLayoutJustifyContent mainLayoutJustify = ASStackLayoutJustifyContentStart;
+    
     if (self.isIncomming) {
         mainChilds = @[self.avatarNode, stackedMessage];
     } else {
@@ -94,6 +120,14 @@
                                            children:mainChilds];
     
     return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
+}
+
+#pragma mark - Action
+
+- (void)messageClicked:(ASTextNode *)messageNode {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:messageClicked:)]) {
+        [self.delegate messageCell:self messageClicked:messageNode];
+    }
 }
 
 @end
