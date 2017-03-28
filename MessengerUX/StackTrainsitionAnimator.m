@@ -49,7 +49,7 @@
     
     POPSpringAnimation *fromViewAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     fromViewAnimation.toValue = [NSValue valueWithCGRect:finalFromFrame];
-    fromViewAnimation.springBounciness = 20.f;
+    fromViewAnimation.springBounciness = 10.f;
     
     [fromView pop_addAnimation:fromViewAnimation forKey:@"fromViewAnimation"];
     [toView pop_addAnimation:toViewAnimation forKey:@"toViewAnimation"];
