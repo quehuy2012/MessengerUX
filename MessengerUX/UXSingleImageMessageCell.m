@@ -26,9 +26,9 @@
     if (self) {
         self.imageContentNode = [[ASImageNode alloc] init];
         self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(240);
         self.imageDimentionRatio = image.size.height / image.size.width;
+        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(240*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
         ((ASImageNode *)self.imageContentNode).image = image;
         
@@ -43,9 +43,9 @@
     if (self) {
         self.imageContentNode = [[ASNetworkImageNode alloc] init];
         self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(240);
         self.imageDimentionRatio = ratio;
+        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(240*ratio);
         self.imageContentNode.clipsToBounds = YES;
         ((ASNetworkImageNode *)self.imageContentNode).URL = imageURL;
         

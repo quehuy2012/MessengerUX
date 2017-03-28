@@ -61,6 +61,7 @@
 		F2134F381E88D1E2005F8B10 /* UXMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F371E88D1E2005F8B10 /* UXMessageCell.m */; };
 		F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */; };
 		F2134F411E88F402005F8B10 /* UXSingleImageMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */; };
+		F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +187,8 @@
 		F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTextMessageCell.m; sourceTree = "<group>"; };
 		F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSingleImageMessageCell.h; sourceTree = "<group>"; };
 		F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSingleImageMessageCell.m; sourceTree = "<group>"; };
+		F2134F421E8A033D005F8B10 /* UXTitleMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXTitleMessageCell.h; sourceTree = "<group>"; };
+		F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTitleMessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -571,6 +574,8 @@
 				F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */,
 				F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */,
 				F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */,
+				F2134F421E8A033D005F8B10 /* UXTitleMessageCell.h */,
+				F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */,
 			);
 			name = MessageCell;
 			sourceTree = "<group>";
@@ -882,6 +887,7 @@
 				94CB8C641E82DA3C000C64EF /* ConversationCellNode.m in Sources */,
 				F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */,
 				F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */,
+				F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,
 				F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */,

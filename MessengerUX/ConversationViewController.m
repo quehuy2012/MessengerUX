@@ -14,6 +14,7 @@
 
 #import "UXTextMessageCell.h"
 #import "UXSingleImageMessageCell.h"
+#import "UXTitleMessageCell.h"
 #import "UXMessagerCellConfigure.h"
 
 @interface ConversationViewController () <ASTableDelegate, ASTableDataSource>
@@ -166,8 +167,13 @@
     
     ASCellNode *(^cellNodeBlock)() = ^ASCellNode *() {
         UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
-        
-        if (indexPath.row == 5 || indexPath.row == 17) {
+        if (indexPath.row % 9 == 0) {
+            
+            UXTitleMessageCell * titleCell = [[UXTitleMessageCell alloc] initWithConfigure:configure title:@"Section"];
+            
+            return titleCell;
+            
+        } else if (indexPath.row == 5 || indexPath.row == 17) {
             BOOL dummyIncomming = indexPath.row % 2 == 0 || indexPath.row % 13 == 0;
             
             UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
