@@ -245,18 +245,30 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         __weak typeof(self) weakself = self;
         [self.tableNode performBatchUpdates:^{
-            [weakself removeMessageAtIndex:indexPath.row];
-            NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
-            [self.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            // Remove section if needed
+            NSIndexPath *cellIndex = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+            ASCellNode * cell = [weakself.tableNode nodeForRowAtIndexPath:cellIndex];
+            if (cell && [cell isKindOfClass:[UXTitleMessageCell class]]) {
+                [weakself removeMessageAtIndexPath:cellIndex];
+            }
+            
+            [weakself removeMessageAtIndexPath:indexPath];
+            
         } completion:nil];
     }
 }
 
-- (void)removeMessageAtIndex:(NSInteger)index {
-    [self.dataFeed deleteDataAtIndex:index];
+- (void)removeMessageAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.dataFeed deleteDataAtIndex:indexPath.row];
+    
+    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+    [self.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
