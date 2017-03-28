@@ -43,6 +43,10 @@
     return 0;
 }
 
+- (NSUInteger)maxWidthOfCell {
+    return 240;
+}
+
 - (UIEdgeInsets)insets {
     NSAssert(NO, @"Must overide this method");
     return UIEdgeInsetsZero;

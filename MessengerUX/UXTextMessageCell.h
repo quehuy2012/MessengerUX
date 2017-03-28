@@ -8,8 +8,20 @@
 
 #import "UXMessageCell.h"
 
+@protocol UXTextMessageCellDelegate <NSObject, UXMessageCellDelegate>
+
+@optional
+
+- (void)messageCell:(UXMessageCell *)messageCell messageClicked:(ASTextNode *)messageNode;
+
+@end
+
 @interface UXTextMessageCell : UXMessageCell
+
+@property (nonatomic, weak) id<UXTextMessageCellDelegate> delegate;
 
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentText:(NSString *)string;
 
 @end
+
+

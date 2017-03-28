@@ -12,17 +12,17 @@
 
 @interface UXMessageCellConfigure : NSObject
 
-@property (nonatomic) UIColor * incommingColor;
-@property (nonatomic) UIColor * outgoingColor;
-@property (nonatomic) UIColor * incommingTextColor;
-@property (nonatomic) UIColor * outgoingTextColor;
-@property (nonatomic) UIColor * supportTextColor;
+@property (nonatomic, readonly) UIColor * incommingColor;
+@property (nonatomic, readonly) UIColor * outgoingColor;
+@property (nonatomic, readonly) UIColor * incommingTextColor;
+@property (nonatomic, readonly) UIColor * outgoingTextColor;
+@property (nonatomic, readonly) UIColor * supportTextColor;
 
-@property (nonatomic) NSUInteger supportTextSize;
-@property (nonatomic) NSUInteger contentTextSize;
+@property (nonatomic, readonly) NSUInteger supportTextSize;
+@property (nonatomic, readonly) NSUInteger contentTextSize;
+@property (nonatomic, readonly) NSUInteger maxWidthOfCell;
 
-
-@property (nonatomic) UIEdgeInsets insets;
+@property (nonatomic, readonly) UIEdgeInsets insets;
 
 - (UXMessageBackgroundStyle *)getMessageBackgroundStyle;
 

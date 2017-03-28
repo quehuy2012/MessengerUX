@@ -10,6 +10,7 @@
 
 @class UXMessageCellConfigure;
 @class UXSpeaker;
+@protocol UXMessageCellDelegate;
 
 @interface UXMessageCell : ASCellNode
 
@@ -24,12 +25,22 @@
 @property (nonatomic) ASImageNode * avatarNode;
 @property (nonatomic) ASDisplayNode * messageBackgroundNode;
 
-
+@property (nonatomic, weak) id<UXMessageCellDelegate> delegate;
 
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner;
 
 - (void)setTopText:(NSString *)string;
 
 - (void)setBottomText:(NSString *)string;
+
+@end
+
+@protocol UXMessageCellDelegate <NSObject>
+
+@optional
+
+- (void)messageCell:(UXMessageCell *)messageCell avatarClicked:(ASImageNode *)avatarNode;
+
+- (void)messageCell:(UXMessageCell *)messageCell supportLabelClicked:(ASTextNode *)supportLabel isTopLabel:(BOOL)topLabel;
 
 @end

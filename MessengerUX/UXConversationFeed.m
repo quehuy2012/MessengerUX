@@ -106,6 +106,7 @@
         sentence.content = [NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i];
         sentence.owner = [[UXSpeaker alloc] init];
         sentence.owner.name = [NSString stringWithFormat:@"kuus%dadf", i];
+        sentence.owner.avatar = [UIImage imageNamed:@"cameraThumb"];
         [ret addObject:sentence];
     }
     

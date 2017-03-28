@@ -61,6 +61,7 @@
 		F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */; };
 		F2134F411E88F402005F8B10 /* UXSingleImageMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */; };
 		F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */; };
+		F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +187,8 @@
 		F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSingleImageMessageCell.m; sourceTree = "<group>"; };
 		F2134F421E8A033D005F8B10 /* UXTitleMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXTitleMessageCell.h; sourceTree = "<group>"; };
 		F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTitleMessageCell.m; sourceTree = "<group>"; };
+		F2134F451E8A13AB005F8B10 /* UXAlbumMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXAlbumMessageCell.h; sourceTree = "<group>"; };
+		F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAlbumMessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -559,10 +562,12 @@
 				F2134F371E88D1E2005F8B10 /* UXMessageCell.m */,
 				F2134F3C1E88EBF9005F8B10 /* UXTextMessageCell.h */,
 				F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */,
-				F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */,
-				F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */,
 				F2134F421E8A033D005F8B10 /* UXTitleMessageCell.h */,
 				F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */,
+				F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */,
+				F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */,
+				F2134F451E8A13AB005F8B10 /* UXAlbumMessageCell.h */,
+				F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */,
 			);
 			name = MessageCell;
 			sourceTree = "<group>";
@@ -865,6 +870,7 @@
 				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
 				F2134F1F1E837DC6005F8B10 /* UXSentence+DummyComming.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
+				F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */,
 				F2134F031E82393C005F8B10 /* UXSpeaker.m in Sources */,
 				94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */,
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,

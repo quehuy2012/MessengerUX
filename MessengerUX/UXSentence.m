@@ -23,9 +23,11 @@
             NSString * content = splited[7];
             
             ret = [[UXSentence alloc] init];
-            ret.owner = [[UXSpeaker alloc] init];
             
+            ret.owner = [[UXSpeaker alloc] init];
             ret.owner.name = speakerName;
+            ret.owner.avatar = [UIImage imageNamed:@"cameraThumb"]; // TODO edit this dummy thing
+            
             ret.content = [content stringByReplacingOccurrencesOfString:@" -- " withString:@"\n"];
             ret.content = [ret.content stringByReplacingOccurrencesOfString:@"--" withString:@"👽"];
             ret.content = [ret.content stringByReplacingOccurrencesOfString:@"not" withString:@"👎"];

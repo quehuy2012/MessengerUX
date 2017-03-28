@@ -39,9 +39,9 @@
         self.avatarNode.style.width = ASDimensionMakeWithPoints(34);
         self.avatarNode.style.height = ASDimensionMakeWithPoints(34);
         self.avatarNode.cornerRadius = 17;
-//        self.avatarNode.image = self.owner ? self.owner.avatar : [UIImage imageNamed:@"cameraThumb"]; // TODO set default thumbnail
-        self.avatarNode.image = [UIImage imageNamed:@"cameraThumb"];
+        self.avatarNode.image = self.owner ? self.owner.avatar : [UIImage imageNamed:@"cameraThumb"]; // TODO set default thumbnail
         self.avatarNode.clipsToBounds = YES;
+        [self.avatarNode addTarget:self action:@selector(avatarClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self addSubnode:self.avatarNode];
         
         self.topTextNode = [[ASTextNode alloc] init];
@@ -49,6 +49,7 @@
         self.topTextNode.style.flexShrink = 1.0;
         self.topTextNode.truncationMode = NSLineBreakByTruncatingTail;
         self.topTextNode.style.maxWidth = ASDimensionMake(240);
+        [self.topTextNode addTarget:self action:@selector(supportTextClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self addSubnode:self.topTextNode];
         
         self.bottomTextNode = [[ASTextNode alloc] init];
@@ -56,6 +57,7 @@
         self.bottomTextNode.style.flexShrink = 1.0;
         self.bottomTextNode.truncationMode = NSLineBreakByTruncatingTail;
         self.bottomTextNode.style.maxWidth = ASDimensionMake(240);
+        [self.bottomTextNode addTarget:self action:@selector(supportTextClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self addSubnode:self.bottomTextNode];
         
         if (self.configure) {
@@ -105,6 +107,20 @@
 - (void)setShowTextAsBottom:(BOOL)flagShowTextAsBottom {
     _showTextAsBottom = flagShowTextAsBottom;
     [self setNeedsLayout];
+}
+
+#pragma mark - Action
+
+- (void)avatarClicked:(ASImageNode *)avatarNode {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:avatarClicked:)]) {
+        [self.delegate messageCell:self avatarClicked:avatarNode];
+    }
+}
+
+- (void)supportTextClicked:(ASTextNode *)supportNode {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:supportLabelClicked:isTopLabel:)]) {
+        [self.delegate messageCell:self supportLabelClicked:supportNode isTopLabel:(self.topTextNode == supportNode)];
+    }
 }
 
 @end

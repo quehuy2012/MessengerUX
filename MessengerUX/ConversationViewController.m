@@ -14,9 +14,10 @@
 #import "UXTextMessageCell.h"
 #import "UXSingleImageMessageCell.h"
 #import "UXTitleMessageCell.h"
+#import "UXAlbumMessageCell.h"
 #import "UXMessagerCellConfigure.h"
 
-@interface ConversationViewController () <ASTableDelegate, ASTableDataSource>
+@interface ConversationViewController () <ASTableDelegate, ASTableDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
 
 @property (nonatomic) UXConversationFeed * dataFeed;
 @property (nonatomic) ASTableNode * tableNode;
@@ -162,18 +163,61 @@
 }
 
 - (ASCellNodeBlock)tableNode:(ASTableNode *)tableNode nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UXSentence * sentence = [self.dataFeed getDataArray][indexPath.row];
+    
+    __weak typeof(self) weakSelf = self;
     
     ASCellNode *(^cellNodeBlock)() = ^ASCellNode *() {
         UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
-        
-        if (indexPath.row % 9 == 0) {
+        if (indexPath.row % 10 == 0) {
+            
+            NSArray * imgs = @[];
+            
+            if (indexPath.row % 4 == 0) {
+                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
+                         , [UIImage imageNamed:@"tempImg"]];
+            } else if (indexPath.row % 3 == 0){
+                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"]];
+            } else if (indexPath.row % 5 == 0) {
+                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
+                         , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
+            } else {
+                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
+                         , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                         , [UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
+                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
+            }
+            
+            UXAlbumMessageCell * albumCell = [[UXAlbumMessageCell alloc] initWithConfigure:configure
+                                                                               isIncomming:(indexPath.row % 3 == 0)
+                                                                                  andOwner:sentence.owner
+                                                                              contentImage:imgs];
+            
+            if (indexPath.row % 3 == 0) {
+                [albumCell setTopText:@"cameraThumb"];
+            } else {
+                [albumCell setBottomText:@"galleryThumb"];
+            }
+            
+            albumCell.delegate = weakSelf;
+            
+            return albumCell;
+            
+        } else if (indexPath.row % 9 == 0) {
             
             UXTitleMessageCell * titleCell = [[UXTitleMessageCell alloc] initWithConfigure:configure title:@"Section"];
             
+            titleCell.delegate = weakSelf;
+            
             return titleCell;
             
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row % 6 == 0) {
             UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
                                                                                            isIncomming:YES
                                                                                               andOwner:sentence.owner
@@ -181,9 +225,11 @@
             
             [imageCell setTopText:@"cameraThumb"];
             
+            imageCell.delegate = weakSelf;
+            
             return imageCell;
             
-        } else if (indexPath.row == 17) {
+        } else if (indexPath.row % 17 == 0) {
             
             UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
                                                                                            isIncomming:NO
@@ -191,6 +237,8 @@
                                                                                           contentImage:[UIImage imageNamed:@"tempImg"]];
             
             [imageCell setBottomText:@"tempImg"];
+            
+            imageCell.delegate = weakSelf;
             
             return imageCell;
             
@@ -209,6 +257,8 @@
                 [textMessage setBottomText:sentence.ID];
             }
             
+            textMessage.delegate = weakSelf;
+            
             return textMessage;
         }
     };
@@ -223,8 +273,30 @@
     [self loadPageWithContext:context];
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [self.view endEditing:YES];
-//}
+#pragma mark - UXMessageCellDelegate
+
+- (void)messageCell:(UXMessageCell *)messageCell avatarClicked:(ASImageNode *)avatarNode {
+    NSLog(@"Avatar clicked %@", avatarNode);
+}
+
+- (void)messageCell:(UXMessageCell *)messageCell supportLabelClicked:(ASTextNode *)supportLabel isTopLabel:(BOOL)topLabel {
+    NSLog(@"Support label %d clicked %@", topLabel, supportLabel);
+}
+
+- (void)messageCell:(UXMessageCell *)messageCell messageClicked:(ASTextNode *)messageNode{
+    NSLog(@"Message clicked %@", messageNode);
+}
+
+- (void)messageCell:(UXMessageCell *)messageCell imageClicked:(ASControlNode *)imageNode {
+    NSLog(@"Image clicked %@", imageNode);
+}
+
+- (void)messageCell:(UXMessageCell *)messageCell titleClicked:(ASTextNode *)titleNode {
+    NSLog(@"Title clicked %@", titleNode);
+}
+
+- (void)messageCell:(UXMessageCell *)messageCell albumImageClicked:(ASControlNode *)imageNode {
+    NSLog(@"Album image clicked %@", imageNode);
+}
 
 @end

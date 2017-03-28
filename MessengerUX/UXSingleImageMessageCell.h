@@ -8,7 +8,17 @@
 
 #import "UXMessageCell.h"
 
+@protocol UXSingleImageMessageCellDelegate <NSObject, UXMessageCellDelegate>
+
+@optional
+
+- (void)messageCell:(UXMessageCell *)messageCell imageClicked:(ASControlNode *)imageNode;
+
+@end
+
 @interface UXSingleImageMessageCell : UXMessageCell
+
+@property (nonatomic, weak) id<UXSingleImageMessageCellDelegate> delegate;
 
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImage:(UIImage *)image;
 
