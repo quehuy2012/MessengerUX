@@ -112,4 +112,16 @@
     return ret;
 }
 
+- (void)deleteDataAtIndex:(NSUInteger)index {
+    if (index < self.dataArray.count) {
+        [self.dataArray removeObjectAtIndex:index];
+    }
+}
+
+- (void)deleteSentent:(UXSentence *)sentence {
+    if ([self.dataArray containsObject:sentence]) {
+        [self.dataArray removeObject:sentence];
+    }
+}
+
 @end

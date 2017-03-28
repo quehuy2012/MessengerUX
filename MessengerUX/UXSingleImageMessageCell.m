@@ -26,9 +26,9 @@
     if (self) {
         self.imageContentNode = [[ASImageNode alloc] init];
         self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(240);
         self.imageDimentionRatio = image.size.height / image.size.width;
+        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(240*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
         ((ASImageNode *)self.imageContentNode).image = image;
         
@@ -43,9 +43,9 @@
     if (self) {
         self.imageContentNode = [[ASNetworkImageNode alloc] init];
         self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(240);
         self.imageDimentionRatio = ratio;
+        self.imageContentNode.style.maxWidth = ASDimensionMake(240);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(240*ratio);
         self.imageContentNode.clipsToBounds = YES;
         ((ASNetworkImageNode *)self.imageContentNode).URL = imageURL;
         
@@ -58,20 +58,20 @@
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     
     ASInsetLayoutSpec * imageInset =
-    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
+    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)
                                            child:self.imageContentNode];
     
     NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left, 0, self.configure.insets.right)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
                                                child:self.topTextNode];
         [stackedMessageChilds addObject:topTextInset];
     }
     [stackedMessageChilds addObject:imageInset];
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left, 0, self.configure.insets.right)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
                                                child:self.bottomTextNode];
         [stackedMessageChilds addObject:bottomTextInset];
     }

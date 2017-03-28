@@ -24,7 +24,6 @@
 		8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E281E77F976002ACB87 /* CallCellObject.m */; };
 		8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */; };
 		94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CB8C5F1E82D785000C64EF /* ConversationViewController.m */; };
-		94CB8C641E82DA3C000C64EF /* ConversationCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CB8C631E82DA3C000C64EF /* ConversationCellNode.m */; };
 		A5AC0AEDDCBBD73C2D46C03C /* libPods-MessengerUX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */; };
 		DCE27C0DFB81BE4E6296B6AD /* libPods-MessengerUXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */; };
 		F20C828D1E6D0B9B006D3594 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C828C1E6D0B9B006D3594 /* main.m */; };
@@ -61,6 +60,7 @@
 		F2134F381E88D1E2005F8B10 /* UXMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F371E88D1E2005F8B10 /* UXMessageCell.m */; };
 		F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */; };
 		F2134F411E88F402005F8B10 /* UXSingleImageMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */; };
+		F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,8 +112,6 @@
 		8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallTableViewCell.m; sourceTree = "<group>"; };
 		94CB8C5E1E82D785000C64EF /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		94CB8C5F1E82D785000C64EF /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
-		94CB8C621E82DA3C000C64EF /* ConversationCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationCellNode.h; sourceTree = "<group>"; };
-		94CB8C631E82DA3C000C64EF /* ConversationCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationCellNode.m; sourceTree = "<group>"; };
 		A187AEB0D64309D2C2012FA0 /* Pods-MessengerUXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXTests/Pods-MessengerUXTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +184,8 @@
 		F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTextMessageCell.m; sourceTree = "<group>"; };
 		F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSingleImageMessageCell.h; sourceTree = "<group>"; };
 		F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSingleImageMessageCell.m; sourceTree = "<group>"; };
+		F2134F421E8A033D005F8B10 /* UXTitleMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXTitleMessageCell.h; sourceTree = "<group>"; };
+		F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTitleMessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,20 +315,10 @@
 		94CB8C5D1E82D748000C64EF /* ConversationViewController */ = {
 			isa = PBXGroup;
 			children = (
-				94CB8C611E82DA17000C64EF /* Cell */,
 				94CB8C5E1E82D785000C64EF /* ConversationViewController.h */,
 				94CB8C5F1E82D785000C64EF /* ConversationViewController.m */,
 			);
 			name = ConversationViewController;
-			sourceTree = "<group>";
-		};
-		94CB8C611E82DA17000C64EF /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				94CB8C621E82DA3C000C64EF /* ConversationCellNode.h */,
-				94CB8C631E82DA3C000C64EF /* ConversationCellNode.m */,
-			);
-			name = Cell;
 			sourceTree = "<group>";
 		};
 		F20C827F1E6D0B9B006D3594 = {
@@ -571,6 +561,8 @@
 				F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */,
 				F2134F3F1E88F402005F8B10 /* UXSingleImageMessageCell.h */,
 				F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */,
+				F2134F421E8A033D005F8B10 /* UXTitleMessageCell.h */,
+				F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */,
 			);
 			name = MessageCell;
 			sourceTree = "<group>";
@@ -879,9 +871,9 @@
 				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
 				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
 				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
-				94CB8C641E82DA3C000C64EF /* ConversationCellNode.m in Sources */,
 				F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */,
 				F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */,
+				F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,
 				F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */,

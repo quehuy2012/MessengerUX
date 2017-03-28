@@ -33,4 +33,18 @@
  */
 - (void)insertNewPage:(NSArray<UXSentence *> *)datas withCompletion:(void (^)(NSUInteger fromIndex, NSUInteger toIndex))completion;
 
+/**
+ Delete data at index
+
+ @param index index to delete
+ */
+- (void)deleteDataAtIndex:(NSUInteger)index;
+
+/**
+ Delete sentence
+
+ @param sentence sentence to delete
+ */
+- (void)deleteSentent:(UXSentence *)sentence;
+
 @end
