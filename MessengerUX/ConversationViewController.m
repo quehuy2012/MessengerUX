@@ -109,15 +109,25 @@
     
     self.tableNode.view.allowsSelection = NO;
     self.tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    [self.tableNode.view setEditing:YES animated:NO];
     
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(onPressEdit)];
+    self.navigationItem.rightBarButtonItem = editButton;
 }
 
 - (void)onPressBack {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)onPressEdit {
+    static BOOL isEdit = false;
+    isEdit = !isEdit;
+    [self.tableNode.view setEditing:isEdit animated:YES];
 }
 
 #pragma mark - Data handler
@@ -211,6 +221,25 @@
 - (void)tableNode:(ASTableNode *)tableNode willBeginBatchFetchWithContext:(ASBatchContext *)context {
     [context beginBatchFetching];
     [self loadPageWithContext:context];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        __weak typeof(self) weakself = self;
+        [self.tableNode performBatchUpdates:^{
+            [weakself removeMessageAtIndex:indexPath.row];
+            NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+            [self.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        } completion:nil];
+    }
+}
+
+- (void)removeMessageAtIndex:(NSInteger)index {
+    
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
