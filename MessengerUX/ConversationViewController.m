@@ -111,7 +111,7 @@
     
     // Add long press gesture
     UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    gesture.minimumPressDuration = 1.0;
+    gesture.minimumPressDuration = 0.5;
     [self.tableNode.view addGestureRecognizer:gesture];
     
     self.tableNode.view.allowsSelection = NO;
