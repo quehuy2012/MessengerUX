@@ -121,7 +121,9 @@
                                          alignItems:ASStackLayoutAlignItemsEnd
                                            children:mainChilds];
     
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
+    
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets
+                                                  child:mainContent];
 }
 
 #pragma mark - Action

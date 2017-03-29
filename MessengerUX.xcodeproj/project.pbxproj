@@ -63,6 +63,8 @@
 		F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F431E8A033D005F8B10 /* UXTitleMessageCell.m */; };
 		F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */; };
 		F2134F4A1E8B5ADB005F8B10 /* UXMessageNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F491E8B5ADB005F8B10 /* UXMessageNode.m */; };
+		F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */; };
+		F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +194,10 @@
 		F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAlbumMessageCell.m; sourceTree = "<group>"; };
 		F2134F481E8B5ADB005F8B10 /* UXMessageNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageNode.h; sourceTree = "<group>"; };
 		F2134F491E8B5ADB005F8B10 /* UXMessageNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageNode.m; sourceTree = "<group>"; };
+		F2134F4B1E8B6486005F8B10 /* UXMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageViewController.h; sourceTree = "<group>"; };
+		F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageViewController.m; sourceTree = "<group>"; };
+		F2134F4E1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageCollectionViewLayout.h; sourceTree = "<group>"; };
+		F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCollectionViewLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +329,8 @@
 			children = (
 				94CB8C5E1E82D785000C64EF /* ConversationViewController.h */,
 				94CB8C5F1E82D785000C64EF /* ConversationViewController.m */,
+				F2134F4B1E8B6486005F8B10 /* UXMessageViewController.h */,
+				F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */,
 			);
 			name = ConversationViewController;
 			sourceTree = "<group>";
@@ -530,6 +538,8 @@
 				F2134EF91E823837005F8B10 /* Models */,
 				F2134F481E8B5ADB005F8B10 /* UXMessageNode.h */,
 				F2134F491E8B5ADB005F8B10 /* UXMessageNode.m */,
+				F2134F4E1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.h */,
+				F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */,
 			);
 			name = UXMessageTimeline;
 			sourceTree = "<group>";
@@ -879,6 +889,7 @@
 				F2134F031E82393C005F8B10 /* UXSpeaker.m in Sources */,
 				94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */,
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
+				F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */,
 				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
 				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
 				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
@@ -906,6 +917,7 @@
 				F2134F311E88CCA4005F8B10 /* UXMessagerCellConfigure.m in Sources */,
 				F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */,
 				F2134EE01E7932E3005F8B10 /* TransitionAnimator.m in Sources */,
+				F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

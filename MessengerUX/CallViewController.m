@@ -11,6 +11,7 @@
 #import <NITableViewActions.h>
 #import <NICellFactory.h>
 #import "CallCellObject.h"
+#import "UXMessageViewController.h"
 
 const int CallCellHeiht = 56;
 
@@ -68,9 +69,19 @@ const int CallCellHeiht = 56;
 }
 
 #pragma UITableViewDelegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return CallCellHeiht;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    UXMessageViewController * chatVC = [UXMessageViewController viewController];
+    UINavigationController * chatNav = [[UINavigationController alloc] initWithRootViewController:chatVC];
+    [self presentViewController:chatNav animated:YES completion:nil];
+}
+
 
 /*
 #pragma mark - Navigation
