@@ -34,6 +34,10 @@
     return [UIColor lightGrayColor];
 }
 
+- (UIColor *)highlightBackgroundColor {
+    return [UIColor grayColor];
+}
+
 - (NSUInteger)supportTextSize {
     return 12;
 }

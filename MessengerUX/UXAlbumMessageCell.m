@@ -198,12 +198,32 @@
     }
 }
 
+- (CGRect)editableFrame {
+    if (self.albumDatas && self.albumDatas.count > 0) {
+        
+        NSUInteger width = self.albumNodeDimention * self.nodePerRow + (self.nodePerRow - 1) * self.spaceBetweenNode;
+        NSUInteger height = self.albumNodeDimention * self.numOfRow + (self.numOfRow - 1) * self.spaceBetweenNode;
+        
+        return CGRectMake(self.albumNodes[0].frame.origin.x, self.albumNodes[0].frame.origin.y, width, height);
+    } else {
+        return CGRectZero;
+    }
+}
+
 #pragma mark - Action
 
 - (void)imageClicked:(ASControlNode *)imageNode {
     if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:albumImageClicked:)]) {
         [self.delegate messageCell:self albumImageClicked:imageNode];
     }
+}
+
+- (void)beginHighlight {
+    [self setHighlighted:YES];
+}
+
+- (void)endHighlight {
+    [self setHighlighted:NO];
 }
 
 @end

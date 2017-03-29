@@ -12,6 +12,6 @@
 
 @property (nonatomic) NSUInteger cornerRadius;
 
-- (ASDisplayNode *)getMessageBackground;
+- (ASControlNode *)getMessageBackground;
 
 @end

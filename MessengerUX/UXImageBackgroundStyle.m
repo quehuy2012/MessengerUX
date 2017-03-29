@@ -19,7 +19,7 @@
     return self;
 }
 
-- (ASDisplayNode *)getMessageBackground {
+- (ASControlNode *)getMessageBackground {
     ASImageNode * ret = [[ASImageNode alloc] init];
     ret.clipsToBounds = YES;
     ret.cornerRadius = self.cornerRadius;

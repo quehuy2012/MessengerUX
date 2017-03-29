@@ -32,6 +32,10 @@
                                                                           attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:self.configure.supportTextSize + 2],
                                                                                        NSForegroundColorAttributeName: self.configure.supportTextColor}];
         [self.titleNode addTarget:self action:@selector(titleClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        
+        [self.titleNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+        [self.titleNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+        
         [self addSubnode:self.titleNode];
     }
     
@@ -54,12 +58,28 @@
     return [ASInsetLayoutSpec insetLayoutSpecWithInsets:insets child:alignStack];
 }
 
+- (CGRect)editableFrame {
+    if (self.titleNode) {
+        return self.titleNode.frame;
+    } else {
+        return CGRectZero;
+    }
+}
+
 #pragma mark - Action
 
 - (void)titleClicked:(ASTextNode *)titleNode {
     if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:titleClicked:)]) {
         [self.delegate messageCell:self titleClicked:titleNode];
     }
+}
+
+- (void)beginHighlight {
+    [self setHighlighted:YES];
+}
+
+- (void)endHighlight {
+    [self setHighlighted:NO];
 }
 
 @end

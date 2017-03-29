@@ -72,6 +72,10 @@
         
         if (self.configure) {
             self.messageBackgroundNode = [[self.configure getMessageBackgroundStyle] getMessageBackground];
+            
+            [self.messageBackgroundNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+            [self.messageBackgroundNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+            
             if (self.messageBackgroundNode) {
                 if (self.isIncomming) {
                     self.messageBackgroundNode.backgroundColor = self.configure.incommingColor;
@@ -124,6 +128,32 @@
     [self setNeedsLayout];
 }
 
+- (CGRect)editableFrame {
+    if (self.messageBackgroundNode) {
+        return self.messageBackgroundNode.frame;
+    } else {
+        return CGRectZero;
+    }
+}
+
+- (void)setHighlighted:(BOOL)highlighted {
+//    [super setHighlighted:highlighted];
+    
+    if (highlighted) {
+        if (self.messageBackgroundNode) {
+            self.messageBackgroundNode.backgroundColor = self.configure.highlightBackgroundColor;
+        }
+    } else {
+        if (self.messageBackgroundNode) {
+            if (self.isIncomming) {
+                self.messageBackgroundNode.backgroundColor = self.configure.incommingColor;
+            } else {
+                self.messageBackgroundNode.backgroundColor = self.configure.outgoingColor;
+            }
+        }
+    }
+}
+
 #pragma mark - Action
 
 - (void)avatarClicked:(ASImageNode *)avatarNode {
@@ -142,6 +172,14 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:subFunctionClicked:)]) {
         [self.delegate messageCell:self subFunctionClicked:subFuntionNode];
     }
+}
+
+- (void)beginHighlight {
+    [self setHighlighted:YES];
+}
+
+- (void)endHighlight {
+    [self setHighlighted:NO];
 }
 
 @end

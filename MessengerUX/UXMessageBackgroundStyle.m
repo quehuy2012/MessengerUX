@@ -10,7 +10,7 @@
 
 @implementation UXMessageBackgroundStyle
 
-- (ASDisplayNode *)getMessageBackground {
+- (ASControlNode *)getMessageBackground {
     NSAssert(NO, @"Must overide this method");
     return nil;
 }

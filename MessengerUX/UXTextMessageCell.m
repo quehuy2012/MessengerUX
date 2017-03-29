@@ -36,6 +36,8 @@
                                                                           attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.contentTextSize],
                                                                                        NSForegroundColorAttributeName: textColor}];
         [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+        [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
         [self addSubnode:self.messageNode];
         
     }
@@ -128,6 +130,14 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:messageClicked:)]) {
         [self.delegate messageCell:self messageClicked:messageNode];
     }
+}
+
+- (void)beginHighlight {
+    [self setHighlighted:YES];
+}
+
+- (void)endHighlight {
+    [self setHighlighted:NO];
 }
 
 @end

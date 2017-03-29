@@ -11,6 +11,7 @@
 
 #import "UIView+AutoLayout.h"
 
+#import "UXMessageCell.h"
 #import "UXTextMessageCell.h"
 #import "UXSingleImageMessageCell.h"
 #import "UXTitleMessageCell.h"
@@ -181,22 +182,26 @@
 - (ASCellNodeBlock)tableNode:(ASTableNode *)tableNode nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UXSentence * sentence = [self.dataFeed getDataArray][indexPath.row];
+    NSIndexPath * cpIndexPath = [indexPath copy];
     
     __weak typeof(self) weakSelf = self;
     
-    ASCellNode *(^cellNodeBlock)() = ^ASCellNode *() {
-        UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
-        if (indexPath.row % 10 == 0) {
+    ASCellNode *(^cellNodeBlock)() = nil;
+    
+    if (indexPath.row % 10 == 0) {
+        
+        cellNodeBlock = ^ASCellNode *() {
+            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
             
             NSArray * imgs = @[];
             
-            if (indexPath.row % 4 == 0) {
+            if (cpIndexPath.row % 4 == 0) {
                 imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
                          , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
                          , [UIImage imageNamed:@"tempImg"]];
-            } else if (indexPath.row % 3 == 0){
+            } else if (cpIndexPath.row % 3 == 0){
                 imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"]];
-            } else if (indexPath.row % 5 == 0) {
+            } else if (cpIndexPath.row % 5 == 0) {
                 imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
                          , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
                          , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
@@ -215,7 +220,7 @@
                                                                                   andOwner:sentence.owner
                                                                               contentImage:imgs];
             
-            if (indexPath.row % 3 == 0) {
+            if (cpIndexPath.row % 3 == 0) {
                 [albumCell setTopText:@"cameraThumb"];
             } else {
                 [albumCell setBottomText:@"galleryThumb"];
@@ -226,8 +231,12 @@
             albumCell.delegate = weakSelf;
             
             return albumCell;
-            
-        } else if (indexPath.row % 9 == 0) {
+        };
+        
+    } else if (indexPath.row % 9 == 0) {
+        
+        cellNodeBlock = ^ASCellNode *() {
+            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
             
             UXTitleMessageCell * titleCell = [[UXTitleMessageCell alloc] initWithConfigure:configure title:@"Section"];
             
@@ -235,7 +244,13 @@
             
             return titleCell;
             
-        } else if (indexPath.row % 6 == 0) {
+        };
+        
+    } else if (indexPath.row % 6 == 0) {
+        
+        cellNodeBlock = ^ASCellNode *() {
+            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+            
             UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
                                                                                            isIncomming:YES
                                                                                               andOwner:sentence.owner
@@ -249,7 +264,12 @@
             
             return imageCell;
             
-        } else if (indexPath.row % 17 == 0) {
+        };
+        
+    } else if (indexPath.row % 17 == 0) {
+        
+        cellNodeBlock = ^ASCellNode *() {
+            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
             
             UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
                                                                                            isIncomming:NO
@@ -262,8 +282,14 @@
             
             return imageCell;
             
-        } else {
-            BOOL dummyIncomming = indexPath.row % 2 == 0 || indexPath.row % 13 == 0;
+        };
+        
+    } else {
+        
+        cellNodeBlock = ^ASCellNode *() {
+            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+            
+            BOOL dummyIncomming = cpIndexPath.row % 2 == 0 || cpIndexPath.row % 13 == 0;
             
             UXTextMessageCell * textMessage = [[UXTextMessageCell alloc] initWithConfigure:configure
                                                                                isIncomming:dummyIncomming
@@ -273,15 +299,17 @@
             if (sentence.owner.name) {
                 [textMessage setTopText:sentence.owner.name];
             }
-            if (sentence.ID && indexPath.row % 3 == 0) {
+            if (sentence.ID && cpIndexPath.row % 3 == 0) {
                 [textMessage setBottomText:sentence.ID];
             }
             
             textMessage.delegate = weakSelf;
             
             return textMessage;
-        }
-    };
+            
+        };
+    }
+    
     return cellNodeBlock;
 }
 
@@ -343,21 +371,24 @@
 
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
     
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        CGPoint point = [gestureRecognizer locationInView:self.tableNode.view];
-        NSIndexPath *indexPath = [self.tableNode indexPathForRowAtPoint:point];
+    CGPoint point = [gestureRecognizer locationInView:self.tableNode.view];
+    NSIndexPath *indexPath = [self.tableNode indexPathForRowAtPoint:point];
+    
+    if (indexPath && [self tableView:self.tableNode.view canEditRowAtIndexPath:indexPath]) {
         
-        if (indexPath) {
-            if ([self tableView:self.tableNode.view canEditRowAtIndexPath:indexPath]) {
-                
-                UXMessageCell *cell = [self.tableNode nodeForRowAtIndexPath:indexPath];
-                CGPoint cellPoint = [gestureRecognizer locationInView:cell.view];
-                
-                if (CGRectContainsPoint(cell.messageBackgroundNode.frame, cellPoint)) {
+        UXMessageCell * cell = [self.tableNode nodeForRowAtIndexPath:indexPath];
+        CGPoint cellPoint = [gestureRecognizer locationInView:cell.view];
+        
+        switch (gestureRecognizer.state) {
+            case UIGestureRecognizerStateBegan: {
+                if (CGRectContainsPoint(cell.editableFrame, cellPoint)) {
                     [self showEditingMenuAtPoint:point];
                     self.selectedIndexPath = indexPath;
                 }
+                break;
             }
+            default:
+                break;
         }
     }
 }
@@ -401,28 +432,6 @@
     NSLog(@"Method is not implemented");
 }
 
-//- (BOOL)tableNode:(ASTableNode *)tableNode shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    return YES;
-//}
-//
-//- (BOOL)tableNode:(ASTableNode *)tableNode canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-//    BOOL result = (action == @selector(copy:) || action == @selector(deleteMessage:));
-//    return result;
-//}
-//
-//- (void)tableNode:(ASTableNode *)tableNode performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-//    
-//    if (action == @selector(copy:)){
-//        //[tableNode deselectRowAtIndexPath:indexPath animated:YES];
-//    } else if (action == @selector(deleteMessage:)) {
-//        //[tableNode deselectRowAtIndexPath:indexPath animated:YES];
-//    }
-//}
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [self.view endEditing:YES];
-//}
 #pragma mark - UXMessageCellDelegate
 
 - (void)messageCell:(UXMessageCell *)messageCell avatarClicked:(ASImageNode *)avatarNode {

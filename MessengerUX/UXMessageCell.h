@@ -25,7 +25,7 @@
 @property (nonatomic) ASTextNode * bottomTextNode;
 @property (nonatomic) ASImageNode * avatarNode;
 @property (nonatomic) ASImageNode * subFuntionNode;
-@property (nonatomic) ASDisplayNode * messageBackgroundNode;
+@property (nonatomic) ASControlNode * messageBackgroundNode;
 
 @property (nonatomic, weak) id<UXMessageCellDelegate> delegate;
 
@@ -34,6 +34,8 @@
 - (void)setTopText:(NSString *)string;
 
 - (void)setBottomText:(NSString *)string;
+
+- (CGRect)editableFrame;
 
 @end
 

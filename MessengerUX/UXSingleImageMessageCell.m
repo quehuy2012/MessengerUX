@@ -16,6 +16,7 @@
 
 @property (nonatomic) ASDisplayNode * imageContentNode;
 @property (nonatomic) CGFloat imageDimentionRatio;
+@property (nonatomic) NSUInteger imagePadding;
 
 @end
 
@@ -23,17 +24,29 @@
 
 @synthesize delegate;
 
+- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner {
+    self = [super initWithConfigure:configure isIncomming:incomming andOwner:owner];
+    if (self) {
+        self.imagePadding = 4;
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImage:(UIImage *)image {
     self = [self initWithConfigure:configure isIncomming:incomming andOwner:owner];
     if (self) {
         self.imageContentNode = [[ASImageNode alloc] init];
-        self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
+        self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
         self.imageDimentionRatio = image.size.height / image.size.width;
         self.imageContentNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
         self.imageContentNode.style.maxHeight = ASDimensionMake(configure.maxWidthOfCell*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
-        [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         ((ASImageNode *)self.imageContentNode).image = image;
+        
+        [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+        [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
         
         [self addSubnode:self.imageContentNode];
     }
@@ -45,13 +58,16 @@
     self = [self initWithConfigure:configure isIncomming:incomming andOwner:owner];
     if (self) {
         self.imageContentNode = [[ASNetworkImageNode alloc] init];
-        self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius;
+        self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
         self.imageDimentionRatio = ratio;
         self.imageContentNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
         self.imageContentNode.style.maxHeight = ASDimensionMake(configure.maxWidthOfCell*ratio);
         self.imageContentNode.clipsToBounds = YES;
-        [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         ((ASNetworkImageNode *)self.imageContentNode).URL = imageURL;
+        
+        [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+        [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
         
         [self addSubnode:self.imageContentNode];
     }
@@ -62,18 +78,21 @@
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     
     ASInsetLayoutSpec * imageInset =
-    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)
+    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(self.imagePadding, self.imagePadding, self.imagePadding, self.imagePadding)
                                            child:self.imageContentNode];
+    
+    ASBackgroundLayoutSpec * imageWithBackground =
+    [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:imageInset background:self.messageBackgroundNode];
     
     NSArray * mainChild = nil;
     if (self.showSubFunction) {
         if (self.isIncomming) {
-            mainChild = @[imageInset, self.subFuntionNode];
+            mainChild = @[imageWithBackground, self.subFuntionNode];
         } else {
-            mainChild = @[self.subFuntionNode, imageInset];
+            mainChild = @[self.subFuntionNode, imageWithBackground];
         }
     } else {
-        mainChild = @[imageInset];
+        mainChild = @[imageWithBackground];
     }
     
     ASStackLayoutSpec * mainWithSubFunctionStack =
@@ -133,12 +152,28 @@
     return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
 }
 
+- (CGRect)editableFrame {
+    if (self.imageContentNode) {
+        return self.imageContentNode.frame;
+    } else {
+        return CGRectZero;
+    }
+}
+
 #pragma mark - Action
 
 - (void) imageClicked:(ASControlNode *)imageNode {
     if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:imageClicked:)]) {
         [self.delegate messageCell:self imageClicked:imageNode];
     }
+}
+
+- (void)beginHighlight {
+    [self setHighlighted:YES];
+}
+
+- (void)endHighlight {
+    [self setHighlighted:NO];
 }
 
 @end

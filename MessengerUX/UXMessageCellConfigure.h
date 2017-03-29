@@ -17,6 +17,7 @@
 @property (nonatomic, readonly) UIColor * incommingTextColor;
 @property (nonatomic, readonly) UIColor * outgoingTextColor;
 @property (nonatomic, readonly) UIColor * supportTextColor;
+@property (nonatomic, readonly) UIColor * highlightBackgroundColor;
 
 @property (nonatomic, readonly) NSUInteger supportTextSize;
 @property (nonatomic, readonly) NSUInteger contentTextSize;
