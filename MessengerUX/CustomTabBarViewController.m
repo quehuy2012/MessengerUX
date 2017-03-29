@@ -14,9 +14,10 @@
 #import "PeopleViewController.h"
 #import "CameraViewController.h"
 #import "InterativeTranslation.h"
+#import "UIView+AutoLayout.h"
 
 static const int CameraButtonWidth = 50;
-static const int CameraButtonheight = 50;
+static const int CameraButtonHeight = 50;
 
 @interface CustomTabBarViewController () <UITabBarControllerDelegate>
 
@@ -35,7 +36,7 @@ static const int CameraButtonheight = 50;
 //    self.edgesForExtendedLayout = UIRectEdgeAll;
 //    self.extendedLayoutIncludesOpaqueBars = NO;
     
-    [self addSwipeDownToCamera];
+    //[self addSwipeDownToCamera];
     
     [self setupTabBarButton];
     
@@ -93,22 +94,23 @@ static const int CameraButtonheight = 50;
 - (void)setupCameraButton {
     
     UIButton *cameraButton = [[UIButton alloc] init];
-
-    CGRect buttonFrame = CGRectMake(0, 0, CameraButtonWidth, CameraButtonheight);
-    buttonFrame.origin.y = self.view.bounds.size.height - buttonFrame.size.height - 8;
-    buttonFrame.origin.x = self.view.bounds.size.width / 2 - buttonFrame.size.width / 2;
-    cameraButton.frame = buttonFrame;
-
-    cameraButton.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:cameraButton];
+    
+    // Auto layout
+    [cameraButton atWidth:CameraButtonWidth];
+    [cameraButton atHeight:CameraButtonHeight];
+    [cameraButton atCenterHorizonalInParent];
+    [cameraButton atTopMarginTo:self.view value:-CameraButtonHeight-8];
+    cameraButton.layer.cornerRadius = CameraButtonHeight / 2;
     
     [cameraButton setImage:[UIImage imageNamed:@"cameraButtonNormal"] forState:UIControlStateNormal];
+    cameraButton.backgroundColor = [UIColor whiteColor];
+    
+    // Scale mode
     cameraButton.contentMode = UIViewContentModeScaleToFill;
     cameraButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
     cameraButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
     
-    cameraButton.layer.cornerRadius = buttonFrame.size.height / 2;
-    [self.view addSubview:cameraButton];
-
     [cameraButton addTarget:self action:@selector(cameraButtonAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
