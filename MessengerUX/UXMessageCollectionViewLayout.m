@@ -21,20 +21,27 @@
 @implementation UXMessageCollectionViewLayout
 
 - (id)init {
-    if (self = [super init]) {
-        self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithCollectionViewLayout:self];
-        self.visibleIndexPathsSet = [NSMutableSet set];
-        self.scrollResistanceConstant = 1500;
+    self = [super init];
+    if (self) {
+        [self setup];
     }
+    
     return self;
 }
 
 - (id)initWithCoder:(nonnull NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
-        self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithCollectionViewLayout:self];
-        self.scrollResistanceConstant = 1500;
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
     }
+    
     return self;
+}
+
+- (void)setup {
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithCollectionViewLayout:self];
+    self.visibleIndexPathsSet = [NSMutableSet set];
+    self.scrollResistanceConstant = 2000;
 }
 
 - (void)resetLayout {
@@ -101,7 +108,7 @@
         
         springBehaviour.length = 1.0f;
         springBehaviour.damping = 1.0f;
-        springBehaviour.frequency = 2.0f;
+        springBehaviour.frequency = 3.0f;
         
         // If our touchLocation is not (0,0), we'll need to adjust our item's center "in flight"
         if (!CGPointEqualToPoint(CGPointZero, touchLocation)) {
