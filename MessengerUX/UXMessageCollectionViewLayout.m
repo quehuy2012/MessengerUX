@@ -86,11 +86,12 @@
     
     [newlyVisibleItems enumerateObjectsUsingBlock:^(UICollectionViewLayoutAttributes *item, NSUInteger idx, BOOL *stop) {
         CGPoint center = item.center;
+        
         UIAttachmentBehavior *springBehaviour = [[UIAttachmentBehavior alloc] initWithItem:item attachedToAnchor:center];
         
-        springBehaviour.length = 0.0f;
-        springBehaviour.damping = 1.0f;
-        springBehaviour.frequency = 3.0f;
+        springBehaviour.length = 1.0f;
+        springBehaviour.damping = 1;
+        springBehaviour.frequency = 5.0f;
         
         // If our touchLocation is not (0,0), we'll need to adjust our item's center "in flight"
         if (!CGPointEqualToPoint(CGPointZero, touchLocation)) {
