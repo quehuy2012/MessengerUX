@@ -37,6 +37,11 @@
     return self;
 }
 
+- (void)resetLayout {
+//    [self.dynamicAnimator removeAllBehaviors];
+//    [self prepareLayout];
+}
+
 -(NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     return [self.dynamicAnimator itemsInRect:rect];
 }
@@ -73,7 +78,6 @@
         [self.dynamicAnimator removeBehavior:behaviour];
         [self.visibleIndexPathsSet removeObject:[item indexPath]];
     }];
-    
     
     // Add any newly visible behaviours.
     CGPoint touchLocation = [self.collectionView.panGestureRecognizer locationInView:self.collectionView];
@@ -130,6 +134,7 @@
         
         UICollectionViewLayoutAttributes *item = (UICollectionViewLayoutAttributes*)[springBehaviour.items firstObject];
         CGPoint center = item.center;
+        
         if (delta < 0) {
             center.y += MAX(delta, delta*scrollResistance);
         }

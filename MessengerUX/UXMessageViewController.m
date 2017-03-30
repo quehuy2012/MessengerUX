@@ -16,6 +16,7 @@
 #import "UXTitleMessageCell.h"
 #import "UXAlbumMessageCell.h"
 #import "UXMessagerCellConfigure.h"
+#import "UXIMessageCellConfigure.h"
 
 #import "UXMessageCollectionViewLayout.h"
 
@@ -53,12 +54,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self.collectionLayout invalidateLayout];
 }
 
 - (void)initView {
@@ -144,13 +139,6 @@
     
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    
-    // Without this, the collection view will crash when show then hide itself with message: attribute for indexPath not exist
-    [self.collectionLayout invalidateLayout];
-}
-
 #pragma mark - Data handler
 
 - (void)refreshFeed {
@@ -188,7 +176,7 @@
             [weakSelf.collectionNode insertItemsAtIndexPaths:indexPaths];
             
         } completion:^(BOOL finished) {
-            // Nothing
+            
             [self.collectionLayout invalidateLayout];
         }];
     });
@@ -212,7 +200,7 @@
     if (indexPath.row % 10 == 0) {
         
         cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
             
             NSArray * imgs = @[];
             
@@ -263,7 +251,7 @@
     } else if (indexPath.row % 9 == 0) {
         
         cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
             
             UXTitleMessageCell * titleCell = [[UXTitleMessageCell alloc] initWithConfigure:configure title:@"Section"];
             
@@ -276,7 +264,7 @@
     } else if (indexPath.row % 6 == 0) {
         
         cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
             
             UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
                                                                                            isIncomming:YES
@@ -296,7 +284,7 @@
     } else if (indexPath.row % 17 == 0) {
         
         cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
             
             UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
                                                                                            isIncomming:NO
@@ -314,7 +302,7 @@
     } else {
         
         cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
+            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
             
             BOOL dummyIncomming = cpIndexPath.row % 2 == 0 || cpIndexPath.row % 13 == 0;
             
@@ -368,6 +356,8 @@
         }
     } completion:^(BOOL finished) {
         
+//        [self.collectionLayout resetLayout];
+//        [self.collectionNode.view setCollectionViewLayout:self.collectionLayout animated:YES];
     }];
     
 }
