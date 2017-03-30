@@ -357,6 +357,7 @@
     } completion:^(BOOL finished) {
         
 //        [self.collectionLayout resetLayout];
+//        [self.collectionLayout invalidateLayout];
 //        [self.collectionNode.view setCollectionViewLayout:self.collectionLayout animated:YES];
     }];
     

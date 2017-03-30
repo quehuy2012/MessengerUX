@@ -38,12 +38,18 @@
 }
 
 - (void)resetLayout {
-//    [self.dynamicAnimator removeAllBehaviors];
-//    [self prepareLayout];
+    [self.dynamicAnimator removeAllBehaviors];
+    [self prepareLayout];
 }
 
 -(NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     return [self.dynamicAnimator itemsInRect:rect];
+}
+
+-(UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewLayoutAttributes *dynamicLayoutAttributes = [self.dynamicAnimator layoutAttributesForCellAtIndexPath:indexPath];
+    // Check if dynamic animator has layout attributes for a layout, otherwise use the flow layouts properties. This will prevent crashing when you add items later in a performBatchUpdates block (e.g. triggered by NSFetchedResultsController update)
+    return (dynamicLayoutAttributes)?dynamicLayoutAttributes:[super layoutAttributesForItemAtIndexPath:indexPath];
 }
 
 -(void)prepareLayout {
@@ -94,8 +100,8 @@
         UIAttachmentBehavior *springBehaviour = [[UIAttachmentBehavior alloc] initWithItem:item attachedToAnchor:center];
         
         springBehaviour.length = 1.0f;
-        springBehaviour.damping = 1;
-        springBehaviour.frequency = 5.0f;
+        springBehaviour.damping = 1.0f;
+        springBehaviour.frequency = 2.0f;
         
         // If our touchLocation is not (0,0), we'll need to adjust our item's center "in flight"
         if (!CGPointEqualToPoint(CGPointZero, touchLocation)) {
