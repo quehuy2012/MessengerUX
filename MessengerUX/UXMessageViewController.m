@@ -127,8 +127,8 @@
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(onPressEdit)];
-    self.navigationItem.rightBarButtonItem = editButton;
+//    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(onPressEdit)];
+//    self.navigationItem.rightBarButtonItem = editButton;
 }
 
 - (void)onPressBack {
