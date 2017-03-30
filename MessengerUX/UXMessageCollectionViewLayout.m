@@ -12,7 +12,7 @@
 
 @property (nonatomic) UIDynamicAnimator *dynamicAnimator;
 @property (nonatomic) NSMutableSet *visibleIndexPathsSet;
-@property (nonatomic) CGFloat scrollResistanceConstant;
+@property (nonatomic) CGFloat scrollResistanceConstant; // the bigger the slower decelerating scroll
 @property (nonatomic, assign) CGFloat latestDelta;
 
 
@@ -95,7 +95,7 @@
         // If our touchLocation is not (0,0), we'll need to adjust our item's center "in flight"
         if (!CGPointEqualToPoint(CGPointZero, touchLocation)) {
             CGFloat yDistanceFromTouch = fabs(touchLocation.y - springBehaviour.anchorPoint.y);
-            CGFloat scrollResistance = (yDistanceFromTouch) / 1500.0f;
+            CGFloat scrollResistance = (yDistanceFromTouch) / self.scrollResistanceConstant;
             
             if (self.latestDelta < 0) {
                 center.y += MAX(self.latestDelta, self.latestDelta*scrollResistance);
@@ -125,7 +125,7 @@
     [self.dynamicAnimator.behaviors enumerateObjectsUsingBlock:^(UIAttachmentBehavior *springBehaviour, NSUInteger idx, BOOL *stop) {
         
         CGFloat yDistanceFromTouch = fabs(touchLocation.y - springBehaviour.anchorPoint.y);
-        CGFloat scrollResistance = (yDistanceFromTouch) / 1500.0f;
+        CGFloat scrollResistance = (yDistanceFromTouch) / self.scrollResistanceConstant;
         
         UICollectionViewLayoutAttributes *item = (UICollectionViewLayoutAttributes*)[springBehaviour.items firstObject];
         CGPoint center = item.center;
