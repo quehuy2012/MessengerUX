@@ -45,6 +45,7 @@
         self.collectionNode.delegate = self;
         self.collectionNode.dataSource = self;
         self.collectionNode.inverted = YES;
+        [self.collectionLayout invalidateLayout];
     }
     return self;
 }
@@ -52,6 +53,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.collectionLayout invalidateLayout];
 }
 
 - (void)initView {
@@ -137,6 +144,13 @@
     
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    // Without this, the collection view will crash when show then hide itself with message: attribute for indexPath not exist
+    [self.collectionLayout invalidateLayout];
+}
+
 #pragma mark - Data handler
 
 - (void)refreshFeed {
@@ -175,6 +189,7 @@
             
         } completion:^(BOOL finished) {
             // Nothing
+            [self.collectionLayout invalidateLayout];
         }];
     });
 }
@@ -327,23 +342,11 @@
 
 #pragma mark - ASCollectionDelegate
 
-//- (ASSizeRange)collectionNode:(ASCollectionNode *)collectionNode constrainedSizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    
-//    ASCellNode * node = [collectionNode nodeForItemAtIndexPath:indexPath];
-//    
-//    ASSizeRange sr = node.constrainedSizeForCalculatedLayout;
-//    
-//    CGSize s = node.calculatedSize;
-//    
-//    CGSize size = CGSizeMake(self.view.frame.size.width, 300);
-//    
-//    return ASSizeRangeMake(size, size);
-//}
-
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    return CGSizeMake(self.view.frame.size.width, 300);
-//}
+- (ASSizeRange)collectionNode:(ASCollectionNode *)collectionNode constrainedSizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // This is a hacking trick that force cell width full fill to the width of collectionNode
+    return ASSizeRangeMake(CGSizeMake(collectionNode.frame.size.width, 0), CGSizeMake(collectionNode.frame.size.width, INFINITY));
+}
 
 - (void)collectionNode:(ASCollectionNode *)collectionNode willBeginBatchFetchWithContext:(ASBatchContext *)context {
     [context beginBatchFetching];
