@@ -8,15 +8,11 @@
 
 #import "ConversationViewController.h"
 #import "UXConversationFeed.h"
-
 #import "UIView+AutoLayout.h"
 
-#import "UXMessageCell.h"
-#import "UXTextMessageCell.h"
-#import "UXSingleImageMessageCell.h"
-#import "UXTitleMessageCell.h"
-#import "UXAlbumMessageCell.h"
-#import "UXMessagerCellConfigure.h"
+#import "UXMessageTimeLine.h"
+
+#import "UXLoadingCellNode.h"
 
 @interface ConversationViewController () <ASTableDelegate, ASTableDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
 
@@ -54,7 +50,7 @@
 - (void)initView {
     
     self.navigationItem.title = @"Chat";
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = YES;
     
     self.dataFeed = [[UXConversationFeed alloc] init];
     
@@ -105,7 +101,7 @@
     
     
     [self.view addSubview:self.tableNode.view];
-    [self.tableNode.view atTopingWith:self.view value:0];
+    [self.tableNode.view atTopMarginTo:(UIView *)self.topLayoutGuide value:0];
     [self.tableNode.view atTrailingWith:self.view value:0];
     [self.tableNode.view atLeadingWith:self.view value:0];
     [self.tableNode.view atBottomMarginTo:textInputHolder value:0];
@@ -117,7 +113,8 @@
     
     self.tableNode.view.allowsSelection = NO;
     self.tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    [self.tableNode.view setEditing:YES animated:NO];
+    
+    self.tableNode.view.leadingScreensForBatching = 3.0;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -176,17 +173,27 @@
 #pragma mark - ASTableDataSource
 
 - (NSInteger)tableNode:(ASTableNode *)tableNode numberOfRowsInSection:(NSInteger)section {
-    return [self.dataFeed getDataArray].count;
+    return [self.dataFeed getDataArray].count + 1;
 }
 
 - (ASCellNodeBlock)tableNode:(ASTableNode *)tableNode nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ASCellNode *(^cellNodeBlock)() = nil;
+    
+    if (indexPath.row == [self.dataFeed getDataArray].count) {
+        
+        cellNodeBlock = ^ASCellNode *() {
+            return [[UXLoadingCellNode alloc] init];
+        };
+        
+        return cellNodeBlock;
+        
+    }
     
     UXSentence * sentence = [self.dataFeed getDataArray][indexPath.row];
     NSIndexPath * cpIndexPath = [indexPath copy];
     
     __weak typeof(self) weakSelf = self;
-    
-    ASCellNode *(^cellNodeBlock)() = nil;
     
     if (indexPath.row % 10 == 0) {
         
@@ -314,6 +321,10 @@
 }
 
 #pragma mark - ASTableDelegate
+
+//- (BOOL)shouldBatchFetchForTableNode:(ASTableNode *)tableNode {
+//    return NO;
+//}
 
 // Receive a message that the tableView is near the end of its data set and more data should be fetched if necessary.
 - (void)tableNode:(ASTableNode *)tableNode willBeginBatchFetchWithContext:(ASBatchContext *)context {

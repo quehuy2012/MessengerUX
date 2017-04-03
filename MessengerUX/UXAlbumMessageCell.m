@@ -52,6 +52,8 @@
             imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
             imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
             imageNode.clipsToBounds = YES;
+            imageNode.layerBacked = YES;
+            imageNode.cornerRadius = 8;
             imageNode.image = img;
             [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
             [self addSubnode:imageNode];
@@ -75,6 +77,8 @@
             imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
             imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
             imageNode.clipsToBounds = YES;
+            imageNode.layerBacked = YES;
+            imageNode.cornerRadius = 8;
             imageNode.URL = url;
             [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
             [self addSubnode:imageNode];
@@ -224,6 +228,23 @@
 
 - (void)endHighlight {
     [self setHighlighted:NO];
+}
+
+#pragma mark - Memory managment
+
+- (void)clearContents {
+    [super clearContents];
+    
+    for (ASDisplayNode * imgNode in self.albumNodes) {
+        [imgNode clearContents];
+//        if ([imgNode isKindOfClass:[ASImageNode class]]) {
+//            ((ASImageNode *)imgNode).image = nil;
+//        } else {
+//            ((ASNetworkImageNode *)imgNode).URL = nil;
+//            ((ASNetworkImageNode *)imgNode).image = nil;
+//        }
+    }
+    
 }
 
 @end

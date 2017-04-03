@@ -10,15 +10,7 @@
 #import "UXConversationFeed.h"
 #import "UIView+AutoLayout.h"
 
-#import "UXMessageCell.h"
-#import "UXTextMessageCell.h"
-#import "UXSingleImageMessageCell.h"
-#import "UXTitleMessageCell.h"
-#import "UXAlbumMessageCell.h"
-#import "UXMessagerCellConfigure.h"
-#import "UXIMessageCellConfigure.h"
-
-#import "UXMessageCollectionViewLayout.h"
+#import "UXMessageTimeLine.h"
 
 @interface UXMessageViewController () <ASCollectionDelegate, ASCollectionDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
 
@@ -110,7 +102,7 @@
     
     
     [self.view addSubview:self.collectionNode.view];
-    [self.collectionNode.view atTopingWith:self.view value:0];
+    [self.collectionNode.view atTopMarginTo:(UIView *)self.topLayoutGuide value:0];
     [self.collectionNode.view atTrailingWith:self.view value:0];
     [self.collectionNode.view atLeadingWith:self.view value:0];
     [self.collectionNode.view atBottomMarginTo:textInputHolder value:0];
@@ -121,22 +113,16 @@
     [self.collectionNode.view addGestureRecognizer:gesture];
     
     self.collectionNode.view.allowsSelection = NO;
+    self.collectionNode.view.leadingScreensForBatching = 3.0;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
     self.navigationItem.leftBarButtonItem = backButton;
-    
-//    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(onPressEdit)];
-//    self.navigationItem.rightBarButtonItem = editButton;
 }
 
 - (void)onPressBack {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)onPressEdit {
-    
 }
 
 #pragma mark - Data handler
@@ -300,7 +286,7 @@
         };
         
     } else {
-        
+    
         cellNodeBlock = ^ASCellNode *() {
             UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
             
@@ -324,7 +310,7 @@
             
         };
     }
-    
+
     return cellNodeBlock;
 }
 

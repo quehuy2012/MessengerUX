@@ -17,6 +17,8 @@
 @property (nonatomic) dispatch_queue_t internalSerialQueue;
 @property (nonatomic) dispatch_queue_t internalConcurrentQueue;
 
+@property (nonatomic) BOOL prefetching;
+
 @end
 
 @implementation UXConversationFeed
@@ -24,6 +26,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.prefetching = NO;
         self.dataArray = [[self dummyData] mutableCopy];
         static int count = 0;
         
@@ -41,11 +44,13 @@
 
 - (void)getNextDataPageWithCompletion:(void (^)(NSArray<UXSentence *> * datas))completion {
     
-    if (completion) {
+    if (completion && !self.prefetching) {
+        self.prefetching = YES;
         __weak typeof(self) weakSelf = self;
         dispatch_async(self.internalConcurrentQueue, ^{
             NSUInteger currentMaxIndex = [weakSelf getDataArray].count;
             NSArray * ret = [weakSelf getDataArrayFromIndex:currentMaxIndex toIndex:currentMaxIndex + PAGE_FETCH_SIZE];
+            weakSelf.prefetching = NO;
             completion(ret);
         });
     }
@@ -91,6 +96,8 @@
         
         [self.dataArray addObjectsFromArray:datas];
         
+        NSLog(@"Current size %f", [self currentSizeOfData]);
+        
         if (completion) {
             completion(fromIndex, toIndex);
         }
@@ -123,6 +130,16 @@
     if ([self.dataArray containsObject:sentence]) {
         [self.dataArray removeObject:sentence];
     }
+}
+
+- (double) currentSizeOfData {
+    double ret = sizeof(self.dataArray) / 1024.0;
+    
+    for (id item in self.dataArray) {
+        ret += sizeof(item) / 1024.0;
+    }
+    
+    return ret;
 }
 
 @end

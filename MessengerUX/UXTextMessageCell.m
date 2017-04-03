@@ -141,4 +141,13 @@
     [self setHighlighted:NO];
 }
 
+#pragma mark - Memory managment
+
+- (void)clearContents {
+    [super clearContents];
+    
+    [self.messageNode clearContents];
+//    self.messageNode.attributedText = nil;
+}
+
 @end

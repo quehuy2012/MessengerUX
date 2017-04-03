@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <AsyncDisplayKit/AsyncDisplayKit+Debug.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [ASRangeController setShouldShowRangeDebugOverlay:YES];
+//    [ASControlNode setEnableHitTestDebug:YES];
+//    [ASImageNode setShouldShowImageScalingOverlay:YES];
     return YES;
 }
 

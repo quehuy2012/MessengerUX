@@ -82,4 +82,13 @@
     [self setHighlighted:NO];
 }
 
+#pragma mark - Memory managment
+
+- (void)clearContents {
+    [super clearContents];
+    
+    [self.titleNode clearContents];
+//    self.titleNode.attributedText = nil;
+}
+
 @end

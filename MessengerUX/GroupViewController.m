@@ -12,7 +12,9 @@
 #import <NICellCatalog.h>
 #import <NICellFactory.h>
 
-@interface GroupViewController ()
+#import "TestModelViewController.h"
+
+@interface GroupViewController () <UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -56,17 +58,18 @@
     
     self.model = [[NITableViewModel alloc] initWithListArray:arr delegate:(id)[NICellFactory class]];
     self.tableView.dataSource = self.model;
+    
+    self.tableView.delegate = self;
 }
 
+#pragma mark - UITableViewDelegate
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    TestModelViewController * testVC = [TestModelViewController viewController];
+    UINavigationController * testNav = [[UINavigationController alloc] initWithRootViewController:testVC];
+    [self presentViewController:testNav animated:YES completion:nil];
 }
-*/
 
 @end

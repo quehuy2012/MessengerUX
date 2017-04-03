@@ -64,6 +64,11 @@
 		F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */; };
 		F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */; };
 		F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */; };
+		F28C9CF61E91E59600B0BDBA /* UXCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */; };
+		F28C9CF91E91E62500B0BDBA /* UXCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */; };
+		F2DE8B021E923DF200049F75 /* UXLoadingCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B011E923DF200049F75 /* UXLoadingCellNode.m */; };
+		F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B071E9254F700049F75 /* TestModelViewController.m */; };
+		F2DE8B0C1E9256BC00049F75 /* UXTitleCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B0B1E9256BC00049F75 /* UXTitleCellNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +200,18 @@
 		F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageViewController.m; sourceTree = "<group>"; };
 		F2134F4E1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageCollectionViewLayout.h; sourceTree = "<group>"; };
 		F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCollectionViewLayout.m; sourceTree = "<group>"; };
+		F28C9CF41E91E59600B0BDBA /* UXCellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXCellFactory.h; sourceTree = "<group>"; };
+		F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCellFactory.m; sourceTree = "<group>"; };
+		F28C9CF71E91E62500B0BDBA /* UXCollectionNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXCollectionNodeModel.h; sourceTree = "<group>"; };
+		F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCollectionNodeModel.m; sourceTree = "<group>"; };
+		F2DE8B001E923DF200049F75 /* UXLoadingCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXLoadingCellNode.h; sourceTree = "<group>"; };
+		F2DE8B011E923DF200049F75 /* UXLoadingCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXLoadingCellNode.m; sourceTree = "<group>"; };
+		F2DE8B041E92549200049F75 /* UXNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXNodeModel.h; sourceTree = "<group>"; };
+		F2DE8B061E9254F700049F75 /* TestModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModelViewController.h; sourceTree = "<group>"; };
+		F2DE8B071E9254F700049F75 /* TestModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModelViewController.m; sourceTree = "<group>"; };
+		F2DE8B091E92556D00049F75 /* UXMessageTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageTimeLine.h; sourceTree = "<group>"; };
+		F2DE8B0A1E9256BC00049F75 /* UXTitleCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXTitleCellNode.h; sourceTree = "<group>"; };
+		F2DE8B0B1E9256BC00049F75 /* UXTitleCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTitleCellNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +345,8 @@
 				94CB8C5F1E82D785000C64EF /* ConversationViewController.m */,
 				F2134F4B1E8B6486005F8B10 /* UXMessageViewController.h */,
 				F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */,
+				F2DE8B001E923DF200049F75 /* UXLoadingCellNode.h */,
+				F2DE8B011E923DF200049F75 /* UXLoadingCellNode.m */,
 			);
 			name = ConversationViewController;
 			sourceTree = "<group>";
@@ -359,6 +378,7 @@
 			children = (
 				F2134EF01E7936C0005F8B10 /* Utils */,
 				F2134F041E823B9E005F8B10 /* Data */,
+				F2DE8B031E92546F00049F75 /* UXNodeModel */,
 				F2134F201E88B570005F8B10 /* UXMessageTimeline */,
 				F20C82ED1E710BB0006D3594 /* InterativeTranslation */,
 				F20C82E11E70F49F006D3594 /* ViewController */,
@@ -404,6 +424,7 @@
 		F20C82E11E70F49F006D3594 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F2DE8B051E9254DD00049F75 /* TestModelViewController */,
 				94CB8C5D1E82D748000C64EF /* ConversationViewController */,
 				F2134EEC1E793334005F8B10 /* GalleryViewController */,
 				F2134EE81E79331B005F8B10 /* DrawViewController */,
@@ -535,6 +556,7 @@
 				F2134EF91E823837005F8B10 /* Models */,
 				F2134F4E1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.h */,
 				F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */,
+				F2DE8B091E92556D00049F75 /* UXMessageTimeLine.h */,
 			);
 			name = UXMessageTimeline;
 			sourceTree = "<group>";
@@ -580,6 +602,29 @@
 				F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */,
 			);
 			name = MessageCell;
+			sourceTree = "<group>";
+		};
+		F2DE8B031E92546F00049F75 /* UXNodeModel */ = {
+			isa = PBXGroup;
+			children = (
+				F2DE8B041E92549200049F75 /* UXNodeModel.h */,
+				F28C9CF41E91E59600B0BDBA /* UXCellFactory.h */,
+				F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */,
+				F28C9CF71E91E62500B0BDBA /* UXCollectionNodeModel.h */,
+				F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */,
+			);
+			name = UXNodeModel;
+			sourceTree = "<group>";
+		};
+		F2DE8B051E9254DD00049F75 /* TestModelViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F2DE8B0A1E9256BC00049F75 /* UXTitleCellNode.h */,
+				F2DE8B0B1E9256BC00049F75 /* UXTitleCellNode.m */,
+				F2DE8B061E9254F700049F75 /* TestModelViewController.h */,
+				F2DE8B071E9254F700049F75 /* TestModelViewController.m */,
+			);
+			name = TestModelViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -879,6 +924,7 @@
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
 				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
 				F2134F1F1E837DC6005F8B10 /* UXSentence+DummyComming.m in Sources */,
+				F2DE8B021E923DF200049F75 /* UXLoadingCellNode.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
 				F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */,
 				F2134F031E82393C005F8B10 /* UXSpeaker.m in Sources */,
@@ -887,6 +933,7 @@
 				F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */,
 				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
 				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
+				F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */,
 				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
 				F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */,
 				F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */,
@@ -896,6 +943,7 @@
 				F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */,
 				8A6B9E201E77D01F002ACB87 /* Group.m in Sources */,
 				F2134F231E88C8AC005F8B10 /* UXMessageBackgroundStyle.m in Sources */,
+				F2DE8B0C1E9256BC00049F75 /* UXTitleCellNode.m in Sources */,
 				8A6B9E141E763FE8002ACB87 /* CameraViewController.m in Sources */,
 				8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */,
 				F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */,
@@ -906,6 +954,8 @@
 				F2134F2E1E88CAD2005F8B10 /* UXMessageCellConfigure.m in Sources */,
 				F2134EE71E7932F4005F8B10 /* SwipeInterativeObject.m in Sources */,
 				F2134F411E88F402005F8B10 /* UXSingleImageMessageCell.m in Sources */,
+				F28C9CF91E91E62500B0BDBA /* UXCollectionNodeModel.m in Sources */,
+				F28C9CF61E91E59600B0BDBA /* UXCellFactory.m in Sources */,
 				F2134F381E88D1E2005F8B10 /* UXMessageCell.m in Sources */,
 				F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */,
 				F2134F311E88CCA4005F8B10 /* UXMessagerCellConfigure.m in Sources */,

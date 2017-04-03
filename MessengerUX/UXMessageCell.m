@@ -21,6 +21,12 @@
 //
 //@end
 
+@interface UXMessageCell () {
+    int mID;
+}
+
+@end
+
 @implementation UXMessageCell
 
 @synthesize showTextAsTop = _showTextAsTop;
@@ -29,7 +35,12 @@
 
 - (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner {
     self = [super init];
+    
+    static int ID = 0;
+    
     if (self) {
+        
+        mID = ID++;
         
         self.configure = configure;
         self.owner = owner;
@@ -180,6 +191,34 @@
 
 - (void)endHighlight {
     [self setHighlighted:NO];
+}
+
+#pragma mark - Memory managment
+
+- (void)clearContents {
+    [super clearContents];
+    NSLog(@"Clear %d", mID);
+    
+    [self.avatarNode clearContents];
+//    self.avatarNode.image = nil;
+    
+    [self.topTextNode clearContents];
+//    self.topTextNode.attributedText = nil;
+    
+    
+    [self.bottomTextNode clearContents];
+//    self.bottomTextNode.attributedText = nil;
+    
+    [self.subFuntionNode clearContents];
+//    self.subFuntionNode.image = nil;
+    
+    if (self.messageBackgroundNode) {
+        [self.messageBackgroundNode clearContents];
+    }
+}
+
+- (void)dealloc {
+    NSLog(@"Dealloc %d", mID);
 }
 
 @end

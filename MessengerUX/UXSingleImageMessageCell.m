@@ -42,6 +42,7 @@
         self.imageContentNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
         self.imageContentNode.style.maxHeight = ASDimensionMake(configure.maxWidthOfCell*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
+        self.imageContentNode.layerBacked = YES;
         ((ASImageNode *)self.imageContentNode).image = image;
         
         [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
@@ -63,6 +64,7 @@
         self.imageContentNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
         self.imageContentNode.style.maxHeight = ASDimensionMake(configure.maxWidthOfCell*ratio);
         self.imageContentNode.clipsToBounds = YES;
+        self.imageContentNode.layerBacked = YES;
         ((ASNetworkImageNode *)self.imageContentNode).URL = imageURL;
         
         [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
@@ -174,6 +176,20 @@
 
 - (void)endHighlight {
     [self setHighlighted:NO];
+}
+
+#pragma mark - Memory managment
+
+- (void)clearContents {
+    [super clearContents];
+    
+    [self.imageContentNode clearContents];
+//    if ([self.imageContentNode isKindOfClass:[ASImageNode class]]) {
+//        ((ASImageNode *)self.imageContentNode).image = nil;
+//    } else {
+//        ((ASNetworkImageNode *)self.imageContentNode).URL = nil;
+//        ((ASNetworkImageNode *)self.imageContentNode).image = nil;
+//    }
 }
 
 @end
