@@ -10,6 +10,4 @@
 
 @interface UXMessageCollectionViewLayout : UICollectionViewFlowLayout
 
-- (void)resetLayout;
-
 @end

@@ -109,7 +109,7 @@
     
     for (int i = 0; i < 5; i++) {
         UXSentence * sentence = [[UXSentence alloc] init];
-        sentence.ID = [NSString stringWithFormat:@"sentence#%d", i];
+        sentence.ID = [NSString stringWithFormat:@"%d", i];
         sentence.content = [NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i];
         sentence.owner = [[UXSpeaker alloc] init];
         sentence.owner.name = [NSString stringWithFormat:@"kuus%dadf", i];

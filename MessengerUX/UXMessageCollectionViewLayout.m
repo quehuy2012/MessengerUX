@@ -15,7 +15,6 @@
 @property (nonatomic) CGFloat scrollResistanceConstant; // the bigger the slower decelerating scroll
 @property (nonatomic, assign) CGFloat latestDelta;
 
-
 @end
 
 @implementation UXMessageCollectionViewLayout
@@ -44,9 +43,28 @@
     self.scrollResistanceConstant = 2000;
 }
 
-- (void)resetLayout {
-    [self.dynamicAnimator removeAllBehaviors];
-    [self prepareLayout];
+//- (void)resetLayout {
+//    [self.dynamicAnimator removeAllBehaviors];
+//    [self prepareLayout];
+//}
+//
+- (void)deleteLayoutAttributeAtIndexPath:(NSIndexPath *)indexPath {
+    
+    __block UIDynamicBehavior * needDeleteBehavior = nil;
+    
+    [self.dynamicAnimator.behaviors enumerateObjectsUsingBlock:^(__kindof UIDynamicBehavior * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UICollectionViewLayoutAttributes *item= (UICollectionViewLayoutAttributes*)[[obj items] firstObject];
+        
+        if ([indexPath compare:item.indexPath] == NSOrderedSame) {
+            needDeleteBehavior = obj;
+        }
+        
+    }];
+    
+//    if (needDeleteBehavior) {
+//        [self.dynamicAnimator removeBehavior:needDeleteBehavior];
+//    }
+    
 }
 
 -(NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -56,7 +74,7 @@
 -(UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewLayoutAttributes *dynamicLayoutAttributes = [self.dynamicAnimator layoutAttributesForCellAtIndexPath:indexPath];
     // Check if dynamic animator has layout attributes for a layout, otherwise use the flow layouts properties. This will prevent crashing when you add items later in a performBatchUpdates block (e.g. triggered by NSFetchedResultsController update)
-    return (dynamicLayoutAttributes)?dynamicLayoutAttributes:[super layoutAttributesForItemAtIndexPath:indexPath];
+    return (dynamicLayoutAttributes) ? dynamicLayoutAttributes : [super layoutAttributesForItemAtIndexPath:indexPath];
 }
 
 -(void)prepareLayout {
@@ -127,6 +145,8 @@
         [self.dynamicAnimator addBehavior:springBehaviour];
         [self.visibleIndexPathsSet addObject:item.indexPath];
     }];
+    
+    NSLog(@"Prepare layout");
 }
 
 -(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
@@ -159,7 +179,44 @@
         [weakDynamicAnimator updateItemUsingCurrentState:item];
     }];
     
+    NSLog(@"Invalidate layout");
+    
     return NO;
+}
+
+- (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems {
+    [super prepareForCollectionViewUpdates:updateItems];
+    
+    for (UICollectionViewUpdateItem *updateItem in updateItems) {
+        if(updateItem.updateAction == UICollectionUpdateActionDelete) {
+            
+//            NSIndexPath * indexBefore = updateItem.indexPathBeforeUpdate;
+            
+//            [self resetDynamicKitForIndexPath:indexBefore];
+            
+            // Where would the flow layout like to place the new cell?
+            
+//            UICollectionViewLayoutAttributes * attr = [super finalLayoutAttributesForDisappearingItemAtIndexPath:indexBefore];
+//            
+//            NSIndexPath * ahihi = [indexBefore indexPathByAddingIndex:1];
+//            
+//            CGPoint center = attr.center;
+//
+//            CGSize contentSize = [self collectionViewContentSize];
+//            center.y += contentSize.height - CGRectGetHeight(attr.bounds);
+            
+            
+            // Now reset the center of insertion point for the animator
+//            UICollectionViewLayoutAttributes *insertionPointAttr = [self layoutAttributesForItemAtIndexPath:indexBefore];
+//            insertionPointAttr.alpha = attr.alpha;
+//            
+//            [self.dynamicAnimator updateItemUsingCurrentState:insertionPointAttr];
+        }
+    }
+}
+
+- (void)resetDynamicKitForIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 @end

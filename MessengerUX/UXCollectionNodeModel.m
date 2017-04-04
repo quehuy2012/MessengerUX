@@ -7,29 +7,7 @@
 //
 
 #import "UXCollectionNodeModel.h"
-
-@interface UXCollectionNodeModel()
-
-@property (nonatomic, strong) NSArray* sections; // Array of NICollectionViewModelSection
-@property (nonatomic, strong) NSArray* sectionIndexTitles;
-@property (nonatomic, strong) NSDictionary* sectionPrefixToSectionIndex;
-
-- (void)_resetCompiledData;
-- (void)_compileDataWithListArray:(NSArray *)listArray;
-- (void)_compileDataWithSectionedArray:(NSArray *)sectionedArray;
-- (void)_setSectionsWithArray:(NSArray *)sectionsArray;
-
-@end
-
-@interface UXCollectionNodeModelSection : NSObject
-
-+ (id)section;
-
-@property (nonatomic, copy) NSString* headerTitle;
-@property (nonatomic, copy) NSString* footerTitle;
-@property (nonatomic, strong) NSArray* rows;
-
-@end
+#import "UXCollectionNodeModel+Private.h"
 
 @implementation UXCollectionNodeModel
 

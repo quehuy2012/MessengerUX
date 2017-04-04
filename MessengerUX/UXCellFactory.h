@@ -8,8 +8,12 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import "UXCollectionNodeModel.h"
+#import "UXTableNodeModel.h"
+#import "UXMutableTableNodeModel.h"
 
-@interface UXCellFactory : NSObject <UXCollectionNodeModelDelegate>
+@interface UXCellFactory : NSObject <UXCollectionNodeModelDelegate, UXTableNodeModelDelegate>
+
+#pragma mark - UXCollectionNodeModelDelegate
 
 + (ASCellNodeBlock)collectionNodeModel:(UXCollectionNodeModel *)collectionNodeModel
                  cellForCollectionView:(ASCollectionNode *)collectionNode
@@ -20,6 +24,18 @@
                  cellForCollectionNode: (ASCollectionNode *)collectionNode
                            atIndexPath: (NSIndexPath *)indexPath
                             withObject: (id)object;
+
+#pragma mark - UXMutableTableNodeModelDelegate
+
++ (ASCellNodeBlock)tableNodeModel: (UXTableNodeModel *)tableNodeModel
+                 cellForTableNode: (ASTableNode *)tableNode
+                      atIndexPath: (NSIndexPath *)indexPath
+                       withObject: (id)object;
+
+- (ASCellNodeBlock)tableNodeModel: (UXTableNodeModel *)tableNodeModel
+                 cellForTableNode: (ASTableNode *)tableNode
+                      atIndexPath: (NSIndexPath *)indexPath
+                       withObject: (id)object;
 
 @end
 

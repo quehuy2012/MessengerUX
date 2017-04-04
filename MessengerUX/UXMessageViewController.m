@@ -177,30 +177,31 @@
 - (ASCellNodeBlock)collectionNode:(ASCollectionNode *)collectionNode nodeBlockForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     UXSentence * sentence = [self.dataFeed getDataArray][indexPath.row];
-    NSIndexPath * cpIndexPath = [indexPath copy];
+    
+    NSInteger index = sentence.ID.integerValue;
     
     __weak typeof(self) weakSelf = self;
     
     ASCellNode *(^cellNodeBlock)() = nil;
     
-    if (indexPath.row % 10 == 0) {
+    if (index % 10 == 0) {
         
         cellNodeBlock = ^ASCellNode *() {
             UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
             
             NSArray * imgs = @[];
             
-            if (cpIndexPath.row % 4 == 0) {
+            if (index % 4 == 0) {
                 
                 imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
                          , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
                          , [UIImage imageNamed:@"tempImg"]];
                 
-            } else if (cpIndexPath.row % 3 == 0){
+            } else if (index % 3 == 0){
                 
                 imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"]];
                 
-            } else if (cpIndexPath.row % 5 == 0) {
+            } else if (index % 5 == 0) {
                 
                 imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
                          , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
@@ -221,7 +222,7 @@
                                                                                   andOwner:sentence.owner
                                                                               contentImage:imgs];
             
-            if (cpIndexPath.row % 3 == 0) {
+            if (index % 3 == 0) {
                 [albumCell setTopText:@"cameraThumb"];
             } else {
                 [albumCell setBottomText:@"galleryThumb"];
@@ -234,7 +235,7 @@
             return albumCell;
         };
         
-    } else if (indexPath.row % 9 == 0) {
+    } else if (index % 9 == 0) {
         
         cellNodeBlock = ^ASCellNode *() {
             UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
@@ -247,7 +248,7 @@
             
         };
         
-    } else if (indexPath.row % 6 == 0) {
+    } else if (index % 6 == 0) {
         
         cellNodeBlock = ^ASCellNode *() {
             UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
@@ -267,7 +268,7 @@
             
         };
         
-    } else if (indexPath.row % 17 == 0) {
+    } else if (index % 17 == 0) {
         
         cellNodeBlock = ^ASCellNode *() {
             UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
@@ -290,7 +291,7 @@
         cellNodeBlock = ^ASCellNode *() {
             UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
             
-            BOOL dummyIncomming = cpIndexPath.row % 2 == 0 || cpIndexPath.row % 13 == 0;
+            BOOL dummyIncomming = index % 2 == 0 || index % 13 == 0;
             
             UXTextMessageCell * textMessage = [[UXTextMessageCell alloc] initWithConfigure:configure
                                                                                isIncomming:dummyIncomming
@@ -300,7 +301,7 @@
             if (sentence.owner.name) {
                 [textMessage setTopText:sentence.owner.name];
             }
-            if (sentence.ID && cpIndexPath.row % 3 == 0) {
+            if (sentence.ID && index % 3 == 0) {
                 [textMessage setBottomText:sentence.ID];
             }
             
@@ -334,17 +335,16 @@
     [self.collectionNode performBatchAnimated:YES updates:^{
         
         UXMessageCell *cell = [weakself.collectionNode nodeForItemAtIndexPath:indexPath];
-        
+
         if (cell) {
             [self.dataFeed deleteDataAtIndex:indexPath.row];
             NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+            
             [weakself.collectionNode deleteItemsAtIndexPaths:indexPaths];
+            
         }
     } completion:^(BOOL finished) {
         
-//        [self.collectionLayout resetLayout];
-//        [self.collectionLayout invalidateLayout];
-//        [self.collectionNode.view setCollectionViewLayout:self.collectionLayout animated:YES];
     }];
     
 }

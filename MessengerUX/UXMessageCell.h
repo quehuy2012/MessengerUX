@@ -7,12 +7,13 @@
 //
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
+#import "UXNodeModel.h"
 
 @class UXMessageCellConfigure;
 @class UXSpeaker;
 @protocol UXMessageCellDelegate;
 
-@interface UXMessageCell : ASCellNode
+@interface UXMessageCell : ASCellNode <UXCellNode>
 
 @property (nonatomic) BOOL isIncomming;
 @property (nonatomic) BOOL showTextAsTop;

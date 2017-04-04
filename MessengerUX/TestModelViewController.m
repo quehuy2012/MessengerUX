@@ -8,16 +8,13 @@
 
 #import "TestModelViewController.h"
 #import "UIView+AutoLayout.h"
-
-#import "UXMessageTimeLine.h"
 #import "UXNodeModel.h"
-#import "UXTitleCellNode.h"
 
 @interface TestModelViewController () <ASCollectionDelegate>
 
 @property (nonatomic) ASCollectionNode * collectionNode;
-@property (nonatomic) UXMessageCollectionViewLayout * collectionLayout;
-@property (nonatomic) UXCollectionNodeModel * models;
+@property (nonatomic) UICollectionViewFlowLayout * collectionLayout;
+@property (nonatomic) UXMutableCollectionNodeModel * models;
 @property (nonatomic) UXCellFactory * factory;
 
 @end
@@ -36,7 +33,7 @@
         
         [self initModel];
         
-        self.collectionLayout = [[UXMessageCollectionViewLayout alloc] init];
+        self.collectionLayout = [[UICollectionViewFlowLayout alloc] init];
         self.collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:self.collectionLayout];
         self.collectionNode.delegate = self;
         self.collectionNode.dataSource = self.models;
@@ -48,12 +45,15 @@
 - (void)initModel {
     NSMutableArray * datas = [NSMutableArray array];
     for (int i = 0; i < 50; i++) {
+        if (i % 5 == 0) {
+            [datas addObject:@"SECTION VERRY LONG"];
+        }
         [datas addObject:[[UXCellNodeObject alloc] initWithCellNodeClass:[UXTitleCellNode class] userInfo:[NSString stringWithFormat:@"Ahihi %d", i]]];
     }
     
     self.factory = [[UXCellFactory alloc] init];
     
-    self.models = [[UXCollectionNodeModel alloc] initWithListArray:datas delegate:self.factory];
+    self.models = [[UXMutableCollectionNodeModel alloc] initWithSectionedArray:datas delegate:self.factory];
 }
 
 - (void)viewDidLoad {
@@ -78,11 +78,26 @@
     
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    UIBarButtonItem * addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(add)];
+    self.navigationItem.rightBarButtonItem = addButton;
 }
 
 - (void)onPressBack {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)add {
+    [self.models addObject:[[UXCellNodeObject alloc] initWithCellNodeClass:[UXTitleCellNode class] userInfo:@"Add in"]];
+    
+    [self.models addSectionWithTitle:@"NEW SECTION"];
+    
+    [self.models addObject:[[UXCellNodeObject alloc] initWithCellNodeClass:[UXTitleCellNode class] userInfo:@"Add in section"]
+                 toSection:1];
+    
+    [self.collectionNode reloadData];
+}
+
 #pragma mark - ASCollectionDelegate
 
 - (ASSizeRange)collectionNode:(ASCollectionNode *)collectionNode constrainedSizeForItemAtIndexPath:(NSIndexPath *)indexPath {

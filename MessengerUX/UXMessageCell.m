@@ -165,6 +165,10 @@
     }
 }
 
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    
+}
+
 #pragma mark - Action
 
 - (void)avatarClicked:(ASImageNode *)avatarNode {

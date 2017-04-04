@@ -14,13 +14,7 @@
 
 @implementation UXCellFactory
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        // nothing more
-    }
-    return self;
-}
+#pragma mark - UXCollectionNodeModelDelegate
 
 + (ASCellNodeBlock)collectionNodeModel:(UXCollectionNodeModel *)collectionNodeModel
                  cellForCollectionView:(ASCollectionNode *)collectionNode
@@ -40,6 +34,18 @@
                            atIndexPath: (NSIndexPath *)indexPath
                             withObject: (id)object {
     
+    return [[self class] collectionNodeModel:collectionNodeModel
+                       cellForCollectionView:collectionNode
+                                 atIndexPath:indexPath
+                                  withObject:object];
+}
+
+#pragma mark - UXMutableTableNodeModelDelegate
+
++ (ASCellNodeBlock)tableNodeModel: (UXTableNodeModel *)tableNodeModel
+                 cellForTableNode: (ASTableNode *)tableNode
+                      atIndexPath: (NSIndexPath *)indexPath
+                       withObject: (id)object {
     if ([object conformsToProtocol:@protocol(UXCellNodeObject)]) {
         return [((id<UXCellNodeObject>)object) cellNodeBlock];
     } else {
@@ -47,6 +53,16 @@
             return [[ASCellNode alloc] init];
         };
     }
+}
+
+- (ASCellNodeBlock)tableNodeModel: (UXTableNodeModel *)tableNodeModel
+                 cellForTableNode: (ASTableNode *)tableNode
+                      atIndexPath: (NSIndexPath *)indexPath
+                       withObject: (id)object {
+    return [[self class] tableNodeModel:tableNodeModel
+                       cellForTableNode:tableNode
+                            atIndexPath:indexPath
+                             withObject:object];
 }
 
 @end
