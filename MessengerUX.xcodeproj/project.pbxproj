@@ -45,12 +45,11 @@
 		F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EEE1E793343005F8B10 /* GalleryViewController.m */; };
 		F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */; };
 		F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */; };
-		F2134EFD1E82387C005F8B10 /* UXSentence.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFC1E82387C005F8B10 /* UXSentence.m */; };
+		F2134EFD1E82387C005F8B10 /* UXSentenceMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFC1E82387C005F8B10 /* UXSentenceMessage.m */; };
 		F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFF1E8238B4005F8B10 /* UXConversationFeed.m */; };
 		F2134F031E82393C005F8B10 /* UXSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F021E82393C005F8B10 /* UXSpeaker.m */; };
 		F2134F1B1E823BC4005F8B10 /* conversations.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F191E823BC3005F8B10 /* conversations.txt */; };
 		F2134F1C1E823BC4005F8B10 /* supreme.README.v1.01.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */; };
-		F2134F1F1E837DC6005F8B10 /* UXSentence+DummyComming.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F1E1E837DC6005F8B10 /* UXSentence+DummyComming.m */; };
 		F2134F231E88C8AC005F8B10 /* UXMessageBackgroundStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F221E88C8AC005F8B10 /* UXMessageBackgroundStyle.m */; };
 		F2134F271E88C999005F8B10 /* UXRoundedBackgroundStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F261E88C999005F8B10 /* UXRoundedBackgroundStyle.m */; };
 		F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F291E88CA4E005F8B10 /* UXImageBackgroundStyle.m */; };
@@ -73,6 +72,13 @@
 		F2DE8B1D1E9382C200049F75 /* UXTableNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B1C1E9382C200049F75 /* UXTableNodeModel.m */; };
 		F2DE8B211E938A5400049F75 /* UXMutableTableNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B201E938A5400049F75 /* UXMutableTableNodeModel.m */; };
 		F2DE8B251E93969900049F75 /* TestTableModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B241E93969900049F75 /* TestTableModelViewController.m */; };
+		F2DE8B281E93AE0200049F75 /* UXMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B271E93AE0200049F75 /* UXMessage.m */; };
+		F2DE8B2B1E93AEBF00049F75 /* UXImageMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B2A1E93AEBF00049F75 /* UXImageMessage.m */; };
+		F2DE8B2E1E93AF3200049F75 /* UXAlbumMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B2D1E93AF3200049F75 /* UXAlbumMessage.m */; };
+		F2DE8B311E93AF9900049F75 /* UXTitleMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B301E93AF9900049F75 /* UXTitleMessage.m */; };
+		F2DE8B341E93AFC600049F75 /* UXVideoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B331E93AFC600049F75 /* UXVideoMessage.m */; };
+		F2DE8B371E93B01E00049F75 /* UXLocationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B361E93B01E00049F75 /* UXLocationMessage.m */; };
+		F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B391E93B2B000049F75 /* UXAudioMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,16 +174,14 @@
 		F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
 		F2134EF51E79546E005F8B10 /* ScrollViewInteractiveActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewInteractiveActions.h; sourceTree = "<group>"; };
 		F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewInteractiveActions.m; sourceTree = "<group>"; };
-		F2134EFB1E82387C005F8B10 /* UXSentence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSentence.h; sourceTree = "<group>"; };
-		F2134EFC1E82387C005F8B10 /* UXSentence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSentence.m; sourceTree = "<group>"; };
+		F2134EFB1E82387C005F8B10 /* UXSentenceMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSentenceMessage.h; sourceTree = "<group>"; };
+		F2134EFC1E82387C005F8B10 /* UXSentenceMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSentenceMessage.m; sourceTree = "<group>"; };
 		F2134EFE1E8238B4005F8B10 /* UXConversationFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXConversationFeed.h; sourceTree = "<group>"; };
 		F2134EFF1E8238B4005F8B10 /* UXConversationFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXConversationFeed.m; sourceTree = "<group>"; };
 		F2134F011E82393C005F8B10 /* UXSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXSpeaker.h; sourceTree = "<group>"; };
 		F2134F021E82393C005F8B10 /* UXSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXSpeaker.m; sourceTree = "<group>"; };
 		F2134F191E823BC3005F8B10 /* conversations.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = conversations.txt; sourceTree = "<group>"; };
 		F2134F1A1E823BC3005F8B10 /* supreme.README.v1.01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = supreme.README.v1.01.txt; sourceTree = "<group>"; };
-		F2134F1D1E837DC6005F8B10 /* UXSentence+DummyComming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXSentence+DummyComming.h"; sourceTree = "<group>"; };
-		F2134F1E1E837DC6005F8B10 /* UXSentence+DummyComming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UXSentence+DummyComming.m"; sourceTree = "<group>"; };
 		F2134F211E88C8AC005F8B10 /* UXMessageBackgroundStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageBackgroundStyle.h; sourceTree = "<group>"; };
 		F2134F221E88C8AC005F8B10 /* UXMessageBackgroundStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageBackgroundStyle.m; sourceTree = "<group>"; };
 		F2134F251E88C999005F8B10 /* UXRoundedBackgroundStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXRoundedBackgroundStyle.h; sourceTree = "<group>"; };
@@ -228,6 +232,20 @@
 		F2DE8B221E938A6200049F75 /* UXMutableTableNodeModel+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UXMutableTableNodeModel+Private.h"; sourceTree = "<group>"; };
 		F2DE8B231E93969900049F75 /* TestTableModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableModelViewController.h; sourceTree = "<group>"; };
 		F2DE8B241E93969900049F75 /* TestTableModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableModelViewController.m; sourceTree = "<group>"; };
+		F2DE8B261E93AE0200049F75 /* UXMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessage.h; sourceTree = "<group>"; };
+		F2DE8B271E93AE0200049F75 /* UXMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessage.m; sourceTree = "<group>"; };
+		F2DE8B291E93AEBF00049F75 /* UXImageMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXImageMessage.h; sourceTree = "<group>"; };
+		F2DE8B2A1E93AEBF00049F75 /* UXImageMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXImageMessage.m; sourceTree = "<group>"; };
+		F2DE8B2C1E93AF3200049F75 /* UXAlbumMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXAlbumMessage.h; sourceTree = "<group>"; };
+		F2DE8B2D1E93AF3200049F75 /* UXAlbumMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAlbumMessage.m; sourceTree = "<group>"; };
+		F2DE8B2F1E93AF9900049F75 /* UXTitleMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXTitleMessage.h; sourceTree = "<group>"; };
+		F2DE8B301E93AF9900049F75 /* UXTitleMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXTitleMessage.m; sourceTree = "<group>"; };
+		F2DE8B321E93AFC600049F75 /* UXVideoMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXVideoMessage.h; sourceTree = "<group>"; };
+		F2DE8B331E93AFC600049F75 /* UXVideoMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXVideoMessage.m; sourceTree = "<group>"; };
+		F2DE8B351E93B01E00049F75 /* UXLocationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXLocationMessage.h; sourceTree = "<group>"; };
+		F2DE8B361E93B01E00049F75 /* UXLocationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXLocationMessage.m; sourceTree = "<group>"; };
+		F2DE8B381E93B2B000049F75 /* UXAudioMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXAudioMessage.h; sourceTree = "<group>"; };
+		F2DE8B391E93B2B000049F75 /* UXAudioMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAudioMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -544,12 +562,24 @@
 			children = (
 				F2134EFE1E8238B4005F8B10 /* UXConversationFeed.h */,
 				F2134EFF1E8238B4005F8B10 /* UXConversationFeed.m */,
-				F2134EFB1E82387C005F8B10 /* UXSentence.h */,
-				F2134EFC1E82387C005F8B10 /* UXSentence.m */,
+				F2134EFB1E82387C005F8B10 /* UXSentenceMessage.h */,
+				F2134EFC1E82387C005F8B10 /* UXSentenceMessage.m */,
+				F2DE8B291E93AEBF00049F75 /* UXImageMessage.h */,
+				F2DE8B2A1E93AEBF00049F75 /* UXImageMessage.m */,
+				F2DE8B2F1E93AF9900049F75 /* UXTitleMessage.h */,
+				F2DE8B301E93AF9900049F75 /* UXTitleMessage.m */,
+				F2DE8B321E93AFC600049F75 /* UXVideoMessage.h */,
+				F2DE8B351E93B01E00049F75 /* UXLocationMessage.h */,
+				F2DE8B361E93B01E00049F75 /* UXLocationMessage.m */,
+				F2DE8B381E93B2B000049F75 /* UXAudioMessage.h */,
+				F2DE8B391E93B2B000049F75 /* UXAudioMessage.m */,
+				F2DE8B331E93AFC600049F75 /* UXVideoMessage.m */,
+				F2DE8B2C1E93AF3200049F75 /* UXAlbumMessage.h */,
+				F2DE8B2D1E93AF3200049F75 /* UXAlbumMessage.m */,
 				F2134F011E82393C005F8B10 /* UXSpeaker.h */,
 				F2134F021E82393C005F8B10 /* UXSpeaker.m */,
-				F2134F1D1E837DC6005F8B10 /* UXSentence+DummyComming.h */,
-				F2134F1E1E837DC6005F8B10 /* UXSentence+DummyComming.m */,
+				F2DE8B261E93AE0200049F75 /* UXMessage.h */,
+				F2DE8B271E93AE0200049F75 /* UXMessage.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -962,13 +992,14 @@
 				8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */,
 				F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */,
 				F2DE8B251E93969900049F75 /* TestTableModelViewController.m in Sources */,
-				F2134EFD1E82387C005F8B10 /* UXSentence.m in Sources */,
+				F2134EFD1E82387C005F8B10 /* UXSentenceMessage.m in Sources */,
+				F2DE8B2E1E93AF3200049F75 /* UXAlbumMessage.m in Sources */,
 				8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */,
 				F2134F271E88C999005F8B10 /* UXRoundedBackgroundStyle.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
+				F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */,
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
 				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
-				F2134F1F1E837DC6005F8B10 /* UXSentence+DummyComming.m in Sources */,
 				F2DE8B021E923DF200049F75 /* UXLoadingCellNode.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
 				F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */,
@@ -976,6 +1007,8 @@
 				94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */,
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
 				F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */,
+				F2DE8B371E93B01E00049F75 /* UXLocationMessage.m in Sources */,
+				F2DE8B311E93AF9900049F75 /* UXTitleMessage.m in Sources */,
 				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
 				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
 				F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */,
@@ -988,6 +1021,7 @@
 				F2DE8B1D1E9382C200049F75 /* UXTableNodeModel.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,
 				F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */,
+				F2DE8B2B1E93AEBF00049F75 /* UXImageMessage.m in Sources */,
 				8A6B9E201E77D01F002ACB87 /* Group.m in Sources */,
 				F2DE8B181E9380C600049F75 /* UXCellCatalog.m in Sources */,
 				F2134F231E88C8AC005F8B10 /* UXMessageBackgroundStyle.m in Sources */,
@@ -995,6 +1029,7 @@
 				8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */,
 				F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */,
 				8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */,
+				F2DE8B341E93AFC600049F75 /* UXVideoMessage.m in Sources */,
 				F2134EDE1E7932E3005F8B10 /* ScrollTransitionAnimator.m in Sources */,
 				8A6B9E091E763EBB002ACB87 /* GroupViewController.m in Sources */,
 				F2DE8B121E937A4200049F75 /* UXMutableCollectionNodeModel.m in Sources */,
@@ -1007,6 +1042,7 @@
 				F2134F381E88D1E2005F8B10 /* UXMessageCell.m in Sources */,
 				F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */,
 				F2134F311E88CCA4005F8B10 /* UXMessagerCellConfigure.m in Sources */,
+				F2DE8B281E93AE0200049F75 /* UXMessage.m in Sources */,
 				F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */,
 				F2134EE01E7932E3005F8B10 /* TransitionAnimator.m in Sources */,
 				F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */,

@@ -6,12 +6,12 @@
 //  Copyright © 2017 CPU11815. All rights reserved.
 //
 
-#import "UXSentence.h"
+#import "UXSentenceMessage.h"
 
 #define COMPONENTS_NUM 8
 #define CONTENT_MAX_LENGTH 50
 
-@implementation UXSentence
+@implementation UXSentenceMessage
 
 + (instancetype)sentenceFromString:(NSString *)string {
     UXSentence * ret = nil;

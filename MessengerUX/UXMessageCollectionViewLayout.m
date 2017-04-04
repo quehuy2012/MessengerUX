@@ -146,7 +146,7 @@
         [self.visibleIndexPathsSet addObject:item.indexPath];
     }];
     
-    NSLog(@"Prepare layout");
+//    NSLog(@"Prepare layout");
 }
 
 -(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
@@ -179,7 +179,7 @@
         [weakDynamicAnimator updateItemUsingCurrentState:item];
     }];
     
-    NSLog(@"Invalidate layout");
+//    NSLog(@"Invalidate layout");
     
     return NO;
 }

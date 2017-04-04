@@ -120,7 +120,6 @@
 
 #pragma mark - UITableViewDataSource
 
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableNodeModel:canEditObject:atIndexPath:inTableView:)]) {
         id object = [self objectAtIndexPath:indexPath];
