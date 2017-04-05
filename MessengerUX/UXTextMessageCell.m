@@ -9,7 +9,8 @@
 #import "UXTextMessageCell.h"
 
 #import "UXMessageCellConfigure.h"
-#import "UXSpeaker.h"
+#import "UXOwner.h"
+#import "UXTextMessage.h"
 
 @interface UXTextMessageCell ()
 
@@ -21,20 +22,15 @@
 
 @synthesize delegate;
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentText:(NSString *)string {
-    self = [super initWithConfigure:configure isIncomming:incomming andOwner:owner];
+- (instancetype)init {
+    self = [super init];
     if (self) {
-        
-        UIColor * textColor = self.isIncomming ? self.configure.incommingTextColor : self.configure.outgoingTextColor;
         
         self.messageNode = [[ASTextNode alloc] init];
         self.messageNode.style.flexShrink = 1.0;
         self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.messageNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
+        self.messageNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
         self.messageNode.backgroundColor = [UIColor clearColor];
-        self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:string
-                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.contentTextSize],
-                                                                                       NSForegroundColorAttributeName: textColor}];
         [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
         [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
@@ -43,6 +39,18 @@
     }
     
     return self;
+}
+
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    [super shouldUpdateCellNodeWithObject:object];
+    if ([object isKindOfClass:[UXTextMessage class]]) {
+        UXTextMessage * textMessage = object;
+        UIColor * textColor = self.isIncomming ? self.configure.incommingTextColor : self.configure.outgoingTextColor;
+        self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
+                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.contentTextSize],
+                                                                                      NSForegroundColorAttributeName: textColor}];
+    }
+    
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {

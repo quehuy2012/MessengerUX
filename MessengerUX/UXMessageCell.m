@@ -10,8 +10,8 @@
 
 #import "UXMessageCellConfigure.h"
 #import "UXMessageBackgroundStyle.h"
-#import "UXSpeaker.h"
-
+#import "UXOwner.h"
+#import "UXMessage.h"
 //@interface UXMessageCell ()
 //
 //@property (nonatomic) ASTextNode * topTextNode;
@@ -33,7 +33,7 @@
 @synthesize showTextAsBottom = _showTextAsBottom;
 @synthesize showSubFunction = _showSubFunction;
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner {
+- (instancetype)init {
     self = [super init];
     
     static int ID = 0;
@@ -42,16 +42,14 @@
         
         mID = ID++;
         
-        self.configure = configure;
-        self.owner = owner;
-        self.isIncomming = incomming;
+        self.configure = [UXMessageCellConfigure getGlobalConfigure];
+        self.isIncomming = NO;
         
         self.avatarNode = [[ASImageNode alloc] init];
         self.avatarNode.backgroundColor = [UIColor whiteColor];
         self.avatarNode.style.width = ASDimensionMakeWithPoints(34);
         self.avatarNode.style.height = ASDimensionMakeWithPoints(34);
         self.avatarNode.cornerRadius = 17;
-        self.avatarNode.image = self.owner ? self.owner.avatar : [UIImage imageNamed:@"cameraThumb"]; // TODO set default thumbnail
         self.avatarNode.clipsToBounds = YES;
         [self.avatarNode addTarget:self action:@selector(avatarClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self addSubnode:self.avatarNode];
@@ -87,13 +85,6 @@
             [self.messageBackgroundNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
             [self.messageBackgroundNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
             
-            if (self.messageBackgroundNode) {
-                if (self.isIncomming) {
-                    self.messageBackgroundNode.backgroundColor = self.configure.incommingColor;
-                } else {
-                    self.messageBackgroundNode.backgroundColor = self.configure.outgoingColor;
-                }
-            }
             [self addSubnode:self.messageBackgroundNode];
         }
     }
@@ -101,8 +92,27 @@
     return self;
 }
 
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    // parent do thing like setup general info
+    if ([object isKindOfClass:[UXMessage class]]) {
+        UXMessage * message = object;
+        self.owner = message.owner;
+        self.isIncomming = message.commingMessage;
+        self.avatarNode.image = self.owner ? self.owner.avatar : [UIImage imageNamed:@"cameraThumb"]; // TODO set default thumbnail
+        
+        if (self.messageBackgroundNode) {
+            
+            if (self.isIncomming) {
+                self.messageBackgroundNode.backgroundColor = self.configure.incommingColor;
+            } else {
+                self.messageBackgroundNode.backgroundColor = self.configure.outgoingColor;
+            }
+        }
+    }
+}
+
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    NSAssert(NO, @"Need override this method");
+    NSAssert(NO, @"Need override method layoutSpecThatFits");
     return nil;
 }
 
@@ -163,10 +173,6 @@
             }
         }
     }
-}
-
-- (void)shouldUpdateCellNodeWithObject:(id)object {
-    
 }
 
 #pragma mark - Action

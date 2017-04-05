@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UXSpeaker.h"
+#import "UXNodeModel.h"
+#import "UXOwner.h"
 
-@interface UXMessage : NSObject
+@interface UXMessage : UXCellNodeObject
 
 @property (nonatomic) NSString * ID;
-@property (nonatomic) UXSpeaker * owner;
+@property (nonatomic) UXOwner * owner;
 @property (nonatomic) NSTimeInterval time;
 @property (nonatomic) BOOL commingMessage;
 

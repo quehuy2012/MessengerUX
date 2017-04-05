@@ -10,6 +10,8 @@
 #import "UXConversationFeed.h"
 #import "UIView+AutoLayout.h"
 
+#import "UXConversationFeed.h"
+
 #import "UXMessageTimeLine.h"
 
 @interface UXMessageViewController () <ASCollectionDelegate, ASCollectionDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
@@ -17,6 +19,8 @@
 @property (nonatomic) UXConversationFeed * dataFeed;
 @property (nonatomic) ASCollectionNode * collectionNode;
 @property (nonatomic) UXMessageCollectionViewLayout * collectionLayout;
+@property (nonatomic) UXMutableCollectionNodeModel * models;
+@property (nonatomic) UXCellFactory * factory;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
@@ -32,11 +36,14 @@
     
     self = [super init];
     if (self) {
+        [self initModel];
+        
+        [UXMessageCellConfigure setGlobalConfigure:[[UXIMessageCellConfigure alloc] init]];
         
         self.collectionLayout = [[UXMessageCollectionViewLayout alloc] init];
         self.collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:self.collectionLayout];
         self.collectionNode.delegate = self;
-        self.collectionNode.dataSource = self;
+        self.collectionNode.dataSource = self.models;
         self.collectionNode.inverted = YES;
         [self.collectionLayout invalidateLayout];
     }
@@ -46,6 +53,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
+}
+
+- (void)initModel {
+    
+    self.dataFeed = [[UXConversationFeed alloc] init];
+    self.factory = [[UXCellFactory alloc] init];
+    self.models = [[UXMutableCollectionNodeModel alloc] initWithListArray:[self.dataFeed getDataArray]  delegate:self.factory];
 }
 
 - (void)initView {
@@ -134,10 +148,15 @@
 - (void)loadPageWithContext:(ASBatchContext *)context {
     
     __weak typeof(self) weakSelf = self;
-    [self.dataFeed getNextDataPageWithCompletion:^(NSArray<UXSentence *> *datas) {
+    [self.dataFeed getNextDataPageWithCompletion:^(NSArray<UXMessage *> *datas) {
+        
+        
+        
         [self.dataFeed insertNewPage:datas withCompletion:^(NSUInteger fromIndex, NSUInteger toIndex) {
             
+            [weakSelf.models addObjectsFromArray:datas];
             [weakSelf insertNewPageFromIndex:fromIndex toIndex:toIndex];
+            
             if (context) {
                 [context completeBatchFetching:YES];
             }
@@ -168,153 +187,6 @@
     });
 }
 
-#pragma mark - ASCollectionDataSource
-
-- (NSInteger)collectionNode:(ASCollectionNode *)collectionNode numberOfItemsInSection:(NSInteger)section {
-    return [self.dataFeed getDataArray].count;
-}
-
-- (ASCellNodeBlock)collectionNode:(ASCollectionNode *)collectionNode nodeBlockForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UXSentence * sentence = [self.dataFeed getDataArray][indexPath.row];
-    
-    NSInteger index = sentence.ID.integerValue;
-    
-    __weak typeof(self) weakSelf = self;
-    
-    ASCellNode *(^cellNodeBlock)() = nil;
-    
-    if (index % 10 == 0) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
-            
-            NSArray * imgs = @[];
-            
-            if (index % 4 == 0) {
-                
-                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                         , [UIImage imageNamed:@"tempImg"]];
-                
-            } else if (index % 3 == 0){
-                
-                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"]];
-                
-            } else if (index % 5 == 0) {
-                
-                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                         , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
-            } else {
-                
-                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                         , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
-            }
-            
-            UXAlbumMessageCell * albumCell = [[UXAlbumMessageCell alloc] initWithConfigure:configure
-                                                                               isIncomming:(indexPath.row % 3 == 0)
-                                                                                  andOwner:sentence.owner
-                                                                              contentImage:imgs];
-            
-            if (index % 3 == 0) {
-                [albumCell setTopText:@"cameraThumb"];
-            } else {
-                [albumCell setBottomText:@"galleryThumb"];
-            }
-            
-            albumCell.showSubFunction = YES;
-            
-            albumCell.delegate = weakSelf;
-            
-            return albumCell;
-        };
-        
-    } else if (index % 9 == 0) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
-            
-            UXTitleMessageCell * titleCell = [[UXTitleMessageCell alloc] initWithConfigure:configure title:@"Section"];
-            
-            titleCell.delegate = weakSelf;
-            
-            return titleCell;
-            
-        };
-        
-    } else if (index % 6 == 0) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
-            
-            UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
-                                                                                           isIncomming:YES
-                                                                                              andOwner:sentence.owner
-                                                                                          contentImage:[UIImage imageNamed:@"cameraThumb"]];
-            
-            [imageCell setTopText:@"cameraThumb"];
-            
-            imageCell.showSubFunction = YES;
-            
-            imageCell.delegate = weakSelf;
-            
-            return imageCell;
-            
-        };
-        
-    } else if (index % 17 == 0) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
-            
-            UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
-                                                                                           isIncomming:NO
-                                                                                              andOwner:sentence.owner
-                                                                                          contentImage:[UIImage imageNamed:@"tempImg"]];
-            
-            [imageCell setBottomText:@"tempImg"];
-            
-            imageCell.delegate = weakSelf;
-            
-            return imageCell;
-            
-        };
-        
-    } else {
-    
-        cellNodeBlock = ^ASCellNode *() {
-            UXIMessageCellConfigure * configure = [[UXIMessageCellConfigure alloc] init];
-            
-            BOOL dummyIncomming = index % 2 == 0 || index % 13 == 0;
-            
-            UXTextMessageCell * textMessage = [[UXTextMessageCell alloc] initWithConfigure:configure
-                                                                               isIncomming:dummyIncomming
-                                                                                  andOwner:sentence.owner
-                                                                               contentText:sentence.content];
-            
-            if (sentence.owner.name) {
-                [textMessage setTopText:sentence.owner.name];
-            }
-            if (sentence.ID && index % 3 == 0) {
-                [textMessage setBottomText:sentence.ID];
-            }
-            
-            textMessage.delegate = weakSelf;
-            
-            return textMessage;
-            
-        };
-    }
-
-    return cellNodeBlock;
-}
-
 #pragma mark - ASCollectionDelegate
 
 - (ASSizeRange)collectionNode:(ASCollectionNode *)collectionNode constrainedSizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -338,8 +210,9 @@
 
         if (cell) {
             [self.dataFeed deleteDataAtIndex:indexPath.row];
-            NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+            [self.models removeObjectAtIndexPath:indexPath];
             
+            NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
             [weakself.collectionNode deleteItemsAtIndexPaths:indexPaths];
             
         }

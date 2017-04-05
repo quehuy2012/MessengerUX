@@ -20,6 +20,4 @@
 
 @property (nonatomic, weak) id <UXTitleMessageCellDelegate> delegate;
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure title:(NSString *)title;
-
 @end

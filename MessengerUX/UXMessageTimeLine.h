@@ -9,6 +9,7 @@
 #ifndef UXMessageTimeLine_h
 #define UXMessageTimeLine_h
 
+// Cell node
 #import "UXMessageCell.h"
 #import "UXTextMessageCell.h"
 #import "UXSingleImageMessageCell.h"
@@ -16,6 +17,17 @@
 #import "UXAlbumMessageCell.h"
 #import "UXMessagerCellConfigure.h"
 #import "UXIMessageCellConfigure.h"
+
+// Cell model
+#import "UXOwner.h"
+#import "UXMessage.h"
+#import "UXTextMessage.h"
+#import "UXTitleMessage.h"
+#import "UXImageMessage.h"
+#import "UXAlbumMessage.h"
+#import "UXVideoMessage.h"
+#import "UXAudioMessage.h"
+#import "UXLocationMessage.h"
 
 #import "UXMessageCollectionViewLayout.h"
 

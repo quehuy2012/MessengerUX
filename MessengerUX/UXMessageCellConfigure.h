@@ -25,6 +25,10 @@
 
 @property (nonatomic, readonly) UIEdgeInsets insets;
 
++ (UXMessageCellConfigure *)getGlobalConfigure;
+
++ (void)setGlobalConfigure:(UXMessageCellConfigure *)configure;
+
 - (UXMessageBackgroundStyle *)getMessageBackgroundStyle;
 
 @end

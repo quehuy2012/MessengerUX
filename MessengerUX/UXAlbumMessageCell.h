@@ -21,8 +21,4 @@
 @property (nonatomic, readonly) BOOL imageUsingURL;
 @property (nonatomic, weak) id<UXAlbumMessageCellDelegate> delegate;
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImage:(NSArray<UIImage *> *)images;
-
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImageURL:(NSArray<NSURL *> *)imageURLs;
-
 @end

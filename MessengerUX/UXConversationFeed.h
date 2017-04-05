@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UXSentence.h"
+
+#import "UXNodeModel.h"
+#import "UXMessageTimeLine.h"
 
 @interface UXConversationFeed : NSObject
 
@@ -16,14 +18,14 @@
 
  @return current array data
  */
-- (NSArray<UXSentence *> *)getDataArray;
+- (NSMutableArray<UXMessage *> *)getDataArray;
 
 /**
  Get next page of data
 
  @param completion action callback
  */
-- (void)getNextDataPageWithCompletion:(void (^)(NSArray<UXSentence *> * datas))completion;
+- (void)getNextDataPageWithCompletion:(void (^)(NSArray<UXMessage *> * datas))completion;
 
 /**
  Insert new data as a new page
@@ -31,7 +33,7 @@
  @param datas data to insert
  @param completion action callbackk
  */
-- (void)insertNewPage:(NSArray<UXSentence *> *)datas withCompletion:(void (^)(NSUInteger fromIndex, NSUInteger toIndex))completion;
+- (void)insertNewPage:(NSArray<UXMessage *> *)datas withCompletion:(void (^)(NSUInteger fromIndex, NSUInteger toIndex))completion;
 
 /**
  Delete data at index
@@ -45,6 +47,6 @@
 
  @param sentence sentence to delete
  */
-- (void)deleteSentent:(UXSentence *)sentence;
+- (void)deleteSentent:(UXMessage *)sentence;
 
 @end

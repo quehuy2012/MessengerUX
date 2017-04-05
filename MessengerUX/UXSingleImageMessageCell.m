@@ -10,7 +10,9 @@
 
 #import "UXMessageCellConfigure.h"
 #import "UXMessageBackgroundStyle.h"
-#import "UXSpeaker.h"
+#import "UXOwner.h"
+
+#import "UXImageMessage.h"
 
 @interface UXSingleImageMessageCell ()
 
@@ -24,8 +26,8 @@
 
 @synthesize delegate;
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner {
-    self = [super initWithConfigure:configure isIncomming:incomming andOwner:owner];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.imagePadding = 4;
     }
@@ -33,48 +35,38 @@
     return self;
 }
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImage:(UIImage *)image {
-    self = [self initWithConfigure:configure isIncomming:incomming andOwner:owner];
-    if (self) {
-        self.imageContentNode = [[ASImageNode alloc] init];
-        self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
-        self.imageDimentionRatio = image.size.height / image.size.width;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(configure.maxWidthOfCell*self.imageDimentionRatio);
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    [super shouldUpdateCellNodeWithObject:object];
+    if ([object isKindOfClass:[UXImageMessage class]]) {
+        UXImageMessage * imageMessage = object;
+        
+        if (imageMessage.image) {
+            self.imageContentNode = [[ASImageNode alloc] init];
+            ((ASImageNode *)self.imageContentNode).image = imageMessage.image;
+            
+            [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+            [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+            [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+            
+            [self addSubnode:self.imageContentNode];
+        } else {
+            self.imageContentNode = [[ASNetworkImageNode alloc] init];
+            ((ASNetworkImageNode *)self.imageContentNode).URL = imageMessage.imageURL;
+            
+            [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+            [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+            [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+            
+            [self addSubnode:self.imageContentNode];
+        }
+        
+        self.imageContentNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
+        self.imageDimentionRatio = imageMessage.image != nil ? imageMessage.image.size.height / imageMessage.image.size.width : imageMessage.ratio;
+        self.imageContentNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
+        self.imageContentNode.style.maxHeight = ASDimensionMake(self.configure.maxWidthOfCell*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
         self.imageContentNode.layerBacked = YES;
-        ((ASImageNode *)self.imageContentNode).image = image;
-        
-        [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-        [((ASImageNode *)self.imageContentNode) addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
-        
-        [self addSubnode:self.imageContentNode];
     }
-    
-    return self;
-}
-
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImageURL:(NSURL *)imageURL ratio:(CGFloat)ratio {
-    self = [self initWithConfigure:configure isIncomming:incomming andOwner:owner];
-    if (self) {
-        self.imageContentNode = [[ASNetworkImageNode alloc] init];
-        self.imageContentNode.cornerRadius = [configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
-        self.imageDimentionRatio = ratio;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(configure.maxWidthOfCell*ratio);
-        self.imageContentNode.clipsToBounds = YES;
-        self.imageContentNode.layerBacked = YES;
-        ((ASNetworkImageNode *)self.imageContentNode).URL = imageURL;
-        
-        [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-        [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
-        
-        [self addSubnode:self.imageContentNode];
-    }
-    
-    return self;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {

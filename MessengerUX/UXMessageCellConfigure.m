@@ -7,27 +7,50 @@
 //
 
 #import "UXMessageCellConfigure.h"
+#import "UXRoundedBackgroundStyle.h"
+
+static UXMessageCellConfigure * globalConfigure;
 
 @implementation UXMessageCellConfigure
 
-- (UIColor *)incommingColor {
-    NSAssert(NO, @"Must overide this method");
-    return nil;
++ (UXMessageCellConfigure *)getGlobalConfigure {
+    if (globalConfigure) {
+        return globalConfigure;
+    } else {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            globalConfigure = [[UXMessageCellConfigure alloc] init];
+        });
+        return globalConfigure;
+    }
 }
 
-- (UIColor *)outgoingColor {
-    NSAssert(NO, @"Must overide this method");
-    return nil;
++ (void)setGlobalConfigure:(UXMessageCellConfigure *)configure {
+    globalConfigure = configure;
+}
+
+- (UIColor *)incommingColor {
+    return [UIColor colorWithRed:1.0/255.0 green:147.0/255.0 blue:238.0/255.0 alpha:1.0];
 }
 
 - (UIColor *)incommingTextColor {
-    NSAssert(NO, @"Must overide this method");
-    return nil;
+    return [UIColor whiteColor];
+}
+
+- (UIColor *)outgoingColor {
+    return [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0];
 }
 
 - (UIColor *)outgoingTextColor {
-    NSAssert(NO, @"Must overide this method");
-    return nil;
+    return [UIColor colorWithRed:40.0/255.0 green:40.0/255.0 blue:40.0/255.0 alpha:1.0];
+}
+
+- (NSUInteger)contentTextSize {
+    return 16;
+}
+
+- (UIEdgeInsets)insets {
+    return UIEdgeInsetsMake(8, 8, 8, 8);
 }
 
 - (UIColor *)supportTextColor {
@@ -42,23 +65,12 @@
     return 12;
 }
 
-- (NSUInteger)contentTextSize {
-    NSAssert(NO, @"Must overide this method");
-    return 0;
-}
-
 - (NSUInteger)maxWidthOfCell {
     return 240;
 }
 
-- (UIEdgeInsets)insets {
-    NSAssert(NO, @"Must overide this method");
-    return UIEdgeInsetsZero;
-}
-
 - (UXMessageBackgroundStyle *)getMessageBackgroundStyle {
-    NSAssert(NO, @"Must overide this method");
-    return nil;
+    return [[UXRoundedBackgroundStyle alloc] init];;
 }
 
 @end

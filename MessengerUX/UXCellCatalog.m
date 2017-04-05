@@ -37,8 +37,9 @@
 }
 
 - (void)shouldUpdateCellNodeWithObject:(id)object {
-    if (self.mainTitle && object && [object isKindOfClass:[NSString class]]) {
-        NSString * title = object;
+    UXCellNodeObject * nodeObject = object;
+    if (self.mainTitle && object) {
+        NSString * title = nodeObject.userInfo;
         self.mainTitle.attributedText = [[NSAttributedString alloc] initWithString:title
                                                                         attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17],
                                                                                      NSForegroundColorAttributeName: [UIColor blackColor]}];

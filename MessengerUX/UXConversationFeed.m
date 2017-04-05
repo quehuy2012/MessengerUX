@@ -12,7 +12,7 @@
 
 @interface UXConversationFeed ()
 
-@property (nonatomic) NSMutableArray<UXSentence *> * dataArray;
+@property (nonatomic) NSMutableArray<UXMessage *> * dataArray;
 
 @property (nonatomic) dispatch_queue_t internalSerialQueue;
 @property (nonatomic) dispatch_queue_t internalConcurrentQueue;
@@ -38,11 +38,11 @@
     return self;
 }
 
-- (NSArray<UXSentence *> *)getDataArray {
-    return [self.dataArray copy];
+- (NSMutableArray<UXMessage *> *)getDataArray {
+    return [self.dataArray mutableCopy];
 }
 
-- (void)getNextDataPageWithCompletion:(void (^)(NSArray<UXSentence *> * datas))completion {
+- (void)getNextDataPageWithCompletion:(void (^)(NSArray<UXMessage *> * datas))completion {
     
     if (completion && !self.prefetching) {
         self.prefetching = YES;
@@ -56,7 +56,7 @@
     }
 }
 
-- (NSArray<UXSentence *> *)getDataArrayFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
+- (NSArray<UXMessage *> *)getDataArrayFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
     
     __block NSMutableArray * ret = [NSMutableArray array];
     dispatch_sync(self.internalSerialQueue, ^{
@@ -76,9 +76,75 @@
                 int maxIndex = lineByLineContents.count < toIndex ? (int)lineByLineContents.count : (int)toIndex;
                 for (int i = (int)fromIndex; i < maxIndex; i++) {
                     
-                    UXSentence * sentence = [UXSentence sentenceFromString:lineByLineContents[i]];
-                    if (sentence) {
-                        [ret addObject:sentence];
+                    UXMessage * message = nil;
+                    UXTextMessage * messageT = [[UXTextMessage alloc] initWithSententFromString:lineByLineContents[i]];
+                    
+                    if (i % 10 == 0) {
+                
+                        NSArray * imgs = @[];
+                        
+                        if (i % 4 == 0) {
+                            
+                            imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
+                                     , [UIImage imageNamed:@"tempImg"]];
+                            
+                        } else if (i % 3 == 0){
+                            
+                            imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"]];
+                            
+                        } else if (i % 5 == 0) {
+                            
+                            imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
+                                     , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
+                        } else {
+                            
+                            imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
+                                     , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                                     , [UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
+                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
+                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
+                        }
+                        
+                        message = [[UXAlbumMessage alloc] initWithImages:imgs
+                                                                    date:[NSDate timeIntervalSinceReferenceDate]
+                                                               isComming:(i % 3 == 0)
+                                                                   owner:messageT.owner];
+                
+                    } else if (i % 9 == 0) {
+                
+                        message = [[UXTitleMessage alloc] initWithTitle:@"Section"];
+                
+                    } else if (i % 6 == 0) {
+                
+                        message = [[UXImageMessage alloc] initWithImage:[UIImage imageNamed:@"cameraThumb"]
+                                                                   date:[NSDate timeIntervalSinceReferenceDate]
+                                                              isComming:YES
+                                                                  owner:messageT.owner];
+                
+                    } else if (i % 17 == 0) {
+                
+                        message = [[UXImageMessage alloc] initWithImage:[UIImage imageNamed:@"tempImg"]
+                                                                   date:[NSDate timeIntervalSinceReferenceDate]
+                                                              isComming:NO
+                                                                  owner:messageT.owner];
+                        
+                    } else {
+                    
+                        BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
+                        
+                        message = [[UXTextMessage alloc] initWithContent:messageT.content
+                                                                    date:[NSDate timeIntervalSinceReferenceDate]
+                                                               isComming:dummyIncomming
+                                                                   owner:messageT.owner];
+                        
+                    }
+                    
+                    if (message) {
+                        [ret addObject:message];
                     }
                 }
             }
@@ -88,7 +154,7 @@
     return ret;
 }
 
-- (void)insertNewPage:(NSArray<UXSentence *> *)datas withCompletion:(void (^)(NSUInteger fromIndex, NSUInteger toIndex))completion {
+- (void)insertNewPage:(NSArray<UXMessage *> *)datas withCompletion:(void (^)(NSUInteger fromIndex, NSUInteger toIndex))completion {
     
     if (datas) {
         NSUInteger fromIndex = [self getDataArray].count;
@@ -104,17 +170,20 @@
     }
 }
 
-- (NSArray<UXSentence *> *)dummyData {
+- (NSArray<UXMessage *> *)dummyData {
     NSMutableArray * ret = [NSMutableArray array];
     
     for (int i = 0; i < 5; i++) {
-        UXSentence * sentence = [[UXSentence alloc] init];
-        sentence.ID = [NSString stringWithFormat:@"%d", i];
-        sentence.content = [NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i];
-        sentence.owner = [[UXSpeaker alloc] init];
-        sentence.owner.name = [NSString stringWithFormat:@"kuus%dadf", i];
-        sentence.owner.avatar = [UIImage imageNamed:@"cameraThumb"];
-        [ret addObject:sentence];
+        
+        UXOwner * owner = [[UXOwner alloc] init];
+        owner.name = [NSString stringWithFormat:@"kuus%dadf", i];
+        owner.avatar = [UIImage imageNamed:@"cameraThumb"];
+        
+        UXMessage * message = [[UXTextMessage alloc] initWithContent:[NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i]
+                                                                date:[NSDate timeIntervalSinceReferenceDate]
+                                                           isComming:i % 2 == 0
+                                                               owner:owner];
+        [ret addObject:message];
     }
     
     return ret;
@@ -126,7 +195,7 @@
     }
 }
 
-- (void)deleteSentent:(UXSentence *)sentence {
+- (void)deleteSentent:(UXMessage *)sentence {
     if ([self.dataArray containsObject:sentence]) {
         [self.dataArray removeObject:sentence];
     }

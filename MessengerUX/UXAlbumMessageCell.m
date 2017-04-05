@@ -8,6 +8,7 @@
 
 #import "UXAlbumMessageCell.h"
 #import "UXMessageCellConfigure.h"
+#import "UXAlbumMessage.h"
 
 @interface UXAlbumMessageCell ()
 
@@ -26,8 +27,8 @@
 
 @synthesize delegate;
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner {
-    self = [super initWithConfigure:configure isIncomming:incomming andOwner:owner];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.nodePerRow = 3;
         self.spaceBetweenNode = 4;
@@ -37,56 +38,51 @@
     return self;
 }
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImage:(NSArray<UIImage *> *)images {
-    self = [self initWithConfigure:configure isIncomming:incomming andOwner:owner];
-    if (self) {
-        self.usingURL = NO;
-        self.albumDatas = images;
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    [super shouldUpdateCellNodeWithObject:object];
+    if ([object isKindOfClass:[UXAlbumMessage class]]) {
+        UXAlbumMessage * albumMessage = object;
         
-        [self calculateNumOfRow];
-        
-        // init allbumNodes
-        
-        for (UIImage * img in self.albumDatas) {
-            ASImageNode * imageNode = [[ASImageNode alloc] init];
-            imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
-            imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
-            imageNode.clipsToBounds = YES;
-            imageNode.layerBacked = YES;
-            imageNode.cornerRadius = 8;
-            imageNode.image = img;
-            [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-            [self addSubnode:imageNode];
-            [self.albumNodes addObject:imageNode];
+        if (albumMessage.images) {
+            self.usingURL = NO;
+            self.albumDatas = albumMessage.images;
+            
+            [self calculateNumOfRow];
+            
+            for (UIImage * img in self.albumDatas) {
+                ASImageNode * imageNode = [[ASImageNode alloc] init];
+                imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
+                imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
+                imageNode.clipsToBounds = YES;
+                imageNode.layerBacked = YES;
+                imageNode.cornerRadius = 8;
+                imageNode.image = img;
+                [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+                [self addSubnode:imageNode];
+                [self.albumNodes addObject:imageNode];
+            }
+            
+        } else {
+            self.usingURL = YES;
+            self.albumDatas = albumMessage.imageURLs;
+            
+            [self calculateNumOfRow];
+            
+            for (NSURL * url in self.albumDatas) {
+                ASNetworkImageNode * imageNode = [[ASNetworkImageNode alloc] init];
+                imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
+                imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
+                imageNode.clipsToBounds = YES;
+                imageNode.layerBacked = YES;
+                imageNode.cornerRadius = 8;
+                imageNode.URL = url;
+                [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+                [self addSubnode:imageNode];
+                [self.albumNodes addObject:imageNode];
+            }
         }
-    }
-    
-    return self;
-}
-
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentImageURL:(NSArray<NSURL *> *)imageURLs {
-    self = [self initWithConfigure:configure isIncomming:incomming andOwner:owner];
-    if (self) {
-        self.usingURL = YES;
-        self.albumDatas = imageURLs;
         
-        [self calculateNumOfRow];
-        
-        for (NSURL * url in self.albumDatas) {
-            ASNetworkImageNode * imageNode = [[ASNetworkImageNode alloc] init];
-            imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
-            imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
-            imageNode.clipsToBounds = YES;
-            imageNode.layerBacked = YES;
-            imageNode.cornerRadius = 8;
-            imageNode.URL = url;
-            [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-            [self addSubnode:imageNode];
-            [self.albumNodes addObject:imageNode];
-        }
     }
-    
-    return self;
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {

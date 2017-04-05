@@ -7,7 +7,17 @@
 //
 
 #import "UXTitleMessage.h"
+#import "UXTitleMessageCell.h"
 
 @implementation UXTitleMessage
+
+- (instancetype)initWithTitle:(NSString *)title {
+    self = [super initWithCellNodeClass:[UXTitleMessageCell class] userInfo:title];
+    if (self) {
+        self.title = title;
+    }
+    
+    return self;
+}
 
 @end

@@ -11,5 +11,11 @@
 @interface UXImageMessage : UXMessage
 
 @property (nonatomic) NSURL * imageURL;
+@property (nonatomic) UIImage * image;
+@property (nonatomic) CGFloat ratio;
+
+- (instancetype)initWithImage:(UIImage *)image date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner;
+
+- (instancetype)initWithImageURL:(NSURL *)imageURL withRatio:(CGFloat)ratio date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner;
 
 @end

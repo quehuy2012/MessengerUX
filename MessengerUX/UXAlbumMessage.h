@@ -11,5 +11,10 @@
 @interface UXAlbumMessage : UXMessage
 
 @property (nonatomic) NSArray<NSURL *> * imageURLs;
+@property (nonatomic) NSArray<UIImage *> * images;
+
+- (instancetype)initWithImages:(NSArray<UIImage *> *)images date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner;
+
+- (instancetype)initWithImageURLs:(NSArray<NSURL *> *)imageURLs date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner;
 
 @end

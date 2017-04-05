@@ -21,7 +21,7 @@
                            atIndexPath:(NSIndexPath *)indexPath
                             withObject:(id)object {
     if ([object conformsToProtocol:@protocol(UXCellNodeObject)]) {
-        return [((id<UXCellNodeObject>)object) cellNodeBlock];
+        return [((id<UXCellNodeObject>)object) cellNodeBlockWithObject:object];
     } else {
         return ^ASCellNode *() {
             return [[ASCellNode alloc] init];
@@ -47,7 +47,7 @@
                       atIndexPath: (NSIndexPath *)indexPath
                        withObject: (id)object {
     if ([object conformsToProtocol:@protocol(UXCellNodeObject)]) {
-        return [((id<UXCellNodeObject>)object) cellNodeBlock];
+        return [((id<UXCellNodeObject>)object) cellNodeBlockWithObject:object];
     } else {
         return ^ASCellNode *() {
             return [[ASCellNode alloc] init];
@@ -82,7 +82,7 @@
     return [[UXCellNodeObject alloc] initWithCellNodeClass:cellNodeClass userInfo:userInfo];
 }
 
-- (ASCellNodeBlock)cellNodeBlock{
+- (ASCellNodeBlock)cellNodeBlockWithObject:(id)object{
     
     ASCellNode *(^cellNodeBlock)() = ^ASCellNode *() {
         
@@ -90,7 +90,7 @@
             id ret = [[self.cellNodeClass alloc] init];
             
             if ([ret conformsToProtocol:@protocol(UXCellNode)]) {
-                [((id<UXCellNode>)ret) shouldUpdateCellNodeWithObject:self.userInfo];
+                [((id<UXCellNode>)ret) shouldUpdateCellNodeWithObject:object];
             }
             
             return (ASCellNode *)ret;

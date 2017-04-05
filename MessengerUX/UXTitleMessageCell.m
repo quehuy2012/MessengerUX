@@ -8,6 +8,7 @@
 
 #import "UXTitleMessageCell.h"
 #import "UXMessageCellConfigure.h"
+#import "UXTitleMessage.h"
 
 @interface UXTitleMessageCell ()
 
@@ -19,18 +20,15 @@
 
 @synthesize delegate;
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure title:(NSString *)title {
-    self = [self initWithConfigure:configure isIncomming:NO andOwner:nil];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         
         self.titleNode = [[ASTextNode alloc] init];
         self.titleNode.style.flexShrink = 1.0;
         self.titleNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.titleNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
+        self.titleNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
         self.titleNode.backgroundColor = [UIColor clearColor];
-        self.titleNode.attributedText = [[NSAttributedString alloc] initWithString:[title uppercaseString]
-                                                                          attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:self.configure.supportTextSize + 2],
-                                                                                       NSForegroundColorAttributeName: self.configure.supportTextColor}];
         [self.titleNode addTarget:self action:@selector(titleClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         
         [self.titleNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
@@ -40,6 +38,16 @@
     }
     
     return self;
+}
+
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    [super shouldUpdateCellNodeWithObject:object];
+    if ([object isKindOfClass:[UXTitleMessage class]]) {
+        UXTitleMessage * titleMessage = object;
+        self.titleNode.attributedText = [[NSAttributedString alloc] initWithString:[titleMessage.title uppercaseString]
+                                                                        attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:self.configure.supportTextSize + 2],
+                                                                                     NSForegroundColorAttributeName: self.configure.supportTextColor}];
+    }
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {

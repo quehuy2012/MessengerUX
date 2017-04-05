@@ -7,10 +7,12 @@
 //
 
 #import "ConversationViewController.h"
-#import "UXConversationFeed.h"
 #import "UIView+AutoLayout.h"
 
+#import "UXNodeModel.h"
 #import "UXMessageTimeLine.h"
+
+#import "UXConversationFeed.h"
 
 #import "UXLoadingCellNode.h"
 
@@ -18,6 +20,8 @@
 
 @property (nonatomic) UXConversationFeed * dataFeed;
 @property (nonatomic) ASTableNode * tableNode;
+@property (nonatomic) UXMutableTableNodeModel * models;
+@property (nonatomic) UXCellFactory * factory;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
@@ -33,10 +37,15 @@
     
     self = [super init];
     if (self) {
+        
+        [self initModel];
+        
+        [UXMessageCellConfigure setGlobalConfigure:[[UXMessagerCellConfigure alloc] init]];
+        
         ASTableNode * tableNode = [[ASTableNode alloc] initWithStyle:UITableViewStylePlain];
         self.tableNode = tableNode;
         self.tableNode.delegate = self;
-        self.tableNode.dataSource = self;
+        self.tableNode.dataSource = self.models;
         self.tableNode.inverted = YES;
     }
     return self;
@@ -47,12 +56,17 @@
     [self initView];
 }
 
+- (void)initModel {
+    
+    self.dataFeed = [[UXConversationFeed alloc] init];
+    self.factory = [[UXCellFactory alloc] init];
+    self.models = [[UXMutableTableNodeModel alloc] initWithListArray:[self.dataFeed getDataArray]  delegate:self.factory];
+}
+
 - (void)initView {
     
     self.navigationItem.title = @"Chat";
     self.automaticallyAdjustsScrollViewInsets = YES;
-    
-    self.dataFeed = [[UXConversationFeed alloc] init];
     
     // init view
     
@@ -144,9 +158,10 @@
 - (void)loadPageWithContext:(ASBatchContext *)context {
     
     __weak typeof(self) weakSelf = self;
-    [self.dataFeed getNextDataPageWithCompletion:^(NSArray<UXSentence *> *datas) {
+    [self.dataFeed getNextDataPageWithCompletion:^(NSArray<UXMessage *> *datas) {
         [self.dataFeed insertNewPage:datas withCompletion:^(NSUInteger fromIndex, NSUInteger toIndex) {
             
+            [weakSelf.models addObjectsFromArray:datas];
             [weakSelf insertNewPageFromIndex:fromIndex toIndex:toIndex];
             if (context) {
                 [context completeBatchFetching:YES];
@@ -170,161 +185,7 @@
     });
 }
 
-#pragma mark - ASTableDataSource
-
-- (NSInteger)tableNode:(ASTableNode *)tableNode numberOfRowsInSection:(NSInteger)section {
-    return [self.dataFeed getDataArray].count + 1;
-}
-
-- (ASCellNodeBlock)tableNode:(ASTableNode *)tableNode nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    ASCellNode *(^cellNodeBlock)() = nil;
-    
-    if (indexPath.row == [self.dataFeed getDataArray].count) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            return [[UXLoadingCellNode alloc] init];
-        };
-        
-        return cellNodeBlock;
-        
-    }
-    
-    UXSentence * sentence = [self.dataFeed getDataArray][indexPath.row];
-    NSIndexPath * cpIndexPath = [indexPath copy];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    if (indexPath.row % 10 == 0) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
-            
-            NSArray * imgs = @[];
-            
-            if (cpIndexPath.row % 4 == 0) {
-                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                         , [UIImage imageNamed:@"tempImg"]];
-            } else if (cpIndexPath.row % 3 == 0){
-                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"]];
-            } else if (cpIndexPath.row % 5 == 0) {
-                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                         , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
-            } else {
-                imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                         , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                         , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
-            }
-            
-            UXAlbumMessageCell * albumCell = [[UXAlbumMessageCell alloc] initWithConfigure:configure
-                                                                               isIncomming:(indexPath.row % 3 == 0)
-                                                                                  andOwner:sentence.owner
-                                                                              contentImage:imgs];
-            
-            if (cpIndexPath.row % 3 == 0) {
-                [albumCell setTopText:@"cameraThumb"];
-            } else {
-                [albumCell setBottomText:@"galleryThumb"];
-            }
-            
-            albumCell.showSubFunction = YES;
-            
-            albumCell.delegate = weakSelf;
-            
-            return albumCell;
-        };
-        
-    } else if (indexPath.row % 9 == 0) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
-            
-            UXTitleMessageCell * titleCell = [[UXTitleMessageCell alloc] initWithConfigure:configure title:@"Section"];
-            
-            titleCell.delegate = weakSelf;
-            
-            return titleCell;
-            
-        };
-        
-    } else if (indexPath.row % 6 == 0) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
-            
-            UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
-                                                                                           isIncomming:YES
-                                                                                              andOwner:sentence.owner
-                                                                                          contentImage:[UIImage imageNamed:@"cameraThumb"]];
-            
-            [imageCell setTopText:@"cameraThumb"];
-            
-            imageCell.showSubFunction = YES;
-            
-            imageCell.delegate = weakSelf;
-            
-            return imageCell;
-            
-        };
-        
-    } else if (indexPath.row % 17 == 0) {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
-            
-            UXSingleImageMessageCell * imageCell = [[UXSingleImageMessageCell alloc] initWithConfigure:configure
-                                                                                           isIncomming:NO
-                                                                                              andOwner:sentence.owner
-                                                                                          contentImage:[UIImage imageNamed:@"tempImg"]];
-            
-            [imageCell setBottomText:@"tempImg"];
-            
-            imageCell.delegate = weakSelf;
-            
-            return imageCell;
-            
-        };
-        
-    } else {
-        
-        cellNodeBlock = ^ASCellNode *() {
-            UXMessagerCellConfigure * configure = [[UXMessagerCellConfigure alloc] init];
-            
-            BOOL dummyIncomming = cpIndexPath.row % 2 == 0 || cpIndexPath.row % 13 == 0;
-            
-            UXTextMessageCell * textMessage = [[UXTextMessageCell alloc] initWithConfigure:configure
-                                                                               isIncomming:dummyIncomming
-                                                                                  andOwner:sentence.owner
-                                                                               contentText:sentence.content];
-            
-            if (sentence.owner.name) {
-                [textMessage setTopText:sentence.owner.name];
-            }
-            if (sentence.ID && cpIndexPath.row % 3 == 0) {
-                [textMessage setBottomText:sentence.ID];
-            }
-            
-            textMessage.delegate = weakSelf;
-            
-            return textMessage;
-            
-        };
-    }
-    
-    return cellNodeBlock;
-}
-
 #pragma mark - ASTableDelegate
-
-//- (BOOL)shouldBatchFetchForTableNode:(ASTableNode *)tableNode {
-//    return NO;
-//}
 
 // Receive a message that the tableView is near the end of its data set and more data should be fetched if necessary.
 - (void)tableNode:(ASTableNode *)tableNode willBeginBatchFetchWithContext:(ASBatchContext *)context {
@@ -372,6 +233,7 @@
         if (cell) {
             BOOL isComming = cell.isIncomming;
             [self.dataFeed deleteDataAtIndex:indexPath.row];
+            [self.models removeObjectAtIndexPath:indexPath];
             NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
             UITableViewRowAnimation animation = isComming ? UITableViewRowAnimationLeft : UITableViewRowAnimationRight;
             [self.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];

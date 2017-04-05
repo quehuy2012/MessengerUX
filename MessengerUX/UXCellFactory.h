@@ -42,7 +42,7 @@
 @protocol UXCellNodeObject <NSObject>
 @required
 
-- (ASCellNodeBlock)cellNodeBlock;
+- (ASCellNodeBlock)cellNodeBlockWithObject:(id)object;
 
 @end
 

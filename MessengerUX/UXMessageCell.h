@@ -10,7 +10,7 @@
 #import "UXNodeModel.h"
 
 @class UXMessageCellConfigure;
-@class UXSpeaker;
+@class UXOwner;
 @protocol UXMessageCellDelegate;
 
 @interface UXMessageCell : ASCellNode <UXCellNode>
@@ -19,7 +19,7 @@
 @property (nonatomic) BOOL showTextAsTop;
 @property (nonatomic) BOOL showTextAsBottom;
 @property (nonatomic) BOOL showSubFunction;
-@property (nonatomic) UXSpeaker * owner;
+@property (nonatomic) UXOwner * owner;
 @property (nonatomic) UXMessageCellConfigure * configure;
 
 @property (nonatomic) ASTextNode * topTextNode;
@@ -30,7 +30,7 @@
 
 @property (nonatomic, weak) id<UXMessageCellDelegate> delegate;
 
-- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner;
+//- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner;
 
 - (void)setTopText:(NSString *)string;
 

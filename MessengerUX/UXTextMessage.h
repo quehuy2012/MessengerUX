@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "UXMessage.h"
 
-@interface UXSentenceMessage: UXMessage
+@interface UXTextMessage: UXMessage
 
 @property (nonatomic) NSString * content;
 
-+ (instancetype)sentenceFromString:(NSString *)string;
+- (instancetype)initWithSententFromString:(NSString *)string;
+
+- (instancetype)initWithContent:(NSString *)string date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner;
 
 @end
