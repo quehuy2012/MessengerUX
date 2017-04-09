@@ -155,7 +155,9 @@
     [super clearContents];
     
     [self.messageNode clearContents];
+    self.messageNode.layer.contents = nil;
 //    self.messageNode.attributedText = nil;
+    
 }
 
 @end

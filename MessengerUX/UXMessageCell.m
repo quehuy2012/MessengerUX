@@ -209,21 +209,28 @@
     [super clearContents];
     NSLog(@"Clear %d", mID);
     
+    
+    
     [self.avatarNode clearContents];
+    self.avatarNode.layer.contents = nil;
 //    self.avatarNode.image = nil;
     
     [self.topTextNode clearContents];
+    self.topTextNode.layer.contents = nil;
 //    self.topTextNode.attributedText = nil;
     
     
     [self.bottomTextNode clearContents];
+    self.bottomTextNode.layer.contents = nil;
 //    self.bottomTextNode.attributedText = nil;
     
     [self.subFuntionNode clearContents];
+    self.subFuntionNode.layer.contents = nil;
 //    self.subFuntionNode.image = nil;
     
     if (self.messageBackgroundNode) {
         [self.messageBackgroundNode clearContents];
+        self.messageBackgroundNode.layer.contents = nil;
     }
 }
 

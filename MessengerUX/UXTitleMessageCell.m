@@ -96,6 +96,7 @@
     [super clearContents];
     
     [self.titleNode clearContents];
+    self.titleNode.layer.contents = nil;
 //    self.titleNode.attributedText = nil;
 }
 
