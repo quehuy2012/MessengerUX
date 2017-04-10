@@ -18,7 +18,7 @@
 
 @property (nonatomic) UXConversationFeed * dataFeed;
 @property (nonatomic) ASCollectionNode * collectionNode;
-@property (nonatomic) UXMessageCollectionViewLayout * collectionLayout;
+@property (nonatomic) UICollectionViewFlowLayout * collectionLayout;
 @property (nonatomic) UXMutableCollectionNodeModel * models;
 @property (nonatomic) UXCellFactory * factory;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
@@ -40,7 +40,7 @@
         
         [UXMessageCellConfigure setGlobalConfigure:[[UXIMessageCellConfigure alloc] init]];
         
-        self.collectionLayout = [[UXMessageCollectionViewLayout alloc] init];
+        self.collectionLayout = [[UICollectionViewFlowLayout alloc] init];
         self.collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:self.collectionLayout];
         self.collectionNode.delegate = self;
         self.collectionNode.dataSource = self.models;
@@ -74,36 +74,59 @@
     UIView * textInputHolder = [[UIView alloc] init];
     textInputHolder.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:textInputHolder];
-    [textInputHolder atHeight:64];
+    [textInputHolder atHeight:48];
     [textInputHolder atLeadingWith:self.view value:0];
     [textInputHolder atTrailingWith:self.view value:0];
     [textInputHolder atBottomingWith:self.view value:0];
     
     {
-        UIView * sendButton = [[UIView alloc] init];
-        sendButton.backgroundColor = [UIColor colorWithRed:1.0/255.0 green:147.0/255.0 blue:238.0/255.0 alpha:1.0];
+        UIImageView * sendButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatSendIcon"]];
+        //        sendButton.backgroundColor = [UIColor colorWithRed:1.0/255.0 green:147.0/255.0 blue:238.0/255.0 alpha:1.0];
+        sendButton.contentMode = UIViewContentModeScaleAspectFit;
         [textInputHolder addSubview:sendButton];
-        [sendButton atHeight:48];
-        [sendButton atWidth:64];
+        [sendButton atHeight:36];
+        [sendButton atWidth:36];
         [sendButton atCenterVerticalInParent];
         [sendButton atTrailingWith:textInputHolder value:-8];
-        sendButton.layer.cornerRadius = 24;
+        sendButton.layer.cornerRadius = 18;
         
-        UILabel * sendText = [[UILabel alloc] init];
-        sendText.attributedText = [[NSAttributedString alloc] initWithString:@"Send"
-                                                                  attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0],
-                                                                               NSForegroundColorAttributeName: [UIColor whiteColor]}];
-        [sendButton addSubview:sendText];
-        [sendText atCenterInParent];
+        UIImageView * moreButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatMoreIcon"]];
+        moreButton.contentMode = UIViewContentModeScaleAspectFit;
+        [textInputHolder addSubview:moreButton];
+        [moreButton atHeight:36];
+        [moreButton atWidth:36];
+        [moreButton atCenterVerticalInParent];
+        [moreButton atLeadingWith:textInputHolder value:8];
+        moreButton.layer.cornerRadius = 18;
+        
+        //        UIImageView * camButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatCamIcon"]];
+        //        camButton.contentMode = UIViewContentModeScaleAspectFit;
+        //        [textInputHolder addSubview:camButton];
+        //        [camButton atHeight:32];
+        //        [camButton atWidth:32];
+        //        [camButton atCenterVerticalInParent];
+        //        [camButton atLeftMarginTo:moreButton value:8];
+        //        camButton.layer.cornerRadius = 16;
+        //
+        //        UIImageView * imgButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatImageIcon"]];
+        //        imgButton.contentMode = UIViewContentModeScaleAspectFit;
+        //        [textInputHolder addSubview:imgButton];
+        //        [imgButton atHeight:32];
+        //        [imgButton atWidth:32];
+        //        [imgButton atCenterVerticalInParent];
+        //        [imgButton atLeftMarginTo:camButton value:8];
+        //        imgButton.layer.cornerRadius = 16;
         
         UIView * textInputBack = [[UIView alloc] init];
         textInputBack.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0];
+        textInputBack.layer.borderWidth = 1;
+        textInputBack.layer.borderColor = [UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:1.0].CGColor;
         [textInputHolder addSubview:textInputBack];
-        [textInputBack atHeight:48];
+        [textInputBack atHeight:36];
         [textInputBack atCenterVerticalInParent];
-        [textInputBack atLeadingWith:textInputHolder value:8];
+        [textInputBack atLeftMarginTo:moreButton value:8];
         [textInputBack atRightMarginTo:sendButton value:-8];
-        textInputBack.layer.cornerRadius = 24;
+        textInputBack.layer.cornerRadius = 18;
         
         UILabel * inputText = [[UILabel alloc] init];
         inputText.attributedText = [[NSAttributedString alloc] initWithString:@"Enter message..."
@@ -133,10 +156,51 @@
     
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    UIBarButtonItem * stressTest = [[UIBarButtonItem alloc] initWithTitle:@"Stress" style:UIBarButtonItemStylePlain target:self action:@selector(updateNode)];
+    self.navigationItem.rightBarButtonItem = stressTest;
 }
 
 - (void)onPressBack {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)updateNode {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_queue_t customQueue = dispatch_queue_create("queueueueueue", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_async(customQueue, ^{
+        
+        for (int i = 0; i < 100000; i++) {
+            
+            [NSThread sleepForTimeInterval:0.3];
+            
+            NSUInteger maxNum = [self.dataFeed getDataArray].count;
+            
+            int r = arc4random_uniform((uint32_t)maxNum);
+            
+            NSIndexPath * index = [NSIndexPath indexPathForRow:r inSection:0];
+            
+            UXOwner * owner = [[UXOwner alloc] init];
+            owner.name = @"new";
+            owner.avatar = [UIImage imageNamed:@"groupImage"];
+            
+            UXMessage * message = [[UXTextMessage alloc] initWithContent:@"Updated content in range"
+                                                                    date:[NSDate timeIntervalSinceReferenceDate]
+                                                               isComming:r%5 == 0
+                                                                   owner:owner];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [weakSelf.dataFeed replaceIndex:r withData:message];
+                [weakSelf.models replaceObjectAtIndexPath:index withObject:message];
+                [weakSelf.collectionNode reloadItemsAtIndexPaths:@[index]];
+            });
+            
+        }
+        
+    });
 }
 
 #pragma mark - Data handler
