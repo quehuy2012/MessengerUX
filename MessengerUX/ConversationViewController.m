@@ -16,8 +16,6 @@
 
 #import "UXConversationFeed.h"
 
-#import "UXLoadingCellNode.h"
-
 @interface ConversationViewController () <ASTableDelegate, ASTableDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
 
 @property (nonatomic) UXConversationFeed * dataFeed;
@@ -269,6 +267,7 @@
 // Receive a message that the tableView is near the end of its data set and more data should be fetched if necessary.
 - (void)tableNode:(ASTableNode *)tableNode willBeginBatchFetchWithContext:(ASBatchContext *)context {
     [context beginBatchFetching];
+    
     [self loadPageWithContext:context];
 }
 

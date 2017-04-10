@@ -84,3 +84,60 @@
 }
 
 @end
+
+@interface UXLoadingCellNode ()
+
+@property (nonatomic) ASDisplayNode * indicatorNode;
+
+@end
+
+@implementation UXLoadingCellNode
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.indicatorNode = [[ASDisplayNode alloc] initWithViewBlock:^UIView * _Nonnull{
+            
+            UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            
+            return indicator;
+        }];
+        
+        self.indicatorNode.backgroundColor = [UIColor greenColor];
+        self.indicatorNode.style.height = ASDimensionMake(44);
+        
+        [self addSubnode:self.indicatorNode];
+    }
+    
+    return self;
+}
+
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    return [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                   spacing:0
+                                            justifyContent:ASStackLayoutJustifyContentCenter
+                                                alignItems:ASStackLayoutAlignItemsCenter
+                                                  children:@[self.indicatorNode]];
+}
+
+- (void)didEnterVisibleState {
+    [super didEnterVisibleState];
+    [((UIActivityIndicatorView *)self.indicatorNode.view) startAnimating];
+}
+
+- (void)didExitVisibleState {
+    [super didExitVisibleState];
+    [((UIActivityIndicatorView *)self.indicatorNode.view) stopAnimating];
+}
+
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    // do nothing
+}
+
+@end
+
+
+
+
+
+

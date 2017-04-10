@@ -16,3 +16,7 @@
 @interface UXTitleWithImageCellNode : UXTitleCellNode
 
 @end
+
+@interface UXLoadingCellNode : ASCellNode <UXCellNode>
+
+@end

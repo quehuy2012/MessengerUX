@@ -47,6 +47,8 @@
         [datas addObject:[[UXCellNodeObject alloc] initWithCellNodeClass:[UXTitleWithImageCellNode class] userInfo:[NSString stringWithFormat:@"Ahihi %d", i]]];
     }
     
+    [datas addObject:[[UXCellNodeObject alloc] initWithCellNodeClass:[UXLoadingCellNode class] userInfo:nil]];
+    
     self.factory = [[UXCellFactory alloc] init];
     
     self.models = [[UXMutableTableNodeModel alloc] initWithSectionedArray:datas delegate:self.factory];

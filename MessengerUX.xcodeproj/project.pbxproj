@@ -65,7 +65,6 @@
 		F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */; };
 		F28C9CF61E91E59600B0BDBA /* UXCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */; };
 		F28C9CF91E91E62500B0BDBA /* UXCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */; };
-		F2DE8B021E923DF200049F75 /* UXLoadingCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B011E923DF200049F75 /* UXLoadingCellNode.m */; };
 		F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B071E9254F700049F75 /* TestModelViewController.m */; };
 		F2DE8B121E937A4200049F75 /* UXMutableCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B111E937A4200049F75 /* UXMutableCollectionNodeModel.m */; };
 		F2DE8B181E9380C600049F75 /* UXCellCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B171E9380C600049F75 /* UXCellCatalog.m */; };
@@ -213,8 +212,6 @@
 		F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCellFactory.m; sourceTree = "<group>"; };
 		F28C9CF71E91E62500B0BDBA /* UXCollectionNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXCollectionNodeModel.h; sourceTree = "<group>"; };
 		F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCollectionNodeModel.m; sourceTree = "<group>"; };
-		F2DE8B001E923DF200049F75 /* UXLoadingCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXLoadingCellNode.h; sourceTree = "<group>"; };
-		F2DE8B011E923DF200049F75 /* UXLoadingCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXLoadingCellNode.m; sourceTree = "<group>"; };
 		F2DE8B041E92549200049F75 /* UXNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXNodeModel.h; sourceTree = "<group>"; };
 		F2DE8B061E9254F700049F75 /* TestModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModelViewController.h; sourceTree = "<group>"; };
 		F2DE8B071E9254F700049F75 /* TestModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModelViewController.m; sourceTree = "<group>"; };
@@ -382,8 +379,6 @@
 				94CB8C5F1E82D785000C64EF /* ConversationViewController.m */,
 				F2134F4B1E8B6486005F8B10 /* UXMessageViewController.h */,
 				F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */,
-				F2DE8B001E923DF200049F75 /* UXLoadingCellNode.h */,
-				F2DE8B011E923DF200049F75 /* UXLoadingCellNode.m */,
 			);
 			name = ConversationViewController;
 			sourceTree = "<group>";
@@ -1005,7 +1000,6 @@
 				F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */,
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
 				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
-				F2DE8B021E923DF200049F75 /* UXLoadingCellNode.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
 				F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */,
 				F2134F031E82393C005F8B10 /* UXOwner.m in Sources */,
