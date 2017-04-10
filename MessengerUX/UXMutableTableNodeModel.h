@@ -74,6 +74,12 @@
 
 @interface UXMutableTableNodeModel : UXTableNodeModel
 
+- (id)initWithDelegate:(id<UXMutableTableNodeModelDelegate>)delegate;
+
+- (id)initWithListArray:(NSArray *)listArray delegate:(id<UXMutableTableNodeModelDelegate>)delegate;
+
+- (id)initWithSectionedArray:(NSArray *)sectionedArray delegate:(id<UXMutableTableNodeModelDelegate>)delegate;
+
 - (NSArray *)addObject:(id)object;
 - (NSArray *)addObject:(id)object toSection:(NSUInteger)section;
 - (NSArray *)addObjectsFromArray:(NSArray *)array;

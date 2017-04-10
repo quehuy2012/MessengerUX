@@ -10,6 +10,13 @@
 
 @interface UXMutableCollectionNodeModel : UXCollectionNodeModel
 
+- (id)initWithDelegate:(id<UXCollectionNodeModelDelegate>)delegate;
+
+- (id)initWithListArray:(NSArray *)listArray delegate:(id<UXCollectionNodeModelDelegate>)delegate;
+
+
+- (id)initWithSectionedArray:(NSArray *)sectionedArray delegate:(id<UXCollectionNodeModelDelegate>)delegate;
+
 - (NSArray *)addObject:(id)object;
 - (NSArray *)addObject:(id)object toSection:(NSUInteger)section;
 - (NSArray *)addObjectsFromArray:(NSArray *)array;

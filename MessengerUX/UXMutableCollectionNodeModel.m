@@ -10,80 +10,188 @@
 #import "UXCollectionNodeModel+Private.h"
 #import "UXMutableCollectionNodeModel+Private.h"
 
+@interface UXMutableCollectionNodeModel ()
+
+@property (nonatomic) dispatch_queue_t interalSerialQueue;
+
+@end
+
 @implementation UXMutableCollectionNodeModel
 
+- (id)initWithDelegate:(id<UXCollectionNodeModelDelegate>)delegate {
+    self = [super initWithDelegate:delegate];
+    if (self) {
+        [self initQueue];
+    }
+    
+    return self;
+}
+
+- (id)initWithListArray:(NSArray *)listArray delegate:(id<UXCollectionNodeModelDelegate>)delegate {
+    self = [super initWithListArray:listArray delegate:delegate];
+    if (self) {
+        [self initQueue];
+    }
+    
+    return self;
+}
+
+
+- (id)initWithSectionedArray:(NSArray *)sectionedArray delegate:(id<UXCollectionNodeModelDelegate>)delegate {
+    self = [super initWithSectionedArray:sectionedArray delegate:delegate];
+    if (self) {
+        [self initQueue];
+    }
+    
+    return self;
+}
+
+- (id)init {
+    self = [self initWithDelegate:nil];
+    if (self) {
+        [self initQueue];
+    }
+    
+    return self;
+}
+
+- (void)initQueue {
+    static int queueNum = 0;
+    NSString * queueName = [NSString stringWithFormat:@"queueCollectionModel#%d", queueNum++];
+    self.interalSerialQueue = dispatch_queue_create(queueName.UTF8String, DISPATCH_QUEUE_SERIAL);
+}
+
+
 - (NSArray *)addObject:(id)object {
-    UXCollectionNodeModelSection* section = self.sections.count == 0 ? [self _appendSection] : self.sections.lastObject;
-    [section.mutableRows addObject:object];
+    
+    __block UXCollectionNodeModelSection* section = nil;
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        UXCollectionNodeModelSection* section = weakSelf.sections.count == 0 ? [weakSelf _appendSection] : weakSelf.sections.lastObject;
+        [section.mutableRows addObject:object];
+    });
+    
     return [NSArray arrayWithObject:[NSIndexPath indexPathForRow:section.mutableRows.count - 1
                                                        inSection:self.sections.count - 1]];
 }
 
 - (NSArray *)addObject:(id)object toSection:(NSUInteger)sectionIndex {
-    UXCollectionNodeModelSection *section = [self.sections objectAtIndex:sectionIndex];
-    [section.mutableRows addObject:object];
+    
+    __block UXCollectionNodeModelSection* section = nil;
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        UXCollectionNodeModelSection *section = [weakSelf.sections objectAtIndex:sectionIndex];
+        [section.mutableRows addObject:object];
+    });
+    
     return [NSArray arrayWithObject:[NSIndexPath indexPathForRow:section.mutableRows.count - 1
                                                        inSection:sectionIndex]];
 }
 
 - (NSArray *)addObjectsFromArray:(NSArray *)array {
+    
     NSMutableArray* indices = [NSMutableArray array];
-    for (id object in array) {
-        [indices addObject:[[self addObject:object] objectAtIndex:0]];
-    }
+     __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        for (id object in array) {
+            [indices addObject:[[weakSelf addObject:object] objectAtIndex:0]];
+        }
+    });
+    
     return indices;
 }
 
 - (NSArray *)insertObject:(id)object atRow:(NSUInteger)row inSection:(NSUInteger)sectionIndex {
-    NSAssert(sectionIndex >= 0 && sectionIndex < self.sections.count, @"insertObject");
-    UXCollectionNodeModelSection *section = [self.sections objectAtIndex:sectionIndex];
-    [section.mutableRows insertObject:object atIndex:row];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        NSAssert(sectionIndex >= 0 && sectionIndex < weakSelf.sections.count, @"insertObject");
+        UXCollectionNodeModelSection *section = [weakSelf.sections objectAtIndex:sectionIndex];
+        [section.mutableRows insertObject:object atIndex:row];
+    });
+    
     return [NSArray arrayWithObject:[NSIndexPath indexPathForRow:row inSection:sectionIndex]];
 }
 
 - (NSArray *)removeObjectAtIndexPath:(NSIndexPath *)indexPath {
-    NSAssert(indexPath.section < (NSInteger)self.sections.count, @"removeObjectAtIndexPath");
-    if (indexPath.section >= (NSInteger)self.sections.count) {
-        return nil;
-    }
-    UXCollectionNodeModelSection* section = [self.sections objectAtIndex:indexPath.section];
-    NSAssert(indexPath.row < (NSInteger)section.mutableRows.count, @"removeObjectAtIndexPath");
-    if (indexPath.row >= (NSInteger)section.mutableRows.count) {
-        return nil;
-    }
-    [section.mutableRows removeObjectAtIndex:indexPath.row];
-    return [NSArray arrayWithObject:indexPath];
+    
+    __block NSArray * ret = nil;
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        NSAssert(indexPath.section < (NSInteger)weakSelf.sections.count, @"removeObjectAtIndexPath");
+        if (indexPath.section < (NSInteger)weakSelf.sections.count) {
+            UXCollectionNodeModelSection* section = [weakSelf.sections objectAtIndex:indexPath.section];
+            
+            NSAssert(indexPath.row < (NSInteger)section.mutableRows.count, @"removeObjectAtIndexPath");
+            if (indexPath.row < (NSInteger)section.mutableRows.count) {
+                [section.mutableRows removeObjectAtIndex:indexPath.row];
+                ret = [NSArray arrayWithObject:indexPath];
+            }
+        }
+    });
+   
+    return ret;
 }
 
 - (NSArray *)replaceObjectAtIndexPath:(NSIndexPath *)indexPath withObject:(id)object {
-    NSAssert(indexPath.section < (NSInteger)self.sections.count, @"removeObjectAtIndexPath");
-    if (indexPath.section >= (NSInteger)self.sections.count) {
-        return nil;
-    }
-    UXCollectionNodeModelSection* section = [self.sections objectAtIndex:indexPath.section];
-    NSAssert(indexPath.row < (NSInteger)section.mutableRows.count, @"removeObjectAtIndexPath");
-    if (indexPath.row >= (NSInteger)section.mutableRows.count) {
-        return nil;
-    }
-    [section.mutableRows replaceObjectAtIndex:indexPath.row withObject:object];
-    return [NSArray arrayWithObject:indexPath];
+    
+    __block NSArray * ret = nil;
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        NSAssert(indexPath.section < (NSInteger)weakSelf.sections.count, @"removeObjectAtIndexPath");
+        if (indexPath.section < (NSInteger)weakSelf.sections.count) {
+            UXCollectionNodeModelSection* section = [weakSelf.sections objectAtIndex:indexPath.section];
+            
+            NSAssert(indexPath.row < (NSInteger)section.mutableRows.count, @"removeObjectAtIndexPath");
+            if (indexPath.row < (NSInteger)section.mutableRows.count) {
+                [section.mutableRows replaceObjectAtIndex:indexPath.row withObject:object];
+                ret = [NSArray arrayWithObject:indexPath];
+            }
+        }
+    });
+    
+    return ret;
 }
 
 - (NSIndexSet *)addSectionWithTitle:(NSString *)title {
-    UXCollectionNodeModelSection* section = [self _appendSection];
-    section.headerTitle = title;
+    
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        UXCollectionNodeModelSection* section = [weakSelf _appendSection];
+        section.headerTitle = title;
+    });
+    
     return [NSIndexSet indexSetWithIndex:self.sections.count - 1];
 }
 
 - (NSIndexSet *)insertSectionWithTitle:(NSString *)title atIndex:(NSUInteger)index {
-    UXCollectionNodeModelSection* section = [self _insertSectionAtIndex:index];
-    section.headerTitle = title;
+    
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        UXCollectionNodeModelSection* section = [weakSelf _insertSectionAtIndex:index];
+        section.headerTitle = title;
+    });
+    
     return [NSIndexSet indexSetWithIndex:index];
 }
 
 - (NSIndexSet *)removeSectionAtIndex:(NSUInteger)index {
-    NSAssert(index >= 0 && index < self.sections.count, @"removeSectionAtIndex");
-    [self.sections removeObjectAtIndex:index];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_sync(self.interalSerialQueue, ^{
+        NSAssert(index >= 0 && index < weakSelf.sections.count, @"removeSectionAtIndex");
+        [weakSelf.sections removeObjectAtIndex:index];
+    });
+    
     return [NSIndexSet indexSetWithIndex:index];
 }
 
