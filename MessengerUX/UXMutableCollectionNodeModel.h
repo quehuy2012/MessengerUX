@@ -15,6 +15,7 @@
 - (NSArray *)addObjectsFromArray:(NSArray *)array;
 - (NSArray *)insertObject:(id)object atRow:(NSUInteger)row inSection:(NSUInteger)section;
 - (NSArray *)removeObjectAtIndexPath:(NSIndexPath *)indexPath;
+- (NSArray *)replaceObjectAtIndexPath:(NSIndexPath *)indexPath withObject:(id)object;
 
 - (NSIndexSet *)addSectionWithTitle:(NSString *)title;
 - (NSIndexSet *)insertSectionWithTitle:(NSString *)title atIndex:(NSUInteger)index;

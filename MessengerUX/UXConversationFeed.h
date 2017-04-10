@@ -35,6 +35,10 @@
  */
 - (void)insertNewPage:(NSArray<UXMessage *> *)datas withCompletion:(void (^)(NSUInteger fromIndex, NSUInteger toIndex))completion;
 
+- (void)insertData:(UXMessage *)data atIndex:(NSUInteger)index;
+
+- (void)replaceIndex:(NSUInteger)index withData:(UXMessage *)data;
+
 /**
  Delete data at index
 

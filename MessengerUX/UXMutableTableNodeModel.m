@@ -62,6 +62,22 @@
     return [NSArray arrayWithObject:indexPath];
 }
 
+- (NSArray *)replaceObjectAtIndexPath:(NSIndexPath *)indexPath withObject:(id)object {
+    NSAssert(indexPath.section < (NSInteger)self.sections.count, @"removeObjectAtIndexPath");
+    if (indexPath.section >= (NSInteger)self.sections.count) {
+        return nil;
+    }
+    UXTableNodeModelSection* section = [self.sections objectAtIndex:indexPath.section];
+    
+    NSAssert(indexPath.row < (NSInteger)section.mutableRows.count, @"removeObjectAtIndexPath");
+    if (indexPath.row >= (NSInteger)section.mutableRows.count) {
+        return nil;
+    }
+    
+    [section.mutableRows replaceObjectAtIndex:indexPath.row withObject:object];
+    return [NSArray arrayWithObject:indexPath];
+}
+
 - (NSIndexSet *)addSectionWithTitle:(NSString *)title {
     UXTableNodeModelSection* section = [self _appendSection];
     section.headerTitle = title;

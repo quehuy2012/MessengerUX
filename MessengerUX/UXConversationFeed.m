@@ -147,11 +147,14 @@
                                                                   owner:messageT.owner];
                 
                     } else if (i % 17 == 0) {
-                
-                        message = [[UXImageMessage alloc] initWithImage:[UIImage imageNamed:@"tempImg"]
-                                                                   date:[NSDate timeIntervalSinceReferenceDate]
-                                                              isComming:NO
-                                                                  owner:messageT.owner];
+                        
+                        NSURL * imageURL = [NSURL URLWithString:@"https://media.giphy.com/media/EJIFaXV55556M/giphy.gif"];
+                        
+                        message = [[UXImageMessage alloc] initWithImageURL:imageURL
+                                                                 withRatio:1
+                                                                      date:[NSDate timeIntervalSinceReferenceDate]
+                                                                 isComming:NO
+                                                                     owner:messageT.owner];
                         
                     } else if (i % 7 == 0) {
                         
@@ -196,6 +199,18 @@
         if (completion) {
             completion(fromIndex, toIndex);
         }
+    }
+}
+
+- (void)insertData:(UXMessage *)data atIndex:(NSUInteger)index {
+    if (data) {
+        [self.dataArray insertObject:data atIndex:index];
+    }
+}
+
+- (void)replaceIndex:(NSUInteger)index withData:(UXMessage *)data {
+    if (data && (index < self.dataArray.count)) {
+        [self.dataArray replaceObjectAtIndex:index withObject:data];
     }
 }
 
