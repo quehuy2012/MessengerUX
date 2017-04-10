@@ -22,6 +22,7 @@
 @property (nonatomic) UXMutableCollectionNodeModel * models;
 @property (nonatomic) UXCellFactory * factory;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
+@property (atomic) BOOL stillNeedStressTest;
 
 @end
 
@@ -46,6 +47,9 @@
         self.collectionNode.dataSource = self.models;
         self.collectionNode.inverted = YES;
         [self.collectionLayout invalidateLayout];
+        
+        self.stillNeedStressTest = NO;
+        
     }
     return self;
 }
@@ -53,6 +57,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    self.stillNeedStressTest = NO;
 }
 
 - (void)initModel {
@@ -167,6 +177,8 @@
 
 - (void)updateNode {
     
+    self.stillNeedStressTest = !self.stillNeedStressTest;
+    
     __weak typeof(self) weakSelf = self;
     
     dispatch_queue_t customQueue = dispatch_queue_create("queueueueueue", DISPATCH_QUEUE_CONCURRENT);
@@ -175,6 +187,10 @@
         for (int i = 0; i < 100000; i++) {
             
             [NSThread sleepForTimeInterval:0.3];
+            
+            if (!weakSelf.stillNeedStressTest) {
+                break;
+            }
             
             NSUInteger maxNum = [self.dataFeed getDataArray].count;
             

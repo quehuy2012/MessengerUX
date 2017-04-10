@@ -25,6 +25,7 @@
 @property (nonatomic) UXMutableTableNodeModel * models;
 @property (nonatomic) UXCellFactory * factory;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
+@property (atomic) BOOL stillNeedStressTest;
 
 @end
 
@@ -49,6 +50,8 @@
         self.tableNode.delegate = self;
         self.tableNode.dataSource = self.models;
         self.tableNode.inverted = YES;
+        
+        self.stillNeedStressTest = NO;
     }
     return self;
 }
@@ -58,9 +61,10 @@
     [self initView];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     
+    self.stillNeedStressTest = NO;
 }
 
 - (void)initModel {
@@ -182,6 +186,8 @@
 
 - (void)updateNode {
     
+    self.stillNeedStressTest = !self.stillNeedStressTest;
+    
     __weak typeof(self) weakSelf = self;
     
     dispatch_queue_t customQueue = dispatch_queue_create("queueueueueue", DISPATCH_QUEUE_CONCURRENT);
@@ -190,6 +196,10 @@
         for (int i = 0; i < 100000; i++) {
             
             [NSThread sleepForTimeInterval:0.3];
+            
+            if (!weakSelf.stillNeedStressTest) {
+                break;
+            }
             
             NSUInteger maxNum = [self.dataFeed getDataArray].count;
             
@@ -210,7 +220,7 @@
                 
                 [weakSelf.dataFeed replaceIndex:r withData:message];
                 [weakSelf.models replaceObjectAtIndexPath:index withObject:message];
-                [weakSelf.tableNode reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.tableNode reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationFade];
             });
             
         }
