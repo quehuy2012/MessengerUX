@@ -250,4 +250,18 @@
     
 }
 
+#pragma mark - Memory
+
+- (void)clearContents {
+    [super clearContents];
+    
+    [self.videoNode clearContents];
+    self.videoNode.layer.contents = nil;
+    [self.videoNode.videoNode clearContents];
+    self.videoNode.videoNode.layer.contents = nil;
+    
+    [self.muteVideoButton clearContents];
+    self.muteVideoButton.layer.contents = nil;
+}
+
 @end
