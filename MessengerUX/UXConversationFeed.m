@@ -161,6 +161,14 @@
                                                                       date:[NSDate timeIntervalSinceReferenceDate]
                                                                  isComming:YES owner:messageT.owner];
                         
+                    } else if (i % 5 == 0) {
+                        BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
+                        
+                        message = [[UXAttributedTextMessage alloc] initWithContent:messageT.content
+                                                                    date:[NSDate timeIntervalSinceReferenceDate]
+                                                               isComming:dummyIncomming
+                                                                   owner:messageT.owner];
+                        
                     } else {
                     
                         BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;

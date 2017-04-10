@@ -15,6 +15,8 @@
 #import "UXSingleImageMessageCell.h"
 #import "UXTitleMessageCell.h"
 #import "UXAlbumMessageCell.h"
+#import "UXAttributedTextMessageCell.h"
+
 #import "UXMessagerCellConfigure.h"
 #import "UXIMessageCellConfigure.h"
 
@@ -28,6 +30,7 @@
 #import "UXVideoMessage.h"
 #import "UXAudioMessage.h"
 #import "UXLocationMessage.h"
+#import "UXAttributedTextMessage.h"
 
 #import "UXMessageCollectionViewLayout.h"
 
