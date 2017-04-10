@@ -40,13 +40,39 @@
     return self;
 }
 
+-(instancetype)init {
+    UXAttributedLabel *label = [[UXAttributedLabel alloc] initWithFrame:CGRectZero];
+    self = [super initWithViewBlock:^UIView * _Nonnull{
+        return label;
+    }];
+    
+    if (self) {
+        self.label = label;
+        self.isParsed = NO;
+        self.font = [UIFont systemFontOfSize:15];
+        self.textColor = [UIColor blackColor];
+        self.textAlignment = kCTTextAlignmentLeft;
+        self.lineBreakMode = NSLineBreakByTruncatingTail;
+    }
+    
+    return self;
+}
+
 #pragma mark Getters/Setters
 
 - (void)setText:(NSString *)text {
     _text = text;
     // Reload TextNode
     self.isParsed = NO;
-    [self invalidateCalculatedLayout];
+    [self setNeedsLayout];
+    //[self invalidateCalculatedLayout];
+}
+
+-(void)invalidateCalculatedLayout {
+    //[self calculateSizeThatFits:CGSizeMake(INFINITY, INFINITY)];
+    
+    [super invalidateCalculatedLayout];
+    //[self set]
 }
 
 -(void)setFont:(UIFont *)font {

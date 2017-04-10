@@ -49,16 +49,18 @@
         self.textNode = [[UXAttributedTextNode alloc] init];
         self.textNode.textColor = [UIColor blackColor];
         self.textNode.font = [UIFont systemFontOfSize:16];
+        self.textNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
+        [self addSubnode:self.textNode];
     }
     return self;
 }
 
 -(void)shouldUpdateCellNodeWithObject:(id)object {
     [super shouldUpdateCellNodeWithObject:object];
-    if ([object isKindOfClass:[UXAttributedTextMessageCell class]]) {
+    if ([object isKindOfClass:[UXAttributedTextMessage class]]) {
         UXAttributedTextMessage *message = object;
         
-        self.textNode.text = message.content;
+        [self.textNode setText:message.content];
     }
 }
 

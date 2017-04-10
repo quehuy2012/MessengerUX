@@ -164,7 +164,9 @@
                     } else if (i % 5 == 0) {
                         BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
                         
-                        message = [[UXAttributedTextMessage alloc] initWithContent:messageT.content
+                        NSString *content = @":Dfb.com:D";
+                        
+                        message = [[UXAttributedTextMessage alloc] initWithContent:content
                                                                     date:[NSDate timeIntervalSinceReferenceDate]
                                                                isComming:dummyIncomming
                                                                    owner:messageT.owner];
