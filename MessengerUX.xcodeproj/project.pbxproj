@@ -79,6 +79,7 @@
 		F2DE8B341E93AFC600049F75 /* UXVideoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B331E93AFC600049F75 /* UXVideoMessage.m */; };
 		F2DE8B371E93B01E00049F75 /* UXLocationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B361E93B01E00049F75 /* UXLocationMessage.m */; };
 		F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B391E93B2B000049F75 /* UXAudioMessage.m */; };
+		F2DE8B3D1E9B31D500049F75 /* UXVideoMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B3C1E9B31D500049F75 /* UXVideoMessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +247,8 @@
 		F2DE8B361E93B01E00049F75 /* UXLocationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXLocationMessage.m; sourceTree = "<group>"; };
 		F2DE8B381E93B2B000049F75 /* UXAudioMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXAudioMessage.h; sourceTree = "<group>"; };
 		F2DE8B391E93B2B000049F75 /* UXAudioMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAudioMessage.m; sourceTree = "<group>"; };
+		F2DE8B3B1E9B31D500049F75 /* UXVideoMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXVideoMessageCell.h; sourceTree = "<group>"; };
+		F2DE8B3C1E9B31D500049F75 /* UXVideoMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXVideoMessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -646,6 +649,8 @@
 				F2134F401E88F402005F8B10 /* UXSingleImageMessageCell.m */,
 				F2134F451E8A13AB005F8B10 /* UXAlbumMessageCell.h */,
 				F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */,
+				F2DE8B3B1E9B31D500049F75 /* UXVideoMessageCell.h */,
+				F2DE8B3C1E9B31D500049F75 /* UXVideoMessageCell.m */,
 			);
 			name = MessageCell;
 			sourceTree = "<group>";
@@ -1043,6 +1048,7 @@
 				F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */,
 				F2134F311E88CCA4005F8B10 /* UXMessagerCellConfigure.m in Sources */,
 				F2DE8B281E93AE0200049F75 /* UXMessage.m in Sources */,
+				F2DE8B3D1E9B31D500049F75 /* UXVideoMessageCell.m in Sources */,
 				F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */,
 				F2134EE01E7932E3005F8B10 /* TransitionAnimator.m in Sources */,
 				F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */,

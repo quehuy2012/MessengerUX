@@ -335,4 +335,10 @@
     NSLog(@"Album image clicked %@", imageNode);
 }
 
+#pragma mark - Memory monitor
+
+- (void)dealloc {
+    NSLog(@"Dealloc View Controller");
+}
+
 @end

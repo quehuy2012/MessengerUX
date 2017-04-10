@@ -177,12 +177,6 @@
     
     [self.imageContentNode clearContents];
     self.imageContentNode.layer.contents = nil;
-//    if ([self.imageContentNode isKindOfClass:[ASImageNode class]]) {
-//        ((ASImageNode *)self.imageContentNode).image = nil;
-//    } else {
-//        ((ASNetworkImageNode *)self.imageContentNode).URL = nil;
-//        ((ASNetworkImageNode *)self.imageContentNode).image = nil;
-//    }
 }
 
 @end

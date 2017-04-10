@@ -124,6 +124,8 @@
     ConversationViewController * chatVC = [ConversationViewController viewController];
     UINavigationController * chatNav = [[UINavigationController alloc] initWithRootViewController:chatVC];
     [self presentViewController:chatNav animated:YES completion:nil];
+    chatNav = nil;
+    chatVC = nil;
 }
 
 #pragma mark - ScrollViewInteractiveActionsDelegate

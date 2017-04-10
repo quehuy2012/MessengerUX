@@ -85,28 +85,49 @@
                         
                         if (i % 4 == 0) {
                             
-                            imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                                     , [UIImage imageNamed:@"tempImg"]];
+                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
+                            
+                            imgs = @[img1, img2, img3
+                                     , img4, img5, img2
+                                     , img3];
                             
                         } else if (i % 3 == 0){
                             
-                            imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"]];
+                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            
+                            imgs = @[img1];
                             
                         } else if (i % 5 == 0) {
                             
-                            imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                                     , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
-                        } else {
+                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
                             
-                            imgs = @[[UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                                     , [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                                     , [UIImage imageNamed:@"cameraThumb"], [UIImage imageNamed:@"tempImg"], [UIImage imageNamed:@"drawThumb"]
-                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"], [UIImage imageNamed:@"tempImg"]
-                                     , [UIImage imageNamed:@"groupImage"], [UIImage imageNamed:@"galleryThumb"]];
+                            imgs = @[img1, img2, img3
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img2];
+                        } else{
+                            
+                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
+                            
+                            imgs = @[img1, img2, img3
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img2];
                         }
                         
                         message = [[UXAlbumMessage alloc] initWithImages:imgs
@@ -131,6 +152,14 @@
                                                                    date:[NSDate timeIntervalSinceReferenceDate]
                                                               isComming:NO
                                                                   owner:messageT.owner];
+                        
+                    } else if (i % 7 == 0) {
+                        
+                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
+                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
+                                                                 withRatio:9.0/16.4
+                                                                      date:[NSDate timeIntervalSinceReferenceDate]
+                                                                 isComming:YES owner:messageT.owner];
                         
                     } else {
                     

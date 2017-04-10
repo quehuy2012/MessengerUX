@@ -11,5 +11,8 @@
 @interface UXVideoMessage : UXMessage
 
 @property (nonatomic) NSURL * videoURL;
+@property (nonatomic) CGFloat ratio;
+
+- (instancetype)initWithVideoURL:(NSURL *)videoURL withRatio:(CGFloat)ratio date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner;
 
 @end

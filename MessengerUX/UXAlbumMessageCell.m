@@ -234,12 +234,6 @@
     for (ASDisplayNode * imgNode in self.albumNodes) {
         [imgNode clearContents];
         imgNode.layer.contents = nil;
-//        if ([imgNode isKindOfClass:[ASImageNode class]]) {
-//            ((ASImageNode *)imgNode).image = nil;
-//        } else {
-//            ((ASNetworkImageNode *)imgNode).URL = nil;
-//            ((ASNetworkImageNode *)imgNode).image = nil;
-//        }
     }
     
 }
