@@ -118,7 +118,7 @@
     
     ASStackLayoutSpec * stackedMessage =
     [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
-                                            spacing:2
+                                            spacing:4
                                      justifyContent:ASStackLayoutJustifyContentCenter
                                          alignItems:supportAlignItem
                                            children:stackedMessageChilds];
