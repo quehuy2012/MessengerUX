@@ -10,8 +10,6 @@
 #import "UXConversationFeed.h"
 #import "UIView+AutoLayout.h"
 
-#import "UXConversationFeed.h"
-
 #import "UXMessageTimeLine.h"
 
 @interface UXMessageViewController () <ASCollectionDelegate, ASCollectionDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>

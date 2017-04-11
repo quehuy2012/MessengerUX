@@ -79,6 +79,8 @@
 		F2DE8B371E93B01E00049F75 /* UXLocationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B361E93B01E00049F75 /* UXLocationMessage.m */; };
 		F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B391E93B2B000049F75 /* UXAudioMessage.m */; };
 		F2DE8B3D1E9B31D500049F75 /* UXVideoMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B3C1E9B31D500049F75 /* UXVideoMessageCell.m */; };
+		F2DE8B401E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B3F1E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m */; };
+		F2DE8B431E9C8CAF00049F75 /* UXMinimalistCellConfigue.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B421E9C8CAF00049F75 /* UXMinimalistCellConfigue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +248,10 @@
 		F2DE8B391E93B2B000049F75 /* UXAudioMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAudioMessage.m; sourceTree = "<group>"; };
 		F2DE8B3B1E9B31D500049F75 /* UXVideoMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXVideoMessageCell.h; sourceTree = "<group>"; };
 		F2DE8B3C1E9B31D500049F75 /* UXVideoMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXVideoMessageCell.m; sourceTree = "<group>"; };
+		F2DE8B3E1E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXRoundedShadowBackgroundStyle.h; sourceTree = "<group>"; };
+		F2DE8B3F1E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXRoundedShadowBackgroundStyle.m; sourceTree = "<group>"; };
+		F2DE8B411E9C8CAF00049F75 /* UXMinimalistCellConfigue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMinimalistCellConfigue.h; sourceTree = "<group>"; };
+		F2DE8B421E9C8CAF00049F75 /* UXMinimalistCellConfigue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMinimalistCellConfigue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -614,6 +620,8 @@
 				F2134F261E88C999005F8B10 /* UXRoundedBackgroundStyle.m */,
 				F2134F281E88CA4E005F8B10 /* UXImageBackgroundStyle.h */,
 				F2134F291E88CA4E005F8B10 /* UXImageBackgroundStyle.m */,
+				F2DE8B3E1E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.h */,
+				F2DE8B3F1E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m */,
 			);
 			name = BackgroundStyle;
 			sourceTree = "<group>";
@@ -627,6 +635,8 @@
 				F2134F301E88CCA4005F8B10 /* UXMessagerCellConfigure.m */,
 				F2134F321E88CEC3005F8B10 /* UXIMessageCellConfigure.h */,
 				F2134F331E88CEC3005F8B10 /* UXIMessageCellConfigure.m */,
+				F2DE8B411E9C8CAF00049F75 /* UXMinimalistCellConfigue.h */,
+				F2DE8B421E9C8CAF00049F75 /* UXMinimalistCellConfigue.m */,
 			);
 			name = Configure;
 			sourceTree = "<group>";
@@ -989,6 +999,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2DE8B401E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m in Sources */,
 				8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */,
 				F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */,
 				F2DE8B251E93969900049F75 /* TestTableModelViewController.m in Sources */,
@@ -1019,6 +1030,7 @@
 				F2DE8B211E938A5400049F75 /* UXMutableTableNodeModel.m in Sources */,
 				F2DE8B1D1E9382C200049F75 /* UXTableNodeModel.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,
+				F2DE8B431E9C8CAF00049F75 /* UXMinimalistCellConfigue.m in Sources */,
 				F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */,
 				F2DE8B2B1E93AEBF00049F75 /* UXImageMessage.m in Sources */,
 				8A6B9E201E77D01F002ACB87 /* Group.m in Sources */,

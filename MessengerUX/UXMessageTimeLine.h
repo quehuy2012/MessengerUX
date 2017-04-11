@@ -15,8 +15,15 @@
 #import "UXSingleImageMessageCell.h"
 #import "UXTitleMessageCell.h"
 #import "UXAlbumMessageCell.h"
+#import "UXMessageCellConfigure.h"
 #import "UXMessagerCellConfigure.h"
 #import "UXIMessageCellConfigure.h"
+#import "UXMinimalistCellConfigue.h"
+
+#import "UXMessageBackgroundStyle.h"
+#import "UXRoundedBackgroundStyle.h"
+#import "UXImageBackgroundStyle.h"
+#import "UXRoundedShadowBackgroundStyle.h"
 
 // Cell model
 #import "UXOwner.h"
