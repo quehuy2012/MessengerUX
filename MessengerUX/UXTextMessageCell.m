@@ -49,6 +49,18 @@
         self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
                                                                           attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.contentTextSize],
                                                                                       NSForegroundColorAttributeName: textColor}];
+        
+        [self setTopText:textMessage.owner.name];
+        
+        NSDate * date = [NSDate dateWithTimeIntervalSince1970:textMessage.time];
+        NSDateFormatter *dfTime = [NSDateFormatter new];
+        [dfTime setDateFormat:@"MM/dd/yyyy hh:mm:ss a"];
+        NSString * time = [dfTime stringFromDate:date];
+        
+        [self setBottomText:time];
+        
+        [self setShowTextAsBottom:NO];
+        [self setShowTextAsTop:NO];
     }
     
 }
@@ -139,6 +151,11 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:messageClicked:)]) {
         [self.delegate messageCell:self messageClicked:messageNode];
     }
+    
+    [self setShowTextAsTop:!self.showTextAsTop];
+    [self setShowTextAsBottom:!self.showTextAsBottom];
+    
+    [self setNeedsLayout];
 }
 
 - (void)beginHighlight {
