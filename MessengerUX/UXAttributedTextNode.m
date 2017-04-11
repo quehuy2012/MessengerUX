@@ -134,13 +134,12 @@
         self.parser = [[UXHTMLParser alloc] initWithString:_text parseEmoticon:YES];
         [self setAttributesForParser];
         self.isParsed = YES;
+        self.label.htmlParser = _parser;
     }
     
     int maxWidth = constrainedSize.width == INFINITY ? self.style.maxWidth.value : constrainedSize.width;
     
     CGSize textSize = [_parser getBoundsSizeByWidth:maxWidth];
-    
-    self.label.htmlParser = _parser;
     self.label.frame = CGRectMake(0, 0, textSize.width, textSize.height);
     
     return textSize;

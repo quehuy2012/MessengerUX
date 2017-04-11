@@ -25,10 +25,7 @@
         self.textNode = [[UXAttributedTextNode alloc] init];
         self.textNode.font = [UIFont systemFontOfSize:self.configure.contentTextSize];
         self.textNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
-        self.textNode.linkColor = [UIColor redColor];
-        self.textNode.linkFont = [UIFont systemFontOfSize:20];
-        self.textNode.tagColor = [UIColor yellowColor];
-        self.textNode.tagFont = [UIFont systemFontOfSize:20];
+        self.textNode.linkColor = [UIColor orangeColor];
         [self addSubnode:self.textNode];
     }
     return self;
