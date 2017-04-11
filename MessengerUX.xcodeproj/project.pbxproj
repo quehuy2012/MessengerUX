@@ -81,6 +81,7 @@
 		F2DE8B3D1E9B31D500049F75 /* UXVideoMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B3C1E9B31D500049F75 /* UXVideoMessageCell.m */; };
 		F2DE8B401E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B3F1E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m */; };
 		F2DE8B431E9C8CAF00049F75 /* UXMinimalistCellConfigue.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B421E9C8CAF00049F75 /* UXMinimalistCellConfigue.m */; };
+		F2DE8B461E9C953600049F75 /* UXLocationMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B451E9C953600049F75 /* UXLocationMessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +253,8 @@
 		F2DE8B3F1E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXRoundedShadowBackgroundStyle.m; sourceTree = "<group>"; };
 		F2DE8B411E9C8CAF00049F75 /* UXMinimalistCellConfigue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMinimalistCellConfigue.h; sourceTree = "<group>"; };
 		F2DE8B421E9C8CAF00049F75 /* UXMinimalistCellConfigue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMinimalistCellConfigue.m; sourceTree = "<group>"; };
+		F2DE8B441E9C953600049F75 /* UXLocationMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXLocationMessageCell.h; sourceTree = "<group>"; };
+		F2DE8B451E9C953600049F75 /* UXLocationMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXLocationMessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -656,6 +659,8 @@
 				F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */,
 				F2DE8B3B1E9B31D500049F75 /* UXVideoMessageCell.h */,
 				F2DE8B3C1E9B31D500049F75 /* UXVideoMessageCell.m */,
+				F2DE8B441E9C953600049F75 /* UXLocationMessageCell.h */,
+				F2DE8B451E9C953600049F75 /* UXLocationMessageCell.m */,
 			);
 			name = MessageCell;
 			sourceTree = "<group>";
@@ -1000,6 +1005,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2DE8B401E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m in Sources */,
+				F2DE8B461E9C953600049F75 /* UXLocationMessageCell.m in Sources */,
 				8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */,
 				F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */,
 				F2DE8B251E93969900049F75 /* TestTableModelViewController.m in Sources */,

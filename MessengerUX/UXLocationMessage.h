@@ -13,4 +13,6 @@
 @property (nonatomic) double longtitude;
 @property (nonatomic) double latitude;
 
+- (instancetype)initWithLatitude:(double)latitude andLongtide:(double)longtitude date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner;
+
 @end

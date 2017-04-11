@@ -7,7 +7,21 @@
 //
 
 #import "UXLocationMessage.h"
+#import "UXLocationMessageCell.h"
 
 @implementation UXLocationMessage
+
+- (instancetype)initWithLatitude:(double)latitude andLongtide:(double)longtitude date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner {
+    self = [super initWithCellNodeClass:[UXLocationMessageCell class] userInfo:nil];
+    if (self) {
+        self.latitude = latitude;
+        self.longtitude = longtitude;
+        self.time = time;
+        self.commingMessage = isComming;
+        self.owner = owner;
+    }
+    
+    return self;
+}
 
 @end
