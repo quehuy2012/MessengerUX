@@ -20,36 +20,15 @@
 
 @implementation UXAttributedTextMessageCell
 
-//- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner contentText:(NSString *)string {
-//    
-//    self = [super initWithConfigure:configure isIncomming:incomming andOwner:owner];
-//    
-//    if (self) {
-//        
-//        UIColor *textColor = self.isIncomming ? self.configure.incommingTextColor : self.configure.outgoingTextColor;
-//        
-//        self.textNode = [[UXAttributedTextNode alloc] initWithText:string];
-//        self.textNode.style.maxWidth = ASDimensionMake(configure.maxWidthOfCell);
-//        self.textNode.textColor = textColor;
-//        self.textNode.font = [UIFont systemFontOfSize:self.configure.contentTextSize];
-//        
-//        // test set alignment
-////        self.textNode.textAlignment = kCTTextAlignmentRight;
-//        
-////        self.textNode.linkHighlightColor = [UIColor yellowColor];
-//
-//        [self addSubnode:self.textNode];
-//    }
-//    
-//    return self;
-//}
-
 -(instancetype)init {
     if (self = [super init]) {
         self.textNode = [[UXAttributedTextNode alloc] init];
-        self.textNode.textColor = [UIColor blackColor];
-        self.textNode.font = [UIFont systemFontOfSize:16];
+        self.textNode.font = [UIFont systemFontOfSize:self.configure.contentTextSize];
         self.textNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
+        self.textNode.linkColor = [UIColor redColor];
+        self.textNode.linkFont = [UIFont systemFontOfSize:20];
+        self.textNode.tagColor = [UIColor yellowColor];
+        self.textNode.tagFont = [UIFont systemFontOfSize:20];
         [self addSubnode:self.textNode];
     }
     return self;
@@ -60,6 +39,7 @@
     if ([object isKindOfClass:[UXAttributedTextMessage class]]) {
         UXAttributedTextMessage *message = object;
         
+        self.textNode.textColor = self.isIncomming ? self.configure.incommingTextColor : self.configure.outgoingTextColor;
         [self.textNode setText:message.content];
     }
 }

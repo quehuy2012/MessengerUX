@@ -161,10 +161,10 @@
                                                                       date:[NSDate timeIntervalSinceReferenceDate]
                                                                  isComming:YES owner:messageT.owner];
                         
-                    } else if (i % 5 == 0) {
-                        BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
+                    } else if (i % 2 == 0) {
+                        BOOL dummyIncomming = i % 2 == 0 || i % 4 == 0;
                         
-                        NSString *content = @":Dfb.com:D";
+                        NSString *content = @"link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((";
                         
                         message = [[UXAttributedTextMessage alloc] initWithContent:content
                                                                     date:[NSDate timeIntervalSinceReferenceDate]

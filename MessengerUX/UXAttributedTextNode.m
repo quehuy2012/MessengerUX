@@ -31,10 +31,8 @@
         self.label = label;
         self.text = text;
         self.isParsed = NO;
-        self.font = [UIFont systemFontOfSize:15];
-        self.textColor = [UIColor blackColor];
         self.textAlignment = kCTTextAlignmentLeft;
-        self.lineBreakMode = NSLineBreakByTruncatingTail;
+//        self.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     
     return self;
@@ -52,7 +50,7 @@
         self.font = [UIFont systemFontOfSize:15];
         self.textColor = [UIColor blackColor];
         self.textAlignment = kCTTextAlignmentLeft;
-        self.lineBreakMode = NSLineBreakByTruncatingTail;
+//        self.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     
     return self;
@@ -62,23 +60,17 @@
 
 - (void)setText:(NSString *)text {
     _text = text;
-    // Reload TextNode
+    
     self.isParsed = NO;
     [self setNeedsLayout];
-    //[self invalidateCalculatedLayout];
-}
-
--(void)invalidateCalculatedLayout {
-    //[self calculateSizeThatFits:CGSizeMake(INFINITY, INFINITY)];
-    
-    [super invalidateCalculatedLayout];
-    //[self set]
 }
 
 -(void)setFont:(UIFont *)font {
     if (font) {
         _font = font;
-        [self invalidateCalculatedLayout];
+        if (_parser) {
+            [_parser setFontText:font];
+        }
     }
 }
 
@@ -94,10 +86,10 @@
     [self invalidateCalculatedLayout];
 }
 
--(void)setLineBreakMode:(NSLineBreakMode)lineBreakMode {
-    _lineBreakMode = lineBreakMode;
-    [self invalidateCalculatedLayout];
-}
+//-(void)setLineBreakMode:(NSLineBreakMode)lineBreakMode {
+//    _lineBreakMode = lineBreakMode;
+//    [self invalidateCalculatedLayout];
+//}
 
 -(void)setLinkHighlightColor:(UIColor *)linkHighlightColor {
     if (linkHighlightColor != _linkHighlightColor) {
@@ -108,9 +100,31 @@
 
 -(void)setAttributesForParser {
     if (_parser) {
-        self.parser.fontText = _font;
-        self.parser.defaultTextColor = _textColor;
+        if (_font) {
+            self.parser.fontText = _font;
+        }
+        
+        if (_textColor) {
+            self.parser.defaultTextColor = _textColor;
+        }
+        
         self.parser.textAlignment = _textAlignment;
+        
+        if (_linkColor) {
+            self.parser.linkColor = _linkColor;
+        }
+        
+        if (_linkFont) {
+            self.parser.linkFont = _linkFont;
+        }
+        
+        if (_tagColor) {
+            self.parser.tagColor = _tagColor;
+        }
+        
+        if (_tagFont) {
+            self.parser.tagFont = _tagFont;
+        }
     }
 }
 
