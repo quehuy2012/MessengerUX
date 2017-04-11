@@ -14,25 +14,26 @@
 
 @property(nonatomic) NSString *text;
 
-// default system font 16 plain
+// Default system font 16 plain
 @property(nonatomic) UIFont *font;
 
-// default text draws black
+// Default text draws black
 @property(nonatomic) UIColor *textColor;
 
-// default CTTextAlignmentLeft
+// Default CTTextAlignmentLeft
 @property(nonatomic) CTTextAlignment textAlignment;
 
+// Default blue color
 @property(nonatomic) UIColor *linkColor;
 
+// Default sytem font 16 plain
 @property(nonatomic) UIFont *linkFont;
 
+// Default blue color
 @property(nonatomic) UIColor *tagColor;
 
+// Default sytem font 16 plain
 @property(nonatomic) UIFont* tagFont;
-
-// default is NSLineBreakByTruncatingTail. used for single and multiple lines of text
-//@property(nonatomic) NSLineBreakMode lineBreakMode;
 
 /**
  * The color of the link's background when touched/highlighted.

@@ -22,17 +22,10 @@
 
 -(instancetype)initWithText:(NSString *)text {
     
-    UXAttributedLabel *label = [[UXAttributedLabel alloc] initWithFrame:CGRectZero];
-    self = [super initWithViewBlock:^UIView * _Nonnull{
-        return label;
-    }];
+    self = [self init];
     
     if (self) {
-        self.label = label;
-        self.text = text;
-        self.isParsed = NO;
-        self.textAlignment = kCTTextAlignmentLeft;
-//        self.lineBreakMode = NSLineBreakByTruncatingTail;
+        _text = text;
     }
     
     return self;
@@ -45,12 +38,9 @@
     }];
     
     if (self) {
-        self.label = label;
-        self.isParsed = NO;
-        self.font = [UIFont systemFontOfSize:15];
-        self.textColor = [UIColor blackColor];
-        self.textAlignment = kCTTextAlignmentLeft;
-//        self.lineBreakMode = NSLineBreakByTruncatingTail;
+        _label = label;
+        _isParsed = NO;
+        _textAlignment = kCTTextAlignmentLeft;
     }
     
     return self;
@@ -77,7 +67,9 @@
 -(void)setTextColor:(UIColor *)color {
     if (color) {
         _textColor = color;
-        [self invalidateCalculatedLayout];
+        if (_parser) {
+            [_parser setDefaultTextColor:_textColor];
+        }
     }
 }
 
@@ -85,11 +77,6 @@
     _textAlignment = alignment;
     [self invalidateCalculatedLayout];
 }
-
-//-(void)setLineBreakMode:(NSLineBreakMode)lineBreakMode {
-//    _lineBreakMode = lineBreakMode;
-//    [self invalidateCalculatedLayout];
-//}
 
 -(void)setLinkHighlightColor:(UIColor *)linkHighlightColor {
     if (linkHighlightColor != _linkHighlightColor) {
