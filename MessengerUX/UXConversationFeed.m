@@ -115,9 +115,14 @@
                             imgs = @[img1, img2, img3
                                      , img4, img5, img2
                                      , img3, img4, img5
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
                                      , img2];
-                        } else{
-                            
+                        } else {
+                        
                             UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
                             UIImage * img2 = [UIImage imageNamed:@"tempImg"];
                             UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
@@ -125,6 +130,32 @@
                             UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
                             
                             imgs = @[img1, img2, img3
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
                                      , img4, img5, img2
                                      , img3, img4, img5
                                      , img4, img5, img2
