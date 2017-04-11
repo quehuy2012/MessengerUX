@@ -252,6 +252,8 @@
 		8A31A0461E9B9112004E06C8 /* UXAttributedTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A0431E9B9112004E06C8 /* UXAttributedTextMessageCell.m */; };
 		8A31A0471E9B9112004E06C8 /* UXAttributedTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A0451E9B9112004E06C8 /* UXAttributedTextNode.m */; };
 		8A31A04A1E9B9369004E06C8 /* UXAttributedTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A0491E9B9369004E06C8 /* UXAttributedTextMessage.m */; };
+		8A31A04D1E9CD678004E06C8 /* RRFPSBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A04C1E9CD678004E06C8 /* RRFPSBar.m */; };
+		8A31A0501E9CD969004E06C8 /* JPFPSStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A31A04F1E9CD969004E06C8 /* JPFPSStatus.m */; };
 		8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9DF81E72ADF9002ACB87 /* CustomTabBarViewController.m */; };
 		8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9DFC1E7639F0002ACB87 /* HomeViewController.m */; };
 		8A6B9DFF1E763BFC002ACB87 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9DFE1E763BFC002ACB87 /* Home.storyboard */; };
@@ -602,6 +604,10 @@
 		8A31A0451E9B9112004E06C8 /* UXAttributedTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAttributedTextNode.m; sourceTree = "<group>"; };
 		8A31A0481E9B9369004E06C8 /* UXAttributedTextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXAttributedTextMessage.h; sourceTree = "<group>"; };
 		8A31A0491E9B9369004E06C8 /* UXAttributedTextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAttributedTextMessage.m; sourceTree = "<group>"; };
+		8A31A04B1E9CD678004E06C8 /* RRFPSBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRFPSBar.h; sourceTree = "<group>"; };
+		8A31A04C1E9CD678004E06C8 /* RRFPSBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRFPSBar.m; sourceTree = "<group>"; };
+		8A31A04E1E9CD969004E06C8 /* JPFPSStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFPSStatus.h; sourceTree = "<group>"; };
+		8A31A04F1E9CD969004E06C8 /* JPFPSStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFPSStatus.m; sourceTree = "<group>"; };
 		8A6B9DF71E72ADF9002ACB87 /* CustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarViewController.h; sourceTree = "<group>"; };
 		8A6B9DF81E72ADF9002ACB87 /* CustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarViewController.m; sourceTree = "<group>"; };
 		8A6B9DFB1E7639F0002ACB87 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -1307,6 +1313,10 @@
 		F2134EF01E7936C0005F8B10 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8A31A04E1E9CD969004E06C8 /* JPFPSStatus.h */,
+				8A31A04F1E9CD969004E06C8 /* JPFPSStatus.m */,
+				8A31A04B1E9CD678004E06C8 /* RRFPSBar.h */,
+				8A31A04C1E9CD678004E06C8 /* RRFPSBar.m */,
 				F2134EF11E7936C9005F8B10 /* UIView+AutoLayout.h */,
 				F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */,
 			);
@@ -2028,6 +2038,7 @@
 				F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */,
 				F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */,
 				F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */,
+				8A31A04D1E9CD678004E06C8 /* RRFPSBar.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2DE8B211E938A5400049F75 /* UXMutableTableNodeModel.m in Sources */,
 				8A31A04A1E9B9369004E06C8 /* UXAttributedTextMessage.m in Sources */,
@@ -2061,6 +2072,7 @@
 				F2DE8B281E93AE0200049F75 /* UXMessage.m in Sources */,
 				F2DE8B3D1E9B31D500049F75 /* UXVideoMessageCell.m in Sources */,
 				F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */,
+				8A31A0501E9CD969004E06C8 /* JPFPSStatus.m in Sources */,
 				F2134EE01E7932E3005F8B10 /* TransitionAnimator.m in Sources */,
 				F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */,
 				8A31A03D1E9B8FC1004E06C8 /* NSString+Extend.m in Sources */,

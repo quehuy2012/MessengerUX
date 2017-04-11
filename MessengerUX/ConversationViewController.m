@@ -15,6 +15,7 @@
 #import "UXConversationFeed.h"
 
 #import "UXLoadingCellNode.h"
+#import "JPFPSStatus.h"
 
 @interface ConversationViewController () <ASTableDelegate, ASTableDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
 
@@ -54,6 +55,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
+    
+    [[JPFPSStatus sharedInstance] open];
 }
 
 - (void)initModel {
@@ -115,7 +118,7 @@
     
     
     [self.view addSubview:self.tableNode.view];
-    [self.tableNode.view atTopMarginTo:(UIView *)self.topLayoutGuide value:0];
+    [self.tableNode.view atTopMarginTo:(UIView *)self.topLayoutGuide value:-100];
     [self.tableNode.view atTrailingWith:self.view value:0];
     [self.tableNode.view atLeadingWith:self.view value:0];
     [self.tableNode.view atBottomMarginTo:textInputHolder value:0];

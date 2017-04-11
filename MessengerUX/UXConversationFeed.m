@@ -153,29 +153,32 @@
                                                               isComming:NO
                                                                   owner:messageT.owner];
                         
-                    } else if (i % 7 == 0) {
-                        
-                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
-                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
-                                                                 withRatio:9.0/16.4
-                                                                      date:[NSDate timeIntervalSinceReferenceDate]
-                                                                 isComming:YES owner:messageT.owner];
-                        
-                    } else if (i % 2 == 0) {
+                    }
+//                    else if (i % 7 == 0) {
+//                        
+//                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
+//                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
+//                                                                 withRatio:9.0/16.4
+//                                                                      date:[NSDate timeIntervalSinceReferenceDate]
+//                                                                 isComming:YES owner:messageT.owner];
+//                        
+//                    }
+                    else if (i % 2 == 0) {
                         BOOL dummyIncomming = i % 4 == 0;
                         
-                        NSString *content = @"link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((";
+                        NSString *content = @"link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((";
                         
                         message = [[UXAttributedTextMessage alloc] initWithContent:content
                                                                     date:[NSDate timeIntervalSinceReferenceDate]
                                                                isComming:dummyIncomming
                                                                    owner:messageT.owner];
                         
-                    } else {
+                    }
+                    else {
                     
                         BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
                         
-                        message = [[UXTextMessage alloc] initWithContent:messageT.content
+                        message = [[UXAttributedTextMessage alloc] initWithContent:messageT.content
                                                                     date:[NSDate timeIntervalSinceReferenceDate]
                                                                isComming:dummyIncomming
                                                                    owner:messageT.owner];
@@ -201,7 +204,7 @@
         
         [self.dataArray addObjectsFromArray:datas];
         
-        NSLog(@"Current size %f", [self currentSizeOfData]);
+        //NSLog(@"Current size %f", [self currentSizeOfData]);
         
         if (completion) {
             completion(fromIndex, toIndex);

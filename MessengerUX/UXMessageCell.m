@@ -207,7 +207,7 @@
 
 - (void)clearContents {
     [super clearContents];
-    NSLog(@"Clear %d", mID);
+    //NSLog(@"Clear %d", mID);
     
     [self.avatarNode clearContents];
     self.avatarNode.layer.contents = nil;
@@ -228,7 +228,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"Dealloc %d", mID);
+    //NSLog(@"Dealloc %d", mID);
 }
 
 @end

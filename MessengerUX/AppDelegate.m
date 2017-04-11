@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <AsyncDisplayKit/AsyncDisplayKit+Debug.h>
+#import "JPFPSStatus.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +22,7 @@
     [ASRangeController setShouldShowRangeDebugOverlay:YES];
 //    [ASControlNode setEnableHitTestDebug:YES];
 //    [ASImageNode setShouldShowImageScalingOverlay:YES];
+    
     return YES;
 }
 
