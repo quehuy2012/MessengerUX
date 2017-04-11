@@ -66,6 +66,8 @@
         self.imageContentNode.style.maxHeight = ASDimensionMake(self.configure.maxWidthOfCell*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
         self.imageContentNode.layerBacked = YES;
+        
+        [self setShowSubFunction:YES];
     }
 }
 

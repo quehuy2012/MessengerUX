@@ -136,16 +136,19 @@
 
 - (void)setShowTextAsTop:(BOOL)flagShowTextAsTop {
     _showTextAsTop = flagShowTextAsTop;
+    _topTextNode.hidden = !flagShowTextAsTop;
     [self setNeedsLayout];
 }
 
 - (void)setShowTextAsBottom:(BOOL)flagShowTextAsBottom {
     _showTextAsBottom = flagShowTextAsBottom;
+    _bottomTextNode.hidden = !flagShowTextAsBottom;
     [self setNeedsLayout];
 }
 
 - (void)setShowSubFunction:(BOOL)flagShowSubFunction {
     _showSubFunction = flagShowSubFunction;
+    _subFuntionNode.hidden = !flagShowSubFunction;
     [self setNeedsLayout];
 }
 

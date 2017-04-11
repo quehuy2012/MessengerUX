@@ -82,6 +82,7 @@
             }
         }
         
+        [self setShowSubFunction:YES];
     }
 }
 
