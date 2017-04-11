@@ -65,6 +65,9 @@
         NSString * dataset = [[NSBundle mainBundle] pathForResource:@"conversations" ofType:@"txt"];
         NSString * datasetContent = [NSString stringWithContentsOfFile:dataset encoding:NSUTF8StringEncoding error:&error];
         
+        // Simulate network delay when fetching data
+        [NSThread sleepForTimeInterval:1];
+        
         if (error) {
             // Just print out
             NSLog(@"%@", error.localizedDescription);
@@ -156,13 +159,13 @@
                                                                  isComming:NO
                                                                      owner:messageT.owner];
                         
-                    } else if (i % 7 == 0) {
-                        
-                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
-                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
-                                                                 withRatio:9.0/16.4
-                                                                      date:[NSDate timeIntervalSinceReferenceDate]
-                                                                 isComming:YES owner:messageT.owner];
+//                    } else if (i % 7 == 0) {
+//                        
+//                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
+//                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
+//                                                                 withRatio:9.0/16.4
+//                                                                      date:[NSDate timeIntervalSinceReferenceDate]
+//                                                                 isComming:YES owner:messageT.owner];
                         
                     } else {
                     

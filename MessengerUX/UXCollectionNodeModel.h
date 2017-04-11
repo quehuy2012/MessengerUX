@@ -27,6 +27,8 @@
 
 @property (nonatomic, weak) id<UXCollectionNodeModelDelegate> delegate;
 
+@property (nonatomic) BOOL showLoadingIndicatorAtLast; // Default: NO
+
 @end
 
 

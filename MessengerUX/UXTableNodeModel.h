@@ -40,6 +40,8 @@ typedef NS_ENUM(NSUInteger, UXTableNodeModelSectionIndex) {
 @property (nonatomic, readonly, assign) BOOL sectionIndexShowsSearch; // Default: NO
 @property (nonatomic, readonly, assign) BOOL sectionIndexShowsSummary; // Default: NO
 
+@property (nonatomic) BOOL showLoadingIndicatorAtLast; // Default: NO
+
 #pragma mark - Creating Table View Node Cells
 
 @property (nonatomic, weak) id<UXTableNodeModelDelegate> delegate;

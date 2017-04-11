@@ -70,6 +70,7 @@
     self.dataFeed = [[UXConversationFeed alloc] init];
     self.factory = [[UXCellFactory alloc] init];
     self.models = [[UXMutableTableNodeModel alloc] initWithListArray:[self.dataFeed getDataArray]  delegate:self.factory];
+    self.models.showLoadingIndicatorAtLast = YES;
 }
 
 - (void)initView {
@@ -263,6 +264,10 @@
 }
 
 #pragma mark - ASTableDelegate
+
+- (BOOL)shouldBatchFetchForTableNode:(ASTableNode *)tableNode {
+    return YES;
+}
 
 // Receive a message that the tableView is near the end of its data set and more data should be fetched if necessary.
 - (void)tableNode:(ASTableNode *)tableNode willBeginBatchFetchWithContext:(ASBatchContext *)context {

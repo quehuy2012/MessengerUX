@@ -8,6 +8,7 @@
 
 #import "UXCollectionNodeModel.h"
 #import "UXCollectionNodeModel+Private.h"
+#import "UXCellCatalog.h"
 
 @implementation UXCollectionNodeModel
 
@@ -45,6 +46,7 @@
     [self _setSectionsWithArray:nil];
     self.sectionIndexTitles = nil;
     self.sectionPrefixToSectionIndex = nil;
+    self.showLoadingIndicatorAtLast  = NO;
 }
 
 - (void)_compileDataWithListArray:(NSArray *)listArray {
@@ -127,6 +129,11 @@
 - (NSInteger)collectionNode:(ASCollectionNode *)collectionNode numberOfItemsInSection:(NSInteger)section {
     
     if ((NSUInteger)section < self.sections.count) {
+        
+        if (section == self.sections.count - 1 && self.showLoadingIndicatorAtLast) {
+            return [[[self.sections objectAtIndex:section] rows] count] + 1;
+        }
+        
         return [[[self.sections objectAtIndex:section] rows] count];
         
     } else {
@@ -170,6 +177,12 @@
     
     NSInteger section = [indexPath section];
     NSInteger row = [indexPath row];
+    
+    if (section == self.sections.count - 1
+        && indexPath.row == [[self.sections[self.sections.count - 1] rows] count]
+        && self.showLoadingIndicatorAtLast) {
+        return [[UXCellNodeObject alloc] initWithCellNodeClass:[UXLoadingCellNode class] userInfo:@"ABC"];;
+    }
     
     id object = nil;
     

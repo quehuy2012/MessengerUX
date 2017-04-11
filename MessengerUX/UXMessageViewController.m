@@ -70,6 +70,7 @@
     self.dataFeed = [[UXConversationFeed alloc] init];
     self.factory = [[UXCellFactory alloc] init];
     self.models = [[UXMutableCollectionNodeModel alloc] initWithListArray:[self.dataFeed getDataArray]  delegate:self.factory];
+    self.models.showLoadingIndicatorAtLast = YES;
 }
 
 - (void)initView {

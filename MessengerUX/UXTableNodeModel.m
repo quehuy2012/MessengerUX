@@ -8,6 +8,7 @@
 
 #import "UXTableNodeModel.h"
 #import "UXTableNodeModel+Private.h"
+#import "UXCellCatalog.h"
 
 @implementation UXTableNodeModel
 
@@ -18,6 +19,8 @@
         _sectionIndexType = UXTableNodeModelSectionIndexNone;
         _sectionIndexShowsSearch = NO;
         _sectionIndexShowsSummary = NO;
+        
+        _showLoadingIndicatorAtLast = NO;
         
         [self _resetCompiledData];
     }
@@ -264,6 +267,11 @@
     NSAssert((NSUInteger)section < self.sections.count || 0 == self.sections.count, @"numberOfRowsInSection");
     
     if ((NSUInteger)section < self.sections.count) {
+        
+        if (section == self.sections.count - 1 && self.showLoadingIndicatorAtLast) {
+            return [[[self.sections objectAtIndex:section] rows] count] + 1;
+        }
+        
         return [[[self.sections objectAtIndex:section] rows] count];
         
     } else {
@@ -272,13 +280,13 @@
 }
 
 - (ASCellNodeBlock)tableNode:(ASTableNode *)tableNode nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     id object = [self objectAtIndexPath:indexPath];
     
     return [self.delegate tableNodeModel:self
                         cellForTableNode:tableNode
                              atIndexPath:indexPath
                               withObject:object];
-    
 }
 
 #pragma mark - Public
@@ -291,6 +299,12 @@
     
     NSInteger section = [indexPath section];
     NSInteger row = [indexPath row];
+    
+    if (section == self.sections.count - 1
+        && indexPath.row == [[self.sections[self.sections.count - 1] rows] count]
+        && self.showLoadingIndicatorAtLast) {
+        return [[UXCellNodeObject alloc] initWithCellNodeClass:[UXLoadingCellNode class] userInfo:@"ABC"];;
+    }
     
     id object = nil;
     
@@ -358,8 +372,6 @@
 
 
 @implementation UXTableNodeModelSection
-
-
 
 + (id)section {
     return [[self alloc] init];
