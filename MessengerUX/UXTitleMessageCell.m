@@ -29,6 +29,8 @@
         self.titleNode.truncationMode = NSLineBreakByTruncatingTail;
         self.titleNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
         self.titleNode.backgroundColor = [UIColor clearColor];
+        self.titleNode.maximumNumberOfLines = 1;
+        
         [self.titleNode addTarget:self action:@selector(titleClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         
         [self.titleNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
