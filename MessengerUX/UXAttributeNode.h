@@ -19,16 +19,6 @@
 }
 
 /**
- * The color of the link's background when touched/highlighted.
- *
- * If no color is set, the default is [UIColor colorWithWhite:0.5 alpha:0.2]
- * If you do not want to highlight links when touched, set this to [UIColor clearColor]
- * or set it to the same color as your view's background color (opaque colors will perform
- * better).
- */
-@property (nonatomic, strong) UIColor* linkHighlightColor;
-
-/**
  * The attributed label notifies the delegate of any user interactions.
  */
 @property (nonatomic, weak) id<UXAttributeNodeDelegate> delegate;
@@ -42,6 +32,45 @@
  * Disable opening the action sheet when we have a long press on a link, email address or phone number.
  */
 @property (nonatomic, assign) BOOL disableOpenActionSheetWhenHoldOnLink;
+
+
+
+
+
+@property(nonatomic) NSString *text;
+
+// Default system font 16 plain
+@property(nonatomic) UIFont *font;
+
+// Default text draws black
+@property(nonatomic) UIColor *textColor;
+
+// Default CTTextAlignmentLeft
+@property(nonatomic) CTTextAlignment textAlignment;
+
+// Default blue color
+@property(nonatomic) UIColor *linkColor;
+
+// Default sytem font 16 plain
+@property(nonatomic) UIFont *linkFont;
+
+// Default blue color
+@property(nonatomic) UIColor *tagColor;
+
+// Default sytem font 16 plain
+@property(nonatomic) UIFont* tagFont;
+
+/**
+ * The color of the link's background when touched/highlighted.
+ *
+ * If no color is set, the default is [UIColor colorWithWhite:0.5 alpha:0.2]
+ * If you do not want to highlight links when touched, set this to [UIColor clearColor]
+ * or set it to the same color as your view's background color (opaque colors will perform
+ * better).
+ */
+
+@property (nonatomic, strong) UIColor* linkHighlightColor;
+
 
 @end
 
