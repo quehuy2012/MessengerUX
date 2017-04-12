@@ -10,6 +10,7 @@ target 'MessengerUX' do
   pod 'Nimbus', '~> 1.3'
   pod 'pop', :git => 'https://github.com/facebook/pop.git'
   pod "AsyncDisplayKit"
+  pod 'LoremIpsum'
 
   target 'MessengerUXTests' do
     inherit! :search_paths

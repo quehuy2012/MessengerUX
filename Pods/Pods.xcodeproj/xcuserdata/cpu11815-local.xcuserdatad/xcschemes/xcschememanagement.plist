@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>LoremIpsum.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Nimbus-WebController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,6 +72,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3663A6BB4A07EA25EA497CADCBF70797</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3BF7974E5C27FB6495442A5A15A4DA44</key>
 		<dict>
 			<key>primary</key>
@@ -77,7 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>67BB42CF41A6C6745C74B385C835577A</key>
+		<key>4787B8AA7B57F812D0780B972F055FD1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +102,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7E003E2CA3BDB0CAEE2D034708CA6D8C</key>
+		<key>8586BC1CCCEA41239BBA567020B94D71</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8586BC1CCCEA41239BBA567020B94D71</key>
+		<key>A4563AFE0759D2D5DACE689D49DE13D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

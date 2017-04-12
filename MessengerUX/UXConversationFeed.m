@@ -190,14 +190,14 @@
                                                                  isComming:NO
                                                                      owner:messageT.owner];
                         
-                    } else if (i % 7 == 0) {
-                        
-                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
-                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
-                                                                 withRatio:9.0/16.4
-                                                                      date:[NSDate timeIntervalSinceReferenceDate]
-                                                                 isComming:YES
-                                                                     owner:messageT.owner];
+//                    } else if (i % 7 == 0) {
+//                        
+//                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
+//                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
+//                                                                 withRatio:9.0/16.4
+//                                                                      date:[NSDate timeIntervalSinceReferenceDate]
+//                                                                 isComming:YES
+//                                                                     owner:messageT.owner];
                         
                     } else if (i % 13 == 0) {
                     
