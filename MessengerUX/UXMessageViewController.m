@@ -12,6 +12,8 @@
 
 #import "UXMessageTimeLine.h"
 
+#import "JPFPSStatus.h"
+
 @interface UXMessageViewController () <ASCollectionDelegate, ASCollectionDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
 
 @property (nonatomic) UXConversationFeed * dataFeed;
@@ -55,12 +57,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
+    
+    [[JPFPSStatus sharedInstance] open];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
     self.stillNeedStressTest = NO;
+    
+    [[JPFPSStatus sharedInstance] close];
 }
 
 - (void)initModel {
@@ -90,7 +96,6 @@
     
     {
         UIImageView * sendButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatSendIcon"]];
-        //        sendButton.backgroundColor = [UIColor colorWithRed:1.0/255.0 green:147.0/255.0 blue:238.0/255.0 alpha:1.0];
         sendButton.contentMode = UIViewContentModeScaleAspectFit;
         [textInputHolder addSubview:sendButton];
         [sendButton atHeight:36];
@@ -107,24 +112,6 @@
         [moreButton atCenterVerticalInParent];
         [moreButton atLeadingWith:textInputHolder value:8];
         moreButton.layer.cornerRadius = 18;
-        
-        //        UIImageView * camButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatCamIcon"]];
-        //        camButton.contentMode = UIViewContentModeScaleAspectFit;
-        //        [textInputHolder addSubview:camButton];
-        //        [camButton atHeight:32];
-        //        [camButton atWidth:32];
-        //        [camButton atCenterVerticalInParent];
-        //        [camButton atLeftMarginTo:moreButton value:8];
-        //        camButton.layer.cornerRadius = 16;
-        //
-        //        UIImageView * imgButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatImageIcon"]];
-        //        imgButton.contentMode = UIViewContentModeScaleAspectFit;
-        //        [textInputHolder addSubview:imgButton];
-        //        [imgButton atHeight:32];
-        //        [imgButton atWidth:32];
-        //        [imgButton atCenterVerticalInParent];
-        //        [imgButton atLeftMarginTo:camButton value:8];
-        //        imgButton.layer.cornerRadius = 16;
         
         UIView * textInputBack = [[UIView alloc] init];
         textInputBack.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0];

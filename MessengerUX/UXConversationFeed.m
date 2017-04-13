@@ -250,7 +250,7 @@
         
         [self.dataArray addObjectsFromArray:datas];
         
-        NSLog(@"Current size %f", [self currentSizeOfData]);
+        //NSLog(@"Current size %f", [self currentSizeOfData]);
         
         if (completion) {
             completion(fromIndex, toIndex);

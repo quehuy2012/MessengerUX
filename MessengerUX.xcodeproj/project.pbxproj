@@ -306,6 +306,8 @@
 		F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */; };
 		F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */; };
 		F250BDF61E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */; };
+		F250BDFB1E9F65230067C1F3 /* JPFPSStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDF81E9F65230067C1F3 /* JPFPSStatus.m */; };
+		F250BDFC1E9F65230067C1F3 /* RRFPSBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDFA1E9F65230067C1F3 /* RRFPSBar.m */; };
 		F28C9CF61E91E59600B0BDBA /* UXCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */; };
 		F28C9CF91E91E62500B0BDBA /* UXCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */; };
 		F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B071E9254F700049F75 /* TestModelViewController.m */; };
@@ -706,6 +708,10 @@
 		F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCollectionViewLayout.m; sourceTree = "<group>"; };
 		F250BDF41E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
 		F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
+		F250BDF71E9F65230067C1F3 /* JPFPSStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFPSStatus.h; sourceTree = "<group>"; };
+		F250BDF81E9F65230067C1F3 /* JPFPSStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPFPSStatus.m; sourceTree = "<group>"; };
+		F250BDF91E9F65230067C1F3 /* RRFPSBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRFPSBar.h; sourceTree = "<group>"; };
+		F250BDFA1E9F65230067C1F3 /* RRFPSBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRFPSBar.m; sourceTree = "<group>"; };
 		F28C9CF41E91E59600B0BDBA /* UXCellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXCellFactory.h; sourceTree = "<group>"; };
 		F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCellFactory.m; sourceTree = "<group>"; };
 		F28C9CF71E91E62500B0BDBA /* UXCollectionNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXCollectionNodeModel.h; sourceTree = "<group>"; };
@@ -1309,6 +1315,10 @@
 		F2134EF01E7936C0005F8B10 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F250BDF71E9F65230067C1F3 /* JPFPSStatus.h */,
+				F250BDF81E9F65230067C1F3 /* JPFPSStatus.m */,
+				F250BDF91E9F65230067C1F3 /* RRFPSBar.h */,
+				F250BDFA1E9F65230067C1F3 /* RRFPSBar.m */,
 				F2134EF11E7936C9005F8B10 /* UIView+AutoLayout.h */,
 				F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */,
 			);
@@ -2024,6 +2034,7 @@
 				94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */,
 				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
 				F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */,
+				F250BDFC1E9F65230067C1F3 /* RRFPSBar.m in Sources */,
 				F20518451E9DCF3100822706 /* NIHTMLParser.mm in Sources */,
 				F20519341E9DCF3200822706 /* UIImage+Extend.m in Sources */,
 				F2DE8B371E93B01E00049F75 /* UXLocationMessage.m in Sources */,
@@ -2068,6 +2079,7 @@
 				F20518461E9DCF3100822706 /* NIImageAttachment.m in Sources */,
 				F2DE8B281E93AE0200049F75 /* UXMessage.m in Sources */,
 				F2DE8B3D1E9B31D500049F75 /* UXVideoMessageCell.m in Sources */,
+				F250BDFB1E9F65230067C1F3 /* JPFPSStatus.m in Sources */,
 				F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */,
 				F2134EE01E7932E3005F8B10 /* TransitionAnimator.m in Sources */,
 				F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */,
