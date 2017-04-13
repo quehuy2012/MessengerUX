@@ -7,7 +7,10 @@
 //
 
 #import "UXMessageCell.h"
+#import "UXTextMessageCell.h"
 
 @interface UXAttributeMessageCell : UXMessageCell
+
+@property (nonatomic, weak) id<UXTextMessageCellDelegate> delegate;
 
 @end

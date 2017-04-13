@@ -82,8 +82,8 @@
         if (self.configure) {
             self.messageBackgroundNode = [[self.configure getMessageBackgroundStyle] getMessageBackground];
             
-            [self.messageBackgroundNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-            [self.messageBackgroundNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+//            [self.messageBackgroundNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+//            [self.messageBackgroundNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
             
             [self addSubnode:self.messageBackgroundNode];
         }

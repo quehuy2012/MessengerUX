@@ -26,7 +26,6 @@
 		94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CB8C5F1E82D785000C64EF /* ConversationViewController.m */; };
 		A5AC0AEDDCBBD73C2D46C03C /* libPods-MessengerUX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */; };
 		DCE27C0DFB81BE4E6296B6AD /* libPods-MessengerUXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */; };
-		F20518441E9DCF3100822706 /* NIAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F205174D1E9DCF3100822706 /* NIAttributedLabel.m */; };
 		F20518451E9DCF3100822706 /* NIHTMLParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = F205174F1E9DCF3100822706 /* NIHTMLParser.mm */; };
 		F20518461E9DCF3100822706 /* NIImageAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F20517511E9DCF3100822706 /* NIImageAttachment.m */; };
 		F20518481E9DCF3100822706 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = F20517551E9DCF3100822706 /* NSString+Extend.m */; };
@@ -306,6 +305,7 @@
 		F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */; };
 		F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */; };
 		F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */; };
+		F250BDF61E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */; };
 		F28C9CF61E91E59600B0BDBA /* UXCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */; };
 		F28C9CF91E91E62500B0BDBA /* UXCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */; };
 		F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B071E9254F700049F75 /* TestModelViewController.m */; };
@@ -382,8 +382,6 @@
 		E967DB07BBEC456F3C206B8A /* libPods-MessengerUXUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MessengerUXUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEFCADCE11633F44CBC4689E /* Pods-MessengerUXUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXUITests/Pods-MessengerUXUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F205174B1E9DCF3100822706 /* CommonDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonDefines.h; path = AttributeLabel/CommonDefines.h; sourceTree = "<group>"; };
-		F205174C1E9DCF3100822706 /* NIAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NIAttributedLabel.h; path = AttributeLabel/NIAttributedLabel.h; sourceTree = "<group>"; };
-		F205174D1E9DCF3100822706 /* NIAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NIAttributedLabel.m; path = AttributeLabel/NIAttributedLabel.m; sourceTree = "<group>"; };
 		F205174E1E9DCF3100822706 /* NIHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NIHTMLParser.h; path = AttributeLabel/NIHTMLParser.h; sourceTree = "<group>"; };
 		F205174F1E9DCF3100822706 /* NIHTMLParser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NIHTMLParser.mm; path = AttributeLabel/NIHTMLParser.mm; sourceTree = "<group>"; };
 		F20517501E9DCF3100822706 /* NIImageAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NIImageAttachment.h; path = AttributeLabel/NIImageAttachment.h; sourceTree = "<group>"; };
@@ -706,6 +704,8 @@
 		F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageViewController.m; sourceTree = "<group>"; };
 		F2134F4E1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageCollectionViewLayout.h; sourceTree = "<group>"; };
 		F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCollectionViewLayout.m; sourceTree = "<group>"; };
+		F250BDF41E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
+		F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
 		F28C9CF41E91E59600B0BDBA /* UXCellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXCellFactory.h; sourceTree = "<group>"; };
 		F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCellFactory.m; sourceTree = "<group>"; };
 		F28C9CF71E91E62500B0BDBA /* UXCollectionNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXCollectionNodeModel.h; sourceTree = "<group>"; };
@@ -887,23 +887,23 @@
 			name = ConversationViewController;
 			sourceTree = "<group>";
 		};
-		F205174A1E9DCF2300822706 /* AttributeLabel */ = {
+		F205174A1E9DCF2300822706 /* AttributeNode */ = {
 			isa = PBXGroup;
 			children = (
+				F250BDF41E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.h */,
+				F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */,
 				F205174B1E9DCF3100822706 /* CommonDefines.h */,
-				F20519351E9DD04E00822706 /* UXAttributeNode.h */,
-				F20519361E9DD04E00822706 /* UXAttributeNode.m */,
-				F205174C1E9DCF3100822706 /* NIAttributedLabel.h */,
-				F205174D1E9DCF3100822706 /* NIAttributedLabel.m */,
 				F205174E1E9DCF3100822706 /* NIHTMLParser.h */,
 				F205174F1E9DCF3100822706 /* NIHTMLParser.mm */,
 				F20517501E9DCF3100822706 /* NIImageAttachment.h */,
 				F20517511E9DCF3100822706 /* NIImageAttachment.m */,
 				F20517541E9DCF3100822706 /* NSString+Extend.h */,
 				F20517551E9DCF3100822706 /* NSString+Extend.m */,
+				F20519351E9DD04E00822706 /* UXAttributeNode.h */,
+				F20519361E9DD04E00822706 /* UXAttributeNode.m */,
 				F20517561E9DCF3100822706 /* Small */,
 			);
-			name = AttributeLabel;
+			name = AttributeNode;
 			sourceTree = "<group>";
 		};
 		F20517561E9DCF3100822706 /* Small */ = {
@@ -1176,7 +1176,7 @@
 		F20C828A1E6D0B9B006D3594 /* MessengerUX */ = {
 			isa = PBXGroup;
 			children = (
-				F205174A1E9DCF2300822706 /* AttributeLabel */,
+				F205174A1E9DCF2300822706 /* AttributeNode */,
 				F2134EF01E7936C0005F8B10 /* Utils */,
 				F2134F041E823B9E005F8B10 /* Data */,
 				F2DE8B031E92546F00049F75 /* UXNodeModel */,
@@ -2013,7 +2013,6 @@
 				F2134EFD1E82387C005F8B10 /* UXTextMessage.m in Sources */,
 				F2DE8B2E1E93AF3200049F75 /* UXAlbumMessage.m in Sources */,
 				8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */,
-				F20518441E9DCF3100822706 /* NIAttributedLabel.m in Sources */,
 				F2134F271E88C999005F8B10 /* UXRoundedBackgroundStyle.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
 				F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */,
@@ -2051,6 +2050,7 @@
 				8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */,
 				F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */,
 				8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */,
+				F250BDF61E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m in Sources */,
 				F2DE8B341E93AFC600049F75 /* UXVideoMessage.m in Sources */,
 				F2134EDE1E7932E3005F8B10 /* ScrollTransitionAnimator.m in Sources */,
 				8A6B9E091E763EBB002ACB87 /* GroupViewController.m in Sources */,

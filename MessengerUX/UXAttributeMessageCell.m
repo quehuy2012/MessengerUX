@@ -19,6 +19,8 @@
 
 @implementation UXAttributeMessageCell
 
+@synthesize delegate;
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -26,16 +28,9 @@
         self.messageNode = [[UXAttributeNode alloc] init];
         self.messageNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
         self.messageNode.backgroundColor = [UIColor clearColor];
-        
-        
-//        self.messageNode = [[ASTextNode alloc] init];
-//        self.messageNode.style.flexShrink = 1.0;
-//        self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
-//        self.messageNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
-//        self.messageNode.backgroundColor = [UIColor clearColor];
-//        [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-//        [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-//        [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+        [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+        [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
         [self addSubnode:self.messageNode];
         
     }
@@ -50,13 +45,15 @@
         
         UIColor * textColor = self.isIncomming ? self.configure.incommingTextColor : self.configure.outgoingTextColor;
         
-        [self.messageNode setText:textMessage.content];
-        [self.messageNode setTextColor:textColor];
-        [self.messageNode setLinkColor:[UIColor orangeColor]];
+        NIHTMLParser * htmlParser = [[NIHTMLParser alloc] initWithString:textMessage.content parseEmoticon:YES];
+        [htmlParser setDefaultTextColor:textColor];
+        [htmlParser setFontText:[UIFont systemFontOfSize:self.configure.contentTextSize]];
+        [htmlParser setLinkFont:[UIFont systemFontOfSize:self.configure.contentTextSize + 8]];
         
-//        self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
-//                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.contentTextSize],
-//                                                                                       NSForegroundColorAttributeName: textColor}];
+        self.messageNode.htmlParser = htmlParser;
+        [self.messageNode setLinkHighlightColor:[UIColor colorWithWhite:0 alpha:0.2]];
+        [self.messageNode setBackgroundColor:[UIColor clearColor]];
+        
         
         [self setTopText:textMessage.owner.name];
         
@@ -156,9 +153,9 @@
 #pragma mark - Action
 
 - (void)messageClicked:(ASTextNode *)messageNode {
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:messageClicked:)]) {
-//        [self.delegate messageCell:self messageClicked:messageNode];
-//    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(messageCell:messageClicked:)]) {
+        [self.delegate messageCell:self messageClicked:messageNode];
+    }
     
     [self setShowTextAsTop:!self.showTextAsTop];
     [self setShowTextAsBottom:!self.showTextAsBottom];
@@ -172,6 +169,28 @@
 
 - (void)endHighlight {
     [self setHighlighted:NO];
+}
+
+- (void)setHighlighted:(BOOL)highlighted {
+    //    [super setHighlighted:highlighted];
+    
+    if (highlighted) {
+        if (self.messageBackgroundNode) {
+            self.messageBackgroundNode.backgroundColor = self.configure.highlightBackgroundColor;
+        }
+        self.messageNode.backgroundColor = self.configure.highlightBackgroundColor;
+        
+    } else {
+        if (self.messageBackgroundNode) {
+            if (self.isIncomming) {
+                self.messageBackgroundNode.backgroundColor = self.configure.incommingColor;
+                self.messageNode.backgroundColor = self.configure.incommingColor;
+            } else {
+                self.messageBackgroundNode.backgroundColor = self.configure.outgoingColor;
+                self.messageNode.backgroundColor = self.configure.outgoingColor;
+            }
+        }
+    }
 }
 
 #pragma mark - Memory managment

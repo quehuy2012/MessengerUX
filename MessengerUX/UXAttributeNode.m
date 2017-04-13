@@ -8,19 +8,21 @@
 
 #import "UXAttributeNode.h"
 #import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
-
+#import <AsyncDisplayKit/ASControlNode+Subclasses.h>
 #import "CommonDefines.h"
 
-//static const NSTimeInterval kLongPressTimeInterval = 0.5;
+static const NSTimeInterval kLongPressTimeInterval = 0.5;
 
 #import "NSAttributedString+NimbusAttributedLabel.h"
-#import "NIHTMLParser.h"
 #import "NSString+Extend.h"
 #import "UIImage+Extend.h"
 
-@interface UXAttributeNode ()
+@interface UXAttributeNode () <UIActionSheetDelegate>
 
-@property (nonatomic) BOOL isParsed;
+@property (nonatomic, strong) NSTimer* longPressTimer;
+@property (nonatomic, strong) NSTextCheckingResult* actionSheetLink;
+@property (nonatomic) BOOL doingLongGesture;
+@property (nonatomic, strong) NSMutableAttributedString *tempAttributedString;
 
 @end
 
@@ -29,115 +31,424 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.isParsed = NO;
+        
+        // Turn opaque to NO to enable rendering clear color
+        self.opaque = NO;
+        
+        self.enabled = YES;
+        self.userInteractionEnabled = YES;
     }
     
     return self;
 }
 
-
-- (void)setText:(NSString *)text {
-    _text = text;
-    
-    self.isParsed = NO;
-    [self setNeedsLayout];
-}
-
--(void)setFont:(UIFont *)font {
-    if (font) {
-        _font = font;
-        if (self.htmlParser) {
-            [self.htmlParser setFontText:font];
-        }
-    }
-}
-
--(void)setTextColor:(UIColor *)color {
-    if (color) {
-        _textColor = color;
-        if (self.htmlParser) {
-            [self.htmlParser setDefaultTextColor:_textColor];
-        }
-    }
-}
-
--(void)setTextAlignment:(CTTextAlignment)alignment {
-    _textAlignment = alignment;
-    [self invalidateCalculatedLayout];
-}
-
--(void)setLinkHighlightColor:(UIColor *)linkHighlightColor {
-    if (linkHighlightColor != _linkHighlightColor) {
-        _linkHighlightColor = linkHighlightColor;
-//        self.label.linkHighlightColor = linkHighlightColor;
-    }
-}
-
--(void)setAttributesForParser {
-    if (self.htmlParser) {
-        if (_font) {
-            self.htmlParser.fontText = _font;
-        }
-        
-        if (_textColor) {
-            self.htmlParser.defaultTextColor = _textColor;
-        }
-        
-        self.htmlParser.textAlignment = _textAlignment;
-        
-        if (_linkColor) {
-            self.htmlParser.linkColor = _linkColor;
-        }
-        
-        if (_linkFont) {
-            self.htmlParser.linkFont = _linkFont;
-        }
-        
-        if (_tagColor) {
-            self.htmlParser.tagColor = _tagColor;
-        }
-        
-        if (_tagFont) {
-            self.htmlParser.tagFont = _tagFont;
-        }
-    }
-}
-
 -(CGSize)calculateSizeThatFits:(CGSize)constrainedSize {
-    
-    if (self.htmlParser == nil || !_isParsed) {
-        self.htmlParser = [[NIHTMLParser alloc] initWithString:_text parseEmoticon:YES];
-        [self setAttributesForParser];
-        self.isParsed = YES;
-    }
     
     int maxWidth = constrainedSize.width == INFINITY ? self.style.maxWidth.value : constrainedSize.width;
     
     CGSize textSize = [self.htmlParser getBoundsSizeByWidth:maxWidth];
-    //self.label.frame = CGRectMake(0, 0, textSize.width, textSize.height);
     
     return textSize;
 }
 
-#pragma mark - Return parameter
+#pragma mark - ASControll subclassing
 
-// Return ready-to-display image to show (as a placeholder), image is must to be decoded for performent
-+ (nullable UIImage *)displayWithParameters:(nullable id<NSObject>)parameters
-                                isCancelled:(AS_NOESCAPE asdisplaynode_iscancelled_block_t)isCancelledBlock {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch* touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self.view];
+    
+    _touchedLink = [self linkAtPoint:point];
+    
+    self.longPressTimer = [NSTimer scheduledTimerWithTimeInterval:kLongPressTimeInterval target:self selector:@selector(_longPressTimerDidFire:) userInfo:[NSValue valueWithCGPoint:point] repeats:NO];
+    
+    _doingLongGesture = YES;
+    
+    [self setNeedsDisplay];
+    
+    // if pressisng on a link, no need to pass event to parent
+    if (_touchedLink == nil) {
+        [super touchesBegan:touches withEvent:event];
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    _touchedLink = nil;
+    
+    if (_touchedLink == nil) {
+        if (self.tempAttributedString) {
+            self.htmlParser.attributedString = self.tempAttributedString;
+            self.tempAttributedString = nil;
+            
+            [self.htmlParser resetTextFrame];
+        }
+    }
+    
+    _doingLongGesture = NO;
+    
+    [self setBackgroundColor:self.backgroundColor];
+    
+    [self setNeedsDisplay];
+    
+    [super touchesCancelled:touches withEvent:event];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch* touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self.view];
+    
+    NSTextCheckingResult* linkTouched = [self linkAtPoint:point];
+    if (linkTouched.resultType == NSTextCheckingTypeLink) {
+        if (_touchedLink.URL && [_touchedLink.URL isEqual:linkTouched.URL]) {
+            if([linkTouched.URL.absoluteString isEqualToString:URL_MORETEXT_LINK]){
+                [self moreTextButtonPress:nil];
+            }
+            else if (self.delegate && [self.delegate respondsToSelector:@selector(attributeNode:didSelectLink:atPoint:)]) {
+                [self.delegate attributeNode:self didSelectLink:linkTouched.URL atPoint:point];
+            }
+            else{
+                NSURL *url = linkTouched.URL;
+                if ([url.absoluteString hasPrefix:@"zm://"]) {
+                    // Open URL
+                }
+                else{
+                }
+            }
+            
+            NSLog(@"Select link: %@", linkTouched.URL.absoluteString);
+            
+        }
+    }
+    else{
+        if (linkTouched.resultType == NSTextCheckingTypePhoneNumber) {
+            [self forwardToCaller:linkTouched.phoneNumber];
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(attributeNode:didSelectPhone:atPoint:)]) {
+                [self.delegate attributeNode:self didSelectPhone:linkTouched.phoneNumber atPoint:point];
+            }
+            
+            NSLog(@"Select phone: %@", linkTouched.phoneNumber);
+        }
+    }
+    
+    _touchedLink = nil;
+    
+    _doingLongGesture = NO;
+    
+    [self setNeedsDisplay];
+    
+    [super touchesEnded:touches withEvent:event];
+}
+
+#pragma mark - Action handler
+
+- (void)moreTextButtonPress:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(touchedGoToFeedDetail:)]) {
+        BOOL res = [self.delegate touchedGoToFeedDetail:self];
+        if(res){
+            [self setNeedsDisplay];
+        }
+    }
+}
+
+- (void)_longPressTimerDidFire:(NSTimer *)timer {
+    self.longPressTimer = nil;
+    
+    // if long gesture on link
+    if (nil != _touchedLink) {
+        
+        if ([_touchedLink.URL.absoluteString hasPrefix:@"zm://"] || [_touchedLink.URL.absoluteString hasPrefix:@"zapp://"]) {
+            return;
+        }
+        
+        if(!self.disableOpenActionSheetWhenHoldOnLink){
+            self.actionSheetLink = _touchedLink;
+            UIActionSheet* actionSheet = [self actionSheetForResult:self.actionSheetLink];
+            [actionSheet showInView:self.view];
+        }
+    }
+    
+    if (_doingLongGesture) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(menuLabel:didCopy:)]) {
+            UIMenuController* menuController = [UIMenuController sharedMenuController];
+            UIMenuItem* copyItem = [[UIMenuItem alloc] initWithTitle:@"Sao chép"
+                                                              action:@selector(menuItemCopy:)];
+            [menuController setMenuItems:[NSArray arrayWithObjects:copyItem, nil]];
+            [self becomeFirstResponder];
+            CGPoint point = [[timer userInfo] CGPointValue];
+            [menuController setTargetRect:CGRectMake(point.x, point.y - 30, 0.f, 0.f) inView:self.view];
+            [menuController setMenuVisible:YES animated:YES];
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGRect)getLineBounds:(CTLineRef)line point:(CGPoint) point {
+    CGFloat ascent = 0.0f;
+    CGFloat descent = 0.0f;
+    CGFloat leading = 0.0f;
+    CGFloat width = (CGFloat)CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+    CGFloat height = ascent + descent;
+    
+    return CGRectMake(point.x, point.y - descent, width, height);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (NSTextCheckingResult *)linkAtIndex:(CFIndex)idx {
+    NSTextCheckingResult* foundResult = nil;
+    
+    if (self.htmlParser.autoDetectLinks) {
+        
+        /** Do a binary search here */
+        NSMutableArray *arr = self.htmlParser.detectedlinkLocations;
+        int left = 0, right = (int)arr.count-1, mid;
+        while(left<=right){
+            mid = (left + right) / 2;
+            NSTextCheckingResult *result = [arr objectAtIndex:mid];
+            //small notice here, extend the link range by 1 for better accuracy
+            NSRange linkRange = result.range;
+            ++linkRange.length;
+            if (NSLocationInRange(idx, linkRange)) {
+                foundResult = result;
+                break;
+            }
+            if(idx < result.range.location)
+                right = mid - 1;
+            else if(idx >= result.range.location + result.range.length)
+                left = mid + 1;
+            else
+                break;
+        }
+        
+    }
+    
+    return foundResult;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (NSTextCheckingResult *)linkAtPoint:(CGPoint)point {
+    static const CGFloat kVMargin = 5.0f;
+    if (!CGRectContainsPoint(CGRectInset(self.bounds, 0, -kVMargin), point)) {
+        return nil;
+    }
+    
+    CFArrayRef lines = CTFrameGetLines(self.htmlParser.textFrame);
+    if (!lines) return nil;
+    CFIndex count = CFArrayGetCount(lines);
+    
+    NSTextCheckingResult* foundLink = nil;
+    
+    CGPoint origins[count];
+    CTFrameGetLineOrigins(self.htmlParser.textFrame, CFRangeMake(0,0), origins);
+    
+    /** Do a binary search here for better performance */
+    int left = 0, right = (int)count-1, mid;
+    while(left <= right){
+        mid = (left + right)/2;
+        
+        CGPoint linePoint = origins[mid];
+        CTLineRef line = CFArrayGetValueAtIndex(lines, mid);
+        
+        CGRect flippedRect = [self getLineBounds:line point:linePoint];
+        CGRect bounds = CGRectMake(CGRectGetMinX(self.bounds) ,
+                                   CGRectGetMaxY(self.bounds)-CGRectGetMaxY(self.bounds),
+                                   CGRectGetWidth(self.bounds),
+                                   CGRectGetHeight(self.bounds));
+        CGRect rect = CGRectMake(CGRectGetMinX(flippedRect),
+                                 CGRectGetMaxY(bounds)-CGRectGetMaxY(flippedRect),
+                                 CGRectGetWidth(flippedRect),
+                                 CGRectGetHeight(flippedRect));
+        
+        //rect = CGRectInset(rect, 0, -kVMargin);
+        if (CGRectContainsPoint(rect, point)) {
+            
+            CGPoint relativePoint = CGPointMake(point.x-CGRectGetMinX(rect),
+                                                point.y-CGRectGetMinY(rect));
+            CFIndex idx = CTLineGetStringIndexForPosition(line, relativePoint);
+            foundLink = ([self linkAtIndex:idx]);
+            if (foundLink) return foundLink;
+        }
+        
+        if(CGRectGetMaxY(rect) < point.y)
+            left = mid + 1;
+        else if(CGRectGetMinY(rect) > point.y)
+            right = mid - 1;
+        else
+            return nil;
+        
+    }
+    
     return nil;
 }
+
+// Un-comment this thing to allow touchable on the whole view
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+//    UIView* view = [super hitTest:point withEvent:event];
+//    if (view != self.view) {
+//        return view;
+//    }
+//    if ([self linkAtPoint:point] != nil) {
+//        return view;
+//    }
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(menuLabel:didCopy:)]){
+//        return view;
+//    }
+//    return nil;
+//}
+
+// need check if this is in main thread or not?
+- (void)forwardToCaller:(NSString*)phoneNumber {
+    if (phoneNumber && phoneNumber.length > 0) {
+        
+        NSString* deviceType = [UIDevice currentDevice].model;
+        if (deviceType && ([deviceType containsString:@"iPhone"] ||
+                           [deviceType containsString:@"iphone"] ||
+                           [deviceType containsString:@"IPHONE"]))
+        {
+            
+            phoneNumber = [[phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"+0123456789"] invertedSet]] componentsJoinedByString:@""];
+            
+            BOOL callSuccessful = NO;
+            if (phoneNumber) {
+                callSuccessful = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt:%@", phoneNumber]]];
+            }
+            
+            if (!callSuccessful) {
+                // Invalid phone number
+            }
+            
+        }
+    }
+}
+
+- (void)menuItemCopy:(id)menuItem {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(menuLabel:didCopy:)]) {
+        [self.delegate menuLabel:self didCopy:YES];
+    }
+}
+
+
+- (UIActionSheet *)actionSheetForResult:(NSTextCheckingResult *)result {
+    UIActionSheet* actionSheet =
+    [[UIActionSheet alloc] initWithTitle:nil
+                                delegate:self
+                       cancelButtonTitle:nil
+                  destructiveButtonTitle:nil
+                       otherButtonTitles:nil];
+    
+    NSString* title = nil;
+    if (NSTextCheckingTypeLink == result.resultType) {
+        if ([result.URL.scheme isEqualToString:@"mailto"]) {
+            title = result.URL.resourceSpecifier;
+            [actionSheet addButtonWithTitle:@"Mở hộp thư"];
+            [actionSheet addButtonWithTitle:@"Sao chép địa chỉ Email"];
+            
+        } else {
+            title = result.URL.absoluteString;
+            [actionSheet addButtonWithTitle:@"Mở bằng trình duyệt Safari"];
+            [actionSheet addButtonWithTitle:@"Sao chép link"];
+        }
+        
+    } else if (NSTextCheckingTypePhoneNumber == result.resultType) {
+        title = result.phoneNumber;
+        [actionSheet addButtonWithTitle:@"Gọi điện"];
+        [actionSheet addButtonWithTitle:@"Sao chép số điện thoại"];
+    }
+    else {
+        [actionSheet addButtonWithTitle:@"Sao chép"];
+    }
+    actionSheet.title = title;
+    
+    [actionSheet setCancelButtonIndex:[actionSheet addButtonWithTitle:@"Huỷ"]];
+    
+    return actionSheet;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (NSTextCheckingTypeLink == self.actionSheetLink.resultType) {
+        if (buttonIndex == 0) {
+            [[UIApplication sharedApplication] openURL:self.actionSheetLink.URL];
+            
+        } else if (buttonIndex == 1) {
+            if ([self.actionSheetLink.URL.scheme isEqualToString:@"mailto"]) {
+                [[UIPasteboard generalPasteboard] setString:self.actionSheetLink.URL.resourceSpecifier];
+                
+            } else {
+                [[UIPasteboard generalPasteboard] setURL:self.actionSheetLink.URL];
+            }
+        }
+        
+    } else if (NSTextCheckingTypePhoneNumber == self.actionSheetLink.resultType) {
+        if (buttonIndex == 0) {
+            
+            [self forwardToCaller:self.actionSheetLink.phoneNumber];
+            
+        } else if (buttonIndex == 1) {
+            [[UIPasteboard generalPasteboard] setString:self.actionSheetLink.phoneNumber];
+        }
+        
+    } else {
+        // Unsupported data type only allows the user to copy.
+        if (buttonIndex == 0) {
+            NSString* text = [self.htmlParser.attributedString.string substringWithRange:self.actionSheetLink.range];
+            [[UIPasteboard generalPasteboard] setString:text];
+        }
+    }
+    
+    self.actionSheetLink = nil;
+    [self setNeedsDisplay];
+}
+
+- (void)addEmoticon:(CTRunDelegateRef)delegate run:(CTRunRef)run imgBounds:(CGRect)imgBounds line:(CTLineRef)line lineIndex:(NSUInteger)lineIndex rect:(CGRect)rect ctx:(CGContextRef)ctx {
+    if (self.htmlParser.origins && self.htmlParser.origins.count > lineIndex) {
+        NIImageAttachment* attachment = (__bridge NIImageAttachment *)CTRunDelegateGetRefCon(delegate);
+        if(!attachment) return;
+        
+        CGFloat ascent;
+        CGFloat descent;
+        imgBounds.size.width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), &ascent, &descent, NULL);
+        imgBounds.size.height = ascent + descent;
+        CGFloat xOffset = CTLineGetOffsetForStringIndex(line, CTRunGetStringRange(run).location, NULL);
+        CGPoint mOrigin = [[self.htmlParser.origins objectAtIndex:lineIndex] CGPointValue];
+        imgBounds.origin.x = mOrigin.x + 0 + xOffset;
+        imgBounds.origin.y = rect.size.height - (mOrigin.y + descent);
+        
+        NSString* imgString = attachment.imageURL;
+        
+        
+        NSString *prefix = @"bundle://";
+        if ([imgString hasPrefix:prefix]) {
+            imgString = [imgString substringFromIndex:prefix.length];
+        }
+        else {
+            imgString = [NSString stringWithFormat:@"%@", imgString];
+        }
+        
+        UIImage *img = [UIImage imageNamed:imgString];
+        
+        CGContextDrawImage(ctx, imgBounds, img.CGImage);
+    }
+}
+
+#pragma mark - Return parameter
 
 // Return parameter for drawRect:withParameters:isConcelled:isRasterizing method to draw things...
 - (nullable id<NSObject>)drawParametersForAsyncLayer:(_ASDisplayLayer *)layer {
     
-    NSDictionary * dic = @{
+    NSMutableDictionary * dic = [@{
                            @"bounds" : [NSValue valueWithCGRect:self.bounds],
                            @"backgroundColor" : self.backgroundColor,
-                           @"_touchedLink" : _touchedLink,
-                           @"_linkColor" : _linkColor,
                            @"_linkHighlightColor" : _linkHighlightColor,
                            @"_htmlParser" : _htmlParser
-                           };
+                           } mutableCopy];
+    
+    if (_touchedLink) {
+        [dic setObject:_touchedLink forKey:@"_touchedLink"];
+    }
+    
     return dic;
 }
 
@@ -153,8 +464,7 @@
     CGRect drawParameterBounds = [(NSValue *)params[@"bounds"] CGRectValue];
     UIColor * backgroundColor = isRasterizing ? nil : params[@"backgroundColor"];
     NSTextCheckingResult* _touchedLink = params[@"_touchedLink"];
-//    UIColor* _linkColor = params[@"_linkColor"];
-    UIColor* _linkHighlightColor = params[@"_linkHighlightColor"];
+    UIColor * _linkHighlightColor = params[@"_linkHighlightColor"];
     NIHTMLParser *_htmlParser = params[@"_htmlParser"];
     
     CGRect rect = bounds;
@@ -337,19 +647,21 @@
                                 CFRelease(path);
                                 CFRelease(framesetter);
                                 
-                                //                                CGSize moreSize = [parser getTextSize:moreString];
-                                //                                UIButton *moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                                //                                UIImage *highlightImage = [UIImage imageWithColor:[UIColor colorWithRed:51.0f/255 green:51.0f/255 blue:51.0f/255 alpha:0.5]];
-                                //                                //custom font and color for the button, which is set in the parser of this label
-                                //                                [moreButton setTitleColor:parser.moreButtonColor forState:UIControlStateNormal];
-                                //
-                                //                                //==============
-                                //                                [moreButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
-                                //                                [self addSubview:moreButton];
-                                //                                [moreButton addTarget:self action:@selector(moreTextButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-                                //
-                                //                                CGRect boundsMoreButton = CGRectMake(x + myStringSize.width - 5, (endRunRect.origin.y + endRunRect.size.height - moreSize.height) - 2, moreSize.width + 7, moreSize.height + 4);
-                                //                                [moreButton setFrame:boundsMoreButton];
+                                // This following snip of code is useless while this snip is running in the background thread
+                                
+//                                CGSize moreSize = [parser getTextSize:moreString];
+//                                UIButton *moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//                                UIImage *highlightImage = [UIImage imageWithColor:[UIColor colorWithRed:51.0f/255 green:51.0f/255 blue:51.0f/255 alpha:0.5]];
+//                                //custom font and color for the button, which is set in the parser of this label
+//                                [moreButton setTitleColor:parser.moreButtonColor forState:UIControlStateNormal];
+//
+//                                //==============
+//                                [moreButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+//                                [self addSubview:moreButton];
+//                                [moreButton addTarget:self action:@selector(moreTextButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+//
+//                                CGRect boundsMoreButton = CGRectMake(x + myStringSize.width - 5, (endRunRect.origin.y + endRunRect.size.height - moreSize.height) - 2, moreSize.width + 7, moreSize.height + 4);
+//                                [moreButton setFrame:boundsMoreButton];
                                 
                                 if (delegate) {
                                     [self addEmoticon:delegate withParser:_htmlParser run:run imgBounds:imgBounds line:line lineIndex:lineIndex rect:rect ctx:ctx];
