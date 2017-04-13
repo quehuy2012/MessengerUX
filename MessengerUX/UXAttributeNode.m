@@ -11,19 +11,25 @@
 
 #import "CommonDefines.h"
 
-static const NSTimeInterval kLongPressTimeInterval = 0.5;
+//static const NSTimeInterval kLongPressTimeInterval = 0.5;
 
 #import "NSAttributedString+NimbusAttributedLabel.h"
 #import "NIHTMLParser.h"
 #import "NSString+Extend.h"
 #import "UIImage+Extend.h"
 
+@interface UXAttributeNode ()
+
+@property (nonatomic) BOOL isParsed;
+
+@end
+
 @implementation UXAttributeNode
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        
+        self.isParsed = NO;
     }
     
     return self;
@@ -40,8 +46,8 @@ static const NSTimeInterval kLongPressTimeInterval = 0.5;
 -(void)setFont:(UIFont *)font {
     if (font) {
         _font = font;
-        if (_parser) {
-            [_parser setFontText:font];
+        if (self.htmlParser) {
+            [self.htmlParser setFontText:font];
         }
     }
 }
@@ -49,8 +55,8 @@ static const NSTimeInterval kLongPressTimeInterval = 0.5;
 -(void)setTextColor:(UIColor *)color {
     if (color) {
         _textColor = color;
-        if (_parser) {
-            [_parser setDefaultTextColor:_textColor];
+        if (self.htmlParser) {
+            [self.htmlParser setDefaultTextColor:_textColor];
         }
     }
 }
@@ -63,53 +69,52 @@ static const NSTimeInterval kLongPressTimeInterval = 0.5;
 -(void)setLinkHighlightColor:(UIColor *)linkHighlightColor {
     if (linkHighlightColor != _linkHighlightColor) {
         _linkHighlightColor = linkHighlightColor;
-        self.label.linkHighlightColor = linkHighlightColor;
+//        self.label.linkHighlightColor = linkHighlightColor;
     }
 }
 
 -(void)setAttributesForParser {
-    if (_parser) {
+    if (self.htmlParser) {
         if (_font) {
-            self.parser.fontText = _font;
+            self.htmlParser.fontText = _font;
         }
         
         if (_textColor) {
-            self.parser.defaultTextColor = _textColor;
+            self.htmlParser.defaultTextColor = _textColor;
         }
         
-        self.parser.textAlignment = _textAlignment;
+        self.htmlParser.textAlignment = _textAlignment;
         
         if (_linkColor) {
-            self.parser.linkColor = _linkColor;
+            self.htmlParser.linkColor = _linkColor;
         }
         
         if (_linkFont) {
-            self.parser.linkFont = _linkFont;
+            self.htmlParser.linkFont = _linkFont;
         }
         
         if (_tagColor) {
-            self.parser.tagColor = _tagColor;
+            self.htmlParser.tagColor = _tagColor;
         }
         
         if (_tagFont) {
-            self.parser.tagFont = _tagFont;
+            self.htmlParser.tagFont = _tagFont;
         }
     }
 }
 
 -(CGSize)calculateSizeThatFits:(CGSize)constrainedSize {
     
-    if (_parser == nil || !_isParsed) {
-        self.parser = [[UXHTMLParser alloc] initWithString:_text parseEmoticon:YES];
+    if (self.htmlParser == nil || !_isParsed) {
+        self.htmlParser = [[NIHTMLParser alloc] initWithString:_text parseEmoticon:YES];
         [self setAttributesForParser];
         self.isParsed = YES;
-        self.label.htmlParser = _parser;
     }
     
     int maxWidth = constrainedSize.width == INFINITY ? self.style.maxWidth.value : constrainedSize.width;
     
-    CGSize textSize = [_parser getBoundsSizeByWidth:maxWidth];
-    self.label.frame = CGRectMake(0, 0, textSize.width, textSize.height);
+    CGSize textSize = [self.htmlParser getBoundsSizeByWidth:maxWidth];
+    //self.label.frame = CGRectMake(0, 0, textSize.width, textSize.height);
     
     return textSize;
 }

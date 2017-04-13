@@ -199,6 +199,7 @@
 //                                                                 isComming:YES
 //                                                                     owner:messageT.owner];
                         
+                        
                     } else if (i % 13 == 0) {
                     
                         message = [[UXLocationMessage alloc] initWithLatitude:37.7749
@@ -211,10 +212,15 @@
                     
                         BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
                         
-                        message = [[UXTextMessage alloc] initWithContent:messageT.content
-                                                                    date:[NSDate timeIntervalSinceReferenceDate]
-                                                               isComming:dummyIncomming
-                                                                   owner:messageT.owner];
+                        message = [[UXAttributeMessage alloc] initWithContent:messageT.content
+                                                                         date:[NSDate timeIntervalSinceReferenceDate]
+                                                                    isComming:dummyIncomming
+                                                                        owner:messageT.owner];
+                        
+//                        message = [[UXTextMessage alloc] initWithContent:messageT.content
+//                                                                    date:[NSDate timeIntervalSinceReferenceDate]
+//                                                               isComming:dummyIncomming
+//                                                                   owner:messageT.owner];
                         
                     }
                     

@@ -24,7 +24,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreText/CoreText.h>
-#import "NSAttributedString+NimbusAttributedLabel.h"
+//#import "NSAttributedString+NimbusAttributedLabel.h"
+#import <Nimbus/NSMutableAttributedString+NimbusAttributedLabel.h>
 #import "NIImageAttachment.h"
 
 @interface NIHTMLParser : NSObject {

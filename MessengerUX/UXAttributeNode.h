@@ -13,9 +13,6 @@
 
 @interface UXAttributeNode : ASControlNode {
     NSTextCheckingResult* _touchedLink;
-    UIColor* _linkColor;
-    UIColor* _linkHighlightColor;
-    NIHTMLParser *_htmlParser;
 }
 
 /**

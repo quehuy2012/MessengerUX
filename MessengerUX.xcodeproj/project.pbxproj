@@ -29,7 +29,6 @@
 		F20518441E9DCF3100822706 /* NIAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F205174D1E9DCF3100822706 /* NIAttributedLabel.m */; };
 		F20518451E9DCF3100822706 /* NIHTMLParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = F205174F1E9DCF3100822706 /* NIHTMLParser.mm */; };
 		F20518461E9DCF3100822706 /* NIImageAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F20517511E9DCF3100822706 /* NIImageAttachment.m */; };
-		F20518471E9DCF3100822706 /* NSAttributedString+NimbusAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F20517531E9DCF3100822706 /* NSAttributedString+NimbusAttributedLabel.m */; };
 		F20518481E9DCF3100822706 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = F20517551E9DCF3100822706 /* NSString+Extend.m */; };
 		F20518491E9DCF3100822706 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = F20517571E9DCF3100822706 /* 1.png */; };
 		F205184A1E9DCF3100822706 /* 10.png in Resources */ = {isa = PBXBuildFile; fileRef = F20517581E9DCF3100822706 /* 10.png */; };
@@ -268,6 +267,8 @@
 		F20519331E9DCF3200822706 /* emoticon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F20518411E9DCF3100822706 /* emoticon@3x.png */; };
 		F20519341E9DCF3200822706 /* UIImage+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = F20518431E9DCF3100822706 /* UIImage+Extend.m */; };
 		F20519371E9DD04E00822706 /* UXAttributeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F20519361E9DD04E00822706 /* UXAttributeNode.m */; };
+		F205193A1E9F170900822706 /* UXAttributeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F20519391E9F170900822706 /* UXAttributeMessage.m */; };
+		F205193D1E9F176D00822706 /* UXAttributeMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F205193C1E9F176D00822706 /* UXAttributeMessageCell.m */; };
 		F20C828D1E6D0B9B006D3594 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C828C1E6D0B9B006D3594 /* main.m */; };
 		F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C828F1E6D0B9B006D3594 /* AppDelegate.m */; };
 		F20C82961E6D0B9B006D3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F20C82941E6D0B9B006D3594 /* Main.storyboard */; };
@@ -387,8 +388,6 @@
 		F205174F1E9DCF3100822706 /* NIHTMLParser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NIHTMLParser.mm; path = AttributeLabel/NIHTMLParser.mm; sourceTree = "<group>"; };
 		F20517501E9DCF3100822706 /* NIImageAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NIImageAttachment.h; path = AttributeLabel/NIImageAttachment.h; sourceTree = "<group>"; };
 		F20517511E9DCF3100822706 /* NIImageAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NIImageAttachment.m; path = AttributeLabel/NIImageAttachment.m; sourceTree = "<group>"; };
-		F20517521E9DCF3100822706 /* NSAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+NimbusAttributedLabel.h"; path = "AttributeLabel/NSAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
-		F20517531E9DCF3100822706 /* NSAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+NimbusAttributedLabel.m"; path = "AttributeLabel/NSAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
 		F20517541E9DCF3100822706 /* NSString+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Extend.h"; path = "AttributeLabel/NSString+Extend.h"; sourceTree = "<group>"; };
 		F20517551E9DCF3100822706 /* NSString+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Extend.m"; path = "AttributeLabel/NSString+Extend.m"; sourceTree = "<group>"; };
 		F20517571E9DCF3100822706 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -630,6 +629,10 @@
 		F20518431E9DCF3100822706 /* UIImage+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extend.m"; sourceTree = "<group>"; };
 		F20519351E9DD04E00822706 /* UXAttributeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXAttributeNode.h; sourceTree = "<group>"; };
 		F20519361E9DD04E00822706 /* UXAttributeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAttributeNode.m; sourceTree = "<group>"; };
+		F20519381E9F170900822706 /* UXAttributeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXAttributeMessage.h; sourceTree = "<group>"; };
+		F20519391E9F170900822706 /* UXAttributeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAttributeMessage.m; sourceTree = "<group>"; };
+		F205193B1E9F176D00822706 /* UXAttributeMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXAttributeMessageCell.h; sourceTree = "<group>"; };
+		F205193C1E9F176D00822706 /* UXAttributeMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXAttributeMessageCell.m; sourceTree = "<group>"; };
 		F20C82881E6D0B9B006D3594 /* MessengerUX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessengerUX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20C828C1E6D0B9B006D3594 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F20C828E1E6D0B9B006D3594 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -896,8 +899,6 @@
 				F205174F1E9DCF3100822706 /* NIHTMLParser.mm */,
 				F20517501E9DCF3100822706 /* NIImageAttachment.h */,
 				F20517511E9DCF3100822706 /* NIImageAttachment.m */,
-				F20517521E9DCF3100822706 /* NSAttributedString+NimbusAttributedLabel.h */,
-				F20517531E9DCF3100822706 /* NSAttributedString+NimbusAttributedLabel.m */,
 				F20517541E9DCF3100822706 /* NSString+Extend.h */,
 				F20517551E9DCF3100822706 /* NSString+Extend.m */,
 				F20517561E9DCF3100822706 /* Small */,
@@ -1346,6 +1347,8 @@
 				F2DE8B331E93AFC600049F75 /* UXVideoMessage.m */,
 				F2DE8B351E93B01E00049F75 /* UXLocationMessage.h */,
 				F2DE8B361E93B01E00049F75 /* UXLocationMessage.m */,
+				F20519381E9F170900822706 /* UXAttributeMessage.h */,
+				F20519391E9F170900822706 /* UXAttributeMessage.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1420,6 +1423,8 @@
 				F2DE8B3C1E9B31D500049F75 /* UXVideoMessageCell.m */,
 				F2DE8B441E9C953600049F75 /* UXLocationMessageCell.h */,
 				F2DE8B451E9C953600049F75 /* UXLocationMessageCell.m */,
+				F205193B1E9F176D00822706 /* UXAttributeMessageCell.h */,
+				F205193C1E9F176D00822706 /* UXAttributeMessageCell.m */,
 			);
 			name = MessageCell;
 			sourceTree = "<group>";
@@ -1999,13 +2004,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2DE8B401E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m in Sources */,
+				F205193A1E9F170900822706 /* UXAttributeMessage.m in Sources */,
 				F2DE8B461E9C953600049F75 /* UXLocationMessageCell.m in Sources */,
 				8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */,
 				F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */,
 				F20518481E9DCF3100822706 /* NSString+Extend.m in Sources */,
 				F2DE8B251E93969900049F75 /* TestTableModelViewController.m in Sources */,
 				F2134EFD1E82387C005F8B10 /* UXTextMessage.m in Sources */,
-				F20518471E9DCF3100822706 /* NSAttributedString+NimbusAttributedLabel.m in Sources */,
 				F2DE8B2E1E93AF3200049F75 /* UXAlbumMessage.m in Sources */,
 				8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */,
 				F20518441E9DCF3100822706 /* NIAttributedLabel.m in Sources */,
@@ -2033,6 +2038,7 @@
 				F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */,
 				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2DE8B211E938A5400049F75 /* UXMutableTableNodeModel.m in Sources */,
+				F205193D1E9F176D00822706 /* UXAttributeMessageCell.m in Sources */,
 				F2DE8B1D1E9382C200049F75 /* UXTableNodeModel.m in Sources */,
 				F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */,
 				F2DE8B431E9C8CAF00049F75 /* UXMinimalistCellConfigue.m in Sources */,

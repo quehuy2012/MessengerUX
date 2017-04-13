@@ -21,7 +21,6 @@
 static const NSTimeInterval kLongPressTimeInterval = 0.5;
 
 #import "NIAttributedLabel.h"
-#import "NSAttributedString+NimbusAttributedLabel.h"
 #import "NIHTMLParser.h"
 #import "NSString+Extend.h"
 #import "UIImage+Extend.h"

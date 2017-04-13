@@ -17,6 +17,7 @@
 #import "UXAlbumMessageCell.h"
 #import "UXVideoMessageCell.h"
 #import "UXLocationMessageCell.h"
+#import "UXAttributeMessageCell.h"
 
 #import "UXMessageCellConfigure.h"
 #import "UXMessagerCellConfigure.h"
@@ -38,6 +39,7 @@
 #import "UXVideoMessage.h"
 #import "UXAudioMessage.h"
 #import "UXLocationMessage.h"
+#import "UXAttributeMessage.h"
 
 #import "UXMessageCollectionViewLayout.h"
 
