@@ -18,6 +18,8 @@
 
 #import "JPFPSStatus.h"
 
+static const NSTimeInterval kCellLongPressInterval = 0.7;
+
 
 @interface ConversationViewController () <ASTableDelegate, ASTableDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
 
@@ -143,7 +145,7 @@
     
     // Add long press gesture
     UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    gesture.minimumPressDuration = 0.5;
+    gesture.minimumPressDuration = kCellLongPressInterval;
     [self.tableNode.view addGestureRecognizer:gesture];
     
     self.tableNode.view.allowsSelection = NO;
