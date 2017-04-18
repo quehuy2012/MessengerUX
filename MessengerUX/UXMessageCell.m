@@ -210,7 +210,7 @@
 
 - (void)clearContents {
     [super clearContents];
-//    NSLog(@"Clear %d", mID);
+    NSLog(@"Clear %d", mID);
     
     [self.avatarNode clearContents];
     self.avatarNode.layer.contents = nil;
@@ -228,6 +228,8 @@
         [self.messageBackgroundNode clearContents];
         self.messageBackgroundNode.layer.contents = nil;
     }
+    
+    self.layer.contents = nil;
 }
 
 - (void)dealloc {

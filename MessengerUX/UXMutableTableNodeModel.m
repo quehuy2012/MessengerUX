@@ -184,6 +184,19 @@
     }
 }
 
+- (void)dealloc {
+    
+    NSLog(@"Dealloc model");
+    
+    if (self.sections) [self.sections removeAllObjects];
+    self.sections = nil;
+    
+    if (self.sectionIndexTitles) [self.sectionIndexTitles removeAllObjects];
+    self.sectionIndexTitles = nil;
+    
+    if (self.sectionPrefixToSectionIndex) [self.sectionPrefixToSectionIndex removeAllObjects];
+    self.sectionPrefixToSectionIndex = nil;
+}
 
 @end
 

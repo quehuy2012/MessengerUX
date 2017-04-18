@@ -28,9 +28,9 @@
         self.messageNode = [[UXAttributeNode alloc] init];
         self.messageNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
         self.messageNode.backgroundColor = [UIColor clearColor];
-        [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-        [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+//        [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+//        [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+//        [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
         [self addSubnode:self.messageNode];
         
     }
@@ -48,7 +48,7 @@
         NIHTMLParser * htmlParser = [[NIHTMLParser alloc] initWithString:textMessage.content parseEmoticon:YES];
         [htmlParser setDefaultTextColor:textColor];
         [htmlParser setFontText:[UIFont systemFontOfSize:self.configure.contentTextSize]];
-        [htmlParser setLinkFont:[UIFont systemFontOfSize:self.configure.contentTextSize + 8]];
+        [htmlParser setLinkFont:[UIFont systemFontOfSize:self.configure.contentTextSize]];
         
         self.messageNode.htmlParser = htmlParser;
         [self.messageNode setLinkHighlightColor:[UIColor colorWithWhite:0 alpha:0.2]];

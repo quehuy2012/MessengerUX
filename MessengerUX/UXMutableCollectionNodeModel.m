@@ -121,6 +121,14 @@
     }
 }
 
+- (void)dealloc {
+    
+    NSLog(@"Dealloc model");
+    
+    if (self.sections) [self.sections removeAllObjects];
+    self.sections = nil;
+}
+
 @end
 
 @implementation UXCollectionNodeModelSection (Mutable)
