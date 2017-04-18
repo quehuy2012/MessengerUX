@@ -19,16 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Nimbus-WebController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Nimbus.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>PINCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,21 +62,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3663A6BB4A07EA25EA497CADCBF70797</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3BF7974E5C27FB6495442A5A15A4DA44</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>46834970DCAC8CEDCF9A809893D26935</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4787B8AA7B57F812D0780B972F055FD1</key>
 		<dict>
 			<key>primary</key>
@@ -102,22 +77,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>717AAE656DEFC3C1BF3AA7378FF1DB83</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8586BC1CCCEA41239BBA567020B94D71</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4563AFE0759D2D5DACE689D49DE13D1</key>
+		<key>8F1F6F30A4A42A94C822A4FAE9F3E783</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E033EDB5EC0819481B0546434FA577B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>A89C52C6948621A698B8D27A2503EAF0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AFAFB55453D161D2BB5CFB30C68A54D5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

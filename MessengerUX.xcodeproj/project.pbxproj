@@ -8,21 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		35431B4BFE7B1BD721E03CA2 /* libPods-MessengerUXUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E967DB07BBEC456F3C206B8A /* libPods-MessengerUXUITests.a */; };
-		8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9DF81E72ADF9002ACB87 /* CustomTabBarViewController.m */; };
-		8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9DFC1E7639F0002ACB87 /* HomeViewController.m */; };
-		8A6B9DFF1E763BFC002ACB87 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9DFE1E763BFC002ACB87 /* Home.storyboard */; };
-		8A6B9E021E763D31002ACB87 /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E011E763D31002ACB87 /* Call.storyboard */; };
-		8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E041E763D7F002ACB87 /* CallViewController.m */; };
-		8A6B9E091E763EBB002ACB87 /* GroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E081E763EBB002ACB87 /* GroupViewController.m */; };
-		8A6B9E0B1E763EF8002ACB87 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E0A1E763EF8002ACB87 /* Group.storyboard */; };
-		8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E0E1E763F3B002ACB87 /* PeopleViewController.m */; };
-		8A6B9E111E763F62002ACB87 /* People.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E101E763F62002ACB87 /* People.storyboard */; };
-		8A6B9E141E763FE8002ACB87 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E131E763FE8002ACB87 /* CameraViewController.m */; };
-		8A6B9E161E764014002ACB87 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B9E151E764014002ACB87 /* Camera.storyboard */; };
-		8A6B9E201E77D01F002ACB87 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E1F1E77D01F002ACB87 /* Group.m */; };
-		8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E221E77D04D002ACB87 /* GroupCell.m */; };
-		8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E281E77F976002ACB87 /* CallCellObject.m */; };
-		8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */; };
 		94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CB8C5F1E82D785000C64EF /* ConversationViewController.m */; };
 		A5AC0AEDDCBBD73C2D46C03C /* libPods-MessengerUX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41D3924AFD67C394DCE0324 /* libPods-MessengerUX.a */; };
 		DCE27C0DFB81BE4E6296B6AD /* libPods-MessengerUXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4125EF950527BF76A1C3C6A /* libPods-MessengerUXTests.a */; };
@@ -275,16 +260,12 @@
 		F20C829B1E6D0B9B006D3594 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F20C82991E6D0B9B006D3594 /* LaunchScreen.storyboard */; };
 		F20C82A61E6D0B9B006D3594 /* MessengerUXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82A51E6D0B9B006D3594 /* MessengerUXTests.m */; };
 		F20C82B11E6D0B9B006D3594 /* MessengerUXUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82B01E6D0B9B006D3594 /* MessengerUXUITests.m */; };
-		F20C82E01E70F478006D3594 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82DF1E70F478006D3594 /* MainViewController.m */; };
-		F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82E41E70F4E0006D3594 /* BaseTabViewController.m */; };
 		F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C82EF1E710C05006D3594 /* SwipeGestureReconizer.m */; };
 		F2134EDE1E7932E3005F8B10 /* ScrollTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134ED91E7932E3005F8B10 /* ScrollTransitionAnimator.m */; };
 		F2134EDF1E7932E3005F8B10 /* StackTrainsitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EDB1E7932E3005F8B10 /* StackTrainsitionAnimator.m */; };
 		F2134EE01E7932E3005F8B10 /* TransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EDD1E7932E3005F8B10 /* TransitionAnimator.m */; };
 		F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EE31E7932F4005F8B10 /* SwipeInteractiveActions.m */; };
 		F2134EE71E7932F4005F8B10 /* SwipeInterativeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EE51E7932F4005F8B10 /* SwipeInterativeObject.m */; };
-		F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EEA1E79332D005F8B10 /* DrawViewController.m */; };
-		F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EEE1E793343005F8B10 /* GalleryViewController.m */; };
 		F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */; };
 		F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EF61E79546E005F8B10 /* ScrollViewInteractiveActions.m */; };
 		F2134EFD1E82387C005F8B10 /* UXTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134EFC1E82387C005F8B10 /* UXTextMessage.m */; };
@@ -310,6 +291,7 @@
 		F250BDFC1E9F65230067C1F3 /* RRFPSBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDFA1E9F65230067C1F3 /* RRFPSBar.m */; };
 		F28C9CF61E91E59600B0BDBA /* UXCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */; };
 		F28C9CF91E91E62500B0BDBA /* UXCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */; };
+		F29C30851EA6070E009BCE73 /* BaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C30841EA6070E009BCE73 /* BaseTabBarController.m */; };
 		F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B071E9254F700049F75 /* TestModelViewController.m */; };
 		F2DE8B121E937A4200049F75 /* UXMutableCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B111E937A4200049F75 /* UXMutableCollectionNodeModel.m */; };
 		F2DE8B181E9380C600049F75 /* UXCellCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B171E9380C600049F75 /* UXCellCatalog.m */; };
@@ -351,31 +333,6 @@
 		40623F072664529076992372 /* Pods-MessengerUXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXTests/Pods-MessengerUXTests.debug.xcconfig"; sourceTree = "<group>"; };
 		617295AF6F9D7B2C09E7FE92 /* Pods-MessengerUXUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXUITests/Pods-MessengerUXUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		67BEA9B58FA2AEBB90890541 /* Pods-MessengerUX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUX.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUX/Pods-MessengerUX.release.xcconfig"; sourceTree = "<group>"; };
-		8A6B9DF71E72ADF9002ACB87 /* CustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarViewController.h; sourceTree = "<group>"; };
-		8A6B9DF81E72ADF9002ACB87 /* CustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarViewController.m; sourceTree = "<group>"; };
-		8A6B9DFB1E7639F0002ACB87 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		8A6B9DFC1E7639F0002ACB87 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		8A6B9DFE1E763BFC002ACB87 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
-		8A6B9E011E763D31002ACB87 /* Call.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Call.storyboard; sourceTree = "<group>"; };
-		8A6B9E031E763D7F002ACB87 /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
-		8A6B9E041E763D7F002ACB87 /* CallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
-		8A6B9E071E763EBB002ACB87 /* GroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupViewController.h; sourceTree = "<group>"; };
-		8A6B9E081E763EBB002ACB87 /* GroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupViewController.m; sourceTree = "<group>"; };
-		8A6B9E0A1E763EF8002ACB87 /* Group.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Group.storyboard; sourceTree = "<group>"; };
-		8A6B9E0D1E763F3B002ACB87 /* PeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleViewController.h; sourceTree = "<group>"; };
-		8A6B9E0E1E763F3B002ACB87 /* PeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeopleViewController.m; sourceTree = "<group>"; };
-		8A6B9E101E763F62002ACB87 /* People.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = People.storyboard; sourceTree = "<group>"; };
-		8A6B9E121E763FE8002ACB87 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
-		8A6B9E131E763FE8002ACB87 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
-		8A6B9E151E764014002ACB87 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
-		8A6B9E1E1E77D01F002ACB87 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
-		8A6B9E1F1E77D01F002ACB87 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
-		8A6B9E211E77D04D002ACB87 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
-		8A6B9E221E77D04D002ACB87 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
-		8A6B9E271E77F976002ACB87 /* CallCellObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallCellObject.h; sourceTree = "<group>"; };
-		8A6B9E281E77F976002ACB87 /* CallCellObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallCellObject.m; sourceTree = "<group>"; };
-		8A6B9E2A1E77FA87002ACB87 /* CallTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallTableViewCell.h; sourceTree = "<group>"; };
-		8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallTableViewCell.m; sourceTree = "<group>"; };
 		94CB8C5E1E82D785000C64EF /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		94CB8C5F1E82D785000C64EF /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		A187AEB0D64309D2C2012FA0 /* Pods-MessengerUXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerUXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessengerUXTests/Pods-MessengerUXTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -647,10 +604,6 @@
 		F20C82AC1E6D0B9B006D3594 /* MessengerUXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessengerUXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20C82B01E6D0B9B006D3594 /* MessengerUXUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessengerUXUITests.m; sourceTree = "<group>"; };
 		F20C82B21E6D0B9B006D3594 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F20C82DE1E70F478006D3594 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		F20C82DF1E70F478006D3594 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		F20C82E31E70F4E0006D3594 /* BaseTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTabViewController.h; sourceTree = "<group>"; };
-		F20C82E41E70F4E0006D3594 /* BaseTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTabViewController.m; sourceTree = "<group>"; };
 		F20C82EE1E710C05006D3594 /* SwipeGestureReconizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeGestureReconizer.h; sourceTree = "<group>"; };
 		F20C82EF1E710C05006D3594 /* SwipeGestureReconizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeGestureReconizer.m; sourceTree = "<group>"; };
 		F2134ED81E7932E3005F8B10 /* ScrollTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollTransitionAnimator.h; sourceTree = "<group>"; };
@@ -664,10 +617,6 @@
 		F2134EE31E7932F4005F8B10 /* SwipeInteractiveActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeInteractiveActions.m; sourceTree = "<group>"; };
 		F2134EE41E7932F4005F8B10 /* SwipeInterativeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeInterativeObject.h; sourceTree = "<group>"; };
 		F2134EE51E7932F4005F8B10 /* SwipeInterativeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeInterativeObject.m; sourceTree = "<group>"; };
-		F2134EE91E79332D005F8B10 /* DrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawViewController.h; sourceTree = "<group>"; };
-		F2134EEA1E79332D005F8B10 /* DrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawViewController.m; sourceTree = "<group>"; };
-		F2134EED1E793343005F8B10 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
-		F2134EEE1E793343005F8B10 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		F2134EF11E7936C9005F8B10 /* UIView+AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoLayout.h"; sourceTree = "<group>"; };
 		F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
 		F2134EF51E79546E005F8B10 /* ScrollViewInteractiveActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewInteractiveActions.h; sourceTree = "<group>"; };
@@ -716,6 +665,8 @@
 		F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCellFactory.m; sourceTree = "<group>"; };
 		F28C9CF71E91E62500B0BDBA /* UXCollectionNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXCollectionNodeModel.h; sourceTree = "<group>"; };
 		F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCollectionNodeModel.m; sourceTree = "<group>"; };
+		F29C30831EA6070E009BCE73 /* BaseTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTabBarController.h; sourceTree = "<group>"; };
+		F29C30841EA6070E009BCE73 /* BaseTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTabBarController.m; sourceTree = "<group>"; };
 		F2DE8B041E92549200049F75 /* UXNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXNodeModel.h; sourceTree = "<group>"; };
 		F2DE8B061E9254F700049F75 /* TestModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModelViewController.h; sourceTree = "<group>"; };
 		F2DE8B071E9254F700049F75 /* TestModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModelViewController.m; sourceTree = "<group>"; };
@@ -807,79 +758,6 @@
 				E967DB07BBEC456F3C206B8A /* libPods-MessengerUXUITests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8A6B9DF61E72ADD6002ACB87 /* CustomTabBarViewController */ = {
-			isa = PBXGroup;
-			children = (
-				8A6B9DF71E72ADF9002ACB87 /* CustomTabBarViewController.h */,
-				8A6B9DF81E72ADF9002ACB87 /* CustomTabBarViewController.m */,
-			);
-			name = CustomTabBarViewController;
-			sourceTree = "<group>";
-		};
-		8A6B9DFA1E7639DF002ACB87 /* HomeViewController */ = {
-			isa = PBXGroup;
-			children = (
-				8A6B9DFB1E7639F0002ACB87 /* HomeViewController.h */,
-				8A6B9DFC1E7639F0002ACB87 /* HomeViewController.m */,
-				8A6B9DFE1E763BFC002ACB87 /* Home.storyboard */,
-			);
-			name = HomeViewController;
-			sourceTree = "<group>";
-		};
-		8A6B9E001E763D1D002ACB87 /* CallViewController */ = {
-			isa = PBXGroup;
-			children = (
-				8A6B9E261E77F946002ACB87 /* Cell */,
-				8A6B9E011E763D31002ACB87 /* Call.storyboard */,
-				8A6B9E031E763D7F002ACB87 /* CallViewController.h */,
-				8A6B9E041E763D7F002ACB87 /* CallViewController.m */,
-			);
-			name = CallViewController;
-			sourceTree = "<group>";
-		};
-		8A6B9E061E763EA6002ACB87 /* GroupViewController */ = {
-			isa = PBXGroup;
-			children = (
-				8A6B9E1D1E77CE0B002ACB87 /* Cell */,
-				8A6B9E071E763EBB002ACB87 /* GroupViewController.h */,
-				8A6B9E081E763EBB002ACB87 /* GroupViewController.m */,
-				8A6B9E0A1E763EF8002ACB87 /* Group.storyboard */,
-			);
-			name = GroupViewController;
-			sourceTree = "<group>";
-		};
-		8A6B9E0C1E763F2A002ACB87 /* PeopleViewController */ = {
-			isa = PBXGroup;
-			children = (
-				8A6B9E0D1E763F3B002ACB87 /* PeopleViewController.h */,
-				8A6B9E0E1E763F3B002ACB87 /* PeopleViewController.m */,
-				8A6B9E101E763F62002ACB87 /* People.storyboard */,
-			);
-			name = PeopleViewController;
-			sourceTree = "<group>";
-		};
-		8A6B9E1D1E77CE0B002ACB87 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				8A6B9E1E1E77D01F002ACB87 /* Group.h */,
-				8A6B9E1F1E77D01F002ACB87 /* Group.m */,
-				8A6B9E211E77D04D002ACB87 /* GroupCell.h */,
-				8A6B9E221E77D04D002ACB87 /* GroupCell.m */,
-			);
-			name = Cell;
-			sourceTree = "<group>";
-		};
-		8A6B9E261E77F946002ACB87 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				8A6B9E271E77F976002ACB87 /* CallCellObject.h */,
-				8A6B9E281E77F976002ACB87 /* CallCellObject.m */,
-				8A6B9E2A1E77FA87002ACB87 /* CallTableViewCell.h */,
-				8A6B9E2B1E77FA87002ACB87 /* CallTableViewCell.m */,
-			);
-			name = Cell;
 			sourceTree = "<group>";
 		};
 		94CB8C5D1E82D748000C64EF /* ConversationViewController */ = {
@@ -1191,8 +1069,6 @@
 				F20C82E11E70F49F006D3594 /* ViewController */,
 				F20C828E1E6D0B9B006D3594 /* AppDelegate.h */,
 				F20C828F1E6D0B9B006D3594 /* AppDelegate.m */,
-				F20C82DE1E70F478006D3594 /* MainViewController.h */,
-				F20C82DF1E70F478006D3594 /* MainViewController.m */,
 				F20C82941E6D0B9B006D3594 /* Main.storyboard */,
 				F20C82971E6D0B9B006D3594 /* Assets.xcassets */,
 				F20C82991E6D0B9B006D3594 /* LaunchScreen.storyboard */,
@@ -1233,36 +1109,10 @@
 			children = (
 				F2DE8B051E9254DD00049F75 /* TestModelViewController */,
 				94CB8C5D1E82D748000C64EF /* ConversationViewController */,
-				F2134EEC1E793334005F8B10 /* GalleryViewController */,
-				F2134EE81E79331B005F8B10 /* DrawViewController */,
-				F20C82E61E70F7BD006D3594 /* CameraViewController */,
-				8A6B9DFA1E7639DF002ACB87 /* HomeViewController */,
-				8A6B9E001E763D1D002ACB87 /* CallViewController */,
-				8A6B9E061E763EA6002ACB87 /* GroupViewController */,
-				8A6B9E0C1E763F2A002ACB87 /* PeopleViewController */,
-				8A6B9DF61E72ADD6002ACB87 /* CustomTabBarViewController */,
-				F20C82E21E70F4AE006D3594 /* Base */,
+				F29C30831EA6070E009BCE73 /* BaseTabBarController.h */,
+				F29C30841EA6070E009BCE73 /* BaseTabBarController.m */,
 			);
 			name = ViewController;
-			sourceTree = "<group>";
-		};
-		F20C82E21E70F4AE006D3594 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				F20C82E31E70F4E0006D3594 /* BaseTabViewController.h */,
-				F20C82E41E70F4E0006D3594 /* BaseTabViewController.m */,
-			);
-			name = Base;
-			sourceTree = "<group>";
-		};
-		F20C82E61E70F7BD006D3594 /* CameraViewController */ = {
-			isa = PBXGroup;
-			children = (
-				8A6B9E121E763FE8002ACB87 /* CameraViewController.h */,
-				8A6B9E131E763FE8002ACB87 /* CameraViewController.m */,
-				8A6B9E151E764014002ACB87 /* Camera.storyboard */,
-			);
-			name = CameraViewController;
 			sourceTree = "<group>";
 		};
 		F20C82ED1E710BB0006D3594 /* InterativeTranslation */ = {
@@ -1292,24 +1142,6 @@
 				F2134EDD1E7932E3005F8B10 /* TransitionAnimator.m */,
 			);
 			name = Animator;
-			sourceTree = "<group>";
-		};
-		F2134EE81E79331B005F8B10 /* DrawViewController */ = {
-			isa = PBXGroup;
-			children = (
-				F2134EE91E79332D005F8B10 /* DrawViewController.h */,
-				F2134EEA1E79332D005F8B10 /* DrawViewController.m */,
-			);
-			name = DrawViewController;
-			sourceTree = "<group>";
-		};
-		F2134EEC1E793334005F8B10 /* GalleryViewController */ = {
-			isa = PBXGroup;
-			children = (
-				F2134EED1E793343005F8B10 /* GalleryViewController.h */,
-				F2134EEE1E793343005F8B10 /* GalleryViewController.m */,
-			);
-			name = GalleryViewController;
 			sourceTree = "<group>";
 		};
 		F2134EF01E7936C0005F8B10 /* Utils */ = {
@@ -1627,7 +1459,6 @@
 				F205186D1E9DCF3100822706 /* 20@3x.png in Resources */,
 				F20518491E9DCF3100822706 /* 1.png in Resources */,
 				F20518CD1E9DCF3100822706 /* 5.png in Resources */,
-				8A6B9E0B1E763EF8002ACB87 /* Group.storyboard in Resources */,
 				F20518771E9DCF3100822706 /* 24.png in Resources */,
 				F20519171E9DCF3200822706 /* 72@2x.png in Resources */,
 				F20518BB1E9DCF3100822706 /* 44@3x.png in Resources */,
@@ -1674,7 +1505,6 @@
 				F20518EA1E9DCF3100822706 /* 59@2x.png in Resources */,
 				F2134F1C1E823BC4005F8B10 /* supreme.README.v1.01.txt in Resources */,
 				F20518D51E9DCF3100822706 /* 52@2x.png in Resources */,
-				8A6B9E161E764014002ACB87 /* Camera.storyboard in Resources */,
 				F20518ED1E9DCF3100822706 /* 5@3x.png in Resources */,
 				F20C829B1E6D0B9B006D3594 /* LaunchScreen.storyboard in Resources */,
 				F205185A1E9DCF3100822706 /* 15@2x.png in Resources */,
@@ -1720,7 +1550,6 @@
 				F205191F1E9DCF3200822706 /* 75.png in Resources */,
 				F20519211E9DCF3200822706 /* 75@3x.png in Resources */,
 				F20518E81E9DCF3100822706 /* 58@3x.png in Resources */,
-				8A6B9E021E763D31002ACB87 /* Call.storyboard in Resources */,
 				F20518C91E9DCF3100822706 /* 49@2x.png in Resources */,
 				F20518F91E9DCF3100822706 /* 63@2x.png in Resources */,
 				F205189F1E9DCF3100822706 /* 36@2x.png in Resources */,
@@ -1822,12 +1651,10 @@
 				F20518B71E9DCF3100822706 /* 43@2x.png in Resources */,
 				F20518951E9DCF3100822706 /* 33.png in Resources */,
 				F20C82961E6D0B9B006D3594 /* Main.storyboard in Resources */,
-				8A6B9E111E763F62002ACB87 /* People.storyboard in Resources */,
 				F20519311E9DCF3200822706 /* 9@2x.png in Resources */,
 				F20519061E9DCF3200822706 /* 67@3x.png in Resources */,
 				F20518DE1E9DCF3100822706 /* 55@2x.png in Resources */,
 				F20518F41E9DCF3100822706 /* 61@3x.png in Resources */,
-				8A6B9DFF1E763BFC002ACB87 /* Home.storyboard in Resources */,
 				F20518571E9DCF3100822706 /* 14@2x.png in Resources */,
 				F20518C71E9DCF3100822706 /* 48@3x.png in Resources */,
 				F205190C1E9DCF3200822706 /* 69@3x.png in Resources */,
@@ -2016,37 +1843,30 @@
 				F2DE8B401E9C8C2C00049F75 /* UXRoundedShadowBackgroundStyle.m in Sources */,
 				F205193A1E9F170900822706 /* UXAttributeMessage.m in Sources */,
 				F2DE8B461E9C953600049F75 /* UXLocationMessageCell.m in Sources */,
-				8A6B9E231E77D04D002ACB87 /* GroupCell.m in Sources */,
 				F2134EF31E7936C9005F8B10 /* UIView+AutoLayout.m in Sources */,
 				F20518481E9DCF3100822706 /* NSString+Extend.m in Sources */,
 				F2DE8B251E93969900049F75 /* TestTableModelViewController.m in Sources */,
 				F2134EFD1E82387C005F8B10 /* UXTextMessage.m in Sources */,
 				F2DE8B2E1E93AF3200049F75 /* UXAlbumMessage.m in Sources */,
-				8A6B9E051E763D7F002ACB87 /* CallViewController.m in Sources */,
 				F2134F271E88C999005F8B10 /* UXRoundedBackgroundStyle.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
 				F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */,
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
-				8A6B9E2C1E77FA87002ACB87 /* CallTableViewCell.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
 				F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */,
 				F2134F031E82393C005F8B10 /* UXOwner.m in Sources */,
 				94CB8C601E82D785000C64EF /* ConversationViewController.m in Sources */,
-				F20C82E01E70F478006D3594 /* MainViewController.m in Sources */,
 				F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */,
 				F250BDFC1E9F65230067C1F3 /* RRFPSBar.m in Sources */,
 				F20518451E9DCF3100822706 /* NIHTMLParser.mm in Sources */,
 				F20519341E9DCF3200822706 /* UIImage+Extend.m in Sources */,
 				F2DE8B371E93B01E00049F75 /* UXLocationMessage.m in Sources */,
 				F2DE8B311E93AF9900049F75 /* UXTitleMessage.m in Sources */,
-				8A6B9DFD1E7639F0002ACB87 /* HomeViewController.m in Sources */,
-				8A6B9DF91E72ADF9002ACB87 /* CustomTabBarViewController.m in Sources */,
 				F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */,
 				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
 				F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */,
 				F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */,
 				F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */,
-				F20C82E51E70F4E0006D3594 /* BaseTabViewController.m in Sources */,
 				F2DE8B211E938A5400049F75 /* UXMutableTableNodeModel.m in Sources */,
 				F205193D1E9F176D00822706 /* UXAttributeMessageCell.m in Sources */,
 				F2DE8B1D1E9382C200049F75 /* UXTableNodeModel.m in Sources */,
@@ -2054,17 +1874,12 @@
 				F2DE8B431E9C8CAF00049F75 /* UXMinimalistCellConfigue.m in Sources */,
 				F2134F2A1E88CA4E005F8B10 /* UXImageBackgroundStyle.m in Sources */,
 				F2DE8B2B1E93AEBF00049F75 /* UXImageMessage.m in Sources */,
-				8A6B9E201E77D01F002ACB87 /* Group.m in Sources */,
 				F2DE8B181E9380C600049F75 /* UXCellCatalog.m in Sources */,
 				F2134F231E88C8AC005F8B10 /* UXMessageBackgroundStyle.m in Sources */,
-				8A6B9E141E763FE8002ACB87 /* CameraViewController.m in Sources */,
-				8A6B9E0F1E763F3B002ACB87 /* PeopleViewController.m in Sources */,
-				F2134EEF1E793343005F8B10 /* GalleryViewController.m in Sources */,
-				8A6B9E291E77F976002ACB87 /* CallCellObject.m in Sources */,
 				F250BDF61E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m in Sources */,
+				F29C30851EA6070E009BCE73 /* BaseTabBarController.m in Sources */,
 				F2DE8B341E93AFC600049F75 /* UXVideoMessage.m in Sources */,
 				F2134EDE1E7932E3005F8B10 /* ScrollTransitionAnimator.m in Sources */,
-				8A6B9E091E763EBB002ACB87 /* GroupViewController.m in Sources */,
 				F2DE8B121E937A4200049F75 /* UXMutableCollectionNodeModel.m in Sources */,
 				F2134F341E88CEC3005F8B10 /* UXIMessageCellConfigure.m in Sources */,
 				F2134F2E1E88CAD2005F8B10 /* UXMessageCellConfigure.m in Sources */,
@@ -2080,7 +1895,6 @@
 				F2DE8B281E93AE0200049F75 /* UXMessage.m in Sources */,
 				F2DE8B3D1E9B31D500049F75 /* UXVideoMessageCell.m in Sources */,
 				F250BDFB1E9F65230067C1F3 /* JPFPSStatus.m in Sources */,
-				F2134EEB1E79332D005F8B10 /* DrawViewController.m in Sources */,
 				F2134EE01E7932E3005F8B10 /* TransitionAnimator.m in Sources */,
 				F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */,
 			);

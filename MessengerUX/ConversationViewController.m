@@ -16,8 +16,6 @@
 
 #import "UXConversationFeed.h"
 
-#import "JPFPSStatus.h"
-
 static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 
@@ -44,17 +42,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     self = [super init];
     if (self) {
         
-        [self initModel];
         
-        [UXMessageCellConfigure setGlobalConfigure:[[UXMessagerCellConfigure alloc] init]];
-        
-        ASTableNode * tableNode = [[ASTableNode alloc] initWithStyle:UITableViewStylePlain];
-        self.tableNode = tableNode;
-        self.tableNode.delegate = self;
-        self.tableNode.dataSource = self.models;
-        self.tableNode.inverted = YES;
-        
-        self.stillNeedStressTest = NO;
     }
     return self;
 }
@@ -62,16 +50,11 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
-    
-    [[JPFPSStatus sharedInstance] open];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.stillNeedStressTest = NO;
-    
-    [[JPFPSStatus sharedInstance] close];
 }
 
 - (void)initModel {
@@ -86,6 +69,18 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     self.navigationItem.title = @"Chat";
     self.automaticallyAdjustsScrollViewInsets = YES;
+    
+    [self initModel];
+    
+    [UXMessageCellConfigure setGlobalConfigure:[[UXMessagerCellConfigure alloc] init]];
+    
+    ASTableNode * tableNode = [[ASTableNode alloc] initWithStyle:UITableViewStylePlain];
+    self.tableNode = tableNode;
+    self.tableNode.delegate = self;
+    self.tableNode.dataSource = self.models;
+    self.tableNode.inverted = YES;
+    
+    self.stillNeedStressTest = NO;
     
     // init view
     
@@ -155,12 +150,12 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
-    self.navigationItem.leftBarButtonItem = backButton;
+//    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
+//    self.navigationItem.leftBarButtonItem = backButton;
     
-    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(onPressEdit)];
+//    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(onPressEdit)];
     UIBarButtonItem * stressTest = [[UIBarButtonItem alloc] initWithTitle:@"Stress" style:UIBarButtonItemStylePlain target:self action:@selector(updateNode)];
-    self.navigationItem.rightBarButtonItems = @[editButton, stressTest];
+    self.navigationItem.rightBarButtonItems = @[stressTest];
 }
 
 - (void)onPressBack {

@@ -7,9 +7,9 @@ target 'MessengerUX' do
 
   # Pods for MessengerUX
 
-  pod 'Nimbus', '~> 1.3'
+  pod 'AFNetworking', '~> 3.0'
   pod 'pop', :git => 'https://github.com/facebook/pop.git'
-  pod "AsyncDisplayKit"
+  pod 'AsyncDisplayKit'
   pod 'LoremIpsum'
 
   target 'MessengerUXTests' do

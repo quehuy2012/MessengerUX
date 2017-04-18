@@ -12,8 +12,6 @@
 
 #import "UXMessageTimeLine.h"
 
-#import "JPFPSStatus.h"
-
 static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 @interface UXMessageViewController () <ASCollectionDelegate, ASCollectionDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
@@ -39,18 +37,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     self = [super init];
     if (self) {
-        [self initModel];
-        
-        [UXMessageCellConfigure setGlobalConfigure:[[UXIMessageCellConfigure alloc] init]];
-        
-        self.collectionLayout = [[UICollectionViewFlowLayout alloc] init];
-        self.collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:self.collectionLayout];
-        self.collectionNode.delegate = self;
-        self.collectionNode.dataSource = self.models;
-        self.collectionNode.inverted = YES;
-        [self.collectionLayout invalidateLayout];
-        
-        self.stillNeedStressTest = NO;
+       
         
     }
     return self;
@@ -59,16 +46,11 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
-    
-    [[JPFPSStatus sharedInstance] open];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     self.stillNeedStressTest = NO;
-    
-    [[JPFPSStatus sharedInstance] close];
 }
 
 - (void)initModel {
@@ -83,6 +65,19 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     self.navigationItem.title = @"Chat";
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self initModel];
+    
+    [UXMessageCellConfigure setGlobalConfigure:[[UXIMessageCellConfigure alloc] init]];
+    
+    self.collectionLayout = [[UICollectionViewFlowLayout alloc] init];
+    self.collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:self.collectionLayout];
+    self.collectionNode.delegate = self;
+    self.collectionNode.dataSource = self.models;
+    self.collectionNode.inverted = YES;
+    [self.collectionLayout invalidateLayout];
+    
+    self.stillNeedStressTest = NO;
     
     self.dataFeed = [[UXConversationFeed alloc] init];
     
@@ -152,8 +147,8 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
-    self.navigationItem.leftBarButtonItem = backButton;
+//    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
+//    self.navigationItem.leftBarButtonItem = backButton;
     
     UIBarButtonItem * stressTest = [[UIBarButtonItem alloc] initWithTitle:@"Stress" style:UIBarButtonItemStylePlain target:self action:@selector(updateNode)];
     self.navigationItem.rightBarButtonItem = stressTest;
