@@ -33,8 +33,6 @@
         self.nodePerRow = 3;
         self.spaceBetweenNode = 4;
         self.albumNodes = [@[] mutableCopy];
-        
-        self.placeholderEnabled = NO;
     }
     
     return self;
@@ -55,7 +53,6 @@
                 ASImageNode * imageNode = [[ASImageNode alloc] init];
                 imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
                 imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
-                imageNode.placeholderEnabled = NO;
                 imageNode.clipsToBounds = YES;
                 imageNode.layerBacked = YES;
                 imageNode.cornerRadius = 8;
@@ -75,7 +72,6 @@
                 ASNetworkImageNode * imageNode = [[ASNetworkImageNode alloc] init];
                 imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
                 imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
-                imageNode.placeholderEnabled = NO;
                 imageNode.clipsToBounds = YES;
                 imageNode.layerBacked = YES;
                 imageNode.cornerRadius = 8;
@@ -83,9 +79,6 @@
                 [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
                 [self addSubnode:imageNode];
                 [self.albumNodes addObject:imageNode];
-                
-//                imageNode.shouldCacheImage = NO;
-//                imageNode.shouldRenderProgressImages = NO;
             }
         }
         
@@ -239,17 +232,11 @@
 - (void)clearContents {
     [super clearContents];
     
-    self.albumDatas = nil;
-    
     for (ASDisplayNode * imgNode in self.albumNodes) {
         [imgNode clearContents];
         imgNode.layer.contents = nil;
-        imgNode.contents = nil;
     }
     
-    self.contents = nil;
-    
-    self.layer.contents = nil;
 }
 
 @end

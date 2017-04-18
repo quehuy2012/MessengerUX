@@ -14,8 +14,6 @@
 
 #import "JPFPSStatus.h"
 
-#import <PINCache+PINRemoteImageCaching.h>
-
 static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 @interface UXMessageViewController () <ASCollectionDelegate, ASCollectionDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
@@ -71,7 +69,6 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     self.stillNeedStressTest = NO;
     
     [[JPFPSStatus sharedInstance] close];
-    
 }
 
 - (void)initModel {
@@ -387,19 +384,5 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     NSLog(@"Album image clicked %@", imageNode);
 }
 
-#pragma mark - Memory monitor
-
-- (void)dealloc {
-    NSLog(@"Dealloc View Controller");
-    
-    PINCache * cachee = [PINCache sharedCache];
-    PINMemoryCache * memCache = cachee.memoryCache;
-    [cachee removeAllObjects];
-    [memCache removeAllObjects];
-    
-    id<PINRemoteImageCaching> cache = [[[ASPINRemoteImageDownloader sharedDownloader] sharedPINRemoteImageManager] cache];
-    [cache removeAllObjects];
-    
-}
 
 @end

@@ -227,14 +227,6 @@
     return result;
 }
 
-- (void)dealloc {
-    
-    NSLog(@"Dealloc model");
-    
-    self.sections = nil;
-    self.sectionIndexTitles = nil;
-    self.sectionPrefixToSectionIndex = nil;
-}
 
 @end
 

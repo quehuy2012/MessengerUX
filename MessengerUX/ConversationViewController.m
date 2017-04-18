@@ -16,8 +16,6 @@
 
 #import "UXConversationFeed.h"
 
-#import <PINCache+PINRemoteImageCaching.h>
-
 #import "JPFPSStatus.h"
 
 static const NSTimeInterval kCellLongPressInterval = 0.7;
@@ -414,15 +412,6 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 - (void)dealloc {
     NSLog(@"Dealloc View Controller");
-    
-    PINCache * cachee = [PINCache sharedCache];
-    PINMemoryCache * memCache = cachee.memoryCache;
-    [cachee removeAllObjects];
-    [memCache removeAllObjects];
-    
-    id<PINRemoteImageCaching> cache = [[[ASPINRemoteImageDownloader sharedDownloader] sharedPINRemoteImageManager] cache];
-    [cache removeAllObjects];
-    
 }
 
 @end

@@ -66,7 +66,7 @@
         NSString * datasetContent = [NSString stringWithContentsOfFile:dataset encoding:NSUTF8StringEncoding error:&error];
         
         // Simulate network delay when fetching data
-//        [NSThread sleepForTimeInterval:1];
+        [NSThread sleepForTimeInterval:1];
         
         if (error) {
             // Just print out
@@ -85,30 +85,14 @@
                     if (i % 10 == 0) {
                 
                         NSArray * imgs = @[];
-                    
-                        static UIImage * img1;
-                        static UIImage * img2;
-                        static UIImage * img3;
-                        static UIImage * img4;
-                        static UIImage * img5;
-                    
-                        static dispatch_once_t onceToken;
-                        dispatch_once(&onceToken, ^{
-                            img1 = [UIImage imageNamed:@"groupImage"];
-                            img2 = img1;
-                            img3 = img1;
-                            img4 = img1;
-                            img5 = img1;
-                        });
-                    
-                    
+                        
                         if (i % 4 == 0) {
                             
-//                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
-//                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
-//                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
-//                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
-//                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
+                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
                             
                             imgs = @[img1, img2, img3
                                      , img4, img5, img2
@@ -116,9 +100,17 @@
                             
                         } else if (i % 3 == 0){
                             
+                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            
                             imgs = @[img1];
                             
                         } else if (i % 5 == 0) {
+                            
+                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
                             
                             imgs = @[img1, img2, img3
                                      , img4, img5, img2
@@ -130,6 +122,12 @@
                                      , img3, img4, img5
                                      , img2];
                         } else {
+                        
+                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
                             
                             imgs = @[img1, img2, img3
                                      , img4, img5, img2
@@ -170,28 +168,7 @@
                                                                     date:[NSDate timeIntervalSinceReferenceDate]
                                                                isComming:(i % 3 == 0)
                                                                    owner:messageT.owner];
-                    
-//                    NSArray * urls = @[[NSURL URLWithString:@"https://petapixel.com/assets/uploads/2012/02/sample1_mini.jpg"]
-//                                       , [NSURL URLWithString:@"http://www.brooks.com/applications-by-industry/life-science/~/media/Images/Life%20Sciences/biological_sample_460w.jpg"]
-//                                       , [NSURL URLWithString:@"https://www.nature.org/cs/groups/webcontent/@web/@giftplanning/documents/media/sample-cga-rates-splash-1.jpg"]
-//                                       , [NSURL URLWithString:@"http://truesample.com/wp-content/themes/truesample/img/icon-Respondent020716v2.png"]
-//                                       , [NSURL URLWithString:@"https://petapixel.com/assets/uploads/2012/02/sample1_mini.jpg"]
-//                                       , [NSURL URLWithString:@"http://cdn-jpg.allyou.com/sites/default/files/image/2014/01/300x300/i/2010/09/freesample-m.jpg"]
-//                                       , [NSURL URLWithString:@"https://petapixel.com/assets/uploads/2012/02/sample1_mini.jpg"]
-//                                       , [NSURL URLWithString:@"http://www.naceweb.org/uploadedImages/images/2017/feature/sample-faculty-reference-letter.jpgg"]
-//                                       , [NSURL URLWithString:@"https://fthmb.tqn.com/eg-jRwCZaVYY6FGjr4r0qeyCt2I=/400x250/filters:no_upscale()/about/GettyImages-161545902-58ee47233df78cd3fc20cf31.jpg"]
-//                                       , [NSURL URLWithString:@"https://petapixel.com/assets/uploads/2012/02/sample1_mini.jpg"]
-//                                       , [NSURL URLWithString:@"https://www.surreynanosystems.com/assets/media/sample-foil_Medium%20Image.jpg"]
-//                                       , [NSURL URLWithString:@"https://petapixel.com/assets/uploads/2012/02/sample1_mini.jpg"]
-//                                       , [NSURL URLWithString:@"https://cdn5.kicksonfire.com/wp-content/uploads/2017/04/KAWS-Air-Jordan-4-Black-Suede-Sample-681x443.jpg?x77385"]
-//                                       , [NSURL URLWithString:@"https://cdn0.vox-cdn.com/thumbor/4OG6sHIuiqNPbyKazJl7rKJBnBc=/0x0:2000x1145/1200x800/filters:focal(840x413:1160x733)/cdn0.vox-cdn.com/uploads/chorus_image/image/53585733/racked-sample-sales.0.0.jpg"]];
-//                    
-//                    
-//                    message = [[UXAlbumMessage alloc] initWithImageURLs:urls
-//                                                                date:[NSDate timeIntervalSinceReferenceDate]
-//                                                           isComming:(i % 3 == 0)
-//                                                               owner:messageT.owner];
-                    
+                
                     } else if (i % 9 == 0) {
                 
                         message = [[UXTitleMessage alloc] initWithTitle:@"Section"];
@@ -253,16 +230,12 @@
 //                                                                   owner:messageT.owner];
                         
                     }
-                
+                    
                     if (message) {
                         [ret addObject:message];
                     }
                 }
             }
-            
-            dataset = nil;
-            lineByLineContents = nil;
-            datasetContent = nil;
         }
     });
     
@@ -276,6 +249,8 @@
         NSUInteger toIndex = fromIndex + datas.count - 1;
         
         [self.dataArray addObjectsFromArray:datas];
+        
+        //NSLog(@"Current size %f", [self currentSizeOfData]);
         
         if (completion) {
             completion(fromIndex, toIndex);
@@ -326,11 +301,14 @@
     }
 }
 
-- (void)dealloc {
+- (double) currentSizeOfData {
+    double ret = sizeof(self.dataArray) / 1024.0;
     
-    NSLog(@"Dealloc feed");
+    for (id item in self.dataArray) {
+        ret += sizeof(item) / 1024.0;
+    }
     
-    if (self.dataArray) [self.dataArray removeAllObjects];
+    return ret;
 }
 
 @end
