@@ -20,10 +20,10 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AsyncDisplayKit (2.2):
-    - AsyncDisplayKit/PINRemoteImage (= 2.2)
-  - AsyncDisplayKit/Core (2.2)
-  - AsyncDisplayKit/PINRemoteImage (2.2):
+  - AsyncDisplayKit (2.2.1):
+    - AsyncDisplayKit/PINRemoteImage (= 2.2.1)
+  - AsyncDisplayKit/Core (2.2.1)
+  - AsyncDisplayKit/PINRemoteImage (2.2.1):
     - AsyncDisplayKit/Core
     - PINRemoteImage/iOS (= 3.0.0-beta.8)
     - PINRemoteImage/PINCache
@@ -112,7 +112,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  AsyncDisplayKit: 1585f6cd0531ae9b30476f5912f577b73ebcb0e4
+  AsyncDisplayKit: 2234dd8d8770a5ed72936b3f8394bd5a807765f6
   LoremIpsum: 9029c55d36501b2ee0b05cc9ecda11d3a0479160
   Nimbus: e7f33bc6d6cb4fe5ea0aee0c7e0883696123422c
   PINCache: a89c8f609232afac77128557bd12c861844423d7

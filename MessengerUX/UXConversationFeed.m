@@ -66,7 +66,7 @@
         NSString * datasetContent = [NSString stringWithContentsOfFile:dataset encoding:NSUTF8StringEncoding error:&error];
         
         // Simulate network delay when fetching data
-        [NSThread sleepForTimeInterval:1];
+//        [NSThread sleepForTimeInterval:1];
         
         if (error) {
             // Just print out

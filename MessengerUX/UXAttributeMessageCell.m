@@ -48,7 +48,7 @@
         NIHTMLParser * htmlParser = [[NIHTMLParser alloc] initWithString:textMessage.content parseEmoticon:YES];
         [htmlParser setDefaultTextColor:textColor];
         [htmlParser setFontText:[UIFont systemFontOfSize:self.configure.contentTextSize]];
-        [htmlParser setLinkFont:[UIFont systemFontOfSize:self.configure.contentTextSize + 8]];
+        [htmlParser setLinkFont:[UIFont systemFontOfSize:self.configure.contentTextSize]];
         
         self.messageNode.htmlParser = htmlParser;
         [self.messageNode setLinkHighlightColor:[UIColor colorWithWhite:0 alpha:0.2]];
