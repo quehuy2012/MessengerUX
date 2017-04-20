@@ -292,6 +292,9 @@
 		F28C9CF61E91E59600B0BDBA /* UXCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF51E91E59600B0BDBA /* UXCellFactory.m */; };
 		F28C9CF91E91E62500B0BDBA /* UXCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */; };
 		F29C30851EA6070E009BCE73 /* BaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C30841EA6070E009BCE73 /* BaseTabBarController.m */; };
+		F29C308C1EA702AF009BCE73 /* UXImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C308B1EA702AF009BCE73 /* UXImageDownloader.m */; };
+		F29C308F1EA70391009BCE73 /* UXImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C308E1EA70391009BCE73 /* UXImageCache.m */; };
+		F29C30921EA719F2009BCE73 /* UXNetworkImageNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C30911EA719F2009BCE73 /* UXNetworkImageNode.m */; };
 		F2DE8B081E9254F700049F75 /* TestModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B071E9254F700049F75 /* TestModelViewController.m */; };
 		F2DE8B121E937A4200049F75 /* UXMutableCollectionNodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B111E937A4200049F75 /* UXMutableCollectionNodeModel.m */; };
 		F2DE8B181E9380C600049F75 /* UXCellCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = F2DE8B171E9380C600049F75 /* UXCellCatalog.m */; };
@@ -667,6 +670,12 @@
 		F28C9CF81E91E62500B0BDBA /* UXCollectionNodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXCollectionNodeModel.m; sourceTree = "<group>"; };
 		F29C30831EA6070E009BCE73 /* BaseTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTabBarController.h; sourceTree = "<group>"; };
 		F29C30841EA6070E009BCE73 /* BaseTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTabBarController.m; sourceTree = "<group>"; };
+		F29C308A1EA702AF009BCE73 /* UXImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXImageDownloader.h; sourceTree = "<group>"; };
+		F29C308B1EA702AF009BCE73 /* UXImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXImageDownloader.m; sourceTree = "<group>"; };
+		F29C308D1EA70391009BCE73 /* UXImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXImageCache.h; sourceTree = "<group>"; };
+		F29C308E1EA70391009BCE73 /* UXImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXImageCache.m; sourceTree = "<group>"; };
+		F29C30901EA719F2009BCE73 /* UXNetworkImageNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXNetworkImageNode.h; sourceTree = "<group>"; };
+		F29C30911EA719F2009BCE73 /* UXNetworkImageNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXNetworkImageNode.m; sourceTree = "<group>"; };
 		F2DE8B041E92549200049F75 /* UXNodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXNodeModel.h; sourceTree = "<group>"; };
 		F2DE8B061E9254F700049F75 /* TestModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModelViewController.h; sourceTree = "<group>"; };
 		F2DE8B071E9254F700049F75 /* TestModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModelViewController.m; sourceTree = "<group>"; };
@@ -1064,6 +1073,7 @@
 				F2134EF01E7936C0005F8B10 /* Utils */,
 				F2134F041E823B9E005F8B10 /* Data */,
 				F2DE8B031E92546F00049F75 /* UXNodeModel */,
+				F29C30861EA70236009BCE73 /* UXNetworkImageNode */,
 				F2134F201E88B570005F8B10 /* UXMessageTimeline */,
 				F20C82ED1E710BB0006D3594 /* InterativeTranslation */,
 				F20C82E11E70F49F006D3594 /* ViewController */,
@@ -1269,6 +1279,19 @@
 				F205193C1E9F176D00822706 /* UXAttributeMessageCell.m */,
 			);
 			name = MessageCell;
+			sourceTree = "<group>";
+		};
+		F29C30861EA70236009BCE73 /* UXNetworkImageNode */ = {
+			isa = PBXGroup;
+			children = (
+				F29C308D1EA70391009BCE73 /* UXImageCache.h */,
+				F29C308E1EA70391009BCE73 /* UXImageCache.m */,
+				F29C308A1EA702AF009BCE73 /* UXImageDownloader.h */,
+				F29C308B1EA702AF009BCE73 /* UXImageDownloader.m */,
+				F29C30901EA719F2009BCE73 /* UXNetworkImageNode.h */,
+				F29C30911EA719F2009BCE73 /* UXNetworkImageNode.m */,
+			);
+			name = UXNetworkImageNode;
 			sourceTree = "<group>";
 		};
 		F2DE8B031E92546F00049F75 /* UXNodeModel */ = {
@@ -1848,6 +1871,7 @@
 				F2DE8B251E93969900049F75 /* TestTableModelViewController.m in Sources */,
 				F2134EFD1E82387C005F8B10 /* UXTextMessage.m in Sources */,
 				F2DE8B2E1E93AF3200049F75 /* UXAlbumMessage.m in Sources */,
+				F29C308C1EA702AF009BCE73 /* UXImageDownloader.m in Sources */,
 				F2134F271E88C999005F8B10 /* UXRoundedBackgroundStyle.m in Sources */,
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
 				F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */,
@@ -1866,6 +1890,7 @@
 				F2134EF71E79546E005F8B10 /* ScrollViewInteractiveActions.m in Sources */,
 				F2134F3E1E88EBF9005F8B10 /* UXTextMessageCell.m in Sources */,
 				F2134F001E8238B4005F8B10 /* UXConversationFeed.m in Sources */,
+				F29C30921EA719F2009BCE73 /* UXNetworkImageNode.m in Sources */,
 				F2134F441E8A033D005F8B10 /* UXTitleMessageCell.m in Sources */,
 				F2DE8B211E938A5400049F75 /* UXMutableTableNodeModel.m in Sources */,
 				F205193D1E9F176D00822706 /* UXAttributeMessageCell.m in Sources */,
@@ -1888,6 +1913,7 @@
 				F28C9CF91E91E62500B0BDBA /* UXCollectionNodeModel.m in Sources */,
 				F28C9CF61E91E59600B0BDBA /* UXCellFactory.m in Sources */,
 				F2134F381E88D1E2005F8B10 /* UXMessageCell.m in Sources */,
+				F29C308F1EA70391009BCE73 /* UXImageCache.m in Sources */,
 				F20C82F01E710C05006D3594 /* SwipeGestureReconizer.m in Sources */,
 				F20519371E9DD04E00822706 /* UXAttributeNode.m in Sources */,
 				F2134F311E88CCA4005F8B10 /* UXMessagerCellConfigure.m in Sources */,

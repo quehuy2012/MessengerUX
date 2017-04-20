@@ -175,14 +175,18 @@
                 
                     } else if (i % 6 == 0) {
                 
-                        message = [[UXImageMessage alloc] initWithImage:[UIImage imageNamed:@"cameraThumb"]
-                                                                   date:[NSDate timeIntervalSinceReferenceDate]
-                                                              isComming:YES
-                                                                  owner:messageT.owner];
+                        NSURL * imageURL = [NSURL URLWithString:@"https://s-media-cache-ak0.pinimg.com/736x/a0/48/e4/a048e44bee7b4fb2e0b8d861eb854de7.jpg"];
+                        
+                        message = [[UXImageMessage alloc] initWithImageURL:imageURL
+                                                                 withRatio:1
+                                                                      date:[NSDate timeIntervalSinceReferenceDate]
+                                                                 isComming:YES
+                                                                     owner:messageT.owner];
                 
                     } else if (i % 17 == 0) {
                         
-                        NSURL * imageURL = [NSURL URLWithString:@"https://media.giphy.com/media/EJIFaXV55556M/giphy.gif"];
+//                        NSURL * imageURL = [NSURL URLWithString:@"https://media.giphy.com/media/EJIFaXV55556M/giphy.gif"];
+                        NSURL * imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
                         
                         message = [[UXImageMessage alloc] initWithImageURL:imageURL
                                                                  withRatio:1

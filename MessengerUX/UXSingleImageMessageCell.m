@@ -14,6 +14,8 @@
 
 #import "UXImageMessage.h"
 
+#import "UXNetworkImageNode.h"
+
 @interface UXSingleImageMessageCell ()
 
 @property (nonatomic) ASDisplayNode * imageContentNode;
@@ -50,20 +52,20 @@
             
             [self addSubnode:self.imageContentNode];
         } else {
-            self.imageContentNode = [[ASNetworkImageNode alloc] init];
-            ((ASNetworkImageNode *)self.imageContentNode).URL = imageMessage.imageURL;
+            self.imageContentNode = [[UXNetworkImageNode alloc] init];
+            ((UXNetworkImageNode *)self.imageContentNode).URL = imageMessage.imageURL;
             
-            [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-            [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-            [((ASNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+            [((UXNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+            [((UXNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+            [((UXNetworkImageNode *)self.imageContentNode) addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
             
             [self addSubnode:self.imageContentNode];
         }
         
         self.imageContentNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
         self.imageDimentionRatio = imageMessage.image != nil ? imageMessage.image.size.height / imageMessage.image.size.width : imageMessage.ratio;
-        self.imageContentNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
-        self.imageContentNode.style.maxHeight = ASDimensionMake(self.configure.maxWidthOfCell*self.imageDimentionRatio);
+        self.imageContentNode.style.width = ASDimensionMake(self.configure.maxWidthOfCell);
+        self.imageContentNode.style.height = ASDimensionMake(self.configure.maxWidthOfCell*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
         self.imageContentNode.layerBacked = YES;
         
