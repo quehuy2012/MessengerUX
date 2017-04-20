@@ -15,6 +15,7 @@
     self = [super initWithCellNodeClass:[UXAlbumMessageCell class] userInfo:nil];
     if (self) {
         self.images = images;
+        self.imageURLs = nil;
         self.time = time;
         self.commingMessage = isComming;
         self.owner = owner;
@@ -26,6 +27,7 @@
 - (instancetype)initWithImageURLs:(NSArray<NSURL *> *)imageURLs date:(NSTimeInterval)time isComming:(BOOL)isComming owner:(UXOwner *)owner {
     self = [super initWithCellNodeClass:[UXAlbumMessageCell class] userInfo:nil];
     if (self) {
+        self.images = nil;
         self.imageURLs = imageURLs;
         self.time = time;
         self.commingMessage = isComming;

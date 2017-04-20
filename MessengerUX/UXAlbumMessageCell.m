@@ -9,6 +9,7 @@
 #import "UXAlbumMessageCell.h"
 #import "UXMessageCellConfigure.h"
 #import "UXAlbumMessage.h"
+#import "UXNetworkImageNode.h"
 
 @interface UXAlbumMessageCell ()
 
@@ -43,7 +44,7 @@
     if ([object isKindOfClass:[UXAlbumMessage class]]) {
         UXAlbumMessage * albumMessage = object;
         
-        if (albumMessage.images) {
+        if (albumMessage.images != nil) {
             self.usingURL = NO;
             self.albumDatas = albumMessage.images;
             
@@ -69,7 +70,7 @@
             [self calculateNumOfRow];
             
             for (NSURL * url in self.albumDatas) {
-                ASNetworkImageNode * imageNode = [[ASNetworkImageNode alloc] init];
+                UXNetworkImageNode * imageNode = [[UXNetworkImageNode alloc] init];
                 imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
                 imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
                 imageNode.clipsToBounds = YES;

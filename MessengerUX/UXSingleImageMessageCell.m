@@ -62,7 +62,9 @@
             [self addSubnode:self.imageContentNode];
         }
         
-        self.imageContentNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
+//        self.imageContentNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
+        self.imageContentNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius;
+        
         self.imageDimentionRatio = imageMessage.image != nil ? imageMessage.image.size.height / imageMessage.image.size.width : imageMessage.ratio;
         self.imageContentNode.style.width = ASDimensionMake(self.configure.maxWidthOfCell);
         self.imageContentNode.style.height = ASDimensionMake(self.configure.maxWidthOfCell*self.imageDimentionRatio);
@@ -75,22 +77,22 @@
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     
-    ASInsetLayoutSpec * imageInset =
-    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(self.imagePadding, self.imagePadding, self.imagePadding, self.imagePadding)
-                                           child:self.imageContentNode];
-    
-    ASBackgroundLayoutSpec * imageWithBackground =
-    [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:imageInset background:self.messageBackgroundNode];
+//    ASInsetLayoutSpec * imageInset =
+//    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(self.imagePadding, self.imagePadding, self.imagePadding, self.imagePadding)
+//                                           child:self.imageContentNode];
+//    
+//    ASBackgroundLayoutSpec * imageWithBackground =
+//    [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:imageInset background:self.messageBackgroundNode];
     
     NSArray * mainChild = nil;
     if (self.showSubFunction) {
         if (self.isIncomming) {
-            mainChild = @[imageWithBackground, self.subFuntionNode];
+            mainChild = @[self.imageContentNode, self.subFuntionNode];
         } else {
-            mainChild = @[self.subFuntionNode, imageWithBackground];
+            mainChild = @[self.subFuntionNode, self.imageContentNode];
         }
     } else {
-        mainChild = @[imageWithBackground];
+        mainChild = @[self.imageContentNode];
     }
     
     ASStackLayoutSpec * mainWithSubFunctionStack =
