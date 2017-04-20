@@ -47,11 +47,11 @@
             </objects>
             <point key="canvasLocation" x="1276" y="589"/>
         </scene>
-        <!--Controller-->
+        <!--Collection-->
         <scene sceneID="Uqe-PA-5IN">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bBu-Uf-j8X" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Controller" image="collectionTab" selectedImage="collectionTab" id="pWD-P8-yU1"/>
+                    <tabBarItem key="tabBarItem" title="Collection" image="collectionTab" selectedImage="collectionTab" id="pWD-P8-yU1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="paj-ci-5vv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
