@@ -182,7 +182,7 @@
     [super clearContents];
     
     [self.imageContentNode clearContents];
-    self.imageContentNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.imageContentNode.layer];
 }
 
 @end

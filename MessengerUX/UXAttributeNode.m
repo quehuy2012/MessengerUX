@@ -51,6 +51,10 @@ static const NSTimeInterval kLongPressTimeInterval = 0.5;
     return textSize;
 }
 
+- (void)clearContents {
+    [super clearContents];
+}
+
 #pragma mark - ASControll subclassing
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

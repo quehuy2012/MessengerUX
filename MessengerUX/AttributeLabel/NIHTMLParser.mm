@@ -274,13 +274,17 @@ static NSString * const OBJECT_REPLACEMENT_CHARACTER = @"\uFFFC";
     self.parseLinkSeeMoreChatMessage = YES;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
--(void)dealloc {
+- (void)clearState {
     if(_savedImageAttachment!=nil) [_savedImageAttachment removeAllObjects];
     if(_detectedlinkLocations!=nil) [_detectedlinkLocations removeAllObjects];
     if(_origins!=nil) [_origins removeAllObjects];
     [self resetTextFrame];
     [self releasePrefixTree];
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+-(void)dealloc {
+    [self clearState];
 }
 
 ///////MinhQ///////

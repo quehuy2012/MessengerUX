@@ -235,7 +235,7 @@
     
     for (ASDisplayNode * imgNode in self.albumNodes) {
         [imgNode clearContents];
-        imgNode.layer.contents = nil;
+        [self clearLayerContentOfLayer:imgNode.layer];
     }
     
 }

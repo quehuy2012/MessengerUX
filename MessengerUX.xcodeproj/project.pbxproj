@@ -1069,10 +1069,10 @@
 		F20C828A1E6D0B9B006D3594 /* MessengerUX */ = {
 			isa = PBXGroup;
 			children = (
-				F205174A1E9DCF2300822706 /* AttributeNode */,
 				F2134EF01E7936C0005F8B10 /* Utils */,
 				F2134F041E823B9E005F8B10 /* Data */,
 				F2DE8B031E92546F00049F75 /* UXNodeModel */,
+				F205174A1E9DCF2300822706 /* AttributeNode */,
 				F29C30861EA70236009BCE73 /* UXNetworkImageNode */,
 				F2134F201E88B570005F8B10 /* UXMessageTimeline */,
 				F20C82ED1E710BB0006D3594 /* InterativeTranslation */,

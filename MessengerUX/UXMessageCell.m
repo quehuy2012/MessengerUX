@@ -42,6 +42,8 @@
         
         mID = ID++;
         
+        self.shouldRasterizeDescendants = YES;
+        
         self.configure = [UXMessageCellConfigure getGlobalConfigure];
         self.isIncomming = NO;
         
@@ -210,24 +212,33 @@
 
 - (void)clearContents {
     [super clearContents];
-//    NSLog(@"Clear %d", mID);
+    NSLog(@"Clear %d", mID);
     
     [self.avatarNode clearContents];
-    self.avatarNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.avatarNode.layer];
     
     [self.topTextNode clearContents];
-    self.topTextNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.topTextNode.layer];
     
     [self.bottomTextNode clearContents];
-    self.bottomTextNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.bottomTextNode.layer];
     
     [self.subFuntionNode clearContents];
-    self.subFuntionNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.subFuntionNode.layer];
     
     if (self.messageBackgroundNode) {
         [self.messageBackgroundNode clearContents];
-        self.messageBackgroundNode.layer.contents = nil;
+        [self clearLayerContentOfLayer:self.messageBackgroundNode.layer];
     }
+    
+    [self clearLayerContentOfLayer:self.layer];
+}
+
+- (void)clearLayerContentOfLayer:(CALayer *)layer {
+    for (CALayer * sub in layer.sublayers) {
+        [self clearLayerContentOfLayer:sub];
+    }
+    layer.contents = nil;
 }
 
 - (void)dealloc {

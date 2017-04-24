@@ -38,6 +38,8 @@
 
 - (CGRect)editableFrame;
 
+- (void)clearLayerContentOfLayer:(CALayer *)layer;
+
 @end
 
 @protocol UXMessageCellDelegate <NSObject>

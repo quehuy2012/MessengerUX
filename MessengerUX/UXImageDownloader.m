@@ -49,7 +49,7 @@ static void * AFTaskCountOfBytesReceivedContext = &AFTaskCountOfBytesReceivedCon
     return [self initWithSessionManager:sessionManager
                  downloadPrioritization:AFImageDownloadPrioritizationFIFO
                  maximumActiveDownloads:4
-                             imageCache:[[UXImageCache alloc] initWithMemoryCapacity:50 * 1024 * 1024 preferredMemoryCapacity:30 * 1024 * 1024]];
+                             imageCache:[[UXImageCache alloc] initWithMemoryCapacity:10 * 1024 * 1024 preferredMemoryCapacity:5 * 1024 * 1024]];
 }
 
 // This dummy is overiding parent method, because parent method is private

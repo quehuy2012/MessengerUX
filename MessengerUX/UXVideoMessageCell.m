@@ -256,12 +256,13 @@
     [super clearContents];
     
     [self.videoNode clearContents];
-    self.videoNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.videoNode.layer];
+    
     [self.videoNode.videoNode clearContents];
-    self.videoNode.videoNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.videoNode.videoNode.layer];
     
     [self.muteVideoButton clearContents];
-    self.muteVideoButton.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.muteVideoButton.layer];
 }
 
 @end

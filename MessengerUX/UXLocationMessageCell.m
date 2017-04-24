@@ -126,4 +126,11 @@
     return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
 }
 
+- (void)clearContents {
+    [super clearContents];
+    
+    [self.mapNode clearContents];
+    [self clearLayerContentOfLayer:self.mapNode.layer];
+}
+
 @end

@@ -98,7 +98,7 @@
     [super clearContents];
     
     [self.titleNode clearContents];
-    self.titleNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.titleNode.layer];
 }
 
 @end

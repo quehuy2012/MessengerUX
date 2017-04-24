@@ -172,7 +172,7 @@
     [super clearContents];
     
     [self.messageNode clearContents];
-    self.messageNode.layer.contents = nil;
+    [self clearLayerContentOfLayer:self.messageNode.layer];
     
 }
 
