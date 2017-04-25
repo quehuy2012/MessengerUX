@@ -150,8 +150,8 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
-//    self.navigationItem.leftBarButtonItem = backButton;
+    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onPressBack)];
+    self.navigationItem.leftBarButtonItem = backButton;
     
 //    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(onPressEdit)];
     UIBarButtonItem * stressTest = [[UIBarButtonItem alloc] initWithTitle:@"Stress" style:UIBarButtonItemStylePlain target:self action:@selector(updateNode)];

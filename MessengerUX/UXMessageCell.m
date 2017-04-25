@@ -42,7 +42,7 @@
         
         mID = ID++;
         
-        self.shouldRasterizeDescendants = YES;
+        //self.shouldRasterizeDescendants = YES;
         
         self.configure = [UXMessageCellConfigure getGlobalConfigure];
         self.isIncomming = NO;

@@ -16,14 +16,15 @@
              callbackQueue:(dispatch_queue_t)callbackQueue
                 completion:(ASImageCacherCompletion)completion {
     
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     dispatch_async(callbackQueue ? callbackQueue : dispatch_get_main_queue(), ^{
-        NSURLRequest * request = [NSURLRequest requestWithURL:URL];
+//        NSURLRequest * request = [NSURLRequest requestWithURL:URL];
         
-        UIImage * image = [weakSelf imageforRequest:request withAdditionalIdentifier:nil];
+//        UIImage * image = [weakSelf imageforRequest:request withAdditionalIdentifier:nil];
         
         if (completion) {
-            completion(image);
+//            completion(image);
+            completion(nil);
         }
         
     });
@@ -34,9 +35,9 @@
     return [self imageforRequest:request withAdditionalIdentifier:nil];
 }
 
-- (void)clearFetchedImageFromCacheWithURL:(NSURL *)URL {
-    NSURLRequest * request = [NSURLRequest requestWithURL:URL];
-    [self removeImageforRequest:request withAdditionalIdentifier:nil];
-}
+//- (void)clearFetchedImageFromCacheWithURL:(NSURL *)URL {
+//    NSURLRequest * request = [NSURLRequest requestWithURL:URL];
+//    [self removeImageforRequest:request withAdditionalIdentifier:nil];
+//}
 
 @end

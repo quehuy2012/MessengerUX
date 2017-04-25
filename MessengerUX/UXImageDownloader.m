@@ -49,7 +49,7 @@ static void * AFTaskCountOfBytesReceivedContext = &AFTaskCountOfBytesReceivedCon
     return [self initWithSessionManager:sessionManager
                  downloadPrioritization:AFImageDownloadPrioritizationFIFO
                  maximumActiveDownloads:4
-                             imageCache:[[UXImageCache alloc] initWithMemoryCapacity:10 * 1024 * 1024 preferredMemoryCapacity:5 * 1024 * 1024]];
+                             imageCache:[[UXImageCache alloc] initWithMemoryCapacity:50 * 1024 * 1024 preferredMemoryCapacity:40 * 1024 * 1024]];
 }
 
 // This dummy is overiding parent method, because parent method is private
@@ -97,7 +97,7 @@ static void * AFTaskCountOfBytesReceivedContext = &AFTaskCountOfBytesReceivedCon
     }];
     
     if (downloadProgress) {
-        [self setProgressWithDownloadProgressOfTask:(NSURLSessionDownloadTask *)receipt.task callBackQueue:callbackQueue downloadProcess:downloadProgress];
+//        [self setProgressWithDownloadProgressOfTask:(NSURLSessionDownloadTask *)receipt.task callBackQueue:callbackQueue downloadProcess:downloadProgress];
     }
     
     return receipt;
@@ -130,82 +130,82 @@ static void * AFTaskCountOfBytesReceivedContext = &AFTaskCountOfBytesReceivedCon
 //    }
 //}
 
-#pragma mark - Task process manager
-
-- (void)setProgressWithUploadProgressOfTask:(NSURLSessionUploadTask *)task
-                              callBackQueue:(dispatch_queue_t)callBackqueue
-                            downloadProcess:(ASImageDownloaderProgress) downloadProcess {
-    
-    void * contextState = (__bridge void *)([[ProcessObseve alloc] initWithIdentify:AFTaskCountOfBytesSentContext callBackQueue:callBackqueue downloadProcess:downloadProcess]);
-    void * contextSent = (__bridge void *)([[ProcessObseve alloc] initWithIdentify:AFTaskCountOfBytesSentContext callBackQueue:callBackqueue downloadProcess:downloadProcess]);
-    
-    [task addObserver:self forKeyPath:@"state" options:(NSKeyValueObservingOptions)0 context:contextState];
-    [task addObserver:self forKeyPath:@"countOfBytesSent" options:(NSKeyValueObservingOptions)0 context:contextSent];
-}
-
-- (void)setProgressWithDownloadProgressOfTask:(NSURLSessionDownloadTask *)task
-                                callBackQueue:(dispatch_queue_t)callBackqueue
-                              downloadProcess:(ASImageDownloaderProgress) downloadProcess {
-    
-    void * contextState = (__bridge void *)([[ProcessObseve alloc] initWithIdentify:AFTaskCountOfBytesReceivedContext callBackQueue:callBackqueue downloadProcess:downloadProcess]);
-    void * contextReceived = (__bridge void *)([[ProcessObseve alloc] initWithIdentify:AFTaskCountOfBytesReceivedContext callBackQueue:callBackqueue downloadProcess:downloadProcess]);
-    
-    [task addObserver:self forKeyPath:@"state" options:(NSKeyValueObservingOptions)0 context:contextState];
-    [task addObserver:self forKeyPath:@"countOfBytesReceived" options:(NSKeyValueObservingOptions)0 context:contextReceived];
-}
-
-#pragma mark - NSKeyValueObserving
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(__unused NSDictionary *)change
-                       context:(void *)context
-{
-    
-    ProcessObseve * pContext = (__bridge ProcessObseve *)(context);
-    
-    if (pContext.indentify == AFTaskCountOfBytesSentContext || pContext.indentify == AFTaskCountOfBytesReceivedContext) {
-        if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesSent))]) {
-            if ([object countOfBytesExpectedToSend] > 0) {
-                
-                if (pContext.processCallBackBlock) {
-                    CGFloat progess = [object countOfBytesSent] / ([object countOfBytesExpectedToSend] * 1.0f);
-                    dispatch_async(pContext.dispatchQueue ? pContext.dispatchQueue : dispatch_get_main_queue(), ^{
-                        pContext.processCallBackBlock(progess);
-                    });
-                }
-            }
-        }
-        
-        if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesReceived))]) {
-            if ([object countOfBytesExpectedToReceive] > 0) {
-                
-                if (pContext.processCallBackBlock) {
-                    CGFloat progess = [object countOfBytesReceived] / ([object countOfBytesExpectedToReceive] * 1.0f);
-                    dispatch_async(pContext.dispatchQueue ? pContext.dispatchQueue : dispatch_get_main_queue(), ^{
-                        pContext.processCallBackBlock(progess);
-                    });
-                }
-            }
-        }
-        
-        if ([keyPath isEqualToString:NSStringFromSelector(@selector(state))]) {
-            if ([(NSURLSessionTask *)object state] == NSURLSessionTaskStateCompleted) {
-                @try {
-                    [object removeObserver:self forKeyPath:NSStringFromSelector(@selector(state))];
-                    
-                    if (pContext.indentify == AFTaskCountOfBytesSentContext) {
-                        [object removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesSent))];
-                    }
-                    
-                    if (pContext.indentify == AFTaskCountOfBytesReceivedContext) {
-                        [object removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesReceived))];
-                    }
-                }
-                @catch (NSException * __unused exception) {}
-            }
-        }
-    }
-}
+//#pragma mark - Task process manager
+//
+//- (void)setProgressWithUploadProgressOfTask:(NSURLSessionUploadTask *)task
+//                              callBackQueue:(dispatch_queue_t)callBackqueue
+//                            downloadProcess:(ASImageDownloaderProgress) downloadProcess {
+//    
+//    void * contextState = (__bridge void *)([[ProcessObseve alloc] initWithIdentify:AFTaskCountOfBytesSentContext callBackQueue:callBackqueue downloadProcess:downloadProcess]);
+//    void * contextSent = (__bridge void *)([[ProcessObseve alloc] initWithIdentify:AFTaskCountOfBytesSentContext callBackQueue:callBackqueue downloadProcess:downloadProcess]);
+//    
+//    [task addObserver:self forKeyPath:@"state" options:(NSKeyValueObservingOptions)0 context:contextState];
+//    [task addObserver:self forKeyPath:@"countOfBytesSent" options:(NSKeyValueObservingOptions)0 context:contextSent];
+//}
+//
+//- (void)setProgressWithDownloadProgressOfTask:(NSURLSessionDownloadTask *)task
+//                                callBackQueue:(dispatch_queue_t)callBackqueue
+//                              downloadProcess:(ASImageDownloaderProgress) downloadProcess {
+//    
+//    void * contextState = (__bridge void *)([[ProcessObseve alloc] initWithIdentify:AFTaskCountOfBytesReceivedContext callBackQueue:callBackqueue downloadProcess:downloadProcess]);
+//    void * contextReceived = (__bridge void *)([[ProcessObseve alloc] initWithIdentify:AFTaskCountOfBytesReceivedContext callBackQueue:callBackqueue downloadProcess:downloadProcess]);
+//    
+//    [task addObserver:self forKeyPath:@"state" options:(NSKeyValueObservingOptions)0 context:contextState];
+//    [task addObserver:self forKeyPath:@"countOfBytesReceived" options:(NSKeyValueObservingOptions)0 context:contextReceived];
+//}
+//
+//#pragma mark - NSKeyValueObserving
+//
+//- (void)observeValueForKeyPath:(NSString *)keyPath
+//                      ofObject:(id)object
+//                        change:(__unused NSDictionary *)change
+//                       context:(void *)context
+//{
+//    
+//    ProcessObseve * pContext = (__bridge ProcessObseve *)(context);
+//    
+//    if (pContext.indentify == AFTaskCountOfBytesSentContext || pContext.indentify == AFTaskCountOfBytesReceivedContext) {
+//        if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesSent))]) {
+//            if ([object countOfBytesExpectedToSend] > 0) {
+//                
+//                if (pContext.processCallBackBlock) {
+//                    CGFloat progess = [object countOfBytesSent] / ([object countOfBytesExpectedToSend] * 1.0f);
+//                    dispatch_async(pContext.dispatchQueue ? pContext.dispatchQueue : dispatch_get_main_queue(), ^{
+//                        pContext.processCallBackBlock(progess);
+//                    });
+//                }
+//            }
+//        }
+//        
+//        if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesReceived))]) {
+//            if ([object countOfBytesExpectedToReceive] > 0) {
+//                
+//                if (pContext.processCallBackBlock) {
+//                    CGFloat progess = [object countOfBytesReceived] / ([object countOfBytesExpectedToReceive] * 1.0f);
+//                    dispatch_async(pContext.dispatchQueue ? pContext.dispatchQueue : dispatch_get_main_queue(), ^{
+//                        pContext.processCallBackBlock(progess);
+//                    });
+//                }
+//            }
+//        }
+//        
+//        if ([keyPath isEqualToString:NSStringFromSelector(@selector(state))]) {
+//            if ([(NSURLSessionTask *)object state] == NSURLSessionTaskStateCompleted) {
+//                @try {
+//                    [object removeObserver:self forKeyPath:NSStringFromSelector(@selector(state))];
+//                    
+//                    if (pContext.indentify == AFTaskCountOfBytesSentContext) {
+//                        [object removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesSent))];
+//                    }
+//                    
+//                    if (pContext.indentify == AFTaskCountOfBytesReceivedContext) {
+//                        [object removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesReceived))];
+//                    }
+//                }
+//                @catch (NSException * __unused exception) {}
+//            }
+//        }
+//    }
+//}
 
 @end

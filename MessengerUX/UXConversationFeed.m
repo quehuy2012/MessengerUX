@@ -83,186 +83,186 @@
                     UXMessage * message = nil;
                     UXTextMessage * messageT = [[UXTextMessage alloc] initWithSententFromString:lineByLineContents[i]];
                     
-//                    if (i % 10 == 0) {
-//                
-//                        NSArray * imgs = @[];
+                    if (i % 10 == 0) {
+                
+                        NSArray * imgs = @[];
+                        
+                        NSURL * img1 = [NSURL URLWithString:@"http://static.boredpanda.com/blog/wp-content/uploads/2016/02/big-cute-eyes-cat-black-scottish-fold-gimo-1room1cat-331.jpg"];
+                        NSURL * img2 = [NSURL URLWithString:@"https://kittybloger.files.wordpress.com/2013/03/15-really-cute-kittens-9.jpg"];
+                        NSURL * img3 = [NSURL URLWithString:@"http://addolo.com/wp-content/uploads/2016/12/super-cute-dog-pics-with-captions-picturesescute-to-color-dogs.jpg"];
+                        NSURL * img4 = [NSURL URLWithString:@"http://cdn4.dualshockers.com/wp-content/uploads/2016/07/pokemon-4-1200x0.jpg"];
+                        NSURL * img5 = [NSURL URLWithString:@"http://www.pokemonxy.com/_ui/img/_en/art/Manectric-Pokemon-X-and-Y.jpg"];
+                        
+//                        NSURL * img1 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
+//                        NSURL * img2 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
+//                        NSURL * img3 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
+//                        NSURL * img4 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
+//                        NSURL * img5 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
+                        
+                        
+                        if (i % 4 == 0) {
+                            
+//                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+//                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+//                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+//                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+//                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
+                            
+                            imgs = @[img1, img2, img3
+                                     , img4, img5, img2
+                                     , img3];
+                            
+                        } else if (i % 3 == 0){
+                            
+//                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+                            
+                            imgs = @[img1];
+                            
+                        } else if (i % 5 == 0) {
+                            
+//                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+//                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+//                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+//                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+//                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
+                            
+                            imgs = @[img1, img2, img3
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img2];
+                        } else {
+                        
+//                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
+//                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
+//                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
+//                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
+//                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
+                            
+                            imgs = @[img1, img2, img3
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img3, img4, img5
+                                     , img4, img5, img2
+                                     , img2];
+                        }
+                        
+                        message = [[UXAlbumMessage alloc] initWithImageURLs:imgs
+                                                                    date:[NSDate timeIntervalSinceReferenceDate]
+                                                               isComming:(i % 3 == 0)
+                                                                   owner:messageT.owner];
+                
+                    } else if (i % 9 == 0) {
+
+                        message = [[UXTitleMessage alloc] initWithTitle:@"Section"];
+                
+                    } else if (i % 6 == 0) {
+                
+                        NSURL * imageURL;
+                        
+                        long rand = arc4random_uniform(100);;
+                        
+                        if (rand % 13 == 0) {
+                            imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
+                        } else if (rand % 7 == 0) {
+                            imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
+                        } else if (rand % 5 == 0) {
+                            imageURL = [NSURL URLWithString:@"http://kingofwallpapers.com/cute/cute-010.jpg"];
+                        } else if (rand % 3 == 0) {
+                            imageURL = [NSURL URLWithString:@"https://i.ytimg.com/vi/Ikw5HhxC5UM/hqdefault.jpg"];
+                        } else {
+                            imageURL = [NSURL URLWithString:@"https://s-media-cache-ak0.pinimg.com/originals/6b/45/5d/6b455d864ecce4270da03f9ff008736b.jpg"];
+                        }
+                        
+                        message = [[UXImageMessage alloc] initWithImageURL:imageURL
+                                                                 withRatio:1
+                                                                      date:[NSDate timeIntervalSinceReferenceDate]
+                                                                 isComming:i % 3 == 0
+                                                                     owner:messageT.owner];
+
+                    } else if (i % 17 == 0) {
+                        
+                        NSURL * imageURL;
+                        
+                        
+                        long rand = arc4random_uniform(100);;
+                        
+                        if (rand % 13 == 0) {
+                            imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
+                        } else if (rand % 7 == 0) {
+                            imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
+                        } else if (rand % 5 == 0) {
+                            imageURL = [NSURL URLWithString:@"http://kingofwallpapers.com/cute/cute-010.jpg"];
+                        } else if (rand % 3 == 0) {
+                            imageURL = [NSURL URLWithString:@"https://i.ytimg.com/vi/Ikw5HhxC5UM/hqdefault.jpg"];
+                        } else {
+                            imageURL = [NSURL URLWithString:@"https://s-media-cache-ak0.pinimg.com/originals/6b/45/5d/6b455d864ecce4270da03f9ff008736b.jpg"];
+                        }
+                        
+                        message = [[UXImageMessage alloc] initWithImageURL:imageURL
+                                                                 withRatio:1
+                                                                      date:[NSDate timeIntervalSinceReferenceDate]
+                                                                 isComming:NO
+                                                                     owner:messageT.owner];
+                        
+//                    } else if (i % 7 == 0) {
 //                        
-//                        NSURL * img1 = [NSURL URLWithString:@"http://static.boredpanda.com/blog/wp-content/uploads/2016/02/big-cute-eyes-cat-black-scottish-fold-gimo-1room1cat-331.jpg"];
-//                        NSURL * img2 = [NSURL URLWithString:@"https://kittybloger.files.wordpress.com/2013/03/15-really-cute-kittens-9.jpg"];
-//                        NSURL * img3 = [NSURL URLWithString:@"http://addolo.com/wp-content/uploads/2016/12/super-cute-dog-pics-with-captions-picturesescute-to-color-dogs.jpg"];
-//                        NSURL * img4 = [NSURL URLWithString:@"http://cdn4.dualshockers.com/wp-content/uploads/2016/07/pokemon-4-1200x0.jpg"];
-//                        NSURL * img5 = [NSURL URLWithString:@"http://www.pokemonxy.com/_ui/img/_en/art/Manectric-Pokemon-X-and-Y.jpg"];
-//                        
-////                        NSURL * img1 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
-////                        NSURL * img2 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
-////                        NSURL * img3 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
-////                        NSURL * img4 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
-////                        NSURL * img5 = [LoremIpsum URLForPlaceholderImageFromService:LIPlaceholderImageServicePlaceKitten withSize:CGSizeMake(100, 100)];
-//                        
-//                        
-//                        if (i % 4 == 0) {
-//                            
-////                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
-////                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
-////                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
-////                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
-////                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
-//                            
-//                            imgs = @[img1, img2, img3
-//                                     , img4, img5, img2
-//                                     , img3];
-//                            
-//                        } else if (i % 3 == 0){
-//                            
-////                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
-//                            
-//                            imgs = @[img1];
-//                            
-//                        } else if (i % 5 == 0) {
-//                            
-////                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
-////                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
-////                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
-////                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
-////                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
-//                            
-//                            imgs = @[img1, img2, img3
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img2];
-//                        } else {
-//                        
-////                            UIImage * img1 = [UIImage imageNamed:@"cameraThumb"];
-////                            UIImage * img2 = [UIImage imageNamed:@"tempImg"];
-////                            UIImage * img3 = [UIImage imageNamed:@"drawThumb"];
-////                            UIImage * img4 = [UIImage imageNamed:@"groupImage"];
-////                            UIImage * img5 = [UIImage imageNamed:@"galleryThumb"];
-//                            
-//                            imgs = @[img1, img2, img3
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img3, img4, img5
-//                                     , img4, img5, img2
-//                                     , img2];
-//                        }
-//                        
-//                        message = [[UXAlbumMessage alloc] initWithImageURLs:imgs
-//                                                                    date:[NSDate timeIntervalSinceReferenceDate]
-//                                                               isComming:(i % 3 == 0)
-//                                                                   owner:messageT.owner];
-//                
-//                    } else if (i % 9 == 0) {
-//
-//                        message = [[UXTitleMessage alloc] initWithTitle:@"Section"];
-//                
-//                    } else if (i % 6 == 0) {
-//                
-//                        NSURL * imageURL;
-//                        
-//                        long rand = arc4random_uniform(100);;
-//                        
-//                        if (rand % 13 == 0) {
-//                            imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
-//                        } else if (rand % 7 == 0) {
-//                            imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
-//                        } else if (rand % 5 == 0) {
-//                            imageURL = [NSURL URLWithString:@"http://kingofwallpapers.com/cute/cute-010.jpg"];
-//                        } else if (rand % 3 == 0) {
-//                            imageURL = [NSURL URLWithString:@"https://i.ytimg.com/vi/Ikw5HhxC5UM/hqdefault.jpg"];
-//                        } else {
-//                            imageURL = [NSURL URLWithString:@"https://s-media-cache-ak0.pinimg.com/originals/6b/45/5d/6b455d864ecce4270da03f9ff008736b.jpg"];
-//                        }
-//                        
-//                        message = [[UXImageMessage alloc] initWithImageURL:imageURL
-//                                                                 withRatio:1
+//                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
+//                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
+//                                                                 withRatio:9.0/16.4
 //                                                                      date:[NSDate timeIntervalSinceReferenceDate]
-//                                                                 isComming:i % 3 == 0
+//                                                                 isComming:YES
 //                                                                     owner:messageT.owner];
+                        
+                        
+                    } else if (i % 13 == 0) {
 //
-//                    } else if (i % 17 == 0) {
-//                        
-//                        NSURL * imageURL;
-//                        
-//                        
-//                        long rand = arc4random_uniform(100);;
-//                        
-//                        if (rand % 13 == 0) {
-//                            imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
-//                        } else if (rand % 7 == 0) {
-//                            imageURL = [NSURL URLWithString:@"http://graphicsheat.com/wp-content/uploads/2013/06/cute-wallpaper-flowerdrop.jpg"];
-//                        } else if (rand % 5 == 0) {
-//                            imageURL = [NSURL URLWithString:@"http://kingofwallpapers.com/cute/cute-010.jpg"];
-//                        } else if (rand % 3 == 0) {
-//                            imageURL = [NSURL URLWithString:@"https://i.ytimg.com/vi/Ikw5HhxC5UM/hqdefault.jpg"];
-//                        } else {
-//                            imageURL = [NSURL URLWithString:@"https://s-media-cache-ak0.pinimg.com/originals/6b/45/5d/6b455d864ecce4270da03f9ff008736b.jpg"];
-//                        }
-//                        
-//                        message = [[UXImageMessage alloc] initWithImageURL:imageURL
-//                                                                 withRatio:1
-//                                                                      date:[NSDate timeIntervalSinceReferenceDate]
-//                                                                 isComming:NO
-//                                                                     owner:messageT.owner];
-//                        
-////                    } else if (i % 7 == 0) {
-////                        
-////                        NSURL *fileUrl = [NSURL URLWithString:@"https://www.w3schools.com/html/mov_bbb.mp4"];
-////                        message = [[UXVideoMessage alloc] initWithVideoURL:fileUrl
-////                                                                 withRatio:9.0/16.4
-////                                                                      date:[NSDate timeIntervalSinceReferenceDate]
-////                                                                 isComming:YES
-////                                                                     owner:messageT.owner];
-//                        
-//                        
-//                    } else if (i % 13 == 0) {
-////
-//                        NSString *textDemo3 = @"link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((";
-//                        
-//                        message = [[UXAttributeMessage alloc] initWithContent:textDemo3
+                        NSString *textDemo3 = @"link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((";
+                        
+                        message = [[UXAttributeMessage alloc] initWithContent:textDemo3
+                                                                         date:[NSDate timeIntervalSinceReferenceDate]
+                                                                    isComming:i % 2 == 0
+                                                                        owner:messageT.owner];
+                        
+//                        message = [[UXLocationMessage alloc] initWithLatitude:37.7749
+//                                                                  andLongtide:-122.4194
 //                                                                         date:[NSDate timeIntervalSinceReferenceDate]
 //                                                                    isComming:i % 2 == 0
 //                                                                        owner:messageT.owner];
-//                        
-////                        message = [[UXLocationMessage alloc] initWithLatitude:37.7749
-////                                                                  andLongtide:-122.4194
-////                                                                         date:[NSDate timeIntervalSinceReferenceDate]
-////                                                                    isComming:i % 2 == 0
-////                                                                        owner:messageT.owner];
-//                        
-//                    } else {
-//                    
+                        
+                    } else {
+//
                         BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
                         
                         message = [[UXAttributeMessage alloc] initWithContent:messageT.content
@@ -274,8 +274,8 @@
 ////                                                                    date:[NSDate timeIntervalSinceReferenceDate]
 ////                                                               isComming:dummyIncomming
 ////                                                                   owner:messageT.owner];
-//                        
-//                    }
+
+                    }
                 
                     if (message) {
                         [ret addObject:message];
