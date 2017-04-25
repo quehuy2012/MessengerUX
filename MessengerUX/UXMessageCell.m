@@ -44,7 +44,6 @@
         
         //self.shouldRasterizeDescendants = YES;
         
-        self.configure = [UXMessageCellConfigure getGlobalConfigure];
         self.isIncomming = NO;
         
         self.avatarNode = [[ASImageNode alloc] init];
@@ -81,8 +80,8 @@
         [self.subFuntionNode addTarget:self action:@selector(subFunctionClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self addSubnode:self.subFuntionNode];
         
-        if (self.configure) {
-            self.messageBackgroundNode = [[self.configure getMessageBackgroundStyle] getMessageBackground];
+        if ([UXMessageCellConfigure getGlobalConfigure]) {
+            self.messageBackgroundNode = [[[UXMessageCellConfigure getGlobalConfigure] getMessageBackgroundStyle] getMessageBackground];
             
 //            [self.messageBackgroundNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
 //            [self.messageBackgroundNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
@@ -105,9 +104,9 @@
         if (self.messageBackgroundNode) {
             
             if (self.isIncomming) {
-                self.messageBackgroundNode.backgroundColor = self.configure.incommingColor;
+                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].incommingColor;
             } else {
-                self.messageBackgroundNode.backgroundColor = self.configure.outgoingColor;
+                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].outgoingColor;
             }
         }
     }
@@ -121,8 +120,8 @@
 - (void)setTopText:(NSString *)string {
     if (string) {
         self.topTextNode.attributedText = [[NSAttributedString alloc] initWithString:string
-                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.supportTextSize],
-                                                                                       NSForegroundColorAttributeName: self.configure.supportTextColor}];
+                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].supportTextSize],
+                                                                                       NSForegroundColorAttributeName: [UXMessageCellConfigure getGlobalConfigure].supportTextColor}];
         [self setShowTextAsTop:YES];
     }
 }
@@ -130,8 +129,8 @@
 - (void)setBottomText:(NSString *)string {
     if (string) {
         self.bottomTextNode.attributedText = [[NSAttributedString alloc] initWithString:string
-                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.supportTextSize],
-                                                                                       NSForegroundColorAttributeName: self.configure.supportTextColor}];
+                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].supportTextSize],
+                                                                                       NSForegroundColorAttributeName: [UXMessageCellConfigure getGlobalConfigure].supportTextColor}];
         [self setShowTextAsBottom:YES];
     }
 }
@@ -167,14 +166,14 @@
     
     if (highlighted) {
         if (self.messageBackgroundNode) {
-            self.messageBackgroundNode.backgroundColor = self.configure.highlightBackgroundColor;
+            self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].highlightBackgroundColor;
         }
     } else {
         if (self.messageBackgroundNode) {
             if (self.isIncomming) {
-                self.messageBackgroundNode.backgroundColor = self.configure.incommingColor;
+                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].incommingColor;
             } else {
-                self.messageBackgroundNode.backgroundColor = self.configure.outgoingColor;
+                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].outgoingColor;
             }
         }
     }

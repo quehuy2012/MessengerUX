@@ -35,8 +35,8 @@
         UXLocationMessage * locMessage = object;
         
         self.mapNode = [[ASMapNode alloc] init];
-        self.mapNode.style.preferredSize = CGSizeMake(self.configure.maxWidthOfCell, self.configure.maxWidthOfCell * 0.66);
-        self.mapNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius;
+        self.mapNode.style.preferredSize = CGSizeMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell, [UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell * 0.66);
+        self.mapNode.cornerRadius = [[UXMessageCellConfigure getGlobalConfigure] getMessageBackgroundStyle].cornerRadius;
         
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(locMessage.latitude, locMessage.longtitude);
         self.mapNode.region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000);
@@ -81,7 +81,7 @@
     
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
                                                child:self.topTextNode];
         [stackedMessageChilds addObject:topTextInset];
     }
@@ -90,7 +90,7 @@
     
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
                                                child:self.bottomTextNode];
         [stackedMessageChilds addObject:bottomTextInset];
     }
@@ -123,7 +123,7 @@
                                          alignItems:ASStackLayoutAlignItemsEnd
                                            children:mainChilds];
     
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets child:mainContent];
 }
 
 - (void)clearContents {

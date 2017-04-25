@@ -27,7 +27,7 @@
         self.titleNode = [[ASTextNode alloc] init];
         self.titleNode.style.flexShrink = 1.0;
         self.titleNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.titleNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
+        self.titleNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
         self.titleNode.backgroundColor = [UIColor clearColor];
         self.titleNode.maximumNumberOfLines = 1;
         
@@ -47,8 +47,8 @@
     if ([object isKindOfClass:[UXTitleMessage class]]) {
         UXTitleMessage * titleMessage = object;
         self.titleNode.attributedText = [[NSAttributedString alloc] initWithString:[titleMessage.title uppercaseString]
-                                                                        attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:self.configure.supportTextSize + 2],
-                                                                                     NSForegroundColorAttributeName: self.configure.supportTextColor}];
+                                                                        attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].supportTextSize + 2],
+                                                                                     NSForegroundColorAttributeName: [UXMessageCellConfigure getGlobalConfigure].supportTextColor}];
     }
 }
 
@@ -61,7 +61,7 @@
                                          alignItems:ASStackLayoutAlignItemsCenter
                                            children:@[self.titleNode]];
     
-    UIEdgeInsets normalInset = self.configure.insets;
+    UIEdgeInsets normalInset = [UXMessageCellConfigure getGlobalConfigure].insets;
     CGFloat factor = 1.5;
     UIEdgeInsets insets =  UIEdgeInsetsMake(normalInset.top*1.3, 0, normalInset.bottom*factor, 0);
     

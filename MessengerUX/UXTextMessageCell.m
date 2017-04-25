@@ -29,7 +29,7 @@
         self.messageNode = [[ASTextNode alloc] init];
         self.messageNode.style.flexShrink = 1.0;
         self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.messageNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
+        self.messageNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
         self.messageNode.backgroundColor = [UIColor clearColor];
         [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
@@ -45,9 +45,9 @@
     [super shouldUpdateCellNodeWithObject:object];
     if ([object isKindOfClass:[UXTextMessage class]]) {
         UXTextMessage * textMessage = object;
-        UIColor * textColor = self.isIncomming ? self.configure.incommingTextColor : self.configure.outgoingTextColor;
+        UIColor * textColor = self.isIncomming ? [UXMessageCellConfigure getGlobalConfigure].incommingTextColor : [UXMessageCellConfigure getGlobalConfigure].outgoingTextColor;
         self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
-                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:self.configure.contentTextSize],
+                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize],
                                                                                       NSForegroundColorAttributeName: textColor}];
         
         [self setTopText:textMessage.owner.name];
@@ -98,7 +98,7 @@
     
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2) child:self.topTextNode];
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2) child:self.topTextNode];
         
         [stackedMessageChilds addObject:topTextInset];
     }
@@ -107,7 +107,7 @@
     
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2) child:self.bottomTextNode];
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2) child:self.bottomTextNode];
         [stackedMessageChilds addObject:bottomTextInset];
     }
     
@@ -141,7 +141,7 @@
                                          alignItems:ASStackLayoutAlignItemsEnd
                                            children:mainChilds];
     
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets
                                                   child:mainContent];
 }
 

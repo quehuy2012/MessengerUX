@@ -63,11 +63,11 @@
         }
         
 //        self.imageContentNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius - self.imagePadding;
-        self.imageContentNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius;
+        self.imageContentNode.cornerRadius = [[UXMessageCellConfigure getGlobalConfigure] getMessageBackgroundStyle].cornerRadius;
         
         self.imageDimentionRatio = imageMessage.image != nil ? imageMessage.image.size.height / imageMessage.image.size.width : imageMessage.ratio;
-        self.imageContentNode.style.width = ASDimensionMake(self.configure.maxWidthOfCell);
-        self.imageContentNode.style.height = ASDimensionMake(self.configure.maxWidthOfCell*self.imageDimentionRatio);
+        self.imageContentNode.style.width = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
+        self.imageContentNode.style.height = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
         self.imageContentNode.layerBacked = YES;
         
@@ -107,7 +107,7 @@
     
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
                                                child:self.topTextNode];
         [stackedMessageChilds addObject:topTextInset];
     }
@@ -116,7 +116,7 @@
     
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
                                                child:self.bottomTextNode];
         [stackedMessageChilds addObject:bottomTextInset];
     }
@@ -149,7 +149,7 @@
                                          alignItems:ASStackLayoutAlignItemsEnd
                                            children:mainChilds];
     
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets child:mainContent];
 }
 
 - (CGRect)editableFrame {

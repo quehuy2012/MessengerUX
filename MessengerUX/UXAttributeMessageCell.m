@@ -26,7 +26,7 @@
     if (self) {
         
         self.messageNode = [[UXAttributeNode alloc] init];
-        self.messageNode.style.maxWidth = ASDimensionMake(self.configure.maxWidthOfCell);
+        self.messageNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
         self.messageNode.backgroundColor = [UIColor clearColor];
         [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
@@ -43,12 +43,12 @@
     if ([object isKindOfClass:[UXAttributeMessage class]]) {
         UXAttributeMessage * textMessage = object;
         
-        UIColor * textColor = self.isIncomming ? self.configure.incommingTextColor : self.configure.outgoingTextColor;
+        UIColor * textColor = self.isIncomming ? [UXMessageCellConfigure getGlobalConfigure].incommingTextColor : [UXMessageCellConfigure getGlobalConfigure].outgoingTextColor;
         
         NIHTMLParser * htmlParser = [[NIHTMLParser alloc] initWithString:textMessage.content parseEmoticon:YES];
         [htmlParser setDefaultTextColor:textColor];
-        [htmlParser setFontText:[UIFont systemFontOfSize:self.configure.contentTextSize]];
-        [htmlParser setLinkFont:[UIFont systemFontOfSize:self.configure.contentTextSize]];
+        [htmlParser setFontText:[UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize]];
+        [htmlParser setLinkFont:[UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize]];
         
         self.messageNode.htmlParser = htmlParser;
         [self.messageNode setLinkHighlightColor:[UIColor colorWithWhite:0 alpha:0.2]];
@@ -103,7 +103,7 @@
     
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2) child:self.topTextNode];
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2) child:self.topTextNode];
         
         [stackedMessageChilds addObject:topTextInset];
     }
@@ -112,7 +112,7 @@
     
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2) child:self.bottomTextNode];
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2) child:self.bottomTextNode];
         [stackedMessageChilds addObject:bottomTextInset];
     }
     
@@ -146,7 +146,7 @@
                                          alignItems:ASStackLayoutAlignItemsEnd
                                            children:mainChilds];
     
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets
                                                   child:mainContent];
 }
 
@@ -176,18 +176,18 @@
     
     if (highlighted) {
         if (self.messageBackgroundNode) {
-            self.messageBackgroundNode.backgroundColor = self.configure.highlightBackgroundColor;
+            self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].highlightBackgroundColor;
         }
-        self.messageNode.backgroundColor = self.configure.highlightBackgroundColor;
+        self.messageNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].highlightBackgroundColor;
         
     } else {
         if (self.messageBackgroundNode) {
             if (self.isIncomming) {
-                self.messageBackgroundNode.backgroundColor = self.configure.incommingColor;
-                self.messageNode.backgroundColor = self.configure.incommingColor;
+                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].incommingColor;
+                self.messageNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].incommingColor;
             } else {
-                self.messageBackgroundNode.backgroundColor = self.configure.outgoingColor;
-                self.messageNode.backgroundColor = self.configure.outgoingColor;
+                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].outgoingColor;
+                self.messageNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].outgoingColor;
             }
         }
     }

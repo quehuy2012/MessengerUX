@@ -20,7 +20,6 @@
 @property (nonatomic) BOOL showTextAsBottom;
 @property (nonatomic) BOOL showSubFunction;
 @property (nonatomic) UXOwner * owner;
-@property (nonatomic) UXMessageCellConfigure * configure;
 
 @property (nonatomic) ASTextNode * topTextNode;
 @property (nonatomic) ASTextNode * bottomTextNode;

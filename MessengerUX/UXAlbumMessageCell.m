@@ -138,7 +138,7 @@
     NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
                                                child:self.topTextNode];
         [stackedMessageChilds addObject:topTextInset];
     }
@@ -147,7 +147,7 @@
     
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
                                                child:self.bottomTextNode];
         [stackedMessageChilds addObject:bottomTextInset];
     }
@@ -180,12 +180,12 @@
                                          alignItems:ASStackLayoutAlignItemsEnd
                                            children:mainChilds];
     
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets child:mainContent];
     
 }
 
 - (NSUInteger)albumNodeDimention {
-    return (self.configure.maxWidthOfCell - ((self.nodePerRow - 1) * self.spaceBetweenNode)) / self.nodePerRow;
+    return ([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell - ((self.nodePerRow - 1) * self.spaceBetweenNode)) / self.nodePerRow;
 }
 
 - (BOOL)imageUsingURL {

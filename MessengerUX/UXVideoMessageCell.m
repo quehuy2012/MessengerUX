@@ -39,9 +39,9 @@
         self.videoNode = [[ASVideoPlayerNode alloc] initWithUrl:videoMessage.videoURL];
         self.videoNode.delegate = self;
         self.videoNode.backgroundColor = [UIColor blackColor];
-        self.videoNode.style.width = ASDimensionMakeWithPoints(self.configure.maxWidthOfCell);
-        self.videoNode.style.height = ASDimensionMakeWithPoints((CGFloat)(self.configure.maxWidthOfCell) * videoMessage.ratio);
-        self.videoNode.cornerRadius = [self.configure getMessageBackgroundStyle].cornerRadius - self.videoPadding;
+        self.videoNode.style.width = ASDimensionMakeWithPoints([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
+        self.videoNode.style.height = ASDimensionMakeWithPoints((CGFloat)([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell) * videoMessage.ratio);
+        self.videoNode.cornerRadius = [[UXMessageCellConfigure getGlobalConfigure] getMessageBackgroundStyle].cornerRadius - self.videoPadding;
         self.videoNode.clipsToBounds = YES;
         
         [self addSubnode:self.videoNode];
@@ -96,7 +96,7 @@
     
     if (self.showTextAsTop) {
         ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
                                                child:self.topTextNode];
         [stackedMessageChilds addObject:topTextInset];
     }
@@ -105,7 +105,7 @@
     
     if (self.showTextAsBottom) {
         ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, self.configure.insets.left*2, 0, self.configure.insets.right*2)
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
                                                child:self.bottomTextNode];
         [stackedMessageChilds addObject:bottomTextInset];
     }
@@ -138,7 +138,7 @@
                                          alignItems:ASStackLayoutAlignItemsEnd
                                            children:mainChilds];
     
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:self.configure.insets child:mainContent];
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets child:mainContent];
 }
 
 - (void)setupMuteButtonUI {

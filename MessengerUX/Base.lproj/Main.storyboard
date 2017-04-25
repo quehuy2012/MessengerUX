@@ -98,11 +98,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZL-4e-q5s">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <rect key="frame" x="120" y="219" width="134" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Table View"/>
                                 <connections>
-                                    <segue destination="o9r-b3-kB9" kind="show" id="pg2-IP-RUO"/>
+                                    <segue destination="L7e-Qa-o5L" kind="show" id="A4V-Wo-D31"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="85Z-kd-bb9">
+                                <rect key="frame" x="120" y="304" width="134" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Collection View"/>
+                                <connections>
+                                    <segue destination="bBu-Uf-j8X" kind="show" id="w8s-eE-LDD"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -111,26 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PPf-QX-jav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2546" y="243"/>
-        </scene>
-        <!--Base Tab Bar Controller-->
-        <scene sceneID="Et7-to-RcQ">
-            <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="o9r-b3-kB9" customClass="BaseTabBarController" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="0ib-aJ-n7h">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="L7e-Qa-o5L" kind="relationship" relationship="viewControllers" id="jl0-Nj-JpQ"/>
-                        <segue destination="bBu-Uf-j8X" kind="relationship" relationship="viewControllers" id="vJR-gW-kbQ"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HHu-na-YYp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1097" y="244"/>
+            <point key="canvasLocation" x="-818" y="219"/>
         </scene>
     </scenes>
     <resources>

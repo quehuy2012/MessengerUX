@@ -89,7 +89,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     [textInputHolder atHeight:48];
     [textInputHolder atLeadingWith:self.view value:0];
     [textInputHolder atTrailingWith:self.view value:0];
-    [textInputHolder atBottomingWith:self.view value:0];
+    [textInputHolder atBottomMarginTo:(UIView *)self.bottomLayoutGuide value:0];
     
     {
         UIImageView * sendButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chatSendIcon"]];
