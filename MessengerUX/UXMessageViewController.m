@@ -12,6 +12,8 @@
 
 #import "UXMessageTimeLine.h"
 
+#import "CameraViewController.h"
+
 static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 @interface UXMessageViewController () <ASCollectionDelegate, ASCollectionDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
@@ -151,7 +153,14 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     self.navigationItem.leftBarButtonItem = backButton;
     
     UIBarButtonItem * stressTest = [[UIBarButtonItem alloc] initWithTitle:@"Stress" style:UIBarButtonItemStylePlain target:self action:@selector(updateNode)];
-    self.navigationItem.rightBarButtonItem = stressTest;
+    
+    UIBarButtonItem * cameraTest = [[UIBarButtonItem alloc] initWithTitle:@"Camera" style:UIBarButtonItemStylePlain target:self action:@selector(openCamera)];
+    self.navigationItem.rightBarButtonItems = @[stressTest, cameraTest];
+}
+
+- (void)openCamera {
+    UIViewController * cameraVC = [[CameraViewController alloc] init];
+    [self presentViewController:cameraVC animated:NO completion:nil];
 }
 
 - (void)onPressBack {
@@ -378,6 +387,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 - (void)messageCell:(UXMessageCell *)messageCell albumImageClicked:(ASControlNode *)imageNode {
     NSLog(@"Album image clicked %@", imageNode);
 }
+
 
 
 @end

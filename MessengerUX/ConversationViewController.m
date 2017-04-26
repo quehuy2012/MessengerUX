@@ -16,6 +16,8 @@
 
 #import "UXConversationFeed.h"
 
+#import "UXHeadBatchFetching.h"
+
 static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 
@@ -27,6 +29,9 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 @property (nonatomic) UXCellFactory * factory;
 @property (nonatomic) NSIndexPath *selectedIndexPath;
 @property (atomic) BOOL stillNeedStressTest;
+
+@property (nonatomic) CGFloat lastOffset;
+@property (nonatomic) ASScrollDirection scrollDirection;
 
 @end
 
@@ -50,6 +55,9 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
+    
+    
+    self.lastOffset = 0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -248,6 +256,64 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     });
 }
 
+#pragma mark - Supporting head fetch for table node
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat delta = self.lastOffset - scrollView.contentOffset.y;
+    
+    if (delta > 0) {
+        self.scrollDirection = self.tableNode.inverted ? ASScrollDirectionUp : ASScrollDirectionDown;
+    } else if (delta < 0) {
+        self.scrollDirection = self.tableNode.inverted ? ASScrollDirectionDown : ASScrollDirectionUp;
+    } else {
+        self.scrollDirection = ASScrollDirectionNone;
+    }
+    
+    [self checkForHeadBatchFetching:scrollView];
+    
+    self.lastOffset = scrollView.contentOffset.y;
+    
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (targetContentOffset != NULL) {
+        [self beginHeadBatchFetchingIfNeededWithContentOffset:*targetContentOffset scrollView:scrollView];
+    }
+}
+
+- (void)checkForHeadBatchFetching:(UIScrollView *)scrollView {
+    
+    // Dragging will be handled in scrollViewWillEndDragging:withVelocity:targetContentOffset:
+    if (scrollView.isDragging || scrollView.isTracking) {
+        return;
+    }
+    
+    [self beginHeadBatchFetchingIfNeededWithContentOffset:scrollView.contentOffset scrollView:scrollView];
+}
+
+- (void)beginHeadBatchFetchingIfNeededWithContentOffset:(CGPoint)contentOffset scrollView:(UIScrollView *)scrollView {
+    if (UXDisplayShouldHeadFetchBatchForScrollView((UIScrollView<ASBatchFetchingScrollView> *)scrollView
+                                                   , self.scrollDirection
+                                                   , ASScrollDirectionVerticalDirections
+                                                   , contentOffset)) {
+        [self beginHeadBatchFetching];
+    }
+}
+
+- (void)beginHeadBatchFetching {
+    ASBatchContext * context = [((UIScrollView<ASBatchFetchingScrollView> *)self.tableNode.view) batchContext];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [context beginBatchFetching];
+        
+        NSLog(@"Head fetch");
+        
+        [context completeBatchFetching:YES];
+    });
+}
+
 #pragma mark - ASTableDelegate
 
 - (BOOL)shouldBatchFetchForTableNode:(ASTableNode *)tableNode {
@@ -256,6 +322,9 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 // Receive a message that the tableView is near the end of its data set and more data should be fetched if necessary.
 - (void)tableNode:(ASTableNode *)tableNode willBeginBatchFetchWithContext:(ASBatchContext *)context {
+    
+    NSLog(@"Tail fetch");
+    
     [context beginBatchFetching];
     
     [self loadPageWithContext:context];
