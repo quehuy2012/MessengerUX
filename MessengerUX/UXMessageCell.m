@@ -215,32 +215,30 @@
     [super clearContents];
     NSLog(@"Clear %d", mID);
     
-    [self.avatarNode clearContents];
-    [self clearLayerContentOfLayer:self.avatarNode.layer];
+    [self.avatarNode removeFromSupernode];
+    self.avatarNode = nil;
     
-    [self.topTextNode clearContents];
-    [self clearLayerContentOfLayer:self.topTextNode.layer];
+    [self.topTextNode removeFromSupernode];
+    self.topTextNode = nil;
     
-    [self.bottomTextNode clearContents];
-    [self clearLayerContentOfLayer:self.bottomTextNode.layer];
+    [self.bottomTextNode removeFromSupernode];
+    self.bottomTextNode = nil;
     
-    [self.subFuntionNode clearContents];
-    [self clearLayerContentOfLayer:self.subFuntionNode.layer];
+    [self.subFuntionNode removeFromSupernode];
+    self.subFuntionNode = nil;
     
     if (self.messageBackgroundNode) {
-        [self.messageBackgroundNode clearContents];
-        [self clearLayerContentOfLayer:self.messageBackgroundNode.layer];
+        [self.messageBackgroundNode removeFromSupernode];
+        self.messageBackgroundNode = nil;
     }
-    
-    [self clearLayerContentOfLayer:self.layer];
 }
 
-- (void)clearLayerContentOfLayer:(CALayer *)layer {
-    for (CALayer * sub in layer.sublayers) {
-        [self clearLayerContentOfLayer:sub];
-    }
-    layer.contents = nil;
-}
+//- (void)clearLayerContentOfLayer:(CALayer *)layer {
+//    for (CALayer * sub in layer.sublayers) {
+//        [self clearLayerContentOfLayer:sub];
+//    }
+//    layer.contents = nil;
+//}
 
 - (void)dealloc {
 //    NSLog(@"Dealloc %d", mID);

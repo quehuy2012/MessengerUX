@@ -180,11 +180,11 @@
 #pragma mark - Memory managment
 
 - (void)clearContents {
+    
+    [self.messageNode removeFromSupernode];
+    self.messageNode = nil;
+    
     [super clearContents];
-    
-    [self.messageNode clearContents];
-    [self clearLayerContentOfLayer:self.messageNode.layer];
-    
 }
 
 @end
