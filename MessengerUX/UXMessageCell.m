@@ -45,6 +45,7 @@
         //self.shouldRasterizeDescendants = YES;
         
         self.isIncomming = NO;
+        self.isViewInitialized = NO;
     }
     
     return self;

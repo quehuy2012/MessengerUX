@@ -26,7 +26,6 @@
     self = [super init];
     if (self) {
         
-        self.isViewInitialized = NO;
     }
     
     return self;
@@ -48,14 +47,15 @@
     self.isViewInitialized = YES;
 }
 
-- (void)shouldUpdateCellNodeWithObject:(id)object {
-    [super shouldUpdateCellNodeWithObject:object];
-    if ([object isKindOfClass:[UXTextMessage class]]) {
-        UXTextMessage * textMessage = object;
+- (void)didEnterDisplayState {
+    [super didEnterDisplayState];
+    
+    if (self.message && self.isViewInitialized) {
+        UXTextMessage * textMessage = (UXTextMessage *)self.message;
         UIColor * textColor = self.isIncomming ? [UXMessageCellConfigure getGlobalConfigure].incommingTextColor : [UXMessageCellConfigure getGlobalConfigure].outgoingTextColor;
         self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
                                                                           attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize],
-                                                                                      NSForegroundColorAttributeName: textColor}];
+                                                                                       NSForegroundColorAttributeName: textColor}];
         
         [self setTopText:textMessage.owner.name];
         
@@ -69,7 +69,10 @@
         [self setShowTextAsBottom:NO];
         [self setShowTextAsTop:NO];
     }
-    
+}
+
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    [super shouldUpdateCellNodeWithObject:object];
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
@@ -185,6 +188,8 @@
     self.messageNode = nil;
     
     [super clearContents];
+    
+    self.isViewInitialized = NO;
 }
 
 @end
