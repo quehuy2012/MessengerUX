@@ -95,12 +95,13 @@
     }
 }
 
-- (void)shouldUpdateCellNodeWithObject:(id)object {
-    // parent do thing like setup general info
-    if ([object isKindOfClass:[UXMessage class]]) {
-        UXMessage * message = object;
-        self.owner = message.owner;
-        self.isIncomming = message.commingMessage;
+- (void)didEnterDisplayState {
+    [super didEnterDisplayState];
+    
+    if (_message && _isViewInitialized) {
+        
+        self.owner = _message.owner;
+        self.isIncomming = _message.commingMessage;
         self.avatarNode.image = self.owner ? self.owner.avatar : [UIImage imageNamed:@"cameraThumb"]; // TODO set default thumbnail
         
         if (self.messageBackgroundNode) {
@@ -111,6 +112,25 @@
                 self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].outgoingColor;
             }
         }
+    }
+}
+
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    // parent do thing like setup general info
+    if ([object isKindOfClass:[UXMessage class]]) {
+        self.message = object;
+        //        self.owner = message.owner;
+        //        self.isIncomming = message.commingMessage;
+        //        self.avatarNode.image = self.owner ? self.owner.avatar : [UIImage imageNamed:@"cameraThumb"]; // TODO set default thumbnail
+        //
+        //        if (self.messageBackgroundNode) {
+        //
+        //            if (self.isIncomming) {
+        //                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].incommingColor;
+        //            } else {
+        //                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].outgoingColor;
+        //            }
+        //        }
     }
 }
 
@@ -131,8 +151,8 @@
 - (void)setBottomText:(NSString *)string {
     if (string) {
         self.bottomTextNode.attributedText = [[NSAttributedString alloc] initWithString:string
-                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].supportTextSize],
-                                                                                       NSForegroundColorAttributeName: [UXMessageCellConfigure getGlobalConfigure].supportTextColor}];
+                                                                             attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].supportTextSize],
+                                                                                          NSForegroundColorAttributeName: [UXMessageCellConfigure getGlobalConfigure].supportTextColor}];
         [self setShowTextAsBottom:YES];
     }
 }
@@ -164,7 +184,7 @@
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
-//    [super setHighlighted:highlighted];
+    //    [super setHighlighted:highlighted];
     
     if (highlighted) {
         if (self.messageBackgroundNode) {
@@ -233,15 +253,15 @@
     }
 }
 
-//- (void)clearLayerContentOfLayer:(CALayer *)layer {
-//    for (CALayer * sub in layer.sublayers) {
-//        [self clearLayerContentOfLayer:sub];
-//    }
-//    layer.contents = nil;
-//}
+- (void)clearLayerContentOfLayer:(CALayer *)layer {
+    for (CALayer * sub in layer.sublayers) {
+        [self clearLayerContentOfLayer:sub];
+    }
+    layer.contents = nil;
+}
 
 - (void)dealloc {
-//    NSLog(@"Dealloc %d", mID);
+    //    NSLog(@"Dealloc %d", mID);
 }
 
 @end
