@@ -15,6 +15,7 @@
 @interface UXTextMessageCell ()
 
 @property (nonatomic) ASTextNode * messageNode;
+@property (nonatomic) ASTextNode *holderText;
 
 @end
 
@@ -25,7 +26,11 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.holderText = [[ASTextNode alloc] init];
         
+        self.holderText.attributedText = [[NSAttributedString alloc] initWithString:@"Holder Text"
+                                                                         attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize],
+                                                                                      NSForegroundColorAttributeName: [UIColor redColor]}];
     }
     
     return self;
@@ -71,6 +76,15 @@
     }
 }
 
+- (void)didEnterPreloadState {
+    [super didEnterPreloadState];
+    
+    if (!self.isViewInitialized) {
+        [self initView];
+        [self setNeedsLayout];
+    }
+}
+
 - (void)shouldUpdateCellNodeWithObject:(id)object {
     [super shouldUpdateCellNodeWithObject:object];
 }
@@ -78,7 +92,8 @@
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     
     if (!self.isViewInitialized) {
-        [self initView];
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
+                                                      child:self.holderText];
     }
     
     ASInsetLayoutSpec * messageInsetsSpec =

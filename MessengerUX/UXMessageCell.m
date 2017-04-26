@@ -120,18 +120,6 @@
     // parent do thing like setup general info
     if ([object isKindOfClass:[UXMessage class]]) {
         self.message = object;
-        //        self.owner = message.owner;
-        //        self.isIncomming = message.commingMessage;
-        //        self.avatarNode.image = self.owner ? self.owner.avatar : [UIImage imageNamed:@"cameraThumb"]; // TODO set default thumbnail
-        //
-        //        if (self.messageBackgroundNode) {
-        //
-        //            if (self.isIncomming) {
-        //                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].incommingColor;
-        //            } else {
-        //                self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].outgoingColor;
-        //            }
-        //        }
     }
 }
 
