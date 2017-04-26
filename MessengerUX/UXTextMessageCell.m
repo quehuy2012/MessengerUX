@@ -26,19 +26,26 @@
     self = [super init];
     if (self) {
         
-        self.messageNode = [[ASTextNode alloc] init];
-        self.messageNode.style.flexShrink = 1.0;
-        self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.messageNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
-        self.messageNode.backgroundColor = [UIColor clearColor];
-        [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-        [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
-        [self addSubnode:self.messageNode];
-        
+        self.isViewInitialized = NO;
     }
     
     return self;
+}
+
+- (void)initView {
+    [super initView];
+    
+    self.messageNode = [[ASTextNode alloc] init];
+    self.messageNode.style.flexShrink = 1.0;
+    self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
+    self.messageNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
+    self.messageNode.backgroundColor = [UIColor clearColor];
+    [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+    [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+    [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+    [self addSubnode:self.messageNode];
+    
+    self.isViewInitialized = YES;
 }
 
 - (void)shouldUpdateCellNodeWithObject:(id)object {
@@ -66,6 +73,10 @@
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    
+    if (!self.isViewInitialized) {
+        [self initView];
+    }
     
     ASInsetLayoutSpec * messageInsetsSpec =
     [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
