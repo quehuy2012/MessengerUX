@@ -8,6 +8,7 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import "UXNodeModel.h"
+#import "UXMessage.h"
 
 @class UXMessageCellConfigure;
 @class UXOwner;
@@ -20,6 +21,8 @@
 @property (nonatomic) BOOL showTextAsBottom;
 @property (nonatomic) BOOL showSubFunction;
 @property (nonatomic) UXOwner * owner;
+@property (nonatomic) UXMessage * message;
+@property (nonatomic) BOOL isViewInitialized;
 
 @property (nonatomic) ASTextNode * topTextNode;
 @property (nonatomic) ASTextNode * bottomTextNode;
@@ -30,6 +33,9 @@
 @property (nonatomic, weak) id<UXMessageCellDelegate> delegate;
 
 //- (instancetype)initWithConfigure:(UXMessageCellConfigure *)configure isIncomming:(BOOL)incomming andOwner:(UXSpeaker *)owner;
+
+// Subclass require super call
+- (void)initView;
 
 - (void)setTopText:(NSString *)string;
 

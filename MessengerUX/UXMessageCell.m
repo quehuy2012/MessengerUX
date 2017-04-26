@@ -11,7 +11,7 @@
 #import "UXMessageCellConfigure.h"
 #import "UXMessageBackgroundStyle.h"
 #import "UXOwner.h"
-#import "UXMessage.h"
+
 //@interface UXMessageCell ()
 //
 //@property (nonatomic) ASTextNode * topTextNode;
@@ -45,52 +45,54 @@
         //self.shouldRasterizeDescendants = YES;
         
         self.isIncomming = NO;
-        
-        self.avatarNode = [[ASImageNode alloc] init];
-        self.avatarNode.backgroundColor = [UIColor whiteColor];
-        self.avatarNode.style.width = ASDimensionMakeWithPoints(34);
-        self.avatarNode.style.height = ASDimensionMakeWithPoints(34);
-        self.avatarNode.cornerRadius = 17;
-        self.avatarNode.clipsToBounds = YES;
-        [self.avatarNode addTarget:self action:@selector(avatarClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [self addSubnode:self.avatarNode];
-        
-        self.topTextNode = [[ASTextNode alloc] init];
-        self.topTextNode.backgroundColor = [UIColor clearColor];
-        self.topTextNode.style.flexShrink = 1.0;
-        self.topTextNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.topTextNode.style.maxWidth = ASDimensionMake(240);
-        [self.topTextNode addTarget:self action:@selector(supportTextClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [self addSubnode:self.topTextNode];
-        
-        self.bottomTextNode = [[ASTextNode alloc] init];
-        self.bottomTextNode.backgroundColor = [UIColor clearColor];
-        self.bottomTextNode.style.flexShrink = 1.0;
-        self.bottomTextNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.bottomTextNode.style.maxWidth = ASDimensionMake(240);
-        [self.bottomTextNode addTarget:self action:@selector(supportTextClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [self addSubnode:self.bottomTextNode];
-        
-        self.subFuntionNode = [[ASImageNode alloc] init];
-        self.subFuntionNode.backgroundColor = [UIColor clearColor];
-        self.subFuntionNode.style.width = ASDimensionMakeWithPoints(26);
-        self.subFuntionNode.style.height = ASDimensionMakeWithPoints(26);
-        self.subFuntionNode.image = [UIImage imageNamed:@"subFunctionIcon"];
-        self.subFuntionNode.clipsToBounds = YES;
-        [self.subFuntionNode addTarget:self action:@selector(subFunctionClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [self addSubnode:self.subFuntionNode];
-        
-        if ([UXMessageCellConfigure getGlobalConfigure]) {
-            self.messageBackgroundNode = [[[UXMessageCellConfigure getGlobalConfigure] getMessageBackgroundStyle] getMessageBackground];
-            
-//            [self.messageBackgroundNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-//            [self.messageBackgroundNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
-            
-            [self addSubnode:self.messageBackgroundNode];
-        }
     }
     
     return self;
+}
+
+- (void)initView {
+    self.avatarNode = [[ASImageNode alloc] init];
+    self.avatarNode.backgroundColor = [UIColor whiteColor];
+    self.avatarNode.style.width = ASDimensionMakeWithPoints(34);
+    self.avatarNode.style.height = ASDimensionMakeWithPoints(34);
+    self.avatarNode.cornerRadius = 17;
+    self.avatarNode.clipsToBounds = YES;
+    [self.avatarNode addTarget:self action:@selector(avatarClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+    [self addSubnode:self.avatarNode];
+    
+    self.topTextNode = [[ASTextNode alloc] init];
+    self.topTextNode.backgroundColor = [UIColor clearColor];
+    self.topTextNode.style.flexShrink = 1.0;
+    self.topTextNode.truncationMode = NSLineBreakByTruncatingTail;
+    self.topTextNode.style.maxWidth = ASDimensionMake(240);
+    [self.topTextNode addTarget:self action:@selector(supportTextClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+    [self addSubnode:self.topTextNode];
+    
+    self.bottomTextNode = [[ASTextNode alloc] init];
+    self.bottomTextNode.backgroundColor = [UIColor clearColor];
+    self.bottomTextNode.style.flexShrink = 1.0;
+    self.bottomTextNode.truncationMode = NSLineBreakByTruncatingTail;
+    self.bottomTextNode.style.maxWidth = ASDimensionMake(240);
+    [self.bottomTextNode addTarget:self action:@selector(supportTextClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+    [self addSubnode:self.bottomTextNode];
+    
+    self.subFuntionNode = [[ASImageNode alloc] init];
+    self.subFuntionNode.backgroundColor = [UIColor clearColor];
+    self.subFuntionNode.style.width = ASDimensionMakeWithPoints(26);
+    self.subFuntionNode.style.height = ASDimensionMakeWithPoints(26);
+    self.subFuntionNode.image = [UIImage imageNamed:@"subFunctionIcon"];
+    self.subFuntionNode.clipsToBounds = YES;
+    [self.subFuntionNode addTarget:self action:@selector(subFunctionClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+    [self addSubnode:self.subFuntionNode];
+    
+    if ([UXMessageCellConfigure getGlobalConfigure]) {
+        self.messageBackgroundNode = [[[UXMessageCellConfigure getGlobalConfigure] getMessageBackgroundStyle] getMessageBackground];
+        
+        //            [self.messageBackgroundNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+        //            [self.messageBackgroundNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+        
+        [self addSubnode:self.messageBackgroundNode];
+    }
 }
 
 - (void)shouldUpdateCellNodeWithObject:(id)object {
