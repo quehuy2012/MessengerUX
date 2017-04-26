@@ -21,7 +21,7 @@
 static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 
-@interface ConversationViewController () <ASTableDelegate, ASTableDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
+@interface ConversationViewController () <ASTableDelegate, ASTableDataSource>
 
 @property (nonatomic) UXConversationFeed * dataFeed;
 @property (nonatomic) ASTableNode * tableNode;
@@ -32,6 +32,9 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 @property (nonatomic) CGFloat lastOffset;
 @property (nonatomic) ASScrollDirection scrollDirection;
+
+@property (atomic) NSUInteger shiftIndex;
+@property (atomic) NSUInteger maxAvaiableItem;
 
 @end
 
@@ -58,6 +61,9 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     
     self.lastOffset = 0;
+    
+    self.maxAvaiableItem = 100;
+    self.shiftIndex = 0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -233,7 +239,75 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
         [self.dataFeed insertNewPage:datas withCompletion:^(NSUInteger fromIndex, NSUInteger toIndex) {
             
             [weakSelf.models addObjectsFromArray:datas];
-            [weakSelf insertNewPageFromIndex:fromIndex toIndex:toIndex];
+            
+            BOOL needUpdateHeadAndTail = [weakSelf.dataFeed getDataArray].count - weakSelf.shiftIndex > weakSelf.maxAvaiableItem;
+            
+            if (needUpdateHeadAndTail) {
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    
+                    [weakSelf.tableNode performBatchUpdates:^{
+                        
+                        // Insert tail
+                        {
+                            NSInteger section = 0;
+                            NSMutableArray *indexPaths = [NSMutableArray array];
+                            
+                            for (NSInteger row = fromIndex; row < toIndex + 1; row++) {
+                                NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+                                [indexPaths addObject:path];
+                            }
+                            [weakSelf.tableNode insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                        }
+                        
+                        // Remove head
+                        {
+                            
+                            
+                            
+                            NSInteger section = 0;
+                            NSMutableArray *indexPaths = [NSMutableArray array];
+                            
+                            for (NSInteger row = fromIndex; row < toIndex + 1; row++) {
+                                NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+                                [indexPaths addObject:path];
+                            }
+                            
+                            [weakSelf.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                        }
+                        
+                    } completion:nil];
+                    
+                });
+            } else {
+                [weakSelf insertNewItemsFromIndex:fromIndex toIndex:toIndex];
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            for (int i = 0; i < 20; i++) {
+                [weakSelf.models removeObjectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            }
+            
+            [weakSelf removeItemsFromIndex:0 toIndex:20];
+            
+            weakSelf.shiftIndex += 20;
+            
+            
+            
+            
+            
+            
+            
+            
             if (context) {
                 [context completeBatchFetching:YES];
             }
@@ -241,10 +315,38 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     }];
 }
 
-- (void)insertNewPageFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
+- (void)loadHeadDataWithCurrentIndex {
     
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSArray * allData = [weakSelf.dataFeed getDataArray];
+        
+        NSUInteger tail = weakSelf.shiftIndex > 20 ? weakSelf.shiftIndex - 20 : 0;
+        
+        NSIndexSet * indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(tail, weakSelf.shiftIndex - tail)];
+        
+        NSArray * insertArray = [allData objectsAtIndexes:indexes];
+        
+        for (int i = (int)insertArray.count - 1; i >= 0; i--) {
+            id object = insertArray[i];
+            [weakSelf.models insertObject:object atRow:0 inSection:0];
+        }
+        
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        for (NSInteger row = 0; row < (int)insertArray.count; row++) {
+            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:0];
+            [indexPaths addObject:path];
+        }
+        
+        [weakSelf.tableNode insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    });
+}
+
+- (void)insertNewItemsFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_sync(dispatch_get_main_queue(), ^{
         NSInteger section = 0;
         NSMutableArray *indexPaths = [NSMutableArray array];
         
@@ -254,6 +356,23 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
         }
         [weakSelf.tableNode insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     });
+}
+
+- (void)removeItemsFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        NSInteger section = 0;
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        
+        for (NSInteger row = fromIndex; row < toIndex + 1; row++) {
+            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+            [indexPaths addObject:path];
+        }
+        
+        [weakSelf.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    });
+    
 }
 
 #pragma mark - Supporting head fetch for table node
@@ -304,11 +423,15 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 - (void)beginHeadBatchFetching {
     ASBatchContext * context = [((UIScrollView<ASBatchFetchingScrollView> *)self.tableNode.view) batchContext];
     
+    __weak typeof(self) weakSelf = self;
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         [context beginBatchFetching];
         
         NSLog(@"Head fetch");
+        
+        [weakSelf loadHeadDataWithCurrentIndex];
         
         [context completeBatchFetching:YES];
     });
@@ -440,36 +563,6 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 - (void)copy:(id)sender {
     NSLog(@"Method is not implemented");
-}
-
-#pragma mark - UXMessageCellDelegate
-
-- (void)messageCell:(UXMessageCell *)messageCell avatarClicked:(ASImageNode *)avatarNode {
-    NSLog(@"Avatar clicked %@", avatarNode);
-}
-
-- (void)messageCell:(UXMessageCell *)messageCell supportLabelClicked:(ASTextNode *)supportLabel isTopLabel:(BOOL)topLabel {
-    NSLog(@"Support label %d clicked %@", topLabel, supportLabel);
-}
-
-- (void)messageCell:(UXMessageCell *)messageCell subFunctionClicked:(ASImageNode *)subFunctionNode {
-    NSLog(@"Sub function clicked %@", subFunctionNode);
-}
-
-- (void)messageCell:(UXMessageCell *)messageCell messageClicked:(ASTextNode *)messageNode{
-    NSLog(@"Message clicked %@", messageNode);
-}
-
-- (void)messageCell:(UXMessageCell *)messageCell imageClicked:(ASControlNode *)imageNode {
-    NSLog(@"Image clicked %@", imageNode);
-}
-
-- (void)messageCell:(UXMessageCell *)messageCell titleClicked:(ASTextNode *)titleNode {
-    NSLog(@"Title clicked %@", titleNode);
-}
-
-- (void)messageCell:(UXMessageCell *)messageCell albumImageClicked:(ASControlNode *)imageNode {
-    NSLog(@"Album image clicked %@", imageNode);
 }
 
 #pragma mark - Memory monitor
