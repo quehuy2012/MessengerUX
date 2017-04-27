@@ -95,10 +95,7 @@
         [self addSubnode:self.messageBackgroundNode];
     }
 }
-
-- (void)didEnterDisplayState {
-    [super didEnterDisplayState];
-    
+- (void)updateView {
     if (_message && _isViewInitialized) {
         
         self.owner = _message.owner;
@@ -116,11 +113,14 @@
     }
 }
 
+- (void)didEnterDisplayState {
+    [super didEnterDisplayState];
+    
+    [self updateView];
+}
+
 - (void)shouldUpdateCellNodeWithObject:(id)object {
-    // parent do thing like setup general info
-    if ([object isKindOfClass:[UXMessage class]]) {
-        self.message = object;
-    }
+    // parent do nothing
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {

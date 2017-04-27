@@ -37,6 +37,9 @@
 // Subclass require super call
 - (void)initView;
 
+// Subclass require super call
+- (void)updateView;
+
 - (void)setTopText:(NSString *)string;
 
 - (void)setBottomText:(NSString *)string;

@@ -15,7 +15,8 @@
 @interface UXTextMessageCell ()
 
 @property (nonatomic) ASTextNode * messageNode;
-@property (nonatomic) ASTextNode *holderText;
+@property (nonatomic) ASImageNode *holderImage;
+@property (nonatomic) CGSize preferSize;
 
 @end
 
@@ -26,11 +27,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.holderText = [[ASTextNode alloc] init];
         
-        self.holderText.attributedText = [[NSAttributedString alloc] initWithString:@"Holder Text"
-                                                                         attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize],
-                                                                                      NSForegroundColorAttributeName: [UIColor redColor]}];
+        [self initView];
+        
+        self.preferSize = CGSizeZero;
+        
+        self.holderImage = [[ASImageNode alloc] init];
+        self.holderImage.image = [UIImage imageNamed:@"cameraThumb"];
+        [self addSubnode:_holderImage];
     }
     
     return self;
@@ -52,8 +56,8 @@
     self.isViewInitialized = YES;
 }
 
-- (void)didEnterDisplayState {
-    [super didEnterDisplayState];
+- (void)updateView {
+    [super updateView];
     
     if (self.message && self.isViewInitialized) {
         UXTextMessage * textMessage = (UXTextMessage *)self.message;
@@ -73,7 +77,15 @@
         
         [self setShowTextAsBottom:NO];
         [self setShowTextAsTop:NO];
+    } else {
+        NSLog(@"Message missed initalized");
     }
+}
+
+- (void)didEnterDisplayState {
+    [super didEnterDisplayState];
+    
+    [self updateView];
 }
 
 - (void)didEnterPreloadState {
@@ -81,19 +93,35 @@
     
     if (!self.isViewInitialized) {
         [self initView];
-        [self setNeedsLayout];
+        [self invalidateCalculatedLayout];
+    } else {
+        [self.holderImage removeFromSupernode];
     }
 }
 
+- (void)didExitPreloadState {
+    [super didExitPreloadState];
+    
+    [self addSubnode:_holderImage];
+}
+
 - (void)shouldUpdateCellNodeWithObject:(id)object {
-    [super shouldUpdateCellNodeWithObject:object];
+    
+    if ([object isKindOfClass:UXTextMessage.class]) {
+        self.message = (UXTextMessage *)object;
+        
+        [self updateView];
+    }
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     
     if (!self.isViewInitialized) {
-        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
-                                                      child:self.holderText];
+        
+        CGSize size = CGSizeMake(constrainedSize.max.width, _preferSize.height);
+        self.holderImage.style.preferredSize = size;
+        
+        return [ASWrapperLayoutSpec wrapperWithLayoutElement:_holderImage];
     }
     
     ASInsetLayoutSpec * messageInsetsSpec =
@@ -198,6 +226,8 @@
 #pragma mark - Memory managment
 
 - (void)clearContents {
+    
+    self.preferSize = self.calculatedSize;
     
     [self.messageNode removeFromSupernode];
     self.messageNode = nil;
