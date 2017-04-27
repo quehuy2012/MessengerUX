@@ -33,8 +33,6 @@
         self.preferSize = CGSizeZero;
         
         self.holderImage = [[ASImageNode alloc] init];
-        self.holderImage.image = [UIImage imageNamed:@"cameraThumb"];
-        [self addSubnode:_holderImage];
     }
     
     return self;
@@ -83,6 +81,7 @@
 }
 
 - (void)didEnterDisplayState {
+    [self didEnterPreloadState];
     [super didEnterDisplayState];
     
     [self updateView];
@@ -94,15 +93,11 @@
     if (!self.isViewInitialized) {
         [self initView];
         [self invalidateCalculatedLayout];
-    } else {
-        [self.holderImage removeFromSupernode];
     }
 }
 
 - (void)didExitPreloadState {
     [super didExitPreloadState];
-    
-    [self addSubnode:_holderImage];
 }
 
 - (void)shouldUpdateCellNodeWithObject:(id)object {
@@ -231,6 +226,7 @@
     
     [self.messageNode removeFromSupernode];
     self.messageNode = nil;
+    [self.messageNode isInHierarchy];
     
     [super clearContents];
     
