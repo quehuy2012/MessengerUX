@@ -220,10 +220,8 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 - (void)loadPageWithContext:(ASBatchContext *)context {
     
     __weak typeof(self) weakSelf = self;
-    [self.dataFeed getNextDataPageWithCompletion:^(NSArray<UXMessage *> *datas) {
-        
-        
-        
+    
+    [self.dataFeed getNextDataPageSize:20 withCompletion:^(NSArray<UXMessage *> *datas) {
         [self.dataFeed insertNewPage:datas withCompletion:^(NSUInteger fromIndex, NSUInteger toIndex) {
             
             [weakSelf.models addObjectsFromArray:datas];

@@ -300,6 +300,7 @@
 		F23AE9071EAF50B600C2B571 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = F23AE8FB1EAF50B500C2B571 /* Constants.m */; };
 		F23AE90A1EAF513B00C2B571 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F23AE9091EAF513B00C2B571 /* CameraViewController.m */; };
 		F23AE9111EB047D900C2B571 /* UXHeadBatchFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = F23AE9101EB047D900C2B571 /* UXHeadBatchFetching.m */; };
+		F23AE9141EB18F2500C2B571 /* UXLimitRangeData.m in Sources */ = {isa = PBXBuildFile; fileRef = F23AE9131EB18F2500C2B571 /* UXLimitRangeData.m */; };
 		F250BDF61E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */; };
 		F250BDFB1E9F65230067C1F3 /* JPFPSStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDF81E9F65230067C1F3 /* JPFPSStatus.m */; };
 		F250BDFC1E9F65230067C1F3 /* RRFPSBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDFA1E9F65230067C1F3 /* RRFPSBar.m */; };
@@ -698,6 +699,8 @@
 		F23AE9091EAF513B00C2B571 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		F23AE90F1EB047D900C2B571 /* UXHeadBatchFetching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXHeadBatchFetching.h; sourceTree = "<group>"; };
 		F23AE9101EB047D900C2B571 /* UXHeadBatchFetching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXHeadBatchFetching.m; sourceTree = "<group>"; };
+		F23AE9121EB18F2500C2B571 /* UXLimitRangeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXLimitRangeData.h; sourceTree = "<group>"; };
+		F23AE9131EB18F2500C2B571 /* UXLimitRangeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXLimitRangeData.m; sourceTree = "<group>"; };
 		F250BDF41E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
 		F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
 		F250BDF71E9F65230067C1F3 /* JPFPSStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFPSStatus.h; sourceTree = "<group>"; };
@@ -1399,6 +1402,8 @@
 			children = (
 				F23AE90F1EB047D900C2B571 /* UXHeadBatchFetching.h */,
 				F23AE9101EB047D900C2B571 /* UXHeadBatchFetching.m */,
+				F23AE9121EB18F2500C2B571 /* UXLimitRangeData.h */,
+				F23AE9131EB18F2500C2B571 /* UXLimitRangeData.m */,
 			);
 			name = UXContainer;
 			sourceTree = "<group>";
@@ -2003,6 +2008,7 @@
 				F20C82901E6D0B9B006D3594 /* AppDelegate.m in Sources */,
 				F2DE8B3A1E93B2B000049F75 /* UXAudioMessage.m in Sources */,
 				F2134EE61E7932F4005F8B10 /* SwipeInteractiveActions.m in Sources */,
+				F23AE9141EB18F2500C2B571 /* UXLimitRangeData.m in Sources */,
 				F23AE9061EAF50B600C2B571 /* CaptureSessionManager.m in Sources */,
 				F20C828D1E6D0B9B006D3594 /* main.m in Sources */,
 				F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */,

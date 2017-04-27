@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-//    [ASRangeController setShouldShowRangeDebugOverlay:YES];
+    [ASRangeController setShouldShowRangeDebugOverlay:YES];
 //    [ASControlNode setEnableHitTestDebug:YES];
 //    [ASImageNode setShouldShowImageScalingOverlay:YES];
     return YES;

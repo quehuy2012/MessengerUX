@@ -211,7 +211,7 @@
 
 - (void)clearContents {
     [super clearContents];
-    NSLog(@"Clear %d", mID);
+    //NSLog(@"Clear %d", mID);
     
     [self.avatarNode clearContents];
     [self clearLayerContentOfLayer:self.avatarNode.layer];

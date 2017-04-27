@@ -9,8 +9,6 @@
 #import "UXConversationFeed.h"
 #import "LoremIpsum.h"
 
-#define PAGE_FETCH_SIZE 20
-
 @interface UXConversationFeed ()
 
 @property (nonatomic) NSMutableArray<UXMessage *> * dataArray;
@@ -43,14 +41,14 @@
     return [self.dataArray mutableCopy];
 }
 
-- (void)getNextDataPageWithCompletion:(void (^)(NSArray<UXMessage *> * datas))completion {
+- (void)getNextDataPageSize:(NSUInteger)size withCompletion:(void (^)(NSArray<UXMessage *> * datas))completion; {
     
     if (completion && !self.prefetching) {
         self.prefetching = YES;
         __weak typeof(self) weakSelf = self;
         dispatch_async(self.internalConcurrentQueue, ^{
             NSUInteger currentMaxIndex = [weakSelf getDataArray].count;
-            NSArray * ret = [weakSelf getDataArrayFromIndex:currentMaxIndex toIndex:currentMaxIndex + PAGE_FETCH_SIZE];
+            NSArray * ret = [weakSelf getDataArrayFromIndex:currentMaxIndex toIndex:currentMaxIndex + size];
             weakSelf.prefetching = NO;
             completion(ret);
         });
@@ -355,6 +353,10 @@
     }
     
     return ret;
+}
+
+- (NSArray *)messagesFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
+    return [self.dataArray objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(fromIndex, toIndex - fromIndex)]];
 }
 
 @end

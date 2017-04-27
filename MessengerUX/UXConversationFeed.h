@@ -25,7 +25,7 @@
 
  @param completion action callback
  */
-- (void)getNextDataPageWithCompletion:(void (^)(NSArray<UXMessage *> * datas))completion;
+- (void)getNextDataPageSize:(NSUInteger)size withCompletion:(void (^)(NSArray<UXMessage *> * datas))completion;
 
 /**
  Insert new data as a new page
@@ -52,5 +52,7 @@
  @param sentence sentence to delete
  */
 - (void)deleteSentent:(UXMessage *)sentence;
+
+- (NSArray *)messagesFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
 
 @end

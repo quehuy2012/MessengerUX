@@ -18,8 +18,9 @@
 
 #import "UXHeadBatchFetching.h"
 
-static const NSTimeInterval kCellLongPressInterval = 0.7;
+#import "UXLimitRangeData.h"
 
+static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 @interface ConversationViewController () <ASTableDelegate, ASTableDataSource>
 
@@ -33,8 +34,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 @property (nonatomic) CGFloat lastOffset;
 @property (nonatomic) ASScrollDirection scrollDirection;
 
-@property (atomic) NSUInteger shiftIndex;
-@property (atomic) NSUInteger maxAvaiableItem;
+@property (nonatomic) UXLimitRangeData * rangeData;
 
 @end
 
@@ -62,8 +62,10 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     self.lastOffset = 0;
     
-    self.maxAvaiableItem = 100;
-    self.shiftIndex = 0;
+    self.rangeData = [[UXLimitRangeData alloc] initWithMaxRangeItem:40 fetchNumber:20];
+    
+    self.rangeData.currentAmount = [self.dataFeed getDataArray].count;
+    self.rangeData.maxAvaiableItem = [self.dataFeed getDataArray].count;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -233,146 +235,180 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 }
 
 - (void)loadPageWithContext:(ASBatchContext *)context {
-    
-    __weak typeof(self) weakSelf = self;
-    [self.dataFeed getNextDataPageWithCompletion:^(NSArray<UXMessage *> *datas) {
-        [self.dataFeed insertNewPage:datas withCompletion:^(NSUInteger fromIndex, NSUInteger toIndex) {
+    if ([self.rangeData needUnshiftTail]) {
+        
+        __weak typeof(self) weakSelf = self;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            NSUInteger numFetch = weakSelf.rangeData.tailShift > weakSelf.rangeData.fetchNumber ? weakSelf.rangeData.fetchNumber : weakSelf.rangeData.tailShift;
             
-            [weakSelf.models addObjectsFromArray:datas];
+            NSUInteger beginIndexForFetch = weakSelf.rangeData.headShift + weakSelf.rangeData.currentAmount;
+            NSArray * currentItems = [weakSelf.dataFeed messagesFromIndex:weakSelf.rangeData.headShift toIndex:weakSelf.rangeData.headShift + weakSelf.rangeData.currentAmount];
+            NSArray * itemsToInsertMore = [weakSelf.dataFeed messagesFromIndex:beginIndexForFetch toIndex:beginIndexForFetch + numFetch];
             
-            BOOL needUpdateHeadAndTail = [weakSelf.dataFeed getDataArray].count - weakSelf.shiftIndex > weakSelf.maxAvaiableItem;
+            [weakSelf.rangeData insertToTail:numFetch];
             
-            if (needUpdateHeadAndTail) {
+            [weakSelf insertToTailOfArray:currentItems
+                                array:itemsToInsertMore
+                              overlap:numFetch
+                           completion:^(BOOL finish) {
+                               if (context) {
+                                   [context completeBatchFetching:YES];
+                               }
+                               NSLog(@"From %ld to %ld", (unsigned long)weakSelf.rangeData.headShift, (unsigned long)weakSelf.rangeData.headShift + (unsigned long)weakSelf.rangeData.currentAmount);
+                           }];
+        });
+    } else {
+        
+        __weak typeof(self) weakSelf = self;
+        [self.dataFeed getNextDataPageSize:self.rangeData.fetchNumber withCompletion:^(NSArray<UXMessage *> *datas) {
+            [self.dataFeed insertNewPage:datas withCompletion:^(NSUInteger fromIndex, NSUInteger toIndex) {
                 
                 dispatch_sync(dispatch_get_main_queue(), ^{
+                    NSUInteger numOfItems = datas.count;
                     
-                    [weakSelf.tableNode performBatchUpdates:^{
-                        
-                        // Insert tail
-                        {
-                            NSInteger section = 0;
-                            NSMutableArray *indexPaths = [NSMutableArray array];
-                            
-                            for (NSInteger row = fromIndex; row < toIndex + 1; row++) {
-                                NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
-                                [indexPaths addObject:path];
-                            }
-                            [weakSelf.tableNode insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                        }
-                        
-                        // Remove head
-                        {
-                            
-                            
-                            
-                            NSInteger section = 0;
-                            NSMutableArray *indexPaths = [NSMutableArray array];
-                            
-                            for (NSInteger row = fromIndex; row < toIndex + 1; row++) {
-                                NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
-                                [indexPaths addObject:path];
-                            }
-                            
-                            [weakSelf.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                        }
-                        
-                    } completion:nil];
+                    // Need to update number of avaiable item
+                    weakSelf.rangeData.maxAvaiableItem = [weakSelf.dataFeed getDataArray].count;
                     
+                    NSArray * currentItems = [weakSelf.dataFeed messagesFromIndex:weakSelf.rangeData.headShift toIndex:fromIndex];
+                    
+                    [weakSelf.rangeData insertToTail:self.rangeData.fetchNumber];
+                    
+                    NSUInteger overlap = 0;
+                    if (weakSelf.rangeData.tailShift > 0) {
+                        if (weakSelf.rangeData.tailShift <= numOfItems) {
+                            overlap = numOfItems - weakSelf.rangeData.tailShift;
+                        } else {
+                            overlap = numOfItems;
+                        }
+                    } else {
+                        overlap = 0;
+                    }
+                    
+                    [weakSelf insertToTailOfArray:currentItems
+                                        array:datas
+                                      overlap:overlap
+                                   completion:^(BOOL finish) {
+                                       if (context) {
+                                           [context completeBatchFetching:YES];
+                                       }
+                                       weakSelf.rangeData.currentAmount = weakSelf.rangeData.maxAvaiableItem > weakSelf.rangeData.maxRangeItem ? weakSelf.rangeData.maxRangeItem : weakSelf.rangeData.maxAvaiableItem;
+                                       
+                                       NSLog(@"From %ld to %ld", (unsigned long)weakSelf.rangeData.headShift, (unsigned long)weakSelf.rangeData.headShift + (unsigned long)weakSelf.rangeData.currentAmount);
+                                   }];
                 });
-            } else {
-                [weakSelf insertNewItemsFromIndex:fromIndex toIndex:toIndex];
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            for (int i = 0; i < 20; i++) {
-                [weakSelf.models removeObjectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            }
-            
-            [weakSelf removeItemsFromIndex:0 toIndex:20];
-            
-            weakSelf.shiftIndex += 20;
-            
-            
-            
-            
-            
-            
-            
-            
-            if (context) {
-                [context completeBatchFetching:YES];
-            }
+            }];
         }];
-    }];
+    }
 }
 
-- (void)loadHeadDataWithCurrentIndex {
-    
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
+- (void)loadHeadDataWithContext:(ASBatchContext *)context {
+    if ([self.rangeData needUnshiftHead]) {
+        __weak typeof(self) weakSelf = self;
         
-        NSArray * allData = [weakSelf.dataFeed getDataArray];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            NSUInteger numFetch = weakSelf.rangeData.headShift > weakSelf.rangeData.fetchNumber ? weakSelf.rangeData.fetchNumber : weakSelf.rangeData.headShift;
         
-        NSUInteger tail = weakSelf.shiftIndex > 20 ? weakSelf.shiftIndex - 20 : 0;
-        
-        NSIndexSet * indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(tail, weakSelf.shiftIndex - tail)];
-        
-        NSArray * insertArray = [allData objectsAtIndexes:indexes];
-        
-        for (int i = (int)insertArray.count - 1; i >= 0; i--) {
-            id object = insertArray[i];
-            [weakSelf.models insertObject:object atRow:0 inSection:0];
+            NSUInteger endIndexForFetch = weakSelf.rangeData.headShift;
+            
+            NSArray * currentItems = [weakSelf.dataFeed messagesFromIndex:weakSelf.rangeData.headShift toIndex:weakSelf.rangeData.headShift + weakSelf.rangeData.currentAmount];
+            NSArray * itemsToInsertMore = [weakSelf.dataFeed messagesFromIndex:endIndexForFetch - numFetch toIndex:endIndexForFetch];
+            
+            [weakSelf.rangeData insertToHead:numFetch];
+            
+            [weakSelf insertToHeadOfArray:currentItems
+                                    array:itemsToInsertMore
+                                  overlap:numFetch
+                               completion:^(BOOL finish) {
+                                   if (context) {
+                                       [context completeBatchFetching:YES];
+                                   }
+                                   NSLog(@"From %ld to %ld", (unsigned long)weakSelf.rangeData.headShift, (unsigned long)weakSelf.rangeData.headShift + (unsigned long)weakSelf.rangeData.currentAmount);
+                               }];
+        });
+    } else {
+        if (context) {
+            [context completeBatchFetching:YES];
         }
-        
-        NSMutableArray *indexPaths = [NSMutableArray array];
-        for (NSInteger row = 0; row < (int)insertArray.count; row++) {
-            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:0];
-            [indexPaths addObject:path];
-        }
-        
-        [weakSelf.tableNode insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    });
+    }
 }
 
-- (void)insertNewItemsFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
-    
+- (void)insertToTailOfArray:(NSArray *)originArray array:(NSArray *)insertArray overlap:(NSUInteger)overlap completion:(void (^)(BOOL))completion {
     __weak typeof(self) weakSelf = self;
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        NSInteger section = 0;
-        NSMutableArray *indexPaths = [NSMutableArray array];
+    [self.tableNode performBatchUpdates:^{
         
-        for (NSInteger row = fromIndex; row < toIndex + 1; row++) {
-            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
-            [indexPaths addObject:path];
+        NSUInteger originNum = originArray.count;
+        NSUInteger insertNum = insertArray.count;
+        
+        // Add tail
+        {
+            NSMutableArray * insertedIndexPath = [@[] mutableCopy];
+            for (int i = 0; i < insertNum; i++) {
+                NSUInteger shiftedIndex = i + originNum;
+                NSIndexPath * index = [NSIndexPath indexPathForRow:shiftedIndex inSection:0];
+                
+                id itemToInsert = insertArray[i];
+                
+                [weakSelf.models insertObject:itemToInsert atRow:shiftedIndex inSection:0];
+                
+                [insertedIndexPath addObject:index];
+            }
+            
+            [weakSelf.tableNode insertRowsAtIndexPaths:insertedIndexPath withRowAnimation:UITableViewRowAnimationNone];
         }
-        [weakSelf.tableNode insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    });
+        
+        // Remove head
+        {
+            NSMutableArray * deletedIndexPath = [@[] mutableCopy];
+            for (int i = 0; i < overlap; i++) {
+                NSIndexPath * index = [NSIndexPath indexPathForRow:i inSection:0];
+                [weakSelf.models removeObjectAtIndexPath:index];
+                
+                [deletedIndexPath addObject:index];
+            }
+            [weakSelf.tableNode deleteRowsAtIndexPaths:deletedIndexPath withRowAnimation:UITableViewRowAnimationNone];
+        }
+        
+    } completion:completion];
 }
 
-- (void)removeItemsFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
-    
+- (void)insertToHeadOfArray:(NSArray *)originArray array:(NSArray *)insertArray overlap:(NSUInteger)overlap completion:(void (^)(BOOL))completion {
     __weak typeof(self) weakSelf = self;
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        NSInteger section = 0;
-        NSMutableArray *indexPaths = [NSMutableArray array];
+    [self.tableNode performBatchUpdates:^{
         
-        for (NSInteger row = fromIndex; row < toIndex + 1; row++) {
-            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
-            [indexPaths addObject:path];
+        NSUInteger originNum = originArray.count;
+        NSUInteger insertNum = insertArray.count;
+        
+        // Add head
+        {
+            NSMutableArray * insertedIndexPath = [@[] mutableCopy];
+            
+            for (int i = (int)insertNum - 1; i >= 0; i--) {
+                NSIndexPath * index = [NSIndexPath indexPathForRow:i inSection:0];
+                id itemToInsert = insertArray[i];
+                
+                [weakSelf.models insertObject:itemToInsert atRow:0 inSection:0];
+                [insertedIndexPath addObject:index];
+            }
+            
+            [weakSelf.tableNode insertRowsAtIndexPaths:insertedIndexPath withRowAnimation:UITableViewRowAnimationNone];
         }
         
-        [weakSelf.tableNode deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    });
-    
+        // Remove tail
+        {
+            NSMutableArray * deletedIndexPath = [@[] mutableCopy];
+            for (int i = 1; i < overlap; i++) {
+                NSUInteger shiftedIndex = originNum + insertNum - i;
+                
+                NSIndexPath * index = [NSIndexPath indexPathForRow:shiftedIndex inSection:0];
+                [weakSelf.models removeObjectAtIndexPath:index];
+                
+                [deletedIndexPath addObject:index];
+            }
+            [weakSelf.tableNode deleteRowsAtIndexPaths:deletedIndexPath withRowAnimation:UITableViewRowAnimationNone];
+        }
+        
+    } completion:completion];
 }
 
 #pragma mark - Supporting head fetch for table node
@@ -431,9 +467,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
         
         NSLog(@"Head fetch");
         
-        [weakSelf loadHeadDataWithCurrentIndex];
-        
-        [context completeBatchFetching:YES];
+        [weakSelf loadHeadDataWithContext:context];
     });
 }
 
