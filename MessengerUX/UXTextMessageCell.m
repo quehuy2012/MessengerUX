@@ -39,19 +39,27 @@
 }
 
 - (void)initView {
-    [super initView];
     
-    self.messageNode = [[ASTextNode alloc] init];
-    self.messageNode.style.flexShrink = 1.0;
-    self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
-    self.messageNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
-    self.messageNode.backgroundColor = [UIColor clearColor];
-    [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-    [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-    [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
-    [self addSubnode:self.messageNode];
+    @synchronized (self) {
+        if (!self.isViewInitialized) {
+            [super initView];
+            
+            self.messageNode = [[ASTextNode alloc] init];
+            self.messageNode.style.flexShrink = 1.0;
+            self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
+            self.messageNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
+            self.messageNode.backgroundColor = [UIColor clearColor];
+            [self.messageNode addTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+            [self.messageNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+            [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+            [self addSubnode:self.messageNode];
+            
+            self.isViewInitialized = YES;
+            [self invalidateCalculatedLayout];
+        }
+    }
     
-    self.isViewInitialized = YES;
+    
 }
 
 - (void)updateView {
@@ -82,6 +90,7 @@
 
 - (void)didEnterDisplayState {
     [self didEnterPreloadState];
+    
     [super didEnterDisplayState];
     
     [self updateView];
@@ -90,14 +99,7 @@
 - (void)didEnterPreloadState {
     [super didEnterPreloadState];
     
-    if (!self.isViewInitialized) {
-        [self initView];
-        [self invalidateCalculatedLayout];
-    }
-}
-
-- (void)didExitPreloadState {
-    [super didExitPreloadState];
+    [self initView];
 }
 
 - (void)shouldUpdateCellNodeWithObject:(id)object {
@@ -226,8 +228,6 @@
     
     [self.messageNode removeFromSupernode];
     self.messageNode = nil;
-    
-    
     
     [super clearContents];
     
