@@ -226,7 +226,8 @@
     
     [self.messageNode removeFromSupernode];
     self.messageNode = nil;
-    [self.messageNode isInHierarchy];
+    
+    
     
     [super clearContents];
     
