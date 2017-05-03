@@ -62,7 +62,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     self.lastOffset = 0;
     
-    self.rangeData = [[UXLimitRangeData alloc] initWithMaxRangeItem:40 fetchNumber:20];
+    self.rangeData = [[UXLimitRangeData alloc] initWithMaxRangeItem:80 fetchNumber:20];
     
     self.rangeData.currentAmount = [self.dataFeed getDataArray].count;
     self.rangeData.maxAvaiableItem = [self.dataFeed getDataArray].count;
@@ -271,7 +271,11 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
                     
                     NSArray * currentItems = [weakSelf.dataFeed messagesFromIndex:weakSelf.rangeData.headShift toIndex:fromIndex];
                     
+                    NSLog(@"New %ld curr %ld", (unsigned long)numOfItems, (unsigned long)currentItems.count);
+                    
                     [weakSelf.rangeData insertToTail:self.rangeData.fetchNumber];
+                    
+                    NSLog(@"Range TS %ld HS %ld", (unsigned long)weakSelf.rangeData.tailShift, (unsigned long)weakSelf.rangeData.headShift);
                     
                     NSUInteger overlap = 0;
                     if (weakSelf.rangeData.tailShift > 0) {
@@ -281,19 +285,29 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
                             overlap = numOfItems;
                         }
                     } else {
-                        overlap = 0;
+                        if (currentItems.count + numOfItems <= weakSelf.rangeData.maxRangeItem) {
+                            overlap = 0;
+                        } else {
+                            overlap = currentItems.count + numOfItems - weakSelf.rangeData.maxRangeItem;
+                        }
                     }
+                    
+                    NSLog(@"Overlap %ld", (unsigned long)overlap);
                     
                     [weakSelf insertToTailOfArray:currentItems
                                         array:datas
                                       overlap:overlap
                                    completion:^(BOOL finish) {
-                                       if (context) {
-                                           [context completeBatchFetching:YES];
-                                       }
+                                       
                                        weakSelf.rangeData.currentAmount = weakSelf.rangeData.maxAvaiableItem > weakSelf.rangeData.maxRangeItem ? weakSelf.rangeData.maxRangeItem : weakSelf.rangeData.maxAvaiableItem;
                                        
                                        NSLog(@"From %ld to %ld", (unsigned long)weakSelf.rangeData.headShift, (unsigned long)weakSelf.rangeData.headShift + (unsigned long)weakSelf.rangeData.currentAmount);
+                                       
+                                       NSLog(@"\\");
+                                       
+                                       if (context) {
+                                           [context completeBatchFetching:YES];
+                                       }
                                    }];
                 });
             }];
@@ -335,10 +349,11 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 - (void)insertToTailOfArray:(NSArray *)originArray array:(NSArray *)insertArray overlap:(NSUInteger)overlap completion:(void (^)(BOOL))completion {
     __weak typeof(self) weakSelf = self;
-    [self.tableNode performBatchUpdates:^{
-        
-        NSUInteger originNum = originArray.count;
-        NSUInteger insertNum = insertArray.count;
+    
+    NSUInteger originNum = originArray.count;
+    NSUInteger insertNum = insertArray.count;
+    
+    [self.tableNode performBatchAnimated:NO updates:^{
         
         // Add tail
         {
@@ -357,27 +372,30 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
             [weakSelf.tableNode insertRowsAtIndexPaths:insertedIndexPath withRowAnimation:UITableViewRowAnimationNone];
         }
         
-        // Remove head
-        {
-            NSMutableArray * deletedIndexPath = [@[] mutableCopy];
-            for (int i = 0; i < overlap; i++) {
-                NSIndexPath * index = [NSIndexPath indexPathForRow:i inSection:0];
-                [weakSelf.models removeObjectAtIndexPath:index];
-                
-                [deletedIndexPath addObject:index];
+    } completion:^(BOOL finished) {
+        [weakSelf.tableNode performBatchAnimated:NO updates:^{
+            // Remove head
+            {
+                NSMutableArray * deletedIndexPath = [@[] mutableCopy];
+                for (int i = 0; i < overlap; i++) {
+                    NSIndexPath * index = [NSIndexPath indexPathForRow:i inSection:0];
+                    [weakSelf.models removeObjectAtIndexPath:index];
+                    
+                    [deletedIndexPath addObject:index];
+                }
+                [weakSelf.tableNode deleteRowsAtIndexPaths:deletedIndexPath withRowAnimation:UITableViewRowAnimationNone];
             }
-            [weakSelf.tableNode deleteRowsAtIndexPaths:deletedIndexPath withRowAnimation:UITableViewRowAnimationNone];
-        }
-        
-    } completion:completion];
+        } completion:completion];
+    }];
 }
 
 - (void)insertToHeadOfArray:(NSArray *)originArray array:(NSArray *)insertArray overlap:(NSUInteger)overlap completion:(void (^)(BOOL))completion {
     __weak typeof(self) weakSelf = self;
-    [self.tableNode performBatchUpdates:^{
-        
-        NSUInteger originNum = originArray.count;
-        NSUInteger insertNum = insertArray.count;
+    
+    NSUInteger originNum = originArray.count;
+    NSUInteger insertNum = insertArray.count;
+    
+    [self.tableNode performBatchAnimated:NO updates:^{
         
         // Add head
         {
@@ -394,21 +412,24 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
             [weakSelf.tableNode insertRowsAtIndexPaths:insertedIndexPath withRowAnimation:UITableViewRowAnimationNone];
         }
         
-        // Remove tail
-        {
-            NSMutableArray * deletedIndexPath = [@[] mutableCopy];
-            for (int i = 1; i < overlap; i++) {
-                NSUInteger shiftedIndex = originNum + insertNum - i;
-                
-                NSIndexPath * index = [NSIndexPath indexPathForRow:shiftedIndex inSection:0];
-                [weakSelf.models removeObjectAtIndexPath:index];
-                
-                [deletedIndexPath addObject:index];
-            }
-            [weakSelf.tableNode deleteRowsAtIndexPaths:deletedIndexPath withRowAnimation:UITableViewRowAnimationNone];
-        }
         
-    } completion:completion];
+    } completion:^(BOOL finished) {
+        [weakSelf.tableNode performBatchAnimated:NO updates:^{
+            // Remove tail
+            {
+                NSMutableArray * deletedIndexPath = [@[] mutableCopy];
+                for (int i = 1; i < overlap; i++) {
+                    NSUInteger shiftedIndex = originNum + insertNum - i;
+                    
+                    NSIndexPath * index = [NSIndexPath indexPathForRow:shiftedIndex inSection:0];
+                    [weakSelf.models removeObjectAtIndexPath:index];
+                    
+                    [deletedIndexPath addObject:index];
+                }
+                [weakSelf.tableNode deleteRowsAtIndexPaths:deletedIndexPath withRowAnimation:UITableViewRowAnimationNone];
+            }
+        } completion:completion];
+    }];
 }
 
 #pragma mark - Supporting head fetch for table node
@@ -463,9 +484,9 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        [context beginBatchFetching];
+        NSLog(@"HEAD FETCH");
         
-        NSLog(@"Head fetch");
+        [context beginBatchFetching];
         
         [weakSelf loadHeadDataWithContext:context];
     });
@@ -480,7 +501,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 // Receive a message that the tableView is near the end of its data set and more data should be fetched if necessary.
 - (void)tableNode:(ASTableNode *)tableNode willBeginBatchFetchWithContext:(ASBatchContext *)context {
     
-    NSLog(@"Tail fetch");
+    NSLog(@"TAIL FETCH");
     
     [context beginBatchFetching];
     

@@ -102,7 +102,6 @@
 
 #pragma mark - Private
 
-
 - (UXTableNodeModelSection *)_appendSection {
     if (nil == self.sections) {
         [self _setSectionsWithArray:[NSMutableArray array]];
