@@ -66,23 +66,26 @@
     [super updateView];
     
     if (self.message && self.isViewInitialized) {
-        UXTextMessage * textMessage = (UXTextMessage *)self.message;
-        UIColor * textColor = self.isIncomming ? [UXMessageCellConfigure getGlobalConfigure].incommingTextColor : [UXMessageCellConfigure getGlobalConfigure].outgoingTextColor;
-        self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
-                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize],
-                                                                                       NSForegroundColorAttributeName: textColor}];
-        
-        [self setTopText:textMessage.owner.name];
-        
-        NSDate * date = [NSDate dateWithTimeIntervalSince1970:textMessage.time];
-        NSDateFormatter *dfTime = [NSDateFormatter new];
-        [dfTime setDateFormat:@"MM/dd/yyyy hh:mm:ss a"];
-        NSString * time = [dfTime stringFromDate:date];
-        
-        [self setBottomText:time];
-        
-        [self setShowTextAsBottom:NO];
-        [self setShowTextAsTop:NO];
+        if (!self.isViewUpdated) {
+            UXTextMessage * textMessage = (UXTextMessage *)self.message;
+            UIColor * textColor = self.isIncomming ? [UXMessageCellConfigure getGlobalConfigure].incommingTextColor : [UXMessageCellConfigure getGlobalConfigure].outgoingTextColor;
+            self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
+                                                                              attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize],
+                                                                                           NSForegroundColorAttributeName: textColor}];
+            
+            [self setTopText:textMessage.owner.name];
+            
+            NSDate * date = [NSDate dateWithTimeIntervalSince1970:textMessage.time];
+            NSDateFormatter *dfTime = [NSDateFormatter new];
+            [dfTime setDateFormat:@"MM/dd/yyyy hh:mm:ss a"];
+            NSString * time = [dfTime stringFromDate:date];
+            
+            [self setBottomText:time];
+            
+            [self setShowTextAsBottom:NO];
+            [self setShowTextAsTop:NO];
+            self.isViewUpdated = YES;
+        }
     } else {
         NSLog(@"Message missed initalized");
     }
@@ -232,6 +235,7 @@
     [super clearContents];
     
     self.isViewInitialized = NO;
+    self.isViewUpdated = NO;
 }
 
 @end

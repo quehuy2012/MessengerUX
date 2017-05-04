@@ -46,6 +46,7 @@
         
         self.isIncomming = NO;
         self.isViewInitialized = NO;
+        self.isViewUpdated = NO;
     }
     
     return self;

@@ -23,6 +23,7 @@
 @property (nonatomic) UXOwner * owner;
 @property (nonatomic) UXMessage * message;
 @property (nonatomic) BOOL isViewInitialized;
+@property (nonatomic) BOOL isViewUpdated;
 
 @property (nonatomic) ASTextNode * topTextNode;
 @property (nonatomic) ASTextNode * bottomTextNode;
