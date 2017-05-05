@@ -82,8 +82,9 @@
             
             [self setBottomText:time];
             
-            [self setShowTextAsBottom:NO];
-            [self setShowTextAsTop:NO];
+            [self setShowTextAsBottom:YES];
+            [self setShowTextAsTop:YES];
+            [self setShowSubFunction:YES];
             self.isViewUpdated = YES;
         }
     } else {
@@ -92,7 +93,7 @@
 }
 
 - (void)didEnterDisplayState {
-    [self didEnterPreloadState];
+    [self initView];
     
     [super didEnterDisplayState];
     
@@ -236,6 +237,7 @@
     
     self.isViewInitialized = NO;
     self.isViewUpdated = NO;
+    [self invalidateCalculatedLayout];
 }
 
 @end
