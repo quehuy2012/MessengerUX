@@ -23,7 +23,11 @@
 
 @interface UXMessageCell () {
     int mID;
+    BOOL firstInit;
+    BOOL viewRemoved;
 }
+
+@property (nonatomic) id model;
 
 @end
 
@@ -42,10 +46,21 @@
         
         mID = ID++;
         
-        //self.shouldRasterizeDescendants = YES;
-        
         self.isIncomming = NO;
         
+        viewRemoved = YES;
+        
+        [self initView];
+        
+        firstInit = YES;
+    }
+    
+    return self;
+}
+
+- (void)initView {
+    
+    if (viewRemoved) {
         self.avatarNode = [[ASImageNode alloc] init];
         self.avatarNode.backgroundColor = [UIColor whiteColor];
         self.avatarNode.style.width = ASDimensionMakeWithPoints(34);
@@ -82,21 +97,42 @@
         
         if ([UXMessageCellConfigure getGlobalConfigure]) {
             self.messageBackgroundNode = [[[UXMessageCellConfigure getGlobalConfigure] getMessageBackgroundStyle] getMessageBackground];
-            
-//            [self.messageBackgroundNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-//            [self.messageBackgroundNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
-            
             [self addSubnode:self.messageBackgroundNode];
         }
+        
+        viewRemoved = NO;
     }
-    
-    return self;
 }
 
-- (void)shouldUpdateCellNodeWithObject:(id)object {
-    // parent do thing like setup general info
-    if ([object isKindOfClass:[UXMessage class]]) {
-        UXMessage * message = object;
+- (void)clearView {
+    
+    if (!viewRemoved) {
+        [self.avatarNode removeTarget:self action:@selector(avatarClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [self.avatarNode removeFromSupernode];
+        self.avatarNode = nil;
+        
+        [self.topTextNode removeTarget:self action:@selector(supportTextClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [self.topTextNode removeFromSupernode];
+        self.topTextNode = nil;
+        
+        [self.bottomTextNode removeTarget:self action:@selector(supportTextClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [self.bottomTextNode removeFromSupernode];
+        self.bottomTextNode = nil;
+        
+        [self.subFuntionNode removeTarget:self action:@selector(subFunctionClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [self.subFuntionNode removeFromSupernode];
+        self.subFuntionNode = nil;
+        
+        [self.messageBackgroundNode removeFromSupernode];
+        self.messageBackgroundNode = nil;
+        
+        viewRemoved = YES;
+    }
+}
+
+- (void)updateUI {
+    if (self.model && !viewRemoved) {
+        UXMessage * message = self.model;
         self.owner = message.owner;
         self.isIncomming = message.commingMessage;
         self.avatarNode.image = self.owner ? self.owner.avatar : [UIImage imageNamed:@"cameraThumb"]; // TODO set default thumbnail
@@ -109,6 +145,23 @@
                 self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].outgoingColor;
             }
         }
+    }
+}
+
+- (void)didEnterPreloadState {
+    
+    [self initView];
+    
+    [self updateUI];
+    
+    [super didEnterPreloadState];
+}
+
+- (void)shouldUpdateCellNodeWithObject:(id)object {
+    // parent do thing like setup general info
+    if ([object isKindOfClass:[UXMessage class]]) {
+        self.model = object;
+        [self updateUI];
     }
 }
 
@@ -162,8 +215,6 @@
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
-//    [super setHighlighted:highlighted];
-    
     if (highlighted) {
         if (self.messageBackgroundNode) {
             self.messageBackgroundNode.backgroundColor = [UXMessageCellConfigure getGlobalConfigure].highlightBackgroundColor;
@@ -231,6 +282,9 @@
     }
     
     [self clearLayerContentOfLayer:self.layer];
+    
+    // remove all child view
+    [self clearView];
 }
 
 - (void)clearLayerContentOfLayer:(CALayer *)layer {
