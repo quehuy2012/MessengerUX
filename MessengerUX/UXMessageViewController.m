@@ -58,7 +58,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     self.dataFeed = [[UXConversationFeed alloc] init];
     self.factory = [[UXCellFactory alloc] init];
     self.models = [[UXMutableCollectionNodeModel alloc] initWithListArray:[self.dataFeed getDataArray]  delegate:self.factory];
-    self.models.showLoadingIndicatorAtLast = YES;
+    self.models.showLoadingIndicatorAtLast = NO;
 }
 
 - (void)initView {

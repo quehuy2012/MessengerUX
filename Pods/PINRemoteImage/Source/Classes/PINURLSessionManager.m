@@ -16,7 +16,7 @@ NSString * const PINURLErrorDomain = @"PINURLErrorDomain";
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) NSMutableDictionary <NSNumber *, dispatch_queue_t> *delegateQueues;
-@property (nonatomic, strong) NSMutableDictionary *completions;
+@property (nonatomic, strong) NSMutableDictionary <NSNumber *, PINURLSessionDataTaskCompletion> *completions;
 
 @end
 
@@ -46,7 +46,7 @@ NSString * const PINURLErrorDomain = @"PINURLErrorDomain";
     [self unlock];
 }
 
-- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLResponse *response, NSError *error))completionHandler
+- (nonnull NSURLSessionDataTask *)dataTaskWithRequest:(nonnull NSURLRequest *)request completionHandler:(nonnull PINURLSessionDataTaskCompletion)completionHandler
 {
     [self lock];
         NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request];
@@ -72,6 +72,22 @@ NSString * const PINURLErrorDomain = @"PINURLErrorDomain";
 
 #pragma mark NSURLSessionDataDelegate
 
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)task didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler
+{
+    [self lock];
+        dispatch_queue_t delegateQueue = self.delegateQueues[@(task.taskIdentifier)];
+    [self unlock];
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(delegateQueue, ^{
+        typeof(self) strongSelf = weakSelf;
+        if ([strongSelf.delegate respondsToSelector:@selector(didReceiveResponse:forTask:)]) {
+            [strongSelf.delegate didReceiveResponse:response forTask:task];
+        }
+    });
+    completionHandler(NSURLSessionResponseAllow);
+}
+
 - (void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
     if ([self.delegate respondsToSelector:@selector(didReceiveAuthenticationChallenge:forTask:completionHandler:)]) {
@@ -81,7 +97,6 @@ NSString * const PINURLErrorDomain = @"PINURLErrorDomain";
         if (completionHandler) {
             completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
         }
-        
     }
 }
 
@@ -137,15 +152,25 @@ NSString * const PINURLErrorDomain = @"PINURLErrorDomain";
         [strongSelf.delegate didCompleteTask:task withError:error];
         
         [strongSelf lock];
-            void (^completionHandler)(NSURLResponse *, NSError *) = strongSelf.completions[@(task.taskIdentifier)];
+            PINURLSessionDataTaskCompletion completionHandler = strongSelf.completions[@(task.taskIdentifier)];
             [strongSelf.completions removeObjectForKey:@(task.taskIdentifier)];
             [strongSelf.delegateQueues removeObjectForKey:@(task.taskIdentifier)];
         [strongSelf unlock];
         
         if (completionHandler) {
-            completionHandler(task.response, error);
+            completionHandler(task, error);
         }
     });
 }
+
+#if DEBUG
+- (void)concurrentDownloads:(void (^_Nullable)(NSUInteger concurrentDownloads))concurrentDownloadsCompletion
+{
+    [self.session getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> * _Nonnull tasks) {
+        concurrentDownloadsCompletion(tasks.count);
+    }];
+}
+
+#endif
 
 @end

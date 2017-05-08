@@ -69,7 +69,7 @@
         self.imageContentNode.style.width = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
         self.imageContentNode.style.height = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell*self.imageDimentionRatio);
         self.imageContentNode.clipsToBounds = YES;
-        self.imageContentNode.layerBacked = YES;
+//        self.imageContentNode.layerBacked = YES;
         
         [self setShowSubFunction:YES];
     }

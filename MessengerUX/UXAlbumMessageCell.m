@@ -55,7 +55,7 @@
                 imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
                 imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
                 imageNode.clipsToBounds = YES;
-                imageNode.layerBacked = YES;
+//                imageNode.layerBacked = YES;
                 imageNode.cornerRadius = 8;
                 imageNode.image = img;
                 [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
@@ -74,7 +74,7 @@
                 imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
                 imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
                 imageNode.clipsToBounds = YES;
-                imageNode.layerBacked = YES;
+//                imageNode.layerBacked = YES;
                 imageNode.cornerRadius = 8;
                 imageNode.URL = url;
                 [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];

@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AsyncDisplayKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>LoremIpsum.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -49,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Texture.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,7 +57,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1998CA3029B7202E0A3CAC7A9AAD615E</key>
+		<key>07B9B8AD9CA70C7175B91A96844C7060</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>337677A97533F38FE26AD430CE20559B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,27 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6AE7F40A8680168E09C04E77DD02B138</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6D5D0AC43CE951D43A6B317FEBC74081</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>700758C6C76B91FE462532FED6E4131D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>717AAE656DEFC3C1BF3AA7378FF1DB83</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8586BC1CCCEA41239BBA567020B94D71</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8F1F6F30A4A42A94C822A4FAE9F3E783</key>
+		<key>7020FA468B15664DBD673D04AD8E5C33</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +92,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A89C52C6948621A698B8D27A2503EAF0</key>
+		<key>DCCE5FC115CA035068ED8106B515896D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DCCE5FC115CA035068ED8106B515896D</key>
+		<key>DE689CAE8DD656C32DF75630C09FA386</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE0C052A00580E5C573591C3D13EE17B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

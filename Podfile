@@ -9,7 +9,7 @@ target 'MessengerUX' do
 
   pod 'AFNetworking', '~> 3.0'
   pod 'pop', :git => 'https://github.com/facebook/pop.git'
-  pod 'AsyncDisplayKit'
+  pod 'Texture'
   pod 'LoremIpsum'
 
   target 'MessengerUXTests' do
