@@ -7,7 +7,7 @@
 //
 
 #import "UXMessageCell.h"
-
+#import "UXMessageCell+Private.h"
 #import "UXMessageCellConfigure.h"
 #import "UXMessageBackgroundStyle.h"
 #import "UXOwner.h"
@@ -23,11 +23,8 @@
 
 @interface UXMessageCell () {
     int mID;
-    BOOL firstInit;
-    BOOL viewRemoved;
+    int trackID;
 }
-
-@property (nonatomic) id model;
 
 @end
 
@@ -45,14 +42,12 @@
     if (self) {
         
         mID = ID++;
+        trackID = -1;
         
         self.isIncomming = NO;
         
-        viewRemoved = YES;
-        
-        [self initView];
-        
-        firstInit = YES;
+        self.viewRemoved = YES;
+        self.firstInited = YES;
     }
     
     return self;
@@ -60,7 +55,7 @@
 
 - (void)initView {
     
-    if (viewRemoved) {
+    if (self.viewRemoved) {
         self.avatarNode = [[ASImageNode alloc] init];
         self.avatarNode.backgroundColor = [UIColor whiteColor];
         self.avatarNode.style.width = ASDimensionMakeWithPoints(34);
@@ -100,13 +95,14 @@
             [self addSubnode:self.messageBackgroundNode];
         }
         
-        viewRemoved = NO;
+        self.viewRemoved = NO;
     }
 }
 
 - (void)clearView {
     
-    if (!viewRemoved) {
+    if (!self.viewRemoved) {
+        
         [self.avatarNode removeTarget:self action:@selector(avatarClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self.avatarNode removeFromSupernode];
         self.avatarNode = nil;
@@ -126,12 +122,12 @@
         [self.messageBackgroundNode removeFromSupernode];
         self.messageBackgroundNode = nil;
         
-        viewRemoved = YES;
+        self.viewRemoved = YES;
     }
 }
 
-- (void)updateUI {
-    if (self.model && !viewRemoved) {
+- (void)updateUI:(id)model {
+    if (model && !self.viewRemoved) {
         UXMessage * message = self.model;
         self.owner = message.owner;
         self.isIncomming = message.commingMessage;
@@ -152,16 +148,49 @@
     
     [self initView];
     
-    [self updateUI];
+    [self updateUI:self.model];
+    
+    [self setNeedsLayout];
     
     [super didEnterPreloadState];
+    
+    if (mID == trackID) NSLog(@"%d enter", mID);
+}
+
+- (void)didExitPreloadState {
+    [super didExitPreloadState];
+    
+    // remove all child view
+    [self clearView];
+    
+    if (mID == trackID) NSLog(@"%d exit", mID);
+}
+
+- (void)didEnterDisplayState {
+    [super didEnterDisplayState];
+    if (mID == trackID) NSLog(@"%d display", mID);
+}
+
+- (void)didExitDisplayState {
+    [super didExitDisplayState];
+    if (mID == trackID) NSLog(@"%d dedisplay", mID);
+}
+
+- (void)didEnterVisibleState {
+    [super didEnterVisibleState];
+    if (mID == trackID) NSLog(@"%d visible", mID);
+}
+
+- (void)didExitVisibleState {
+    [super didExitVisibleState];
+    if (mID == trackID) NSLog(@"%d devisible", mID);
 }
 
 - (void)shouldUpdateCellNodeWithObject:(id)object {
     // parent do thing like setup general info
     if ([object isKindOfClass:[UXMessage class]]) {
         self.model = object;
-        [self updateUI];
+        [self updateUI:self.model];
     }
 }
 
@@ -190,19 +219,19 @@
 
 - (void)setShowTextAsTop:(BOOL)flagShowTextAsTop {
     _showTextAsTop = flagShowTextAsTop;
-    _topTextNode.hidden = !flagShowTextAsTop;
+    self.topTextNode.hidden = !flagShowTextAsTop;
     [self setNeedsLayout];
 }
 
 - (void)setShowTextAsBottom:(BOOL)flagShowTextAsBottom {
     _showTextAsBottom = flagShowTextAsBottom;
-    _bottomTextNode.hidden = !flagShowTextAsBottom;
+    self.bottomTextNode.hidden = !flagShowTextAsBottom;
     [self setNeedsLayout];
 }
 
 - (void)setShowSubFunction:(BOOL)flagShowSubFunction {
     _showSubFunction = flagShowSubFunction;
-    _subFuntionNode.hidden = !flagShowSubFunction;
+    self.subFuntionNode.hidden = !flagShowSubFunction;
     [self setNeedsLayout];
 }
 
@@ -262,7 +291,8 @@
 
 - (void)clearContents {
     [super clearContents];
-    NSLog(@"Clear %d", mID);
+    
+    if (mID == trackID || mID == -1) NSLog(@"Clear %d", mID);
     
     [self.avatarNode clearContents];
     [self clearLayerContentOfLayer:self.avatarNode.layer];
@@ -282,9 +312,6 @@
     }
     
     [self clearLayerContentOfLayer:self.layer];
-    
-    // remove all child view
-    [self clearView];
 }
 
 - (void)clearLayerContentOfLayer:(CALayer *)layer {

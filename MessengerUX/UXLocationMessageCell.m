@@ -6,6 +6,7 @@
 //  Copyright © 2017 CPU11815. All rights reserved.
 //
 
+#import "UXMessageCell+Private.h"
 #import "UXLocationMessageCell.h"
 #import "UXMessageCellConfigure.h"
 #import "UXMessageBackgroundStyle.h"

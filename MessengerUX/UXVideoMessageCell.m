@@ -6,6 +6,7 @@
 //  Copyright © 2017 CPU11815. All rights reserved.
 //
 
+#import "UXMessageCell+Private.h"
 #import "UXVideoMessageCell.h"
 #import "UXMessageCellConfigure.h"
 #import "UXMessageBackgroundStyle.h"
@@ -36,7 +37,7 @@
     if ([object isKindOfClass:[UXVideoMessage class]]) {
         UXVideoMessage * videoMessage = object;
         
-        self.videoNode = [[ASVideoPlayerNode alloc] initWithUrl:videoMessage.videoURL];
+        self.videoNode = [[ASVideoPlayerNode alloc] initWithURL:videoMessage.videoURL];
         self.videoNode.delegate = self;
         self.videoNode.backgroundColor = [UIColor blackColor];
         self.videoNode.style.width = ASDimensionMakeWithPoints([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);

@@ -658,6 +658,7 @@
 		F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageViewController.m; sourceTree = "<group>"; };
 		F2134F4E1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageCollectionViewLayout.h; sourceTree = "<group>"; };
 		F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCollectionViewLayout.m; sourceTree = "<group>"; };
+		F23A0EF81EC04D0100DC1A44 /* UXMessageCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXMessageCell+Private.h"; sourceTree = "<group>"; };
 		F250BDF41E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
 		F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
 		F250BDF71E9F65230067C1F3 /* JPFPSStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFPSStatus.h; sourceTree = "<group>"; };
@@ -1263,6 +1264,7 @@
 			children = (
 				F2134F361E88D1E2005F8B10 /* UXMessageCell.h */,
 				F2134F371E88D1E2005F8B10 /* UXMessageCell.m */,
+				F23A0EF81EC04D0100DC1A44 /* UXMessageCell+Private.h */,
 				F2134F3C1E88EBF9005F8B10 /* UXTextMessageCell.h */,
 				F2134F3D1E88EBF9005F8B10 /* UXTextMessageCell.m */,
 				F2134F421E8A033D005F8B10 /* UXTitleMessageCell.h */,

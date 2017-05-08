@@ -19,13 +19,6 @@
 @property (nonatomic) BOOL showTextAsTop;
 @property (nonatomic) BOOL showTextAsBottom;
 @property (nonatomic) BOOL showSubFunction;
-@property (nonatomic) UXOwner * owner;
-
-@property (nonatomic) ASTextNode * topTextNode;
-@property (nonatomic) ASTextNode * bottomTextNode;
-@property (nonatomic) ASImageNode * avatarNode;
-@property (nonatomic) ASImageNode * subFuntionNode;
-@property (nonatomic) ASControlNode * messageBackgroundNode;
 
 @property (nonatomic, weak) id<UXMessageCellDelegate> delegate;
 
@@ -36,8 +29,6 @@
 - (void)setBottomText:(NSString *)string;
 
 - (CGRect)editableFrame;
-
-- (void)clearLayerContentOfLayer:(CALayer *)layer;
 
 @end
 
