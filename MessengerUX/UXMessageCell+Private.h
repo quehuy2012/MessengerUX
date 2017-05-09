@@ -20,6 +20,7 @@
 @property (nonatomic) ASImageNode * avatarNode;
 @property (nonatomic) ASImageNode * subFuntionNode;
 @property (nonatomic) ASControlNode * messageBackgroundNode;
+@property (nonatomic) ASDisplayNode * tempHolder;
 
 @property (nonatomic) id model;
 

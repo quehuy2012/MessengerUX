@@ -97,15 +97,18 @@
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     
     if (self.viewRemoved) {
-        ASDisplayNode * holder = [[ASDisplayNode alloc] init];
-        holder.style.width = ASDimensionMake(self.calculatedSize.width);
-        holder.style.height = ASDimensionMake(self.calculatedSize.height);
+        if (self.tempHolder == nil) {
+            self.tempHolder = [[ASDisplayNode alloc] init];
+        }
+        self.tempHolder.style.width = ASDimensionMake(self.calculatedSize.width);
+        self.tempHolder.style.height = ASDimensionMake(self.calculatedSize.height);
         return [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
                                                        spacing:0
                                                 justifyContent:ASStackLayoutJustifyContentStart
                                                     alignItems:ASStackLayoutAlignItemsEnd
-                                                      children:@[holder]];
+                                                      children:@[self.tempHolder]];
     } else {
+        
         ASInsetLayoutSpec * messageInsetsSpec =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
                                                child:self.messageNode];
@@ -214,6 +217,11 @@
     [self.messageNode clearContents];
     [self clearLayerContentOfLayer:self.messageNode.layer];
     
+}
+
+- (void)dealloc {
+//    [self clearContents];
+    [self clearView];
 }
 
 @end

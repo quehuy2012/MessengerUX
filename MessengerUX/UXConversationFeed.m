@@ -244,7 +244,6 @@
 //                                                                 isComming:YES
 //                                                                     owner:messageT.owner];
                         
-                        
                     } else if (i % 13 == 0) {
 
                         NSString *textDemo3 = @"link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((";

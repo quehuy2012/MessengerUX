@@ -39,8 +39,6 @@ static int ID = 0;
 - (instancetype)init {
     self = [super init];
     
-    
-    
     if (self) {
         
         mID = ID++;
@@ -298,7 +296,7 @@ static int ID = 0;
 - (void)clearContents {
     [super clearContents];
     
-    if (mID == trackID || mID == -1) NSLog(@"Clear %d", mID);
+    if (mID == trackID || trackID == -1) NSLog(@"Clear %d", mID);
     
     [self.avatarNode clearContents];
     [self clearLayerContentOfLayer:self.avatarNode.layer];
@@ -317,6 +315,9 @@ static int ID = 0;
         [self clearLayerContentOfLayer:self.messageBackgroundNode.layer];
     }
     
+    [self.tempHolder clearContents];
+    [self clearLayerContentOfLayer:self.tempHolder.layer];
+    
     [self clearLayerContentOfLayer:self.layer];
 }
 
@@ -330,6 +331,7 @@ static int ID = 0;
 - (void)dealloc {
 //    NSLog(@"Dealloc %d", mID);
     ID--;
+    [self clearView];
 }
 
 @end
