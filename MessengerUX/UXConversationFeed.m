@@ -263,7 +263,7 @@
 //
                         BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
                         
-                        message = [[UXAttributeMessage alloc] initWithContent:messageT.content
+                        message = [[UXTextMessage alloc] initWithContent:messageT.content
                                                                          date:[NSDate timeIntervalSinceReferenceDate]
                                                                     isComming:dummyIncomming
                                                                         owner:messageT.owner];
@@ -323,7 +323,7 @@
         owner.name = [NSString stringWithFormat:@"kuus%dadf", i];
         owner.avatar = [UIImage imageNamed:@"cameraThumb"];
         
-        UXMessage * message = [[UXAttributeMessage alloc] initWithContent:[NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i]
+        UXMessage * message = [[UXTextMessage alloc] initWithContent:[NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i]
                                                                 date:[NSDate timeIntervalSinceReferenceDate]
                                                            isComming:i % 2 == 0
                                                                owner:owner];
