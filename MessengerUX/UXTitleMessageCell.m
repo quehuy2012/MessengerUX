@@ -97,6 +97,8 @@
                                                       children:@[self.tempHolder]];
     } else {
         
+//        self.tempHolder = nil;
+        
         ASStackLayoutSpec * alignStack =
         [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
                                                 spacing:0

@@ -147,6 +147,8 @@
                                                       children:@[self.tempHolder]];
     } else {
         
+//        self.tempHolder = nil;
+        
         NSMutableArray * rowSpecChilds = [@[] mutableCopy];
         
         for (int row = 0; row < self.numOfRow; row++) {

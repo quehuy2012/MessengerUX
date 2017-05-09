@@ -131,6 +131,8 @@
                                                       children:@[self.tempHolder]];
     } else {
         
+//        self.tempHolder = nil;
+        
         NSArray * mainChild = nil;
         if (self.showSubFunction) {
             if (self.isIncomming) {

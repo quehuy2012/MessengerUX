@@ -122,6 +122,8 @@
                                                       children:@[self.tempHolder]];
     } else {
         
+//        self.tempHolder = nil;
+        
         ASInsetLayoutSpec * imageInset =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(self.videoPadding, self.videoPadding, self.videoPadding, self.videoPadding)
                                                child:self.videoNode];

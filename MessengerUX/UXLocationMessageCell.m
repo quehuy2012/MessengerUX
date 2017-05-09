@@ -107,6 +107,8 @@
                                                       children:@[self.tempHolder]];
     } else {
         
+//        self.tempHolder = nil;
+        
         ASInsetLayoutSpec * imageInset =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(self.mapPadding, self.mapPadding, self.mapPadding, self.mapPadding)
                                                child:self.mapNode];

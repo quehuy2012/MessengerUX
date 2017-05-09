@@ -109,6 +109,8 @@
                                                       children:@[self.tempHolder]];
     } else {
         
+//        self.tempHolder = nil;
+        
         ASInsetLayoutSpec * messageInsetsSpec =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
                                                child:self.messageNode];

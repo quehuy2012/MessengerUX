@@ -248,7 +248,7 @@
 
                         NSString *textDemo3 = @"link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((";
                         
-                        message = [[UXAttributeMessage alloc] initWithContent:textDemo3
+                        message = [[UXTextMessage alloc] initWithContent:textDemo3
                                                                          date:[NSDate timeIntervalSinceReferenceDate]
                                                                     isComming:i % 2 == 0
                                                                         owner:messageT.owner];

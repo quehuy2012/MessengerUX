@@ -112,6 +112,8 @@
                                                       children:@[self.tempHolder]];
     } else {
         
+//        self.tempHolder = nil;
+        
         [self.messageNode removeFromSupernode];
         [self addSubnode:self.messageNode];
         
