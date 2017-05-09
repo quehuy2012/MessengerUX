@@ -80,6 +80,12 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     self.tableNode.dataSource = self.models;
     self.tableNode.inverted = YES;
     
+    ASRangeTuningParameters prm;
+    prm.leadingBufferScreenfuls = 3;
+    prm.trailingBufferScreenfuls = 1.5;
+    [self.tableNode setTuningParameters:prm forRangeType:ASLayoutRangeTypePreload];
+    
+    
     self.stillNeedStressTest = NO;
     
     // init view

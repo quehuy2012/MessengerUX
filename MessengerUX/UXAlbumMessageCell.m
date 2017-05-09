@@ -35,15 +35,60 @@
         self.nodePerRow = 3;
         self.spaceBetweenNode = 4;
         self.albumNodes = [@[] mutableCopy];
+        
+        [self initView];
     }
     
     return self;
 }
 
-- (void)shouldUpdateCellNodeWithObject:(id)object {
-    [super shouldUpdateCellNodeWithObject:object];
-    if ([object isKindOfClass:[UXAlbumMessage class]]) {
-        UXAlbumMessage * albumMessage = object;
+- (void)initView {
+    
+    if (self.viewRemoved) {
+        [super initView];
+        
+        if (!self.firstInited) {
+            [self addViewWithModel:self.model];
+        }
+        
+        self.viewRemoved = NO;
+    }
+}
+
+- (void)clearView {
+    
+    if (!self.viewRemoved) {
+        [super clearView];
+        
+        
+        for (ASDisplayNode * node in self.albumNodes) {
+            [node removeFromSupernode];
+            
+            [((ASControlNode *)node) removeTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+            [((ASControlNode *)node) removeTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+            [((ASControlNode *)node) removeTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+            
+        }
+        
+        [self.albumNodes removeAllObjects];
+        
+        self.viewRemoved = YES;
+    }
+}
+
+- (void)updateUI:(id)model {
+    if (model && !self.viewRemoved) {
+        [super updateUI:model];
+        
+        if (self.firstInited) {
+            [self addViewWithModel:model];
+        }
+    }
+}
+
+- (void)addViewWithModel:(id)model {
+    if ([model isKindOfClass:[UXAlbumMessage class]]) {
+        UXAlbumMessage * albumMessage = model;
         
         if (albumMessage.images != nil) {
             self.usingURL = NO;
@@ -56,7 +101,7 @@
                 imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
                 imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
                 imageNode.clipsToBounds = YES;
-//                imageNode.layerBacked = YES;
+                //                imageNode.layerBacked = YES;
                 imageNode.cornerRadius = 8;
                 imageNode.image = img;
                 [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
@@ -75,7 +120,7 @@
                 imageNode.style.height = ASDimensionMake(self.albumNodeDimention);
                 imageNode.style.width = ASDimensionMake(self.albumNodeDimention);
                 imageNode.clipsToBounds = YES;
-//                imageNode.layerBacked = YES;
+                //                imageNode.layerBacked = YES;
                 imageNode.cornerRadius = 8;
                 imageNode.URL = url;
                 [imageNode addTarget:self action:@selector(imageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
@@ -89,100 +134,109 @@
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    
-    NSMutableArray * rowSpecChilds = [@[] mutableCopy];
-    
-    for (int row = 0; row < self.numOfRow; row++) {
+    if (self.viewRemoved) {
+        ASDisplayNode * holder = [[ASDisplayNode alloc] init];
+        holder.style.width = ASDimensionMake(self.calculatedSize.width);
+        holder.style.height = ASDimensionMake(self.calculatedSize.height);
+        return [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                       spacing:0
+                                                justifyContent:ASStackLayoutJustifyContentStart
+                                                    alignItems:ASStackLayoutAlignItemsEnd
+                                                      children:@[holder]];
+    } else {
+        NSMutableArray * rowSpecChilds = [@[] mutableCopy];
         
-        NSMutableArray * specChilds = [@[] mutableCopy];
-        for (int i = 0; i < self.nodePerRow; i++) {
-            NSUInteger index = row*self.nodePerRow + i;
-            if (index < self.albumNodes.count) {
-                [specChilds addObject:self.albumNodes[index]];
+        for (int row = 0; row < self.numOfRow; row++) {
+            
+            NSMutableArray * specChilds = [@[] mutableCopy];
+            for (int i = 0; i < self.nodePerRow; i++) {
+                NSUInteger index = row*self.nodePerRow + i;
+                if (index < self.albumNodes.count) {
+                    [specChilds addObject:self.albumNodes[index]];
+                }
             }
+            ASStackLayoutSpec * spec =
+            [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                    spacing:self.spaceBetweenNode
+                                             justifyContent:ASStackLayoutJustifyContentStart
+                                                 alignItems:ASStackLayoutAlignItemsStart
+                                                   children:specChilds];
+            
+            [rowSpecChilds addObject:spec];
         }
-        ASStackLayoutSpec * spec =
-        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+        
+        ASStackLayoutSpec * albumNodeStack =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
                                                 spacing:self.spaceBetweenNode
                                          justifyContent:ASStackLayoutJustifyContentStart
                                              alignItems:ASStackLayoutAlignItemsStart
-                                               children:specChilds];
+                                               children:rowSpecChilds];
         
-        [rowSpecChilds addObject:spec];
-    }
-    
-    ASStackLayoutSpec * albumNodeStack =
-    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
-                                            spacing:self.spaceBetweenNode
-                                     justifyContent:ASStackLayoutJustifyContentStart
-                                         alignItems:ASStackLayoutAlignItemsStart
-                                           children:rowSpecChilds];
-    
-    NSArray * mainChild = nil;
-    if (self.showSubFunction) {
-        if (self.isIncomming) {
-            mainChild = @[albumNodeStack, self.subFuntionNode];
+        NSArray * mainChild = nil;
+        if (self.showSubFunction) {
+            if (self.isIncomming) {
+                mainChild = @[albumNodeStack, self.subFuntionNode];
+            } else {
+                mainChild = @[self.subFuntionNode, albumNodeStack];
+            }
         } else {
-            mainChild = @[self.subFuntionNode, albumNodeStack];
+            mainChild = @[albumNodeStack];
         }
-    } else {
-        mainChild = @[albumNodeStack];
+        
+        ASStackLayoutSpec * mainWithSubFunctionStack =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                spacing:16
+                                         justifyContent:ASStackLayoutJustifyContentCenter
+                                             alignItems:ASStackLayoutAlignItemsCenter
+                                               children:mainChild];
+        
+        NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
+        if (self.showTextAsTop) {
+            ASInsetLayoutSpec * topTextInset =
+            [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
+                                                   child:self.topTextNode];
+            [stackedMessageChilds addObject:topTextInset];
+        }
+        
+        [stackedMessageChilds addObject:mainWithSubFunctionStack];
+        
+        if (self.showTextAsBottom) {
+            ASInsetLayoutSpec * bottomTextInset =
+            [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
+                                                   child:self.bottomTextNode];
+            [stackedMessageChilds addObject:bottomTextInset];
+        }
+        
+        ASStackLayoutAlignItems supportAlignItem = ASStackLayoutAlignItemsStart;
+        if (!self.isIncomming) {
+            supportAlignItem = ASStackLayoutAlignItemsEnd;
+        }
+        
+        ASStackLayoutSpec * stackedMessage =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
+                                                spacing:4
+                                         justifyContent:ASStackLayoutJustifyContentCenter
+                                             alignItems:supportAlignItem
+                                               children:stackedMessageChilds];
+        
+        NSArray * mainChilds = nil;
+        ASStackLayoutJustifyContent mainLayoutJustify = ASStackLayoutJustifyContentStart;
+        if (self.isIncomming) {
+            mainChilds = @[self.avatarNode, stackedMessage];
+        } else {
+            mainChilds = @[stackedMessage, self.avatarNode];
+            mainLayoutJustify = ASStackLayoutJustifyContentEnd;
+        }
+        
+        ASStackLayoutSpec * mainContent =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                spacing:8
+                                         justifyContent:mainLayoutJustify
+                                             alignItems:ASStackLayoutAlignItemsEnd
+                                               children:mainChilds];
+        
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets child:mainContent];
     }
-    
-    ASStackLayoutSpec * mainWithSubFunctionStack =
-    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
-                                            spacing:16
-                                     justifyContent:ASStackLayoutJustifyContentCenter
-                                         alignItems:ASStackLayoutAlignItemsCenter
-                                           children:mainChild];
-    
-    NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
-    if (self.showTextAsTop) {
-        ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
-                                               child:self.topTextNode];
-        [stackedMessageChilds addObject:topTextInset];
-    }
-    
-    [stackedMessageChilds addObject:mainWithSubFunctionStack];
-    
-    if (self.showTextAsBottom) {
-        ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2)
-                                               child:self.bottomTextNode];
-        [stackedMessageChilds addObject:bottomTextInset];
-    }
-    
-    ASStackLayoutAlignItems supportAlignItem = ASStackLayoutAlignItemsStart;
-    if (!self.isIncomming) {
-        supportAlignItem = ASStackLayoutAlignItemsEnd;
-    }
-    
-    ASStackLayoutSpec * stackedMessage =
-    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
-                                            spacing:4
-                                     justifyContent:ASStackLayoutJustifyContentCenter
-                                         alignItems:supportAlignItem
-                                           children:stackedMessageChilds];
-    
-    NSArray * mainChilds = nil;
-    ASStackLayoutJustifyContent mainLayoutJustify = ASStackLayoutJustifyContentStart;
-    if (self.isIncomming) {
-        mainChilds = @[self.avatarNode, stackedMessage];
-    } else {
-        mainChilds = @[stackedMessage, self.avatarNode];
-        mainLayoutJustify = ASStackLayoutJustifyContentEnd;
-    }
-    
-    ASStackLayoutSpec * mainContent =
-    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
-                                            spacing:8
-                                     justifyContent:mainLayoutJustify
-                                         alignItems:ASStackLayoutAlignItemsEnd
-                                           children:mainChilds];
-    
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets child:mainContent];
-    
 }
 
 - (NSUInteger)albumNodeDimention {

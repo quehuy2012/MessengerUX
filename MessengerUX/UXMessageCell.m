@@ -21,6 +21,8 @@
 //
 //@end
 
+static int ID = 0;
+
 @interface UXMessageCell () {
     int mID;
     int trackID;
@@ -37,7 +39,7 @@
 - (instancetype)init {
     self = [super init];
     
-    static int ID = 0;
+    
     
     if (self) {
         
@@ -146,11 +148,15 @@
 
 - (void)didEnterPreloadState {
     
-    [self initView];
-    
-    [self updateUI:self.model];
-    
-    [self setNeedsLayout];
+//    if (!self.firstInited) {
+        [self initView];
+        
+        [self updateUI:self.model];
+        
+        [self setNeedsDisplay];
+        
+        self.firstInited = NO;
+//    }
     
     [super didEnterPreloadState];
     
@@ -323,6 +329,7 @@
 
 - (void)dealloc {
 //    NSLog(@"Dealloc %d", mID);
+    ID--;
 }
 
 @end

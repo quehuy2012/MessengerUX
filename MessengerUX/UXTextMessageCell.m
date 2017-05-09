@@ -27,6 +27,17 @@
     self = [super init];
     if (self) {
         
+        [self initView];
+    }
+    
+    return self;
+}
+
+- (void)initView {
+    
+    if (self.viewRemoved) {
+        [super initView];
+        
         self.messageNode = [[ASTextNode alloc] init];
         self.messageNode.style.flexShrink = 1.0;
         self.messageNode.truncationMode = NSLineBreakByTruncatingTail;
@@ -37,113 +48,141 @@
         [self.messageNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
         [self addSubnode:self.messageNode];
         
+        self.viewRemoved = NO;
     }
-    
-    return self;
 }
 
-- (void)shouldUpdateCellNodeWithObject:(id)object {
-    [super shouldUpdateCellNodeWithObject:object];
-    if ([object isKindOfClass:[UXTextMessage class]]) {
-        UXTextMessage * textMessage = object;
-        UIColor * textColor = self.isIncomming ? [UXMessageCellConfigure getGlobalConfigure].incommingTextColor : [UXMessageCellConfigure getGlobalConfigure].outgoingTextColor;
-        self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
-                                                                          attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize],
-                                                                                      NSForegroundColorAttributeName: textColor}];
-        
-        [self setTopText:textMessage.owner.name];
-        
-        NSDate * date = [NSDate dateWithTimeIntervalSince1970:textMessage.time];
-        NSDateFormatter *dfTime = [NSDateFormatter new];
-        [dfTime setDateFormat:@"MM/dd/yyyy hh:mm:ss a"];
-        NSString * time = [dfTime stringFromDate:date];
-        
-        [self setBottomText:time];
-        
-        [self setShowTextAsBottom:NO];
-        [self setShowTextAsTop:NO];
-    }
+- (void)clearView {
     
+    if (!self.viewRemoved) {
+        [super clearView];
+        
+        [self.messageNode removeFromSupernode];
+        [self.messageNode removeTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+        [self.messageNode removeTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+        [self.messageNode removeTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+        self.messageNode = nil;
+        
+        self.viewRemoved = YES;
+    }
+}
+
+- (void)updateUI:(id)model {
+    if (model && !self.viewRemoved) {
+        [super updateUI:model];
+        
+        if ([model isKindOfClass:[UXTextMessage class]]) {
+            UXTextMessage * textMessage = model;
+            
+            UIColor * textColor = self.isIncomming ? [UXMessageCellConfigure getGlobalConfigure].incommingTextColor : [UXMessageCellConfigure getGlobalConfigure].outgoingTextColor;
+            self.messageNode.attributedText = [[NSAttributedString alloc] initWithString:textMessage.content
+                                                                              attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize],
+                                                                                           NSForegroundColorAttributeName: textColor}];
+            
+            [self setTopText:textMessage.owner.name];
+            
+            NSDate * date = [NSDate dateWithTimeIntervalSince1970:textMessage.time];
+            NSDateFormatter *dfTime = [NSDateFormatter new];
+            [dfTime setDateFormat:@"MM/dd/yyyy hh:mm:ss a"];
+            NSString * time = [dfTime stringFromDate:date];
+            
+            [self setBottomText:time];
+            
+            [self setShowTextAsBottom:NO];
+            [self setShowTextAsTop:NO];
+        }
+    }
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
     
-    ASInsetLayoutSpec * messageInsetsSpec =
-    [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
-                                           child:self.messageNode];
-    
-    ASBackgroundLayoutSpec * messageBubble =
-    [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:messageInsetsSpec
-                                               background:self.messageBackgroundNode];
-    
-    NSArray * mainChild = nil;
-    if (self.showSubFunction) {
-        if (self.isIncomming) {
-            mainChild = @[messageBubble, self.subFuntionNode];
-        } else {
-            mainChild = @[self.subFuntionNode, messageBubble];
-        }
+    if (self.viewRemoved) {
+        ASDisplayNode * holder = [[ASDisplayNode alloc] init];
+        holder.style.width = ASDimensionMake(self.calculatedSize.width);
+        holder.style.height = ASDimensionMake(self.calculatedSize.height);
+        return [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                       spacing:0
+                                                justifyContent:ASStackLayoutJustifyContentStart
+                                                    alignItems:ASStackLayoutAlignItemsEnd
+                                                      children:@[holder]];
     } else {
-        mainChild = @[messageBubble];
-    }
-    
-    ASStackLayoutSpec * mainWithSubFunctionStack =
-    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
-                                            spacing:16
-                                     justifyContent:ASStackLayoutJustifyContentCenter
-                                         alignItems:ASStackLayoutAlignItemsCenter
-                                           children:mainChild];
-    
-    
-    NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
-    
-    if (self.showTextAsTop) {
-        ASInsetLayoutSpec * topTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2) child:self.topTextNode];
+        ASInsetLayoutSpec * messageInsetsSpec =
+        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
+                                               child:self.messageNode];
         
-        [stackedMessageChilds addObject:topTextInset];
+        ASBackgroundLayoutSpec * messageBubble =
+        [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:messageInsetsSpec
+                                                   background:self.messageBackgroundNode];
+        
+        NSArray * mainChild = nil;
+        if (self.showSubFunction) {
+            if (self.isIncomming) {
+                mainChild = @[messageBubble, self.subFuntionNode];
+            } else {
+                mainChild = @[self.subFuntionNode, messageBubble];
+            }
+        } else {
+            mainChild = @[messageBubble];
+        }
+        
+        ASStackLayoutSpec * mainWithSubFunctionStack =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                spacing:16
+                                         justifyContent:ASStackLayoutJustifyContentCenter
+                                             alignItems:ASStackLayoutAlignItemsCenter
+                                               children:mainChild];
+        
+        
+        NSMutableArray * stackedMessageChilds = [@[] mutableCopy];
+        
+        if (self.showTextAsTop) {
+            ASInsetLayoutSpec * topTextInset =
+            [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2) child:self.topTextNode];
+            
+            [stackedMessageChilds addObject:topTextInset];
+        }
+        
+        [stackedMessageChilds addObject:mainWithSubFunctionStack];
+        
+        if (self.showTextAsBottom) {
+            ASInsetLayoutSpec * bottomTextInset =
+            [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2) child:self.bottomTextNode];
+            [stackedMessageChilds addObject:bottomTextInset];
+        }
+        
+        ASStackLayoutAlignItems supportAlignItem = ASStackLayoutAlignItemsStart;
+        if (!self.isIncomming) {
+            supportAlignItem = ASStackLayoutAlignItemsEnd;
+        }
+        
+        ASStackLayoutSpec * stackedMessage =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
+                                                spacing:4
+                                         justifyContent:ASStackLayoutJustifyContentCenter
+                                             alignItems:supportAlignItem
+                                               children:stackedMessageChilds];
+        
+        
+        NSArray * mainChilds = nil;
+        ASStackLayoutJustifyContent mainLayoutJustify = ASStackLayoutJustifyContentStart;
+        
+        if (self.isIncomming) {
+            mainChilds = @[self.avatarNode, stackedMessage];
+        } else {
+            mainChilds = @[stackedMessage, self.avatarNode];
+            mainLayoutJustify = ASStackLayoutJustifyContentEnd;
+        }
+        
+        ASStackLayoutSpec * mainContent =
+        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+                                                spacing:8
+                                         justifyContent:mainLayoutJustify
+                                             alignItems:ASStackLayoutAlignItemsEnd
+                                               children:mainChilds];
+        
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets
+                                                      child:mainContent];
     }
-    
-    [stackedMessageChilds addObject:mainWithSubFunctionStack];
-    
-    if (self.showTextAsBottom) {
-        ASInsetLayoutSpec * bottomTextInset =
-        [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, [UXMessageCellConfigure getGlobalConfigure].insets.left*2, 0, [UXMessageCellConfigure getGlobalConfigure].insets.right*2) child:self.bottomTextNode];
-        [stackedMessageChilds addObject:bottomTextInset];
-    }
-    
-    ASStackLayoutAlignItems supportAlignItem = ASStackLayoutAlignItemsStart;
-    if (!self.isIncomming) {
-        supportAlignItem = ASStackLayoutAlignItemsEnd;
-    }
-    
-    ASStackLayoutSpec * stackedMessage =
-    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
-                                            spacing:4
-                                     justifyContent:ASStackLayoutJustifyContentCenter
-                                         alignItems:supportAlignItem
-                                           children:stackedMessageChilds];
-    
-    
-    NSArray * mainChilds = nil;
-    ASStackLayoutJustifyContent mainLayoutJustify = ASStackLayoutJustifyContentStart;
-    
-    if (self.isIncomming) {
-        mainChilds = @[self.avatarNode, stackedMessage];
-    } else {
-        mainChilds = @[stackedMessage, self.avatarNode];
-        mainLayoutJustify = ASStackLayoutJustifyContentEnd;
-    }
-    
-    ASStackLayoutSpec * mainContent =
-    [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
-                                            spacing:8
-                                     justifyContent:mainLayoutJustify
-                                         alignItems:ASStackLayoutAlignItemsEnd
-                                           children:mainChilds];
-    
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:[UXMessageCellConfigure getGlobalConfigure].insets
-                                                  child:mainContent];
 }
 
 #pragma mark - Action
