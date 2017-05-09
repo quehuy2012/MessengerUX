@@ -61,6 +61,10 @@
         [self.messageNode removeTarget:self action:@selector(messageClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
         [self.messageNode removeTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
         [self.messageNode removeTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+        
+        [self.messageNode clearContents];
+        [self clearLayerContentOfLayer:self.messageNode.layer];
+        
         self.messageNode = nil;
         
         self.viewRemoved = YES;

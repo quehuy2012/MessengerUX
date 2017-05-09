@@ -54,11 +54,17 @@
         
         [self.videoNode removeFromSupernode];
         
+        [self.videoNode clearContents];
+        [self clearLayerContentOfLayer:self.videoNode.layer];
+        
         self.videoNode = nil;
         
         [self.muteVideoButton removeFromSupernode];
         
         [self.muteVideoButton removeTarget:self action:@selector(muteButtonClicked) forControlEvents:ASControlNodeEventTouchUpInside];
+        
+        [self.muteVideoButton clearContents];
+        [self clearLayerContentOfLayer:self.muteVideoButton.layer];
         
         self.muteVideoButton = nil;
         

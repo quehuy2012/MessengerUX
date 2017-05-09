@@ -68,6 +68,9 @@
             [((ASControlNode *)node) removeTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
             [((ASControlNode *)node) removeTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
             
+            [node clearContents];
+            [self clearLayerContentOfLayer:node.layer];
+            
         }
         
         [self.albumNodes removeAllObjects];

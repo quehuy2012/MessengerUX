@@ -64,6 +64,9 @@
         [self.titleNode removeTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
         [self.titleNode removeTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
         
+        [self.titleNode clearContents];
+        [self clearLayerContentOfLayer:self.titleNode.layer];
+        
         self.titleNode = nil;
         
         self.viewRemoved = YES;

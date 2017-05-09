@@ -248,7 +248,7 @@
 
                         NSString *textDemo3 = @"link: :Dbaomoi.com/abc:)/de:Df/-punch/-punchh xyz\nlink: <a href=\"facebook.com/theme\">Theme's facebook</a>\nemail: themnd@vng.com.vn\ncall me: 0987071077\n<b>List of emotions:</b>\n:), :~, :B, :|, The quick brown fox jumps over the lazy dog \n8-), :-((";
                         
-                        message = [[UXTextMessage alloc] initWithContent:textDemo3
+                        message = [[UXAttributeMessage alloc] initWithContent:textDemo3
                                                                          date:[NSDate timeIntervalSinceReferenceDate]
                                                                     isComming:i % 2 == 0
                                                                         owner:messageT.owner];
@@ -263,7 +263,7 @@
 //
                         BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
                         
-                        message = [[UXTextMessage alloc] initWithContent:messageT.content
+                        message = [[UXAttributeMessage alloc] initWithContent:messageT.content
                                                                          date:[NSDate timeIntervalSinceReferenceDate]
                                                                     isComming:dummyIncomming
                                                                         owner:messageT.owner];
@@ -323,7 +323,7 @@
         owner.name = [NSString stringWithFormat:@"kuus%dadf", i];
         owner.avatar = [UIImage imageNamed:@"cameraThumb"];
         
-        UXMessage * message = [[UXTextMessage alloc] initWithContent:[NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i]
+        UXMessage * message = [[UXAttributeMessage alloc] initWithContent:[NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i]
                                                                 date:[NSDate timeIntervalSinceReferenceDate]
                                                            isComming:i % 2 == 0
                                                                owner:owner];

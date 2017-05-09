@@ -65,6 +65,9 @@
         [((ASControlNode *)self.imageContentNode) removeTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
         [((ASControlNode *)self.imageContentNode) removeTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
         
+        [self.imageContentNode clearContents];
+        [self clearLayerContentOfLayer:self.imageContentNode.layer];
+        
         self.imageContentNode = nil;
         
         self.viewRemoved = YES;
