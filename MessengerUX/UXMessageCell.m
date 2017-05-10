@@ -42,7 +42,7 @@ static int ID = 0;
     if (self) {
         
         mID = ID++;
-        trackID = -1;
+        trackID = -2;
         
         self.isIncomming = NO;
         

@@ -286,6 +286,7 @@
 		F2134F471E8A13AB005F8B10 /* UXAlbumMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F461E8A13AB005F8B10 /* UXAlbumMessageCell.m */; };
 		F2134F4D1E8B6486005F8B10 /* UXMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4C1E8B6486005F8B10 /* UXMessageViewController.m */; };
 		F2134F501E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */; };
+		F23A0EFB1EC2C87100DC1A44 /* UXMemReport.m in Sources */ = {isa = PBXBuildFile; fileRef = F23A0EFA1EC2C87100DC1A44 /* UXMemReport.m */; };
 		F250BDF61E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */; };
 		F250BDFB1E9F65230067C1F3 /* JPFPSStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDF81E9F65230067C1F3 /* JPFPSStatus.m */; };
 		F250BDFC1E9F65230067C1F3 /* RRFPSBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F250BDFA1E9F65230067C1F3 /* RRFPSBar.m */; };
@@ -659,6 +660,8 @@
 		F2134F4E1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMessageCollectionViewLayout.h; sourceTree = "<group>"; };
 		F2134F4F1E8B6B41005F8B10 /* UXMessageCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMessageCollectionViewLayout.m; sourceTree = "<group>"; };
 		F23A0EF81EC04D0100DC1A44 /* UXMessageCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXMessageCell+Private.h"; sourceTree = "<group>"; };
+		F23A0EF91EC2C87100DC1A44 /* UXMemReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXMemReport.h; sourceTree = "<group>"; };
+		F23A0EFA1EC2C87100DC1A44 /* UXMemReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXMemReport.m; sourceTree = "<group>"; };
 		F250BDF41E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
 		F250BDF51E9F20E50067C1F3 /* NSAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
 		F250BDF71E9F65230067C1F3 /* JPFPSStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPFPSStatus.h; sourceTree = "<group>"; };
@@ -1164,6 +1167,8 @@
 				F250BDFA1E9F65230067C1F3 /* RRFPSBar.m */,
 				F2134EF11E7936C9005F8B10 /* UIView+AutoLayout.h */,
 				F2134EF21E7936C9005F8B10 /* UIView+AutoLayout.m */,
+				F23A0EF91EC2C87100DC1A44 /* UXMemReport.h */,
+				F23A0EFA1EC2C87100DC1A44 /* UXMemReport.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1920,6 +1925,7 @@
 				F20519371E9DD04E00822706 /* UXAttributeNode.m in Sources */,
 				F2134F311E88CCA4005F8B10 /* UXMessagerCellConfigure.m in Sources */,
 				F20518461E9DCF3100822706 /* NIImageAttachment.m in Sources */,
+				F23A0EFB1EC2C87100DC1A44 /* UXMemReport.m in Sources */,
 				F2DE8B281E93AE0200049F75 /* UXMessage.m in Sources */,
 				F2DE8B3D1E9B31D500049F75 /* UXVideoMessageCell.m in Sources */,
 				F250BDFB1E9F65230067C1F3 /* JPFPSStatus.m in Sources */,

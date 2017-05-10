@@ -521,10 +521,10 @@ dispatch_semaphore_t prefixTreeMutex = dispatch_semaphore_create(1);
     
     dispatch_semaphore_wait(prefixTreeMutex, DISPATCH_TIME_FOREVER);
     --prefixTreeCounter;
-    NSLog(@"Prefix tree release: %d",prefixTreeCounter);
+//    NSLog(@"Prefix tree release: %d",prefixTreeCounter);
     if(prefixTreeCounter==0){
         if(label_root != NULL){
-            NSLog(@"Prefix tree dealloc");
+//            NSLog(@"Prefix tree dealloc");
             dfsRemovePrefixTrie(label_root);
             label_root = NULL;
         }
