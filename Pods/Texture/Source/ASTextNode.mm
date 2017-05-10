@@ -27,6 +27,7 @@
 #import <AsyncDisplayKit/ASLayout.h>
 
 #import <AsyncDisplayKit/CoreGraphics+ASConvenience.h>
+#import <AsyncDisplayKit/ASEqualityHashHelpers.h>
 #import <AsyncDisplayKit/ASObjectDescriptionHelpers.h>
 
 /**
@@ -50,17 +51,6 @@ struct ASTextNodeDrawParameter {
 };
 
 #pragma mark - ASTextKitRenderer
-
-// Not used at the moment but handy to have
-/*ASDISPLAYNODE_INLINE NSUInteger ASHashFromCGRect(CGRect rect)
-{
-  return ((*(NSUInteger *)&rect.origin.x << 10 ^ *(NSUInteger *)&rect.origin.y) + (*(NSUInteger *)&rect.size.width << 10 ^ *(NSUInteger *)&rect.size.height));
-}*/
-
-ASDISPLAYNODE_INLINE NSUInteger ASHashFromCGSize(CGSize size)
-{
-  return ((*(NSUInteger *)&size.width << 10 ^ *(NSUInteger *)&size.height));
-}
 
 @interface ASTextNodeRendererKey : NSObject
 @property (assign, nonatomic) ASTextKitAttributes attributes;
@@ -262,6 +252,28 @@ static NSArray *DefaultLinkAttributeNames = @[ NSLinkAttributeName ];
     _longPressGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:_longPressGestureRecognizer];
   }
+}
+
+- (BOOL)supportsLayerBacking
+{
+  if (!super.supportsLayerBacking) {
+    return NO;
+  }
+  
+  // If the text contains any links, return NO.
+  NSAttributedString *attributedText = self.attributedText;
+  NSRange range = NSMakeRange(0, attributedText.length);
+  for (NSString *linkAttributeName in _linkAttributeNames) {
+    __block BOOL hasLink = NO;
+    [attributedText enumerateAttribute:linkAttributeName inRange:range options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+      hasLink = (value != nil);
+      *stop = YES;
+    }];
+    if (hasLink) {
+      return NO;
+    }
+  }
+  return YES;
 }
 
 #pragma mark - Renderer Management

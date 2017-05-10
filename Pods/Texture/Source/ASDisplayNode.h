@@ -197,7 +197,7 @@ extern NSInteger const ASDefaultDrawingPriority;
 /**
  * Set the block that should be used to load this node's layer.
  *
- * @param viewBlock The block that creates a layer for this node.
+ * @param layerBlock The block that creates a layer for this node.
  *
  * @precondition The node is not yet loaded.
  *
@@ -592,6 +592,11 @@ extern NSInteger const ASDefaultDrawingPriority;
  */
 - (CGRect)convertRect:(CGRect)rect fromNode:(nullable ASDisplayNode *)node AS_WARN_UNUSED_RESULT;
 
+/**
+ * Whether or not the node would support having .layerBacked = YES.
+ */
+@property (nonatomic, readonly) BOOL supportsLayerBacking;
+
 @end
 
 /**
@@ -638,6 +643,11 @@ extern NSInteger const ASDefaultDrawingPriority;
  * the containing ASTableView / ASCollectionView that the cell should be resized, if necessary.
  */
 - (void)setNeedsLayout;
+
+/**
+ * Performs a layout pass on the node. Convenience for use whether the view / layer is loaded or not. Safe to call from a background thread.
+ */
+- (void)layoutIfNeeded;
 
 @property (nonatomic, strong, nullable) id contents;                           // default=nil
 @property (nonatomic, assign)           BOOL clipsToBounds;                    // default==NO

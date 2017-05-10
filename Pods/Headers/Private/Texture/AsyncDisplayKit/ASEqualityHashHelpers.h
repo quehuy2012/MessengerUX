@@ -1,1 +1,1 @@
-../../../../Texture/Source/TextKit/ASEqualityHashHelpers.h
+../../../../Texture/Source/Private/ASEqualityHashHelpers.h

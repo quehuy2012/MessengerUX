@@ -38,6 +38,11 @@
 #import <AsyncDisplayKit/ASCellNode.h>
 #import <AsyncDisplayKit/ASSectionContext.h>
 
+#import <AsyncDisplayKit/ASElementMap.h>
+#import <AsyncDisplayKit/ASCollectionLayoutContext.h>
+#import <AsyncDisplayKit/ASCollectionLayoutState.h>
+#import <AsyncDisplayKit/ASCollectionFlowLayoutDelegate.h>
+
 #import <AsyncDisplayKit/ASSectionController.h>
 #import <AsyncDisplayKit/ASSupplementaryNodeSource.h>
 
@@ -110,6 +115,7 @@
 #import <AsyncDisplayKit/UIResponder+AsyncDisplayKit.h>
 
 #import <AsyncDisplayKit/AsyncDisplayKit+Debug.h>
+#import <AsyncDisplayKit/AsyncDisplayKit+Tips.h>
 #import <AsyncDisplayKit/ASDisplayNode+Deprecated.h>
 
 #import <AsyncDisplayKit/ASCollectionNode+Beta.h>

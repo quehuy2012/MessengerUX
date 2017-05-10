@@ -1,11 +1,23 @@
 //
 //  ASDisplayNode.mm
-//  AsyncDisplayKit
+//  Texture
 //
 //  Copyright (c) 2014-present, Facebook, Inc.  All rights reserved.
 //  This source code is licensed under the BSD-style license found in the
 //  LICENSE file in the root directory of this source tree. An additional grant
 //  of patent rights can be found in the PATENTS file in the same directory.
+//  Modifications to this file made after 4/13/2017 are: Copyright (c) 2017-present,
+//  Pinterest, Inc.  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 //
 
 #import <AsyncDisplayKit/ASDisplayNodeInternal.h>
@@ -37,19 +49,7 @@
 #import <AsyncDisplayKit/ASTraitCollection.h>
 #import <AsyncDisplayKit/ASWeakProxy.h>
 #import <AsyncDisplayKit/ASResponderChainEnumerator.h>
-
-/**
- * Assert if the current thread owns a mutex.
- * This assertion is useful when you want to indicate and enforce the locking policy/expectation of methods.
- * To determine when and which methods acquired a (recursive) mutex (to debug deadlocks, for example), 
- * put breakpoints at some of these assertions. When the breakpoints hit, walk through stack trace frames 
- * and check ownership count of the mutex.
- */
-#if CHECK_LOCKING_SAFETY
-  #define ASDisplayNodeAssertLockUnownedByCurrentThread(lock) ASDisplayNodeAssertFalse(lock.ownedByCurrentThread())
-#else
-  #define ASDisplayNodeAssertLockUnownedByCurrentThread(lock)
-#endif
+#import <AsyncDisplayKit/ASTipsController.h>
 
 #if ASDisplayNodeLoggingEnabled
   #define LOG(...) NSLog(__VA_ARGS__)
@@ -258,11 +258,6 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
   ASScreenScale();
 }
 
-+ (BOOL)layerBackedNodesEnabled
-{
-  return YES;
-}
-
 + (Class)viewClass
 {
   return [_ASDisplayView class];
@@ -288,6 +283,8 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
   _eventLog = [[ASEventLog alloc] initWithObject:self];
 #endif
   
+  _viewClass = [self.class viewClass];
+  _layerClass = [self.class layerClass];
   _contentsScaleForDisplay = ASScreenScale();
   
   _primitiveTraitCollection = ASPrimitiveTraitCollectionMakeDefault();
@@ -587,9 +584,6 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
     _viewBlock = nil;
     _viewClass = [view class];
   } else {
-    if (!_viewClass) {
-      _viewClass = [self.class viewClass];
-    }
     view = [[_viewClass alloc] init];
   }
   
@@ -605,6 +599,11 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
     if ([_viewClass isSubclassOfClass:[UIActivityIndicatorView class]]
         || [_viewClass isSubclassOfClass:[UIVisualEffectView class]]) {
       self.opaque = NO;
+    }
+      
+    // CAEAGLLayer
+    if([[view.layer class] isSubclassOfClass:[CAEAGLLayer class]]){
+      _flags.canClearContentsOfLayer = NO;
     }
   }
 
@@ -623,9 +622,6 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
     _layerBlock = nil;
     _layerClass = [layer class];
   } else {
-    if (!_layerClass) {
-      _layerClass = [self.class layerClass];
-    }
     layer = [[_layerClass alloc] init];
   }
 
@@ -818,32 +814,34 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
   return _flags.synchronous;
 }
 
-- (void)setSynchronous:(BOOL)flag
-{
-  ASDN::MutexLocker l(__instanceLock__);
-  _flags.synchronous = flag;
-}
-
 - (void)setLayerBacked:(BOOL)isLayerBacked
 {
-  if (![self.class layerBackedNodesEnabled]) {
+  // Only call this if assertions are enabled – it could be expensive.
+  ASDisplayNodeAssert(!isLayerBacked || self.supportsLayerBacking, @"Node %@ does not support layer backing.", self);
+
+  ASDN::MutexLocker l(__instanceLock__);
+  if (_flags.layerBacked == isLayerBacked) {
+    return;
+  }
+  
+  if ([self _locked_isNodeLoaded]) {
+    ASDisplayNodeFailAssert(@"Cannot change layerBacked after view/layer has loaded.");
     return;
   }
 
-  ASDN::MutexLocker l(__instanceLock__);
-  ASDisplayNodeAssert(!_view && !_layer, @"Cannot change isLayerBacked after layer or view has loaded");
-  ASDisplayNodeAssert(!_viewBlock && !_layerBlock, @"Cannot change isLayerBacked when a layer or view block is provided");
-  ASDisplayNodeAssert(!_viewClass && !_layerClass, @"Cannot change isLayerBacked when a layer or view class is provided");
-
-  if (isLayerBacked != _flags.layerBacked && !_view && !_layer) {
-    _flags.layerBacked = isLayerBacked;
-  }
+  _flags.layerBacked = isLayerBacked;
 }
 
 - (BOOL)isLayerBacked
 {
   ASDN::MutexLocker l(__instanceLock__);
   return _flags.layerBacked;
+}
+
+- (BOOL)supportsLayerBacking
+{
+  ASDN::MutexLocker l(__instanceLock__);
+  return !_flags.synchronous && !_flags.viewEverHadAGestureRecognizerAttached && _viewClass == [_ASDisplayView class] && _layerClass == [_ASDisplayLayer class];
 }
 
 - (BOOL)shouldAnimateSizeChanges
@@ -868,6 +866,12 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
 {
   ASDN::MutexLocker l(__instanceLock__);
   _threadSafeBounds = newBounds;
+}
+
+- (void)nodeViewDidAddGestureRecognizer
+{
+  ASDN::MutexLocker l(__instanceLock__);
+  _flags.viewEverHadAGestureRecognizerAttached = YES;
 }
 
 #pragma mark - Layout
@@ -998,7 +1002,7 @@ ASLayoutElementFinalLayoutElementDefault
 
 - (void)__layout
 {
-  ASDisplayNodeAssertMainThread();
+  ASDisplayNodeAssertThreadAffinity(self);
   ASDisplayNodeAssertLockUnownedByCurrentThread(__instanceLock__);
   
   {
@@ -1027,8 +1031,12 @@ ASLayoutElementFinalLayoutElementDefault
     [self _locked_layoutPlaceholderIfNecessary];
   }
   
-  [self layout];
-  [self layoutDidFinish];
+  [self _layoutSublayouts];
+  
+  ASPerformBlockOnMainThread(^{
+    [self layout];
+    [self layoutDidFinish];
+  });
 }
 
 /// Needs to be called with lock held
@@ -1067,7 +1075,7 @@ ASLayoutElementFinalLayoutElementDefault
   std::shared_ptr<ASDisplayNodeLayout> nextLayout = _pendingDisplayNodeLayout;
   #define layoutSizeDifferentFromBounds !CGSizeEqualToSize(nextLayout->layout.size, boundsSizeForLayout)
   
-  // nextLayout was likely created by a call to layoutThatFits:, check if is valid and can be applied.
+  // nextLayout was likely created by a call to layoutThatFits:, check if it is valid and can be applied.
   // If our bounds size is different than it, or invalid, recalculate.  Use #define to avoid nullptr->
   if (nextLayout == nullptr || nextLayout->isDirty() == YES || layoutSizeDifferentFromBounds) {
     // Use the last known constrainedSize passed from a parent during layout (if never, use bounds).
@@ -1418,12 +1426,13 @@ ASLayoutElementFinalLayoutElementDefault
 
 - (void)layout
 {
-  [self _layoutSublayouts];
+  ASDisplayNodeAssertMainThread();
+  // Subclass hook
 }
 
 - (void)_layoutSublayouts
 {
-  ASDisplayNodeAssertMainThread();
+  ASDisplayNodeAssertThreadAffinity(self);
   ASDisplayNodeAssertLockUnownedByCurrentThread(__instanceLock__);
   
   ASLayout *layout;
@@ -3664,6 +3673,9 @@ ASDISPLAYNODE_INLINE BOOL nodeIsInRasterizedTree(ASDisplayNode *node) {
   ASDisplayNodeAssertMainThread();
   ASDisplayNodeAssertLockUnownedByCurrentThread(__instanceLock__);
   [_interfaceStateDelegate didEnterVisibleState];
+#if AS_ENABLE_TIPS
+  [ASTipsController.shared nodeDidAppear:self];
+#endif
 }
 
 - (void)didExitVisibleState
@@ -3732,6 +3744,10 @@ ASDISPLAYNODE_INLINE BOOL nodeIsInRasterizedTree(ASDisplayNode *node) {
   ASDisplayNodeAssertMainThread();
   ASDisplayNodeAssertLockUnownedByCurrentThread(__instanceLock__);
   [_interfaceStateDelegate didEnterPreloadState];
+  
+  // Trigger a layout pass to ensure all subnodes have the correct size to preload their content.
+  // This is important for image nodes, as well as collection and table nodes.
+  [self layoutIfNeeded];
   
   if (_methodOverrides & ASDisplayNodeMethodOverrideFetchData) {
 #pragma clang diagnostic push

@@ -260,7 +260,7 @@
 //                                                                        owner:messageT.owner];
                         
                     } else {
-//
+                        
                         BOOL dummyIncomming = i % 2 == 0 || i % 13 == 0;
                         
                         message = [[UXTextMessage alloc] initWithContent:messageT.content

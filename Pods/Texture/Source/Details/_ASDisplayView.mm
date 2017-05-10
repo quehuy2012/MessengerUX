@@ -237,6 +237,12 @@
   node.threadSafeBounds = bounds;
 }
 
+- (void)addGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+{
+  [super addGestureRecognizer:gestureRecognizer];
+  [_asyncdisplaykit_node nodeViewDidAddGestureRecognizer];
+}
+
 #pragma mark - Event Handling + UIResponder Overrides
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -342,20 +348,20 @@
 
 - (void)tintColorDidChange
 {
-    ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
-    [super tintColorDidChange];
-    
-    [node tintColorDidChange];
+  ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
+  [super tintColorDidChange];
+  
+  [node tintColorDidChange];
 }
 
 - (BOOL)canBecomeFirstResponder {
-    ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
-    return [node canBecomeFirstResponder];
+  ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
+  return [node canBecomeFirstResponder];
 }
 
 - (BOOL)canResignFirstResponder {
-    ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
-    return [node canResignFirstResponder];
+  ASDisplayNode *node = _asyncdisplaykit_node; // Create strong reference to weak ivar.
+  return [node canResignFirstResponder];
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender

@@ -64,10 +64,6 @@
 @property (nonatomic, strong) _ASTablePendingState *pendingState;
 @end
 
-@interface ASTableView ()
-- (instancetype)_initWithFrame:(CGRect)frame style:(UITableViewStyle)style dataControllerClass:(Class)dataControllerClass;
-@end
-
 @implementation ASTableNode
 
 #pragma mark Lifecycle
@@ -126,16 +122,18 @@
   [self.rangeController clearContents];
 }
 
-- (void)didExitPreloadState
-{
-  [super didExitPreloadState];
-  [self.rangeController clearPreloadedData];
-}
-
 - (void)interfaceStateDidChange:(ASInterfaceState)newState fromState:(ASInterfaceState)oldState
 {
   [super interfaceStateDidChange:newState fromState:oldState];
   [ASRangeController layoutDebugOverlayIfNeeded];
+}
+
+- (void)didEnterPreloadState
+{
+  // Intentionally allocate the view here so that super will trigger a layout pass on it which in turn will trigger the intial data load.
+  // We can get rid of this call later when ASDataController, ASRangeController and ASCollectionLayout can operate without the view.
+  [self view];
+  [super didEnterPreloadState];
 }
 
 #if ASRangeControllerLoggingEnabled
@@ -151,6 +149,12 @@
   NSLog(@"%@ - visible: NO", self);
 }
 #endif
+
+- (void)didExitPreloadState
+{
+  [super didExitPreloadState];
+  [self.rangeController clearPreloadedData];
+}
 
 #pragma mark Setter / Getter
 
