@@ -57,25 +57,25 @@ typedef NS_OPTIONS(NSUInteger, PINRemoteImageManagerDownloadOptions) {
     PINRemoteImageManagerSaveProcessedImageAsJPEG = 1 << 3,
     /** Ignore cache and force download */
     PINRemoteImageManagerDownloadOptionsIgnoreCache = 1 << 4,
+    /** Skip download retry */
+    PINRemoteImageManagerDownloadOptionsSkipRetry = 1 << 5,
 };
 
 /**
  Priority to download and process image at.
  */
 typedef NS_ENUM(NSUInteger, PINRemoteImageManagerPriority) {
-    /** Very low priority */
-    PINRemoteImageManagerPriorityVeryLow = 0,
     /** Low priority */
-    PINRemoteImageManagerPriorityLow,
-    /** Medium priority */
-    PINRemoteImageManagerPriorityMedium,
+    PINRemoteImageManagerPriorityLow = 0,
+    /** Default priority */
+    PINRemoteImageManagerPriorityDefault,
     /** High priority */
     PINRemoteImageManagerPriorityHigh,
-    /** Very high priority */
-    PINRemoteImageManagerPriorityVeryHigh,
+    PINRemoteImageManagerPriorityVeryHigh DEPRECATED_ATTRIBUTE = PINRemoteImageManagerPriorityHigh,
+    PINRemoteImageManagerPriorityVeryLow DEPRECATED_ATTRIBUTE = PINRemoteImageManagerPriorityLow,
+    PINRemoteImageManagerPriorityMedium DEPRECATED_ATTRIBUTE = PINRemoteImageManagerPriorityDefault,
 };
 
-NSOperationQueuePriority operationPriorityWithImageManagerPriority(PINRemoteImageManagerPriority priority);
 float dataTaskPriorityWithImageManagerPriority(PINRemoteImageManagerPriority priority);
 
 /**
@@ -453,8 +453,8 @@ typedef void(^PINRemoteImageManagerProgressDownload)(int64_t completedBytes, int
  Returns the cacheKey for a given URL and processorKey. Exposed to be overridden if necessary or to be used with imageFromCacheWithCacheKey
  @see imageFromCacheWithCacheKey:completion:
  
- @param url NSURL to be downloaded
- @param processorKey NSString key to uniquely identify processor and process.
+ @param url NSURL that was used to download image
+ @param processorKey An optional key to uniquely identify the processor used to post-process the downloaded image.
  
  @return returns an NSString which is the key used for caching.
  */
@@ -482,8 +482,8 @@ typedef void(^PINRemoteImageManagerProgressDownload)(int64_t completedBytes, int
 /**
  Directly get an image from the underlying cache.
  
- @param url NSURL to look up image in the cache.
- @param processorKey NSString key to uniquely identify processor and process.
+ @param url NSURL that was used to download image
+ @param processorKey An optional key to uniquely identify the processor used to post-process the downloaded image.
  @param options options will be used to determine if the cached image should be decompressed or FLAnimatedImages should be returned.
  @param completion PINRemoteImageManagerImageCompletion block to call when image has been fetched from the cache.
  */
@@ -493,7 +493,7 @@ typedef void(^PINRemoteImageManagerProgressDownload)(int64_t completedBytes, int
  @deprecated
  @see synchronousImageFromCacheWithURL:processorKey:options:
  
- @param cacheKey NSString key to look up image in the cache.
+ @param cacheKey NSString obtained from @c cacheKeyForURL:processorKey
  @param options options will be used to determine if the cached image should be decompressed or FLAnimatedImages should be returned.
  
  @return A PINRemoteImageManagerResult
@@ -503,8 +503,8 @@ typedef void(^PINRemoteImageManagerProgressDownload)(int64_t completedBytes, int
 /**
  Directly get an image from the underlying memory cache synchronously.
  
- @param url NSURL to look up image in the cache.
- @param processorKey NSString key to uniquely identify processor and process
+ @param url NSURL that was used to download image
+ @param processorKey An optional key to uniquely identify the processor used to post-process the downloaded image.
  @param options options will be used to determine if the cached image should be decompressed or FLAnimatedImages should be returned.
  
  @return A PINRemoteImageManagerResult
@@ -512,12 +512,23 @@ typedef void(^PINRemoteImageManagerProgressDownload)(int64_t completedBytes, int
 - (nonnull PINRemoteImageManagerResult *)synchronousImageFromCacheWithURL:(nonnull NSURL *)url processorKey:(nullable NSString *)processorKey options:(PINRemoteImageManagerDownloadOptions)options;
 
 /**
- Cancel a download. Canceling will only cancel the download if all other downloads are also canceled with their associated UUIDs. Canceling *does not* guarantee that your completion will not be called. You can use the UUID provided on the result object verify the completion you want called is being called.
+ Cancel a download. Canceling will only cancel the download if all other downloads are also canceled with their associated UUIDs. 
+ Canceling *does not* guarantee that your completion will not be called. You can use the UUID provided on the result object to verify
+ the completion you want called is being called.
  @see PINRemoteImageCategoryManager
  
  @param UUID NSUUID of the task to cancel.
  */
 - (void)cancelTaskWithUUID:(nonnull NSUUID *)UUID;
+
+/**
+ Cancel a download. Canceling will only cancel the download if all other downloads are also canceled with their associated UUIDs. 
+ Canceling *does not* guarantee that your completion will not be called. You can use the UUID provided on the result object to verify
+ the completion you want called is being called.
+ @param storeResumeData if YES and the server indicates it supports resuming downloads, downloaded data will be stored in the memory
+ cache and used to resume the download if the same URL is attempted to be downloaded in the future.
+ */
+- (void)cancelTaskWithUUID:(nonnull NSUUID *)UUID storeResumeData:(BOOL)storeResumeData;
 
 /**
  Set the priority of a download task. Since there is only one task per download, the priority of the download task will always be the last priority this method was called with.

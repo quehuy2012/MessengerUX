@@ -80,10 +80,10 @@
 {
     BOOL noMoreCompletions = [super cancelWithUUID:UUID manager:manager];
     if (noMoreCompletions) {
-        [self.urlSessionTaskOperation cancel];
-        PINLog(@"Canceling download of URL: %@, UUID: %@", self.urlSessionTaskOperation.dataTask.originalRequest.URL, UUID);
+        [self.urlSessionTask cancel];
+        PINLog(@"Canceling download of URL: %@, UUID: %@", self.urlSessionTask.originalRequest.URL, UUID);
     } else {
-        PINLog(@"Decrementing download of URL: %@, UUID: %@", self.urlSessionTaskOperation.dataTask.originalRequest.URL, UUID);
+        PINLog(@"Decrementing download of URL: %@, UUID: %@", self.urlSessionTask.originalRequest.URL, UUID);
     }
     return noMoreCompletions;
 }
@@ -92,9 +92,25 @@
 {
     [super setPriority:priority];
     if (PINNSURLSessionTaskSupportsPriority) {
-        self.urlSessionTaskOperation.dataTask.priority = dataTaskPriorityWithImageManagerPriority(priority);
+        self.urlSessionTask.priority = dataTaskPriorityWithImageManagerPriority(priority);
     }
-    self.urlSessionTaskOperation.queuePriority = operationPriorityWithImageManagerPriority(priority);
+}
+
+- (nonnull PINRemoteImageManagerResult *)imageResultWithImage:(nullable PINImage *)image
+                                    alternativeRepresentation:(nullable id)alternativeRepresentation
+                                                requestLength:(NSTimeInterval)requestLength
+                                                        error:(nullable NSError *)error
+                                                   resultType:(PINRemoteImageResultType)resultType
+                                                         UUID:(nullable NSUUID *)UUID
+{
+    NSUInteger bytesSavedByResuming = self.resume.resumeData.length;
+    return [PINRemoteImageManagerResult imageResultWithImage:image
+                                   alternativeRepresentation:alternativeRepresentation
+                                               requestLength:requestLength
+                                                       error:error
+                                                  resultType:resultType
+                                                        UUID:UUID
+                                        bytesSavedByResuming:bytesSavedByResuming];
 }
 
 @end

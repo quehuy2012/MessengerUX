@@ -12,6 +12,8 @@
 
 #import "UXMessageTimeLine.h"
 
+#import "UXMemReport.h"
+
 static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 @interface UXMessageViewController () <ASCollectionDelegate, ASCollectionDataSource, UXTextMessageCellDelegate, UXSingleImageMessageCellDelegate, UXTitleMessageCellDelegate, UXAlbumMessageCellDelegate>
@@ -58,7 +60,7 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
     self.dataFeed = [[UXConversationFeed alloc] init];
     self.factory = [[UXCellFactory alloc] init];
     self.models = [[UXMutableCollectionNodeModel alloc] initWithListArray:[self.dataFeed getDataArray]  delegate:self.factory];
-    self.models.showLoadingIndicatorAtLast = YES;
+    self.models.showLoadingIndicatorAtLast = NO;
 }
 
 - (void)initView {
@@ -210,15 +212,18 @@ static const NSTimeInterval kCellLongPressInterval = 0.7;
 
 - (void)loadPageWithContext:(ASBatchContext *)context {
     
+    static NSString * reportS = @"s\n";
+    
     __weak typeof(self) weakSelf = self;
     [self.dataFeed getNextDataPageWithCompletion:^(NSArray<UXMessage *> *datas) {
-        
-        
-        
         [self.dataFeed insertNewPage:datas withCompletion:^(NSUInteger fromIndex, NSUInteger toIndex) {
             
             [weakSelf.models addObjectsFromArray:datas];
             [weakSelf insertNewPageFromIndex:fromIndex toIndex:toIndex];
+            
+            reportS = [reportS stringByAppendingString:[NSString stringWithFormat:@"%lu, %0.2f\n", (unsigned long)[weakSelf.dataFeed getDataArray].count, report_memory()]];
+            NSLog(@"%@", reportS);
+            NSLog(@"%lu %0.2f", (unsigned long)[weakSelf.dataFeed getDataArray].count, report_memory());
             
             if (context) {
                 [context completeBatchFetching:YES];

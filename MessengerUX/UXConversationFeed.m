@@ -325,7 +325,7 @@
         owner.name = [NSString stringWithFormat:@"kuus%dadf", i];
         owner.avatar = [UIImage imageNamed:@"cameraThumb"];
         
-        UXMessage * message = [[UXTextMessage alloc] initWithContent:[NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i]
+        UXMessage * message = [[UXAttributeMessage alloc] initWithContent:[NSString stringWithFormat:@"sentence %d of hahaha, you know what %d", i, i]
                                                                 date:[NSDate timeIntervalSinceReferenceDate]
                                                            isComming:i % 2 == 0
                                                                owner:owner];
