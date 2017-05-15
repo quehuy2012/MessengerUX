@@ -278,9 +278,16 @@
                     if (message) {
                         [ret addObject:message];
                     }
+                    
+                    messageT = nil;
                 }
             }
+            
+            lineByLineContents = nil;
         }
+        
+        datasetContent = nil;
+        dataset = nil;
     });
     
     return ret;
