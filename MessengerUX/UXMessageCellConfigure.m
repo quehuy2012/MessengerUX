@@ -66,7 +66,9 @@ static UXMessageCellConfigure * globalConfigure;
 }
 
 - (NSUInteger)maxWidthOfCell {
-    return 240;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    return screenWidth*0.64;
 }
 
 - (UXMessageBackgroundStyle *)getMessageBackgroundStyle {
