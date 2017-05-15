@@ -121,8 +121,8 @@
         
 //        self.tempHolder = nil;
         
-        [self.messageNode removeFromSupernode];
-        [self addSubnode:self.messageNode];
+//        [self.messageNode removeFromSupernode];
+//        [self addSubnode:self.messageNode];
         
         ASInsetLayoutSpec * messageInsetsSpec =
         [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 12, 12, 12)
