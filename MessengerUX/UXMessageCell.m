@@ -146,15 +146,14 @@ static int ID = 0;
 
 - (void)didEnterPreloadState {
     
-//    if (!self.firstInited) {
-        [self initView];
+    [self initView];
         
-        [self updateUI:self.model];
+    [self updateUI:self.model];
         
-        [self setNeedsDisplay];
-        
-        self.firstInited = NO;
-//    }
+    [self setNeedsDisplay];
+    [self layoutIfNeeded];
+    
+    self.firstInited = NO;
     
     [super didEnterPreloadState];
     

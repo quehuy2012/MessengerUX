@@ -15,6 +15,7 @@
 @interface UXAttributeMessageCell ()
 
 @property (nonatomic) UXAttributeNode * messageNode;
+@property (nonatomic) NIHTMLParser * htmlParser;
 
 @end
 
@@ -78,12 +79,14 @@
             
             UIColor * textColor = self.isIncomming ? [UXMessageCellConfigure getGlobalConfigure].incommingTextColor : [UXMessageCellConfigure getGlobalConfigure].outgoingTextColor;
             
-            NIHTMLParser * htmlParser = [[NIHTMLParser alloc] initWithString:textMessage.content parseEmoticon:YES];
-            [htmlParser setDefaultTextColor:textColor];
-            [htmlParser setFontText:[UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize]];
-            [htmlParser setLinkFont:[UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize]];
+            if (!self.htmlParser) {
+                self.htmlParser = [[NIHTMLParser alloc] initWithString:textMessage.content parseEmoticon:YES];
+                [self.htmlParser setDefaultTextColor:textColor];
+                [self.htmlParser setFontText:[UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize]];
+                [self.htmlParser setLinkFont:[UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize]];
+            }
             
-            self.messageNode.htmlParser = htmlParser;
+            self.messageNode.htmlParser = self.htmlParser;
             [self.messageNode setLinkHighlightColor:[UIColor colorWithWhite:0 alpha:0.2]];
             [self.messageNode setBackgroundColor:[UIColor clearColor]];
             
