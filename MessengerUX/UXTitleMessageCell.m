@@ -10,10 +10,13 @@
 #import "UXTitleMessageCell.h"
 #import "UXMessageCellConfigure.h"
 #import "UXTitleMessage.h"
+#import "UXAttributeNode.h"
+#import "NIHTMLParser.h"
 
 @interface UXTitleMessageCell ()
 
-@property (nonatomic) ASTextNode * titleNode;
+@property (nonatomic) UXAttributeNode * titleNode;
+@property (nonatomic) NIHTMLParser * htmlParser;
 
 @end
 
@@ -34,54 +37,61 @@
 - (void)initView {
     
     if (self.viewRemoved) {
-        [super initView];
+//        [super initView];
         
-        self.titleNode = [[ASTextNode alloc] init];
-        self.titleNode.style.flexShrink = 1.0;
-        self.titleNode.truncationMode = NSLineBreakByTruncatingTail;
-        self.titleNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
-        self.titleNode.backgroundColor = [UIColor clearColor];
-        self.titleNode.maximumNumberOfLines = 1;
-        
-        [self.titleNode addTarget:self action:@selector(titleClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [self.titleNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-        [self.titleNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
-        
-        [self addSubnode:self.titleNode];
-        
-        self.viewRemoved = NO;
+        if (self.firstInited) {
+            self.titleNode = [[UXAttributeNode alloc] init];
+            self.titleNode.style.maxWidth = ASDimensionMake([UXMessageCellConfigure getGlobalConfigure].maxWidthOfCell);
+            self.titleNode.backgroundColor = [UIColor clearColor];
+            [self.titleNode addTarget:self action:@selector(titleClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+            [self.titleNode addTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+            [self.titleNode addTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+            [self addSubnode:self.titleNode];
+            
+            self.viewRemoved = NO;
+        }
     }
 }
 
 - (void)clearView {
     
     if (!self.viewRemoved) {
-        [super clearView];
+//        [super clearView];
         
-        [self.titleNode removeFromSupernode];
-        
-        [self.titleNode removeTarget:self action:@selector(titleClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
-        [self.titleNode removeTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
-        [self.titleNode removeTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
-        
-        [self.titleNode clearContents];
-        [self clearLayerContentOfLayer:self.titleNode.layer];
-        
-        self.titleNode = nil;
-        
-        self.viewRemoved = YES;
+        if (self.firstInited) {
+            [self.titleNode removeFromSupernode];
+            [self.titleNode removeTarget:self action:@selector(titleClicked:) forControlEvents:ASControlNodeEventTouchUpInside];
+            [self.titleNode removeTarget:self action:@selector(beginHighlight) forControlEvents:ASControlNodeEventTouchDown];
+            [self.titleNode removeTarget:self action:@selector(endHighlight) forControlEvents:ASControlNodeEventTouchDragOutside|ASControlNodeEventTouchUpInside|ASControlNodeEventTouchUpOutside|ASControlNodeEventTouchCancel];
+            
+            [self.titleNode clearContents];
+            [self clearLayerContentOfLayer:self.titleNode.layer];
+            
+            self.titleNode = nil;
+            
+            self.viewRemoved = YES;
+        }
     }
 }
 
 - (void)updateUI:(id)model {
     if (model && !self.viewRemoved) {
-        [super updateUI:model];
+//        [super updateUI:model];
         
         if ([model isKindOfClass:[UXTitleMessage class]]) {
             UXTitleMessage * titleMessage = model;
-            self.titleNode.attributedText = [[NSAttributedString alloc] initWithString:[titleMessage.title uppercaseString]
-                                                                            attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].supportTextSize + 2],
-                                                                                         NSForegroundColorAttributeName: [UXMessageCellConfigure getGlobalConfigure].supportTextColor}];
+           
+            if (!self.htmlParser) {
+                self.htmlParser = [[NIHTMLParser alloc] initWithString:titleMessage.title.uppercaseString parseEmoticon:YES];
+                [self.htmlParser setDefaultTextColor:[UXMessageCellConfigure getGlobalConfigure].supportTextColor];
+                [self.htmlParser setFontText:[UIFont boldSystemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize]];
+                [self.htmlParser setLinkFont:[UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].contentTextSize]];
+            }
+            
+            self.titleNode.htmlParser = self.htmlParser;
+            [self.titleNode setLinkHighlightColor:[UIColor colorWithWhite:0 alpha:0.2]];
+            [self.titleNode setBackgroundColor:[UIColor clearColor]];
+            
         }
     }
 }
@@ -102,18 +112,22 @@
         
 //        self.tempHolder = nil;
         
-        ASStackLayoutSpec * alignStack =
-        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
-                                                spacing:0
-                                         justifyContent:ASStackLayoutJustifyContentCenter
-                                             alignItems:ASStackLayoutAlignItemsCenter
-                                               children:@[self.titleNode]];
+//        ASStackLayoutSpec * alignStack =
+//        [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
+//                                                spacing:0
+//                                         justifyContent:ASStackLayoutJustifyContentCenter
+//                                             alignItems:ASStackLayoutAlignItemsCenter
+//                                               children:@[self.titleNode]];
+        ASCenterLayoutSpec * layout =
+        [ASCenterLayoutSpec centerLayoutSpecWithCenteringOptions:ASCenterLayoutSpecCenteringXY
+                                                   sizingOptions:ASCenterLayoutSpecSizingOptionMinimumXY
+                                                           child:self.titleNode];
         
         UIEdgeInsets normalInset = [UXMessageCellConfigure getGlobalConfigure].insets;
         CGFloat factor = 1.5;
         UIEdgeInsets insets =  UIEdgeInsetsMake(normalInset.top*1.3, 0, normalInset.bottom*factor, 0);
         
-        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:insets child:alignStack];
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:insets child:layout];
     }
 }
 

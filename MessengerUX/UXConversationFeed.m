@@ -184,7 +184,7 @@
                 
                     } else if (i % 9 == 0) {
 
-                        message = [[UXTitleMessage alloc] initWithTitle:@"Section"];
+                        message = [[UXTitleMessage alloc] initWithTitle:@"Section long long"];
                 
                     } else if (i % 6 == 0) {
                 
