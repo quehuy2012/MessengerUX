@@ -207,7 +207,6 @@ static int ID = 0;
         self.topTextNode.attributedText = [[NSAttributedString alloc] initWithString:string
                                                                           attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].supportTextSize],
                                                                                        NSForegroundColorAttributeName: [UXMessageCellConfigure getGlobalConfigure].supportTextColor}];
-        [self setShowTextAsTop:YES];
     }
 }
 
@@ -216,7 +215,6 @@ static int ID = 0;
         self.bottomTextNode.attributedText = [[NSAttributedString alloc] initWithString:string
                                                                           attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UXMessageCellConfigure getGlobalConfigure].supportTextSize],
                                                                                        NSForegroundColorAttributeName: [UXMessageCellConfigure getGlobalConfigure].supportTextColor}];
-        [self setShowTextAsBottom:YES];
     }
 }
 

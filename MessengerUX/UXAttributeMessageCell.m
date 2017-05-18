@@ -100,8 +100,8 @@
             
             [self setBottomText:time];
             
-            [self setShowTextAsBottom:NO];
-            [self setShowTextAsTop:NO];
+            [self setShowTextAsBottom:self.showTextAsBottom];
+            [self setShowTextAsTop:self.showTextAsTop];
         }
     }
 }
