@@ -122,12 +122,21 @@
 
 - (void)didEnterVisibleState {
     [super didEnterVisibleState];
-    [((UIActivityIndicatorView *)self.indicatorNode.view) startAnimating];
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [((UIActivityIndicatorView *)weakSelf.indicatorNode.view) startAnimating];
+    });
+    
+    
 }
 
 - (void)didExitVisibleState {
     [super didExitVisibleState];
-    [((UIActivityIndicatorView *)self.indicatorNode.view) stopAnimating];
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [((UIActivityIndicatorView *)weakSelf.indicatorNode.view) stopAnimating];
+    });
 }
 
 - (void)shouldUpdateCellNodeWithObject:(id)object {
